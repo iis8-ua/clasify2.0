@@ -2,13 +2,15 @@ import PlaceholderView from '../views/PlaceholderView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import AnunciosListView from '../views/AnunciosListView.vue'
+import AnuncioDetalleView from '../views/AnuncioDetalleView.vue'
 
 export const routes = [
   {
     path: '/',
     name: 'anuncios',
-    component: PlaceholderView,
-    meta: { title: 'Anuncios', publica: true, placeholder: true }
+    component: AnunciosListView,
+    meta: { title: 'Anuncios', publica: true }
   },
   {
     path: '/anuncios/nuevo',
@@ -25,8 +27,8 @@ export const routes = [
   {
     path: '/anuncios/:id',
     name: 'anuncio-detalle',
-    component: PlaceholderView,
-    meta: { title: 'Detalle del anuncio', publica: true, placeholder: true }
+    component: AnuncioDetalleView,
+    meta: { title: 'Detalle del anuncio', publica: true }
   },
   {
     path: '/login',

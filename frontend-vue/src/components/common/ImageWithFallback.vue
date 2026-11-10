@@ -9,6 +9,10 @@ const props = defineProps({
   alt: {
     type: String,
     default: ''
+  },
+  loading: {
+    type: String,
+    default: 'lazy'
   }
 })
 
@@ -28,7 +32,7 @@ watch(
     v-if="mostrarImagen"
     :src="src"
     :alt="alt"
-    loading="lazy"
+    :loading="loading"
     @error="fallo = true"
   />
   <div

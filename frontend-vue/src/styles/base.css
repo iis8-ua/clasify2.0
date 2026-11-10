@@ -393,6 +393,202 @@ button:disabled {
   font-size: 2rem;
 }
 
+.anuncio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-5) 0;
+}
+
+.anuncio-card {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-small);
+}
+
+.anuncio-card__link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.anuncio-card__link:hover .anuncio-card__title {
+  color: var(--color-primary-strong);
+}
+
+.anuncio-card img,
+.anuncio-card .image-fallback {
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+.anuncio-card__body {
+  padding: var(--space-3);
+}
+
+.anuncio-card__title {
+  margin: 0 0 var(--space-2);
+  font-size: 1.05rem;
+}
+
+.anuncio-card__price {
+  margin: 0 0 var(--space-1);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.anuncio-card__category {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.anuncio-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  font-size: var(--font-size-small);
+}
+
+.estado-badge {
+  display: inline-flex;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.estado-badge--disponible {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.estado-badge--vendido {
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+}
+
+.catalog-filters {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+}
+
+.catalog-filters__search {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.catalog-filters__search .form-field {
+  flex: 1 1 16rem;
+}
+
+.catalog-filters__controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  align-items: end;
+  gap: var(--space-3);
+}
+
+.catalog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-5);
+}
+
+.catalog-pagination__status {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.anuncio-detalle {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+  background: var(--color-surface);
+}
+
+.anuncio-detalle__media img,
+.anuncio-detalle__media .image-fallback {
+  width: 100%;
+  border-radius: var(--radius-medium);
+  object-fit: cover;
+}
+
+.anuncio-detalle__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.anuncio-detalle__price {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.anuncio-detalle__category {
+  color: var(--color-text-muted);
+}
+
+.anuncio-detalle__description {
+  white-space: pre-line;
+}
+
+.anuncio-detalle__author {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.anuncio-detalle__section-title {
+  margin: 0 0 var(--space-2);
+  font-size: 1.1rem;
+}
+
+.anuncio-detalle__author-name {
+  margin: 0 0 var(--space-1);
+  font-weight: 700;
+}
+
+.anuncio-detalle__author-bio,
+.anuncio-detalle__rating,
+.anuncio-detalle__favorites {
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 48rem) {
+  .anuncio-detalle {
+    grid-template-columns: 1fr;
+    padding: var(--space-4);
+  }
+
+  .anuncio-grid {
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  }
+}
+
 @media (max-width: 48rem) {
   .app-header__inner {
     align-items: flex-start;
