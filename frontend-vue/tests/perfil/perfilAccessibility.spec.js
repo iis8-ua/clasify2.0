@@ -54,12 +54,15 @@ describe('accesibilidad del perfil', () => {
 
     expect(wrapper.get('label[for="perfil-nombre"]').text()).toBe('Nombre')
     expect(wrapper.get('label[for="perfil-biografia"]').text()).toBe('Biografía')
+    expect(wrapper.get('#perfil-nombre').attributes('required')).toBeDefined()
+    expect(wrapper.get('#perfil-nombre').attributes('aria-required')).toBe('true')
 
     await wrapper.get('#perfil-nombre').setValue('')
     await wrapper.get('form').trigger('submit')
 
     expect(wrapper.get('#perfil-nombre').attributes('aria-invalid')).toBe('true')
     expect(wrapper.get('#perfil-nombre').attributes('aria-describedby')).toBe('perfil-nombre-error')
+    expect(wrapper.get('#perfil-nombre-error').attributes('role')).toBe('alert')
     expect(wrapper.get('#perfil-nombre-error').text()).toContain('obligatorio')
   })
 
@@ -68,11 +71,15 @@ describe('accesibilidad del perfil', () => {
 
     expect(wrapper.get('label[for="perfil-password-actual"]').text()).toBe('Contraseña actual')
     expect(wrapper.get('label[for="perfil-password-nueva"]').text()).toBe('Contraseña nueva')
+    expect(wrapper.get('#perfil-password-actual').attributes('required')).toBeDefined()
+    expect(wrapper.get('#perfil-password-nueva').attributes('aria-required')).toBe('true')
 
     await wrapper.get('form').trigger('submit')
 
     expect(wrapper.get('#perfil-password-actual').attributes('aria-invalid')).toBe('true')
     expect(wrapper.get('#perfil-password-nueva').attributes('aria-invalid')).toBe('true')
+    expect(wrapper.get('#perfil-password-actual-error').attributes('role')).toBe('alert')
+    expect(wrapper.get('#perfil-password-nueva-error').attributes('role')).toBe('alert')
     expect(wrapper.get('#perfil-password-actual-error').text()).toContain('obligatoria')
     expect(wrapper.get('#perfil-password-nueva-error').text()).toContain('al menos 8')
   })

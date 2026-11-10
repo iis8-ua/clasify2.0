@@ -142,4 +142,14 @@ describe('vista de favoritos', () => {
     expect(router.currentRoute.value.query.pagina).toBeUndefined()
     expect(favoritosService.listar).toHaveBeenCalledWith({ pagina: 1, limite: 20 })
   })
+
+  it('normaliza una página fuera de rango cuando no hay favoritos', async () => {
+    favoritosService.listar.mockResolvedValue(
+      respuestaListado([], { pagina: 5, limite: 20, total: 0, paginas: 0 })
+    )
+    const { router } = await montar('/favoritos?pagina=5')
+
+    expect(router.currentRoute.value.query.pagina).toBeUndefined()
+    expect(favoritosService.listar).toHaveBeenLastCalledWith({ pagina: 1, limite: 20 })
+  })
 })

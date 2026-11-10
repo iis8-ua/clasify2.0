@@ -90,4 +90,29 @@ describe('store de favoritos', () => {
     store.sincronizarSesion(2)
     expect(store.listado).toEqual([])
   })
+
+  it('ignora la respuesta de una página anterior', async () => {
+    let resolverPrimera
+    let resolverSegunda
+    favoritosService.listar
+      .mockImplementationOnce(() => new Promise((resolve) => { resolverPrimera = resolve }))
+      .mockImplementationOnce(() => new Promise((resolve) => { resolverSegunda = resolve }))
+    const store = useFavoritosStore()
+
+    const primera = store.cargar(1)
+    const segunda = store.cargar(2)
+    resolverSegunda({
+      datos: [{ id: 2 }],
+      paginacion: { pagina: 2, limite: 20, total: 2, paginas: 2 }
+    })
+    await segunda
+    resolverPrimera({
+      datos: [{ id: 1 }],
+      paginacion: { pagina: 1, limite: 20, total: 2, paginas: 2 }
+    })
+    await primera
+
+    expect(store.listado[0].id).toBe(2)
+    expect(store.paginacion.pagina).toBe(2)
+  })
 })

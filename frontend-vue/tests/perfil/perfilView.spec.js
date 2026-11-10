@@ -151,4 +151,15 @@ describe('vista de perfil', () => {
 
     confirmar.mockRestore()
   })
+
+  it('avisa antes de descargar o cerrar la pestaña con cambios', async () => {
+    const { wrapper } = await montar()
+
+    await wrapper.get('#perfil-nombre').setValue('Nombre sin guardar')
+    await flushPromises()
+    const evento = new Event('beforeunload', { cancelable: true })
+    window.dispatchEvent(evento)
+
+    expect(evento.defaultPrevented).toBe(true)
+  })
 })

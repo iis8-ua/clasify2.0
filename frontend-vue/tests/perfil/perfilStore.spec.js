@@ -119,4 +119,29 @@ describe('store de perfil', () => {
     store.sincronizarSesion(2)
     expect(store.perfil).toBeNull()
   })
+
+  it('ignora la respuesta de una página anterior de anuncios', async () => {
+    let resolverPrimera
+    let resolverSegunda
+    usuariosService.listarAnuncios
+      .mockImplementationOnce(() => new Promise((resolve) => { resolverPrimera = resolve }))
+      .mockImplementationOnce(() => new Promise((resolve) => { resolverSegunda = resolve }))
+    const store = usePerfilStore()
+
+    const primera = store.cargarAnuncios(1)
+    const segunda = store.cargarAnuncios(2)
+    resolverSegunda({
+      datos: [{ id: 2 }],
+      paginacion: { pagina: 2, limite: 20, total: 2, paginas: 2 }
+    })
+    await segunda
+    resolverPrimera({
+      datos: [{ id: 1 }],
+      paginacion: { pagina: 1, limite: 20, total: 2, paginas: 2 }
+    })
+    await primera
+
+    expect(store.anuncios[0].id).toBe(2)
+    expect(store.paginacion.pagina).toBe(2)
+  })
 })

@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { nextTick } from 'vue'
+import { flushPromises, mount } from '@vue/test-utils'
+import { h, nextTick } from 'vue'
 import { createPinia, setActivePinia } from 'pinia'
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createMemoryHistory, createRouter, onBeforeRouteLeave } from 'vue-router'
 import AppHeader from '../../src/components/layout/AppHeader.vue'
 import { useSessionStore } from '../../src/stores/session'
 
@@ -39,7 +39,7 @@ describe('cabecera', () => {
   it('muestra acceso y registro sin sesión', async () => {
     const wrapper = await montarCabecera()
     expect(wrapper.text()).toContain('Iniciar sesión')
-    expect(wrapper.text()).toContain('Crear cuenta')
+    expect(wrapper.text()).toContain('Registrarse')
     expect(wrapper.text()).not.toContain('Publicar anuncio')
     expect(wrapper.text()).not.toContain('Favoritos')
   })
@@ -88,5 +88,39 @@ describe('cabecera', () => {
     await nextTick()
 
     expect(wrapper.text()).toContain('Hola, Ana Editada')
+  })
+
+  it('no cierra la sesión si se cancela la salida de una vista con cambios', async () => {
+    const pinia = createPinia()
+    setActivePinia(pinia)
+    const session = useSessionStore()
+    session.establecerSesion('token', { id: 1, nombre: 'Ana' })
+    const Guardada = {
+      setup() {
+        onBeforeRouteLeave(() => false)
+        return () => h('div', 'Perfil')
+      }
+    }
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: rutas.map((ruta) =>
+        ruta.name === 'perfil' ? { ...ruta, component: Guardada } : ruta
+      )
+    })
+    await router.push('/perfil')
+    await router.isReady()
+    const wrapper = mount(
+      {
+        components: { AppHeader },
+        template: '<div><AppHeader /><RouterView /></div>'
+      },
+      { global: { plugins: [pinia, router] } }
+    )
+
+    await wrapper.findAll('button').find((boton) => boton.text() === 'Cerrar sesión').trigger('click')
+    await flushPromises()
+
+    expect(session.estaAutenticado).toBe(true)
+    expect(router.currentRoute.value.name).toBe('perfil')
   })
 })

@@ -24,6 +24,11 @@ describe('query del catálogo', () => {
     })
   })
 
+  it('conserva el texto largo para que la vista lo valide', () => {
+    const texto = 'a'.repeat(151)
+    expect(leerQuery({ texto }).texto).toHaveLength(151)
+  })
+
   it('serializa solo los valores no por defecto', () => {
     expect(
       escribirQuery({

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
 import ConfirmAction from '../../src/components/states/ConfirmAction.vue'
 
 describe('confirmación de acciones', () => {
@@ -53,6 +54,44 @@ describe('confirmación de acciones', () => {
     })
     await wrapper.get('.confirm-overlay').trigger('keydown', { key: 'Escape' })
     expect(wrapper.emitted('cancel')).toHaveLength(1)
+    expect(wrapper.emitted('confirm')).toBeUndefined()
+  })
+
+  it('restaura el foco al elemento que abrió el diálogo', async () => {
+    const disparador = document.createElement('button')
+    document.body.appendChild(disparador)
+    disparador.focus()
+
+    const wrapper = mount(ConfirmAction, {
+      props: { open: false, message: 'Esta acción es definitiva' },
+      attachTo: document.body
+    })
+
+    await wrapper.setProps({ open: true })
+    await nextTick()
+    expect(document.activeElement).toBe(wrapper.findAll('button')[0].element)
+
+    await wrapper.setProps({ open: false })
+    await nextTick()
+    expect(document.activeElement).toBe(disparador)
+
+    wrapper.unmount()
+    disparador.remove()
+  })
+
+  it('bloquea los botones y muestra carga durante la operación', async () => {
+    const wrapper = mount(ConfirmAction, {
+      props: {
+        open: true,
+        message: 'Esta acción es definitiva',
+        loading: true,
+        loadingLabel: 'Eliminando…'
+      }
+    })
+
+    expect(wrapper.text()).toContain('Eliminando…')
+    expect(wrapper.findAll('button').every((boton) => boton.attributes('disabled') !== undefined)).toBe(true)
+    await wrapper.findAll('button')[1].trigger('click')
     expect(wrapper.emitted('confirm')).toBeUndefined()
   })
 })

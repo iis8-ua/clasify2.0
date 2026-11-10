@@ -28,4 +28,11 @@ describe('guardas de autenticación', () => {
     const session = useSessionStore()
     expect(resolverAcceso({ meta: { publica: true } }, session)).toBe(true)
   })
+
+  it('permite esperar la restauración antes de decidir sobre una ruta protegida', () => {
+    const session = useSessionStore()
+    session.estado = 'comprobando'
+
+    expect(resolverAcceso({ meta: { requiereSesion: true }, fullPath: '/perfil' }, session)).toBe(true)
+  })
 })

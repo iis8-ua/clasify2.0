@@ -18,6 +18,18 @@ describe('filtros del catálogo', () => {
     expect(wrapper.emitted('buscar')[0]).toEqual(['mesa'])
   })
 
+  it('rechaza un texto de búsqueda de más de 150 caracteres', async () => {
+    const wrapper = mount(FiltrosCatalogo, {
+      props: { filtros: { ...FILTROS_POR_DEFECTO }, categorias }
+    })
+    await wrapper.get('#filtro-texto').setValue('a'.repeat(151))
+    await wrapper.get('form').trigger('submit')
+
+    expect(wrapper.text()).toContain('no puede superar los 150 caracteres')
+    expect(wrapper.get('#filtro-texto').attributes('aria-invalid')).toBe('true')
+    expect(wrapper.emitted('buscar')).toBeUndefined()
+  })
+
   it('emite cambio de categoría y vuelve a página 1 desde la vista', async () => {
     const wrapper = mount(FiltrosCatalogo, {
       props: { filtros: { ...FILTROS_POR_DEFECTO }, categorias }

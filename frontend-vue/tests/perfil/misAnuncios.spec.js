@@ -139,4 +139,15 @@ describe('sección de anuncios propios', () => {
     expect(router.currentRoute.value.query.pagina).toBeUndefined()
     expect(usuariosService.listarAnuncios).toHaveBeenCalledWith({ pagina: 1, limite: 20 })
   })
+
+  it('normaliza una página fuera de rango cuando no hay anuncios', async () => {
+    usuariosService.listarAnuncios.mockResolvedValue({
+      datos: [],
+      paginacion: { pagina: 5, limite: 20, total: 0, paginas: 0 }
+    })
+    const { router } = await montar('/perfil?pagina=5')
+
+    expect(router.currentRoute.value.query.pagina).toBeUndefined()
+    expect(usuariosService.listarAnuncios).toHaveBeenLastCalledWith({ pagina: 1, limite: 20 })
+  })
 })

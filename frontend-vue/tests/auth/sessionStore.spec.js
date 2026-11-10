@@ -128,5 +128,6 @@ describe('store de sesión', () => {
     )
 
     expect(session.estaAutenticado).toBe(false)
+    expect(session.motivoSesion).toContain('sesión ha caducado')
   })
 })

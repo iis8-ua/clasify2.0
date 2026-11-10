@@ -87,6 +87,17 @@ describe('formularios de autenticación', () => {
     await flushPromises()
 
     expect(wrapper.text()).toContain('Email o contraseña incorrectos')
+    expect(wrapper.get('#login-password').element.value).toBe('')
+    expect(wrapper.get('#login-email').element.value).toBe('ana@example.com')
+  })
+
+  it('muestra el aviso de sesión caducada al volver al acceso', async () => {
+    const { wrapper } = await montar(LoginForm, '/login')
+    const session = useSessionStore()
+    session.motivoSesion = 'Tu sesión ha caducado. Inicia sesión de nuevo.'
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.text()).toContain('Tu sesión ha caducado')
   })
 
   it('valida la contraseña mínima del registro', async () => {
@@ -119,5 +130,6 @@ describe('formularios de autenticación', () => {
     await flushPromises()
 
     expect(wrapper.text()).toContain('Ya existe un usuario con ese email')
+    expect(wrapper.get('#register-password').element.value).toBe('')
   })
 })
