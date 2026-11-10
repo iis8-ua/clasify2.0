@@ -7,6 +7,10 @@ defineProps({
   paginas: {
     type: Number,
     required: true
+  },
+  ariaLabel: {
+    type: String,
+    default: 'Paginación de anuncios'
   }
 })
 
@@ -14,7 +18,7 @@ const emit = defineEmits(['cambiar'])
 </script>
 
 <template>
-  <nav class="catalog-pagination" aria-label="Paginación de anuncios">
+  <nav class="catalog-pagination" :aria-label="ariaLabel">
     <button
       class="button button--secondary"
       type="button"

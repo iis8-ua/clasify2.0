@@ -6,6 +6,7 @@ import 'primeicons/primeicons.css'
 import App from './App.vue'
 import router from './router'
 import { useSessionStore } from './stores/session'
+import { useFavoritosStore } from './stores/favoritos'
 import { configurarHttp } from './services/http'
 import { ClasifyPreset } from './styles/primevue-theme'
 import './styles/tokens.css'
@@ -19,6 +20,11 @@ async function bootstrap() {
   app.use(pinia)
 
   const session = useSessionStore(pinia)
+  const favoritos = useFavoritosStore(pinia)
+  favoritos.sincronizarSesion(session.sessionVersion)
+  session.$subscribe((_mutacion, estado) => {
+    favoritos.sincronizarSesion(estado.sessionVersion)
+  })
 
   configurarHttp({
     getToken: () => session.token,

@@ -6,6 +6,7 @@ import ImageWithFallback from '../components/common/ImageWithFallback.vue'
 import PriceText from '../components/common/PriceText.vue'
 import EstadoAnuncioBadge from '../components/catalog/EstadoAnuncioBadge.vue'
 import AccionesAnuncio from '../components/anuncios/AccionesAnuncio.vue'
+import BotonFavorito from '../components/favoritos/BotonFavorito.vue'
 import StatePanel from '../components/states/StatePanel.vue'
 import { useAnunciosStore } from '../stores/anuncios'
 
@@ -53,6 +54,10 @@ function volver() {
   } else {
     router.push({ name: 'anuncios' })
   }
+}
+
+function actualizarFavorito({ esFavorito, numFavoritos }) {
+  anuncios.actualizarFavorito(detalle.value.id, esFavorito, numFavoritos)
 }
 </script>
 
@@ -120,6 +125,8 @@ function volver() {
           {{ detalle.num_favoritos }} favoritos
           <span v-if="detalle.es_favorito">· Guardado en tus favoritos</span>
         </p>
+
+        <BotonFavorito :anuncio="detalle" @cambio="actualizarFavorito" />
 
         <AccionesAnuncio :anuncio="detalle" />
       </div>

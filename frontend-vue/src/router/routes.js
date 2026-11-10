@@ -6,6 +6,7 @@ import AnunciosListView from '../views/AnunciosListView.vue'
 import AnuncioDetalleView from '../views/AnuncioDetalleView.vue'
 import AnuncioCrearView from '../views/AnuncioCrearView.vue'
 import AnuncioEditarView from '../views/AnuncioEditarView.vue'
+import FavoritosView from '../views/FavoritosView.vue'
 
 export const routes = [
   {
@@ -47,8 +48,8 @@ export const routes = [
   {
     path: '/favoritos',
     name: 'favoritos',
-    component: PlaceholderView,
-    meta: { title: 'Favoritos', requiereSesion: true, placeholder: true }
+    component: FavoritosView,
+    meta: { title: 'Favoritos', requiereSesion: true }
   },
   {
     path: '/perfil',

@@ -67,6 +67,12 @@ export const useAnunciosStore = defineStore('anuncios', {
         this.listado[indice] = { ...this.listado[indice], ...anuncio }
       }
     },
+    actualizarFavorito(id, esFavorito, numFavoritos) {
+      if (this.detalle?.id === id) {
+        this.detalle.es_favorito = esFavorito
+        this.detalle.num_favoritos = numFavoritos
+      }
+    },
     async crear(valores, imagen) {
       const anuncio = await anunciosService.crear(valores, imagen)
       this.detalle = anuncio

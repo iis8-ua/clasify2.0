@@ -425,6 +425,14 @@ button:disabled {
   flex-wrap: wrap;
 }
 
+.favorito-control {
+  margin-top: var(--space-4);
+}
+
+.favorito-control .form-error {
+  margin-top: var(--space-2);
+}
+
 @media (max-width: 48rem) {
   .anuncio-form__row {
     grid-template-columns: 1fr;
