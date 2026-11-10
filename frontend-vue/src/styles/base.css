@@ -372,6 +372,65 @@ button:disabled {
   width: 100%;
 }
 
+.anuncio-form {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-small);
+}
+
+.anuncio-form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.anuncio-form__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.form-field__help {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.campo-imagen__preview {
+  margin-top: var(--space-3);
+}
+
+.campo-imagen__preview img {
+  max-width: 100%;
+  max-height: 18rem;
+  border-radius: var(--radius-medium);
+  object-fit: cover;
+}
+
+.anuncio-actions {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.anuncio-actions__buttons {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 48rem) {
+  .anuncio-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .price,
 .date {
   white-space: nowrap;

@@ -5,6 +5,7 @@ import DateText from '../components/common/DateText.vue'
 import ImageWithFallback from '../components/common/ImageWithFallback.vue'
 import PriceText from '../components/common/PriceText.vue'
 import EstadoAnuncioBadge from '../components/catalog/EstadoAnuncioBadge.vue'
+import AccionesAnuncio from '../components/anuncios/AccionesAnuncio.vue'
 import StatePanel from '../components/states/StatePanel.vue'
 import { useAnunciosStore } from '../stores/anuncios'
 
@@ -119,6 +120,8 @@ function volver() {
           {{ detalle.num_favoritos }} favoritos
           <span v-if="detalle.es_favorito">· Guardado en tus favoritos</span>
         </p>
+
+        <AccionesAnuncio :anuncio="detalle" />
       </div>
     </article>
   </section>

@@ -4,6 +4,8 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import AnunciosListView from '../views/AnunciosListView.vue'
 import AnuncioDetalleView from '../views/AnuncioDetalleView.vue'
+import AnuncioCrearView from '../views/AnuncioCrearView.vue'
+import AnuncioEditarView from '../views/AnuncioEditarView.vue'
 
 export const routes = [
   {
@@ -15,14 +17,14 @@ export const routes = [
   {
     path: '/anuncios/nuevo',
     name: 'anuncio-crear',
-    component: PlaceholderView,
-    meta: { title: 'Publicar anuncio', requiereSesion: true, placeholder: true }
+    component: AnuncioCrearView,
+    meta: { title: 'Publicar anuncio', requiereSesion: true }
   },
   {
     path: '/anuncios/:id/editar',
     name: 'anuncio-editar',
-    component: PlaceholderView,
-    meta: { title: 'Editar anuncio', requiereSesion: true, placeholder: true }
+    component: AnuncioEditarView,
+    meta: { title: 'Editar anuncio', requiereSesion: true }
   },
   {
     path: '/anuncios/:id',

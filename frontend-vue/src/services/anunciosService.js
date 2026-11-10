@@ -2,6 +2,19 @@ import { http } from './http'
 
 const LIMITE = 20
 
+function crearFormData(valores, imagen) {
+  const datos = new FormData()
+  Object.entries(valores).forEach(([campo, valor]) => {
+    if (valor !== undefined && valor !== null) {
+      datos.append(campo, String(valor))
+    }
+  })
+  if (imagen) {
+    datos.append('imagen', imagen)
+  }
+  return datos
+}
+
 export const anunciosService = {
   async listar(filtros = {}) {
     const parametros = new URLSearchParams()
@@ -22,5 +35,22 @@ export const anunciosService = {
   async detalle(id) {
     const respuesta = await http.get(`/anuncios/${id}`, { auth: true })
     return respuesta.datos.anuncio
+  },
+  async crear(valores, imagen) {
+    const cuerpo = imagen ? crearFormData(valores, imagen) : valores
+    const respuesta = await http.post('/anuncios', cuerpo, { auth: true })
+    return respuesta.datos.anuncio
+  },
+  async actualizar(id, valores, imagen) {
+    const cuerpo = imagen ? crearFormData(valores, imagen) : valores
+    const respuesta = await http.patch(`/anuncios/${id}`, cuerpo, { auth: true })
+    return respuesta.datos.anuncio
+  },
+  async cambiarEstado(id, estado) {
+    const respuesta = await http.patch(`/anuncios/${id}/estado`, { estado }, { auth: true })
+    return respuesta.datos.anuncio
+  },
+  async eliminar(id) {
+    await http.delete(`/anuncios/${id}`, { auth: true })
   }
 }

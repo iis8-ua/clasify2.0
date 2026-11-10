@@ -60,6 +60,41 @@ export const useAnunciosStore = defineStore('anuncios', {
       this.detalle = null
       this.estadoDetalle = 'idle'
       this.errorDetalle = null
+    },
+    actualizarEnListado(anuncio) {
+      const indice = this.listado.findIndex((item) => item.id === anuncio.id)
+      if (indice !== -1) {
+        this.listado[indice] = { ...this.listado[indice], ...anuncio }
+      }
+    },
+    async crear(valores, imagen) {
+      const anuncio = await anunciosService.crear(valores, imagen)
+      this.detalle = anuncio
+      this.estadoDetalle = 'success'
+      this.estadoListado = 'idle'
+      this.listado = []
+      return anuncio
+    },
+    async actualizar(id, valores, imagen) {
+      const anuncio = await anunciosService.actualizar(id, valores, imagen)
+      this.detalle = anuncio
+      this.estadoDetalle = 'success'
+      this.actualizarEnListado(anuncio)
+      return anuncio
+    },
+    async cambiarEstado(id, estado) {
+      const anuncio = await anunciosService.cambiarEstado(id, estado)
+      this.detalle = anuncio
+      this.estadoDetalle = 'success'
+      this.actualizarEnListado(anuncio)
+      return anuncio
+    },
+    async eliminar(id) {
+      await anunciosService.eliminar(id)
+      this.listado = this.listado.filter((item) => item.id !== id)
+      if (this.detalle?.id === id) {
+        this.limpiarDetalle()
+      }
     }
   }
 })
