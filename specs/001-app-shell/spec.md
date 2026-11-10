@@ -6,6 +6,14 @@
 
 **Status**: Draft
 
+**Input**: User description: "Implementa la spec 001-app-shell descrita en docs/00-contexto-specs.md. Lee también docs/15-router.md y docs/16-estados.md. No modifiques el backend."
+
+## Clarifications
+
+### Session 2026-11-10
+
+- Q: ¿Dónde debe aparecer la acción de crear un anuncio? → A: En la cabecera y en el estado vacío de “Mis anuncios”.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Estructura y navegación principal (Priority: P1)
@@ -32,7 +40,9 @@ La estructura, la marca y la navegación deben mantenerse visibles y coherentes 
 4. **Given** que el usuario no tiene sesión, **When** consulta la cabecera, **Then** ve las acciones
    de acceso y no ve como disponibles las secciones privadas.
 5. **Given** que el usuario tiene sesión, **When** consulta la cabecera, **Then** ve el acceso a las
-   secciones privadas y a su información de sesión.
+   secciones privadas, a su información de sesión y a la acción principal de crear un anuncio.
+6. **Given** que el usuario no tiene sesión, **When** consulta la cabecera, **Then** no ve la acción
+   de crear un anuncio como disponible.
 
 ---
 
@@ -151,8 +161,9 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
 - **FR-001**: La aplicación MUST mostrar una estructura común con cabecera, navegación principal y
   zona de contenido en todas las vistas.
 - **FR-002**: La cabecera MUST mostrar la marca Clasify y las acciones principales de navegación.
-- **FR-003**: La navegación MUST incluir el acceso al listado, a favoritos, al perfil y a las
-  acciones de sesión, mostrando u ocultando las secciones privadas según el estado de sesión.
+- **FR-003**: La navegación MUST incluir el acceso al listado, a favoritos, al perfil, a las acciones
+  de sesión y a la acción principal de crear un anuncio cuando haya sesión, mostrando u ocultando
+  las secciones privadas según el estado de sesión.
 - **FR-004**: La aplicación MUST disponer de las rutas de listado, detalle, acceso, registro,
   creación, edición, favoritos, perfil y no encontrado.
 - **FR-005**: Cada ruta conocida MUST poder abrirse directamente por su dirección y sobrevivir a una
@@ -191,9 +202,9 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
 - **FR-025**: Las vistas aún no implementadas MUST mostrar un estado de sustitución claro en lugar
   de una pantalla vacía o rota.
 - **FR-026**: La interfaz MUST estar redactada en español.
-- **FR-027**: Esta feature MUST NOT implementar el acceso, el registro, el listado real, el detalle
-  real, la creación, la edición, la eliminación, los favoritos ni el perfil. Esas funcionalidades
-  se implementan en specs posteriores.
+- **FR-027**: Esta feature MUST NOT implementar los flujos de acceso, registro, listado real,
+  detalle real, creación, edición, eliminación, favoritos ni perfil. La acción de la cabecera solo
+  navega a las rutas correspondientes; esos flujos se implementan en specs posteriores.
 - **FR-028**: Esta feature MUST NOT modificar el backend ni sustituir sus datos por contenido
   simulado.
 
@@ -231,11 +242,15 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
 - **SC-011**: Esta feature no implementa ningún flujo de negocio de acceso, listado, detalle,
   creación, edición, eliminación, favoritos o perfil; su verificación debe confirmar que esas
   pantallas siguen siendo sustituciones o quedan para specs posteriores.
+- **SC-012**: El 100 % de los usuarios autenticados ve la acción de crear un anuncio en la cabecera;
+  el 100 % de los visitantes no la ve como disponible.
 
 ## Assumptions
 
 - El backend existente está terminado y no se modifica en esta feature.
 - Esta feature es fundacional: las vistas de negocio se implementan en las specs 002 a 006.
+- La creación de anuncios se inicia desde la acción principal de la cabecera; el estado vacío de
+  “Mis anuncios” ofrece una llamada contextual al mismo formulario.
 - El estado de sesión será proporcionado por la spec de autenticación; hasta entonces, el shell
   trata al usuario como visitante.
 - Las rutas protegidas se probarán con un estado de sesión controlado y con la vista de acceso
@@ -254,7 +269,7 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
 
 - Formularios de acceso y registro.
 - Listado y detalle con datos reales.
-- Creación, edición, cancelación de edición y eliminación de anuncios.
+- Formularios y flujos de creación, edición, cancelación de edición y eliminación de anuncios.
 - Favoritos y perfil propio.
 - Mensajería, conversaciones y valoraciones.
 - Modificaciones del backend, del esquema o de los contratos de la API.

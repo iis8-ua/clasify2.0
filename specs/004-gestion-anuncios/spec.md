@@ -8,6 +8,13 @@
 
 **Input**: User description: "Implementa la spec 004-gestion-anuncios descrita en docs/00-contexto-specs.md. Lee también docs/06-crear.md, docs/07-editar.md, docs/08-cancelar-edicion.md, docs/09-eliminar.md y docs/14-estado-anuncio.md. No modifiques el backend."
 
+## Clarifications
+
+### Session 2026-11-10
+
+- Q: ¿Dónde deben estar disponibles las acciones de editar, eliminar y cambiar estado de un anuncio propio? → A: Solo en el detalle; la lista de anuncios propios solo abre el detalle.
+- Q: ¿Dónde debe aparecer la acción de crear un anuncio? → A: En la cabecera y en el estado vacío de “Mis anuncios”.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Publicar un anuncio (Priority: P1)
@@ -23,8 +30,9 @@ publicando un anuncio válido y verificando que aparece en su detalle y en el li
 
 **Acceptance Scenarios**:
 
-1. **Given** un usuario autenticado, **When** abre el formulario de creación, **Then** ve los campos
-   título, descripción, precio, categoría e imagen opcional.
+1. **Given** un usuario autenticado, **When** abre el formulario de creación desde la cabecera o
+   desde el estado vacío de “Mis anuncios”, **Then** ve los campos título, descripción, precio,
+   categoría e imagen opcional.
 2. **Given** un formulario completo y válido, **When** el usuario lo envía, **Then** el anuncio se
    crea, se muestra una confirmación y se abre su detalle.
 3. **Given** un formulario con datos inválidos, **When** el usuario intenta enviarlo, **Then** ve los
@@ -118,8 +126,8 @@ cancelando y confirmando después, verificando que el anuncio desaparece del lis
 
 **Acceptance Scenarios**:
 
-1. **Given** un anuncio propio, **When** el autor selecciona eliminar, **Then** ve una confirmación
-   que identifica el anuncio y advierte de que la acción es definitiva.
+1. **Given** un anuncio propio abierto en su detalle, **When** el autor selecciona eliminar,
+   **Then** ve una confirmación que identifica el anuncio y advierte de que la acción es definitiva.
 2. **Given** la confirmación de borrado, **When** el autor cancela, **Then** no se elimina nada y el
    anuncio sigue visible.
 3. **Given** la confirmación de borrado, **When** el autor confirma, **Then** el anuncio se elimina,
@@ -149,8 +157,8 @@ volviéndolo a marcar como disponible.
 
 **Acceptance Scenarios**:
 
-1. **Given** un anuncio disponible, **When** el autor lo marca como vendido, **Then** se solicita
-   confirmación y, al aceptar, el estado se actualiza.
+1. **Given** un anuncio disponible abierto en su detalle, **When** el autor lo marca como vendido,
+   **Then** se solicita confirmación y, al aceptar, el estado se actualiza.
 2. **Given** un anuncio vendido, **When** el autor lo marca como disponible, **Then** el estado se
    actualiza y vuelve a aparecer en el listado por defecto.
 3. **Given** un anuncio vendido, **When** el usuario abre su detalle directo, **Then** sigue siendo
@@ -275,6 +283,11 @@ teclado y en una pantalla de 360 píxeles de ancho.
 - **FR-033**: Esta feature MUST NOT incluir favoritos, perfil, mensajería ni valoraciones.
 - **FR-034**: Esta feature MUST NOT modificar el backend ni sustituir sus respuestas por datos
   simulados.
+- **FR-035**: Las acciones de editar, eliminar y cambiar estado MUST ofrecerse únicamente desde el
+  detalle del anuncio; la lista de anuncios propios MUST limitarse a mostrar los anuncios y abrir su
+  detalle.
+- **FR-036**: La creación de un anuncio MUST iniciarse desde la acción principal de la cabecera y
+  desde la llamada contextual del estado vacío de “Mis anuncios”.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -318,6 +331,10 @@ teclado y en una pantalla de 360 píxeles de ancho.
 - **SC-015**: El 100 % de los envíos en curso impide una segunda operación duplicada.
 - **SC-016**: Esta feature no modifica el backend ni introduce respuestas simuladas para las
   operaciones de gestión.
+- **SC-017**: El 100 % de las acciones de edición, eliminación y cambio de estado se ofrece únicamente
+  desde el detalle; la lista de anuncios propios solo permite abrir el detalle.
+- **SC-018**: El 100 % de los usuarios autenticados puede iniciar la creación desde la cabecera y
+  desde el estado vacío de “Mis anuncios”.
 
 ## Assumptions
 
@@ -328,6 +345,10 @@ teclado y en una pantalla de 360 píxeles de ancho.
   esta feature.
 - Solo el autor puede editar, eliminar o cambiar el estado de un anuncio; el sistema lo comprueba
   independientemente de la interfaz.
+- Las acciones de editar, eliminar y cambiar estado se realizan únicamente desde el detalle; la lista
+  de anuncios propios solo abre el detalle.
+- La creación se inicia desde la acción principal de la cabecera y desde el estado vacío de “Mis
+  anuncios”.
 - Las categorías se obtienen del catálogo real y no se codifican en el formulario.
 - La imagen es opcional y única; puede sustituirse, pero no eliminarse sin subir otra.
 - El cambio de estado se realiza mediante una acción separada de la edición de datos.
@@ -348,6 +369,8 @@ teclado y en una pantalla de 360 píxeles de ancho.
 - Borradores, autoguardado y edición colaborativa.
 - Texto enriquecido o edición por bloques.
 - Acciones masivas sobre anuncios.
+- Acciones directas de gestión en listas de anuncios.
+- Acciones de creación en cada tarjeta del listado general.
 - Historial de cambios de estado y programación automática de la venta.
 - Papelera, restauración y borrado lógico.
 - Moderación o administración de anuncios ajenos.

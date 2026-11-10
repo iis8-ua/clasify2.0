@@ -8,6 +8,14 @@
 
 **Input**: User description: "Implementa la spec 005-favoritos descrita en docs/00-contexto-specs.md. Lee también docs/12-favoritos.md. No modifiques el backend."
 
+## Clarifications
+
+### Session 2026-11-10
+
+- Q: ¿La página actual de favoritos y de anuncios propios debe conservarse en la dirección al recargar o compartir la vista, igual que en el catálogo? → A: Sí; catálogo, favoritos y anuncios propios conservan la página en la dirección.
+- Q: Cuando un anuncio guardado en favoritos se elimina, ¿qué debe ver el usuario en su lista de favoritos? → A: El anuncio desaparece al actualizar la lista; si se intenta abrir antes, se muestra “no encontrado”.
+- Q: ¿Dónde debe poder quitarse un anuncio de favoritos? → A: Solo desde el detalle; la lista de favoritos solo abre el detalle.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Guardar o quitar un anuncio de favoritos (Priority: P1)
@@ -66,17 +74,20 @@ anuncios vendidos siguen visibles con su estado.
    ve los anuncios guardados.
 2. **Given** la lista de favoritos, **When** el usuario consulta un elemento, **Then** ve título,
    precio, imagen o marcador, categoría, estado y fecha.
-3. **Given** un anuncio guardado, **When** el usuario lo selecciona, **Then** se abre su detalle.
+3. **Given** un anuncio guardado, **When** el usuario lo selecciona, **Then** se abre su detalle; la
+   lista no ofrece una acción directa para quitarlo.
 4. **Given** un anuncio guardado que está vendido, **When** el usuario consulta la lista, **Then**
    sigue apareciendo y muestra su estado.
 5. **Given** un usuario sin favoritos, **When** abre la pantalla, **Then** ve un estado vacío
    específico y una invitación a explorar anuncios.
 6. **Given** un fallo de carga, **When** el usuario recibe el error, **Then** ve un mensaje
    comprensible y puede reintentar.
-7. **Given** que el usuario cierra sesión, **When** vuelve a la aplicación, **Then** no ve los
-   favoritos de la sesión anterior.
+7. **Given** que el usuario cierra sesión, **When** vuelve a la aplicación en la misma pestaña,
+   **Then** no ve los favoritos de la sesión anterior.
 8. **Given** una lista de favoritos, **When** el usuario la consulta, **Then** ve como máximo 20
    elementos por página y el guardado más recientemente primero.
+9. **Given** un anuncio guardado que ha sido eliminado, **When** el usuario actualiza la lista,
+   **Then** el anuncio desaparece; si intenta abrirlo antes, ve un estado de no encontrado.
 
 ---
 
@@ -107,6 +118,8 @@ recorriéndolas hacia delante y hacia atrás y verificando que no se omiten ni r
    reintentar la página actual.
 7. **Given** que la página solicitada supera el total, **When** se detecta, **Then** la aplicación
    muestra la última página disponible.
+8. **Given** una página de favoritos activa, **When** el usuario recarga o comparte la dirección,
+   **Then** vuelve a ver la misma página.
 
 ---
 
@@ -190,8 +203,8 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
   anterior cuando la operación no se complete.
 - **FR-021**: Un fallo de sesión durante la operación MUST solicitar un nuevo acceso y MUST NOT dejar
   datos privados obsoletos visibles.
-- **FR-022**: El cierre de sesión MUST eliminar los favoritos de la interfaz y MUST impedir que se
-  muestren a la cuenta anterior.
+- **FR-022**: El cierre de sesión MUST eliminar los favoritos de la interfaz en la pestaña actual y
+  MUST impedir que se muestren a la cuenta anterior.
 - **FR-023**: La acción de favorito MUST tener un nombre accesible que indique si añade o quita.
 - **FR-024**: La lista y la paginación MUST ser utilizables con teclado, con foco visible y en una
   pantalla de 360 píxeles de ancho.
@@ -203,6 +216,12 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
   búsqueda, filtros ni ordenación personalizada de la lista.
 - **FR-029**: Esta feature MUST NOT modificar el backend ni sustituir sus respuestas por datos
   simulados.
+- **FR-030**: La página actual de favoritos MUST conservarse en la dirección al recargar o compartir
+  la vista.
+- **FR-031**: Un anuncio eliminado MUST desaparecer de la lista de favoritos la próxima vez que se
+  cargue; si el usuario intenta abrirlo antes, MUST mostrarse un estado de anuncio no encontrado.
+- **FR-032**: Quitar un favorito MUST realizarse únicamente desde el detalle; la lista de favoritos
+  MUST limitarse a mostrar los anuncios y abrir su detalle.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -229,8 +248,8 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
 - **SC-007**: El 100 % de las listas vacías muestra un estado vacío distinto de un error de carga.
 - **SC-008**: El 100 % de las páginas de una lista de favoritos de prueba es accesible mediante los
   controles de paginación, sin omitir ni repetir elementos.
-- **SC-009**: El 100 % de los cierres de sesión elimina los favoritos de la interfaz y solicita
-  acceso para volver a consultarlos.
+- **SC-009**: El 100 % de los cierres de sesión elimina los favoritos de la interfaz en la pestaña
+  actual y solicita acceso para volver a consultarlos.
 - **SC-010**: El 100 % de las sesiones caducadas durante una operación de favoritos solicita un nuevo
   acceso y no deja datos privados obsoletos.
 - **SC-011**: El 100 % de la acción de favorito, la lista y la paginación puede usarse solo con
@@ -244,6 +263,12 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
 - **SC-015**: El 100 % de las operaciones en curso impide una segunda acción duplicada.
 - **SC-016**: Esta feature no modifica el backend ni introduce respuestas simuladas para las
   operaciones de favoritos.
+- **SC-017**: El 100 % de las recargas o aperturas directas de una página de favoritos conserva la
+  misma página en la dirección.
+- **SC-018**: El 100 % de los anuncios eliminados desaparece de la lista de favoritos al actualizarla;
+  si se intenta abrir antes, se muestra un estado de no encontrado.
+- **SC-019**: El 100 % de la lista de favoritos se limita a mostrar los anuncios y abrir su detalle;
+  quitar un favorito se ofrece únicamente en el detalle.
 
 ## Assumptions
 
@@ -256,13 +281,16 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
 - Guardar un favorito ya existente no crea duplicados.
 - Quitar un favorito que ya no existe deja la interfaz en estado no guardado.
 - La lista de favoritos incluye anuncios vendidos y los muestra con su estado.
+- Los anuncios eliminados no se conservan en favoritos; desaparecen al actualizar la lista.
 - La lista se ordena por fecha de guardado, del más reciente al más antiguo.
 - El tamaño de página es fijo en 20.
+- La página actual de favoritos se conserva en la dirección para permitir recargar o compartir la
+  vista.
 - La lista no incluye búsqueda, filtros ni ordenación personalizada.
-- La acción de favorito se ofrece en el detalle, no en el listado general.
+- La acción de favorito se ofrece en el detalle, no en el listado general ni en la lista de favoritos.
 - Después del acceso desde una invitación, el usuario vuelve al anuncio y debe confirmar de nuevo la
   acción de favorito.
-- El cierre de sesión limpia los favoritos de la interfaz.
+- El cierre de sesión limpia los favoritos de la interfaz en la pestaña actual.
 - No se incluye sincronización entre dispositivos más allá de la sesión.
 - Los datos de ejemplo del sistema permiten probar favoritos con varios anuncios.
 - La interfaz se usa en escritorio y en móvil, con un único modo claro.
@@ -273,6 +301,7 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
 - Favoritos compartidos entre usuarios o listas públicas.
 - Notificaciones cuando cambia un favorito o cambia el estado de un anuncio guardado.
 - Acciones masivas para quitar varios favoritos a la vez.
+- Quitar favoritos directamente desde la lista de favoritos.
 - Búsqueda, filtros u ordenación personalizada dentro de favoritos.
 - Recomendaciones basadas en favoritos.
 - Perfil, mensajería y valoraciones.

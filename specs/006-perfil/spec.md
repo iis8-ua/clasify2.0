@@ -8,6 +8,15 @@
 
 **Input**: User description: "Implementa la spec 006-perfil descrita en docs/00-contexto-specs.md. Lee también docs/13-perfil.md. No modifiques el backend."
 
+## Clarifications
+
+### Session 2026-11-10
+
+- Q: ¿Dónde deben estar disponibles las acciones de editar, eliminar y cambiar estado de un anuncio propio? → A: Solo en el detalle; la lista de anuncios propios solo abre el detalle.
+- Q: ¿La página actual de favoritos y de anuncios propios debe conservarse en la dirección al recargar o compartir la vista, igual que en el catálogo? → A: Sí; catálogo, favoritos y anuncios propios conservan la página en la dirección.
+- Q: Cuando el usuario introduce mal su contraseña actual al cambiarla, ¿debe tratarse como un error del formulario o como una sesión caducada? → A: Error de formulario: mantener la sesión, mostrar el error y conservar los datos introducidos.
+- Q: ¿Dónde debe aparecer la acción de crear un anuncio? → A: En la cabecera y en el estado vacío de “Mis anuncios”.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Consultar mi perfil (Priority: P1)
@@ -91,7 +100,7 @@ puede comprobar con una contraseña actual incorrecta.
 3. **Given** una contraseña nueva de menos de ocho caracteres, **When** el usuario intenta guardar,
    **Then** ve el error correspondiente y no se cambia la contraseña.
 4. **Given** una contraseña actual incorrecta, **When** el usuario intenta guardar, **Then** ve un
-   mensaje comprensible y no se pierde el resto de datos del formulario.
+   mensaje comprensible, la sesión se mantiene y no se pierde el resto de datos del formulario.
 5. **Given** un formulario de contraseña, **When** el usuario lo envía, **Then** la contraseña deja de
    mostrarse en la interfaz.
 6. **Given** que el usuario no ha introducido la contraseña actual, **When** intenta cambiar la
@@ -116,17 +125,20 @@ de anuncios propios y verificando que solo aparecen los del usuario y que se pue
    únicamente los anuncios que ha publicado.
 2. **Given** la lista de anuncios propios, **When** el usuario consulta un elemento, **Then** ve
    título, precio, imagen o marcador, categoría, estado y fecha.
-3. **Given** un anuncio propio, **When** el usuario lo selecciona, **Then** se abre su detalle.
+3. **Given** un anuncio propio, **When** el usuario lo selecciona, **Then** se abre su detalle; las
+   acciones de gestión, si procede, se realizan allí y no directamente en la lista.
 4. **Given** un anuncio propio vendido, **When** el usuario consulta la lista, **Then** sigue
    apareciendo con su estado.
 5. **Given** un usuario sin anuncios, **When** consulta la lista, **Then** ve un estado vacío
-   específico y una invitación a publicar.
+   específico con una acción que abre el formulario de creación.
 6. **Given** un fallo de carga, **When** el usuario recibe el error, **Then** ve un mensaje
    comprensible y puede reintentar.
 7. **Given** una lista con varias páginas, **When** el usuario avanza o retrocede, **Then** accede a
    todas las páginas.
 8. **Given** que la página solicitada supera el total, **When** se detecta, **Then** se muestra la
    última página disponible.
+9. **Given** una página de anuncios propios activa, **When** el usuario recarga o comparte la
+   dirección, **Then** vuelve a ver la misma página.
 
 ---
 
@@ -193,8 +205,8 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
   de al menos ocho caracteres.
 - **FR-009**: El cambio de contraseña MUST rechazarse si falta la contraseña actual o si la nueva no
   cumple la longitud mínima.
-- **FR-010**: Una contraseña actual incorrecta MUST mostrar un mensaje comprensible y MUST NOT perder
-  el resto de datos del formulario.
+- **FR-010**: Una contraseña actual incorrecta MUST mostrar un mensaje comprensible, MUST NOT cerrar
+  la sesión y MUST NOT perder el resto de datos del formulario.
 - **FR-011**: Los errores de validación MUST mostrarse en el campo correspondiente.
 - **FR-012**: Un guardado correcto MUST actualizar el usuario del estado compartido, reflejarse en la
   cabecera y mostrar una confirmación.
@@ -228,6 +240,12 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
   perfil público, mensajería ni valoraciones.
 - **FR-028**: Esta feature MUST NOT modificar el backend ni sustituir sus respuestas por datos
   simulados.
+- **FR-029**: La lista de anuncios propios MUST limitarse a mostrar los anuncios y abrir su detalle;
+  las acciones de editar, eliminar y cambiar estado MUST realizarse desde el detalle.
+- **FR-030**: La página actual de anuncios propios MUST conservarse en la dirección al recargar o
+  compartir la vista.
+- **FR-031**: El estado vacío de anuncios propios MUST ofrecer una acción que abra el formulario de
+  creación de un anuncio.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -250,8 +268,8 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - **SC-004**: El 100 % de los intentos de editar el email desde el frontend se impide.
 - **SC-005**: El 100 % de los cambios de contraseña exige la contraseña actual y una nueva de al
   menos ocho caracteres.
-- **SC-006**: El 100 % de las contraseñas actuales incorrectas muestra un mensaje comprensible y no
-  pierde el resto de datos del formulario.
+- **SC-006**: El 100 % de las contraseñas actuales incorrectas muestra un mensaje comprensible,
+  mantiene la sesión y no pierde el resto de datos del formulario.
 - **SC-007**: El 100 % de los errores de validación se muestra en el campo correspondiente.
 - **SC-008**: El 100 % de las listas de anuncios propios muestra solo anuncios del usuario, con un
   máximo de 20 elementos por página y los más recientes primero.
@@ -272,6 +290,12 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
   manual con los datos de ejemplo.
 - **SC-017**: Esta feature no modifica el backend ni introduce respuestas simuladas para consultar o
   editar el perfil.
+- **SC-018**: El 100 % de la lista de anuncios propios se limita a mostrar los anuncios y abrir su
+  detalle; las acciones de gestión se ofrecen únicamente en el detalle.
+- **SC-019**: El 100 % de las recargas o aperturas directas de una página de anuncios propios conserva
+  la misma página en la dirección.
+- **SC-020**: El 100 % de los estados vacíos de anuncios propios ofrece una acción que abre el
+  formulario de creación.
 
 ## Assumptions
 
@@ -285,12 +309,18 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - El email es inmutable en esta versión.
 - El nombre admite hasta 100 caracteres y la biografía hasta 500.
 - La contraseña nueva debe tener al menos ocho caracteres y requiere la contraseña actual.
+- Una contraseña actual incorrecta no invalida la sesión ni se trata como sesión caducada.
 - La sesión actual se mantiene después de cambiar la contraseña.
 - La lista de anuncios propios incluye anuncios vendidos y los muestra con su estado.
 - La lista de anuncios propios se ordena por fecha de creación, del más reciente al más antiguo, y
   usa 20 elementos por página.
+- La página actual de anuncios propios se conserva en la dirección para permitir recargar o compartir
+  la vista.
 - La lista de anuncios propios no incluye búsqueda, filtros ni ordenación personalizada.
-- Las acciones de editar, eliminar o cambiar estado de un anuncio se realizan desde la spec 004.
+- Las acciones de editar, eliminar o cambiar estado de un anuncio se realizan desde el detalle,
+  según la spec 004; la lista de anuncios propios solo abre el detalle.
+- La creación de anuncios se inicia desde la cabecera o desde la acción del estado vacío de “Mis
+  anuncios”; no se ofrece una acción de creación en cada tarjeta de la lista.
 - No se incluye avatar, eliminación de cuenta, cambio de email, perfil público, mensajería ni
   valoraciones.
 - No se incluye verificación de email, recuperación de contraseña ni autenticación en dos pasos.
@@ -308,5 +338,7 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - Preferencias de privacidad o de notificaciones.
 - Historial de actividad.
 - Búsqueda, filtros u ordenación personalizada de anuncios propios.
+- Acciones directas de gestión en la lista de anuncios propios.
+- Acciones de creación en cada tarjeta de la lista de anuncios propios.
 - Administración de usuarios.
 - Modificaciones del backend, del esquema o de los contratos del servicio existente.

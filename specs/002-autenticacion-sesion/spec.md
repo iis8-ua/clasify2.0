@@ -8,6 +8,12 @@
 
 **Input**: User description: "Implementa la spec 002-autenticacion-sesion descrita en docs/00-contexto-specs.md. Lee también docs/01-registro.md, docs/02-login.md y docs/03-sesion.md. No modifiques el backend."
 
+## Clarifications
+
+### Session 2026-11-10
+
+- Q: Cuando el usuario introduce mal su contraseña actual al cambiarla, ¿debe tratarse como un error del formulario o como una sesión caducada? → A: Error de formulario: mantener la sesión, mostrar el error y conservar los datos introducidos.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Crear una cuenta (Priority: P1)
@@ -172,6 +178,8 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 - El nombre está vacío o supera los 100 caracteres.
 - La contraseña tiene menos de ocho caracteres.
 - El usuario introduce credenciales incorrectas y no debe saber si el email existe.
+- El usuario introduce mal la contraseña actual al cambiarla; la sesión se mantiene y el formulario
+  conserva los datos.
 - El usuario envía el formulario dos veces por una pulsación repetida.
 - El usuario recarga mientras se está comprobando la sesión.
 - La sesión guardada ha caducado, es inválida o el usuario ya no existe.
@@ -241,6 +249,8 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
   simulados.
 - **FR-028**: Esta feature MUST NOT incluir recuperación de contraseña, verificación de email,
   cambio de email, proveedores externos de acceso, perfil público, mensajería ni valoraciones.
+- **FR-029**: Un error de contraseña actual incorrecta MUST tratarse como error de formulario y MUST
+  NOT descartar la sesión ni los datos introducidos.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -283,6 +293,8 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
   técnicos internos.
 - **SC-015**: Esta feature no modifica el backend ni introduce respuestas simuladas para las
   operaciones de registro, acceso o sesión.
+- **SC-016**: El 100 % de los errores de contraseña actual incorrecta mantiene la sesión y conserva
+  los datos del formulario.
 
 ## Assumptions
 
@@ -300,6 +312,7 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 - La estructura común, las rutas y los estados de interfaz se apoyan en la spec 001.
 - El perfil propio y el cambio de contraseña se implementan en una spec posterior.
 - El email solo se muestra al propio usuario; no se expone el de otras cuentas.
+- Un error de contraseña actual incorrecta no invalida la sesión ni se trata como sesión caducada.
 - No se incluye “recordarme” entre reinicios del navegador ni entre dispositivos.
 
 ## Out of Scope
