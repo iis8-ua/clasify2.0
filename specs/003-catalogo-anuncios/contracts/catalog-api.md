@@ -84,8 +84,6 @@ Success `200`:
       "estado": "disponible",
       "imagen": "archivo.jpg",
       "fecha_creacion": "2026-11-08T10:00:00.000Z",
-      "id_autor": 1,
-      "id_categoria": 8,
       "autor": {
         "id": 1,
         "nombre": "Ana Ruiz",
@@ -104,6 +102,9 @@ Success `200`:
   }
 }
 ```
+
+El backend devuelve `autor.id` y `categoria.id` anidados. El frontend deriva `id_autor` e
+`id_categoria` en `anunciosService` para que las acciones de autoría no dependan de campos planos.
 
 Errors:
 

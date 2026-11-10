@@ -259,11 +259,11 @@ La tabla completa, los permisos y el formato de error están en
 
 Se irán completando con el frontend:
 
-- [ ] Búsqueda integrada con paginación
-- [ ] Navegación con router
-- [ ] Biblioteca de componentes (PrimeVue)
-- [ ] Recurso secundario: favoritos
-- [ ] Implementación parcial con React
+- [x] Búsqueda integrada con paginación
+- [x] Navegación con router
+- [x] Biblioteca de componentes (PrimeVue)
+- [x] Recurso secundario: favoritos
+- [x] Implementación parcial con Vue 3 (sustituye a React según las especificaciones del proyecto)
 
 ## Limitaciones conocidas
 

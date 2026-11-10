@@ -274,6 +274,6 @@ Task: "Aplicar formatos en frontend-vue/src/views/AnuncioDetalleView.vue"
 
 ## Phase 9: Convergence
 
-- [ ] T046 Rechazar textos de búsqueda de más de 150 caracteres con un mensaje comprensible asociado al campo, sin truncarlos silenciosamente ni ejecutar la búsqueda, con prueba de SC-009, per SC-009, US4/AC9, FR-023 (partial)
-- [ ] T047 Reutilizar `urlImagen()` de `services/media.js` en `AnuncioCard` y `AnuncioDetalleView`, eliminando la construcción directa de URLs del backend, per Constitución II y plan 003 (contradicts)
-- [ ] T048 Corregir los contratos y el data-model del detalle para documentar la forma real del backend (`autor.id`, `categoria.id`) y la normalización que hace el frontend, per 003 catalog-api y 004 write-api (contradicts)
+- [X] T046 Rechazar textos de búsqueda de más de 150 caracteres con un mensaje comprensible asociado al campo, sin truncarlos silenciosamente ni ejecutar la búsqueda, con prueba de SC-009, per SC-009, US4/AC9, FR-023 (partial)
+- [X] T047 Reutilizar `urlImagen()` de `services/media.js` en `AnuncioCard` y `AnuncioDetalleView`, eliminando la construcción directa de URLs del backend, per Constitución II y plan 003 (contradicts)
+- [X] T048 Corregir los contratos y el data-model del detalle para documentar la forma real del backend (`autor.id`, `categoria.id`) y la normalización que hace el frontend, per 003 catalog-api y 004 write-api (contradicts)

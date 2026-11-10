@@ -46,12 +46,13 @@ Vista completa de un anuncio.
 | `estado` | `disponible` \| `vendido` | Backend | Distintivo visible |
 | `imagen` | string \| null | Backend | Imagen o marcador |
 | `fecha_creacion` | string | Backend | Fecha formateada |
-| `id_autor` | number | Backend | Referencia al autor |
-| `id_categoria` | number | Backend | Referencia a la categoría |
-| `autor` | `AutorResumen` | Backend | Información pública |
-| `categoria` | `Categoria` | Backend | Nombre de categoría |
+| `autor` | `AutorResumen` | Backend | Información pública; `autor.id` identifica al autor |
+| `categoria` | `Categoria` | Backend | Nombre de categoría; `categoria.id` identifica la categoría |
 | `num_favoritos` | number | Backend | Número informativo |
 | `es_favorito` | boolean | Backend | Estado informativo; sin acción en 003 |
+
+El backend no envía `id_autor` ni `id_categoria` en el detalle. El servicio del frontend los deriva de
+`autor.id` y `categoria.id` para mantener estables los consumidores de las acciones.
 
 Reglas:
 

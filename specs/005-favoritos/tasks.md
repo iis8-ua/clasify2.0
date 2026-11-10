@@ -243,7 +243,7 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 
 ## Phase 8: Convergence
 
-- [ ] T034 Corregir la detección de autoría de `BotonFavorito` usando el detalle normalizado o `autor.id`, ocultar la acción en anuncios propios y probar con el payload real del backend, per FR-009, US1/AC7, SC-004 (partial)
-- [ ] T035 Alinear las props y eventos de `BotonFavorito` con `contracts/favoritos-ui.md` o actualizar el contrato aprobado, con prueba de contrato, per favoritos-ui §1 (contradicts)
-- [ ] T036 Secuenciar las cargas de páginas de favoritos con token de solicitud o cancelación para evitar que respuestas antiguas pisen la página nueva, con prueba de respuestas fuera de orden, per FR-016, SC-008 (partial)
-- [ ] T037 Normalizar a página 1 una URL de favoritos fuera de rango cuando `paginas` sea 0, con prueba para usuario sin favoritos, per FR-017 (partial)
+- [X] T034 Corregir la detección de autoría de `BotonFavorito` usando el detalle normalizado o `autor.id`, ocultar la acción en anuncios propios y probar con el payload real del backend, per FR-009, US1/AC7, SC-004 (partial)
+- [X] T035 Alinear las props y eventos de `BotonFavorito` con `contracts/favoritos-ui.md` o actualizar el contrato aprobado, con prueba de contrato, per favoritos-ui §1 (contradicts)
+- [X] T036 Secuenciar las cargas de páginas de favoritos con token de solicitud o cancelación para evitar que respuestas antiguas pisen la página nueva, con prueba de respuestas fuera de orden, per FR-016, SC-008 (partial)
+- [X] T037 Normalizar a página 1 una URL de favoritos fuera de rango cuando `paginas` sea 0, con prueba para usuario sin favoritos, per FR-017 (partial)

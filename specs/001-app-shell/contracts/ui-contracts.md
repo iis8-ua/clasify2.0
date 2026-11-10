@@ -7,15 +7,15 @@
 
 | Path | Name | Access | Title | View |
 |---|---|---|---|---|
-| `/` | `anuncios` | Pública | Anuncios | Sustitución |
-| `/anuncios/:id` | `anuncio-detalle` | Pública | Detalle del anuncio | Sustitución |
-| `/login` | `login` | Pública; redirige con sesión | Iniciar sesión | Sustitución |
-| `/registro` | `registro` | Pública; redirige con sesión | Crear cuenta | Sustitución |
-| `/anuncios/nuevo` | `anuncio-crear` | Protegida | Publicar anuncio | Sustitución |
-| `/anuncios/:id/editar` | `anuncio-editar` | Protegida | Editar anuncio | Sustitución |
-| `/favoritos` | `favoritos` | Protegida | Favoritos | Sustitución |
-| `/perfil` | `perfil` | Protegida | Mi perfil | Sustitución |
-| `/:pathMatch(.*)*` | `no-encontrado` | Pública | Página no encontrada | 404 |
+| `/` | `anuncios` | Pública | Anuncios | `AnunciosListView` |
+| `/anuncios/:id` | `anuncio-detalle` | Pública | Detalle del anuncio | `AnuncioDetalleView` |
+| `/login` | `login` | Pública; redirige con sesión | Iniciar sesión | `LoginView` |
+| `/registro` | `registro` | Pública; redirige con sesión | Crear cuenta | `RegisterView` |
+| `/anuncios/nuevo` | `anuncio-crear` | Protegida | Publicar anuncio | `AnuncioCrearView` |
+| `/anuncios/:id/editar` | `anuncio-editar` | Protegida | Editar anuncio | `AnuncioEditarView` |
+| `/favoritos` | `favoritos` | Protegida | Favoritos | `FavoritosView` |
+| `/perfil` | `perfil` | Protegida | Mi perfil | `PerfilView` |
+| `/:pathMatch(.*)*` | `no-encontrado` | Pública | Página no encontrada | `NotFoundView` |
 
 Rules:
 
@@ -24,7 +24,7 @@ Rules:
 - Las rutas protegidas solicitan acceso y conservan la ruta solicitada.
 - Las rutas de acceso y registro redirigen a una vista principal si ya hay sesión.
 - La ruta catch-all se declara al final.
-- Las vistas de sustitución muestran un estado claro, nunca una pantalla rota.
+- Las vistas reales sustituyen a las vistas de sustitución de las primeras fases.
 
 ## 2. Navigation Contract
 
@@ -48,29 +48,16 @@ Rules:
 
 ## 3. Header Contract
 
-Inputs:
-
-| Input | Type | Required | Meaning |
-|---|---|---|---|
-| `session` | `SessionSnapshot` | Sí | Estado de sesión de presentación |
-| `navigation` | `NavigationItem[]` | Sí | Entradas visibles |
-| `currentRouteName` | string \| null | No | Ruta activa |
-
-Emits:
-
-| Event | Payload | Meaning |
-|---|---|---|
-| `navigate` | `routeName` | Solicitud de navegación |
-| `login` | — | Abrir acceso |
-| `register` | — | Abrir registro |
-| `create` | — | Abrir creación |
-| `logout` | — | Solicitar cierre de sesión |
+`AppHeader` se compone en el shell y consume la store de sesión y el router. Mantiene la
+presentación y delega el cierre de sesión en la store de sesión de 002.
 
 Rules:
 
-- El componente no conoce el mecanismo de autenticación ni el backend.
+- La cabecera obtiene el estado de sesión de `useSessionStore()` y resuelve la navegación con
+  `RouterLink`; no conoce el backend.
 - El cierre de sesión se delega en la store de sesión de la spec 002.
 - La cabecera no muestra datos privados de otras cuentas.
+- La etiqueta de registro es «Registrarse».
 
 ## 4. Interface State Contract
 

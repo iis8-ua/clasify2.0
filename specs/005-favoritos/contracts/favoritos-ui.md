@@ -14,18 +14,16 @@ Props:
 
 | Prop | Tipo | Reglas |
 |---|---|---|
-| `anuncioId` | number | Anuncio del detalle |
-| `esFavorito` | boolean | Estado inicial desde el detalle |
-| `numFavoritos` | number | Número informativo |
-| `esAutor` | boolean | Si es verdadero, la acción no se ofrece |
-| `autenticado` | boolean | Si es falso, se solicita acceso |
+| `anuncio` | `AnuncioDetalle` | Contiene `id`, `autor.id`, `es_favorito` y `num_favoritos` |
 
 Emits:
 
 | Event | Payload | Meaning |
 |---|---|---|
-| `toggle` | `{ anuncioId, nuevoEstado }` | Solicitud de añadir o quitar |
-| `login-required` | `{ anuncioId }` | Visitante que intenta guardar |
+| `cambio` | `{ esFavorito, numFavoritos }` | El botón actualizó el estado del detalle |
+
+La implementación delega las operaciones en `favoritosStore`; el componente no construye URLs ni
+llama a `fetch`.
 
 States:
 
