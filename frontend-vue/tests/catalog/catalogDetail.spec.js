@@ -6,6 +6,10 @@ import AnuncioDetalleView from '../../src/views/AnuncioDetalleView.vue'
 import { anunciosService } from '../../src/services/anunciosService'
 import { ApiError } from '../../src/services/errors'
 
+vi.mock('primevue/usetoast', () => ({
+  useToast: () => ({ add: vi.fn() })
+}))
+
 vi.mock('../../src/services/anunciosService', () => ({
   anunciosService: {
     listar: vi.fn(),
