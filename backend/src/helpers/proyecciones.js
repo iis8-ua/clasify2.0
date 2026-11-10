@@ -7,8 +7,13 @@
  * (`anuncioService` y `usuarioService`) y, desde la I4, también el listado de
  * favoritos. Si cada uno guardara su propia copia, un cambio en una acabaría
  * haciendo que los tres listados devolvieran filas distintas.
+ *
+ * `id_autor` se incluye para que el frontend sepa si el anuncio es del usuario
+ * de la sesión y pueda ocultar las acciones de editar y borrar sin tener que
+ * pedir el detalle de cada fila.
  */
-const CAMPOS_LISTADO_ANUNCIO = 'id, titulo, precio, estado, imagen, fecha_creacion, id_categoria';
+const CAMPOS_LISTADO_ANUNCIO =
+  'id, titulo, precio, estado, imagen, fecha_creacion, id_categoria, id_autor';
 
 /**
  * Las mismas columnas, escritas con el prefijo de su tabla y, si hace falta, con

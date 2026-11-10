@@ -275,7 +275,8 @@ describe('GET /clasify_api/usuarios/me/favoritos', () => {
         estado: 'disponible',
         imagen: null,
         fecha_creacion: expect.any(String),
-        id_categoria: 1
+        id_categoria: 1,
+        id_autor: 1
       }
     ]);
     expect(respuesta.body.paginacion.total).toBe(1);

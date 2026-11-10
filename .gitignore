@@ -1,1 +1,22 @@
+# Enunciado de la práctica (copia local, no forma parte de la entrega)
 Practica4.html
+
+# Dependencias
+node_modules/
+
+# Variables de entorno (la plantilla sí se versiona)
+.env
+.env.*
+!.env.example
+
+# Ficheros subidos por los usuarios, salvo el marcador de la carpeta
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Artefactos de pruebas, cobertura y compilación
+coverage/
+dist/
+
+# Sistema y editores
+.DS_Store
+*.log

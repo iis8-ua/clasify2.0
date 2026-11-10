@@ -75,6 +75,22 @@ async function quitar(idAnuncio, idUsuario) {
 }
 
 /**
+ * Indica si el usuario tiene el anuncio en favoritos. La usa el detalle público
+ * para que el botón de favorito aparezca en su estado real al recargar la
+ * página, sin que el cliente tenga que descargarse la lista entera.
+ *
+ * No comprueba que el anuncio exista: la ruta del detalle ya lo ha hecho y un
+ * anuncio inexistente se habría respondido con un 404 antes de llegar aquí.
+ */
+async function esFavorito(idAnuncio, idUsuario) {
+  const filas = await consultar(
+    'SELECT 1 AS existe FROM favoritos WHERE id_usuario = ? AND id_anuncio = ?',
+    [idUsuario, idAnuncio]
+  );
+  return filas.length > 0;
+}
+
+/**
  * Anuncios guardados por el usuario, del más reciente al más antiguo por la
  * fecha en que se guardaron (no por la del anuncio). Salen los vendidos
  * también, igual que en `/usuarios/:id/anuncios`: si alguien guarda algo y
@@ -99,4 +115,4 @@ async function listar(idUsuario, paginacion) {
   return respuestaPaginada(filas, { pagina, limite }, totalDe(conteo));
 }
 
-module.exports = { añadir, quitar, listar };
+module.exports = { añadir, quitar, esFavorito, listar };

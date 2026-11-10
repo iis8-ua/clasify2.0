@@ -302,7 +302,8 @@ describe('GET /clasify_api/anuncios', () => {
       precio: '20.00',
       estado: 'disponible',
       imagen: null,
-      id_categoria: 2
+      id_categoria: 2,
+      id_autor: 1
     });
   });
 
@@ -483,6 +484,25 @@ describe('GET /clasify_api/anuncios/:id', () => {
     const respuesta = await request(app).get(`/clasify_api/anuncios/${id}`);
 
     expect(respuesta.body.datos.anuncio.num_favoritos).toBe(2);
+  });
+
+  test('es_favorito es false sin token y refleja el favorito con token', async () => {
+    const id = await crearAnuncio();
+
+    const anonima = await request(app).get(`/clasify_api/anuncios/${id}`);
+    expect(anonima.body.datos.anuncio.es_favorito).toBe(false);
+
+    await ejecutar('INSERT INTO favoritos (id_usuario, id_anuncio) VALUES (?, ?)', [2, id]);
+
+    const deCarlos = await request(app)
+      .get(`/clasify_api/anuncios/${id}`)
+      .set('Authorization', `Bearer ${tokenCarlos}`);
+    expect(deCarlos.body.datos.anuncio.es_favorito).toBe(true);
+
+    const deAna = await request(app)
+      .get(`/clasify_api/anuncios/${id}`)
+      .set('Authorization', `Bearer ${tokenAna}`);
+    expect(deAna.body.datos.anuncio.es_favorito).toBe(false);
   });
 
   test('un anuncio vendido también se puede ver', async () => {
@@ -913,5 +933,25 @@ describe('GET /clasify_api/categorias', () => {
 
     expect(respuesta.status).toBe(400);
     expect(respuesta.body.error).toMatchObject({ campo });
+  });
+});
+
+describe('CORS', () => {
+  test('permite el origen de Vite configurado por defecto', async () => {
+    const respuesta = await request(app)
+      .options('/clasify_api/anuncios')
+      .set('Origin', 'http://localhost:5173')
+      .set('Access-Control-Request-Method', 'GET');
+
+    expect(respuesta.status).toBe(204);
+    expect(respuesta.headers['access-control-allow-origin']).toBe('http://localhost:5173');
+  });
+
+  test('no devuelve la cabecera para un origen no permitido', async () => {
+    const respuesta = await request(app)
+      .get('/clasify_api/categorias')
+      .set('Origin', 'http://origen-no-permitido.example');
+
+    expect(respuesta.headers['access-control-allow-origin']).toBeUndefined();
   });
 });

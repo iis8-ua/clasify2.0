@@ -2,11 +2,19 @@
 
 const path = require('node:path');
 const express = require('express');
+const cors = require('cors');
+const { origenesFrontend } = require('./config');
 const { noEncontrado, manejadorDeErrores } = require('./middleware/errores');
 
 const app = express();
 
 app.disable('x-powered-by');
+
+// El frontend Vue se sirve desde otro origen (Vite en el 5173 y `vite preview` en
+// el 4173), así que sin esto el navegador bloquearía las peticiones con JSON y
+// con la cabecera Authorization. Los orígenes se configuran con FRONTEND_ORIGIN.
+app.use(cors({ origin: origenesFrontend }));
+
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: false }));
 
