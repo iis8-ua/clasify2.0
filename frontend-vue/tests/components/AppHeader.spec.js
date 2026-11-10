@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { nextTick } from 'vue'
 import { createPinia, setActivePinia } from 'pinia'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import AppHeader from '../../src/components/layout/AppHeader.vue'
@@ -64,5 +65,28 @@ describe('cabecera', () => {
     expect(wrapper.text()).toContain('Favoritos')
     expect(wrapper.text()).toContain('Perfil')
     expect(wrapper.text()).not.toContain('Iniciar sesión')
+  })
+
+  it('refleja el nombre actualizado de la sesión', async () => {
+    const pinia = createPinia()
+    setActivePinia(pinia)
+    const session = useSessionStore()
+    session.establecerSesion('token', { id: 1, nombre: 'Ana' })
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: rutas
+    })
+    await router.push('/')
+    await router.isReady()
+    const wrapper = mount(AppHeader, {
+      global: {
+        plugins: [pinia, router]
+      }
+    })
+
+    session.actualizarUsuario({ nombre: 'Ana Editada' })
+    await nextTick()
+
+    expect(wrapper.text()).toContain('Hola, Ana Editada')
   })
 })

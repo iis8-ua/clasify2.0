@@ -96,6 +96,18 @@ describe('store de sesión', () => {
     expect(session.sessionVersion).toBeGreaterThan(1)
   })
 
+  it('actualiza el usuario sin cerrar la sesión', () => {
+    const session = useSessionStore()
+    session.establecerSesion('token', { id: 1, nombre: 'Ana', email: 'ana@example.com' })
+
+    session.actualizarUsuario({ nombre: 'Ana Editada', biografia: 'Nueva' })
+
+    expect(session.usuario.nombre).toBe('Ana Editada')
+    expect(session.usuario.email).toBe('ana@example.com')
+    expect(session.token).toBe('token')
+    expect(session.estaAutenticado).toBe(true)
+  })
+
   it('no cierra la sesión ante credenciales incorrectas de formulario', () => {
     const session = useSessionStore()
     session.establecerSesion('token', { id: 1, nombre: 'Ana' })
