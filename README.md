@@ -118,9 +118,9 @@ valoraciones y CORS.
 ## Frontend Vue
 
 El frontend está en `frontend-vue/` y usa Vue 3, Vite, Pinia, Vue Router,
-PrimeVue y `fetch`. La base común, la autenticación, el catálogo y la gestión de
-anuncios están implementados; el resto de vistas se incorporan con las
-especificaciones de `specs/`.
+PrimeVue y `fetch`. La base común, la autenticación, el catálogo, la gestión de
+anuncios y los favoritos están implementados; el perfil se incorpora con la
+especificación `specs/006`.
 
 Requisitos:
 
@@ -154,8 +154,7 @@ npm run preview
 Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<fichero>`.
 
 Las rutas cuyas vistas aún no se han implementado muestran una vista de
-sustitución accesible. Los favoritos y el perfil se incorporan en las
-especificaciones `specs/005` y `specs/006`.
+sustitución accesible. El perfil se incorpora en la especificación `specs/006`.
 
 ### Autenticación
 
@@ -175,7 +174,7 @@ especificaciones `specs/005` y `specs/006`.
 - Detalle público con autor, categoría, valoraciones y número de favoritos.
 - Página y filtros conservados en la dirección.
 - Estados de carga, vacío, error, no encontrado e identificador inválido.
-- Las acciones de gestión y de favoritos se incorporan en `004` y `005`.
+- Las acciones de gestión y de favoritos se incorporan en el detalle.
 
 ### Gestión de anuncios
 
@@ -188,6 +187,26 @@ especificaciones `specs/005` y `specs/006`.
 - Aviso de cambios sin guardar.
 - Acciones de gestión únicamente en el detalle y solo para el autor.
 - La acción de creación del estado vacío de “Mis anuncios” se completa en `006`.
+
+### Favoritos
+
+- Añadir y quitar favoritos únicamente desde el detalle de anuncios ajenos.
+- El botón refleja si el anuncio está guardado e indica la acción con un nombre
+  accesible.
+- Un visitante que pulsa favorito accede y vuelve al anuncio; después debe
+  confirmar la acción.
+- El autor no ve la acción sobre su propio anuncio.
+- Lista protegida en `/favoritos` con 20 elementos por página.
+- Tarjetas del catálogo con título, precio, imagen o marcador, categoría, estado
+  y fecha.
+- Los anuncios vendidos siguen visibles con su estado.
+- Paginación completa con la página conservada en la dirección.
+- La página fuera de rango se corrige a la última disponible.
+- Estados de carga, vacío, error y reintento.
+- La lista solo abre el detalle y no ofrece una acción directa para quitar.
+- Limpieza de favoritos al cerrar sesión o cambiar de cuenta.
+- La validación manual completa requiere el backend y la base de datos
+  arrancados.
 
 ### CORS
 

@@ -30,8 +30,8 @@ description: "Task list for the 005-favoritos feature"
 
 **Purpose**: Confirmar la base de 001–004 y preparar la estructura de favoritos.
 
-- [ ] T001 Confirmar la base de 001–004, la sesión, el catálogo, las tarjetas y la paginación en `frontend-vue/package.json`, sin añadir dependencias nuevas
-- [ ] T002 [P] Crear la estructura de componentes y pruebas de favoritos en `frontend-vue/src/components/favoritos/` y `frontend-vue/tests/favoritos/`
+- [X] T001 Confirmar la base de 001–004, la sesión, el catálogo, las tarjetas y la paginación en `frontend-vue/package.json`, sin añadir dependencias nuevas
+- [X] T002 [P] Crear la estructura de componentes y pruebas de favoritos en `frontend-vue/src/components/favoritos/` y `frontend-vue/tests/favoritos/`
 
 ---
 
@@ -41,12 +41,12 @@ description: "Task list for the 005-favoritos feature"
 
 **⚠️ CRITICAL**: Ninguna historia puede empezar hasta completar esta fase.
 
-- [ ] T003 [P] Implementar `favoritosService` con añadir, quitar y listar en `frontend-vue/src/services/favoritosService.js`
-- [ ] T004 [P] Implementar `favoritosStore` con estado de lista, operaciones y errores en `frontend-vue/src/stores/favoritos.js`
-- [ ] T005 Implementar la limpieza de favoritos al cambiar `sessionVersion` en `frontend-vue/src/stores/favoritos.js`
-- [ ] T006 Configurar la ruta `/favoritos` apuntando a `PlaceholderView` en `frontend-vue/src/router/routes.js`; la vista real se conecta en T016
-- [ ] T007 [P] Mapear errores de favoritos a estados de interfaz en `frontend-vue/src/services/errors.js`
-- [ ] T008 Asegurar que `/favoritos` es una ruta protegida en `frontend-vue/src/router/routes.js` y `frontend-vue/src/router/guards.js`
+- [X] T003 [P] Implementar `favoritosService` con añadir, quitar y listar en `frontend-vue/src/services/favoritosService.js`
+- [X] T004 [P] Implementar `favoritosStore` con estado de lista, operaciones y errores en `frontend-vue/src/stores/favoritos.js`
+- [X] T005 Implementar la limpieza de favoritos al cambiar `sessionVersion` en `frontend-vue/src/stores/favoritos.js`
+- [X] T006 Configurar la ruta `/favoritos` apuntando a `PlaceholderView` en `frontend-vue/src/router/routes.js`; la vista real se conecta en T016
+- [X] T007 [P] Mapear errores de favoritos a estados de interfaz en `frontend-vue/src/services/errors.js`
+- [X] T008 Asegurar que `/favoritos` es una ruta protegida en `frontend-vue/src/router/routes.js` y `frontend-vue/src/router/guards.js`
 
 **Checkpoint**: La base de favoritos está lista para las historias.
 
@@ -60,15 +60,15 @@ description: "Task list for the 005-favoritos feature"
 
 ### Tests for User Story 1
 
-- [ ] T009 [P] [US1] Crear pruebas del botón y de añadir/quitar en `frontend-vue/tests/favoritos/botonFavorito.spec.js`
+- [X] T009 [P] [US1] Crear pruebas del botón y de añadir/quitar en `frontend-vue/tests/favoritos/botonFavorito.spec.js`
 
 ### Implementation for User Story 1
 
-- [ ] T010 [US1] Implementar el botón de favorito en `frontend-vue/src/components/favoritos/BotonFavorito.vue`
-- [ ] T011 [US1] Integrar el botón en el detalle con `es_favorito` y `num_favoritos` en `frontend-vue/src/views/AnuncioDetalleView.vue`
-- [ ] T012 [US1] Conectar añadir y quitar con la store y el servicio en `frontend-vue/src/components/favoritos/BotonFavorito.vue` y `frontend-vue/src/stores/favoritos.js`
-- [ ] T013 [US1] Implementar la invitación a acceso para visitantes y el retorno al anuncio en `frontend-vue/src/components/favoritos/BotonFavorito.vue` y `frontend-vue/src/router/guards.js`
-- [ ] T014 [US1] Gestionar anuncio propio, carga, doble pulsación, `401`, `400` y `404` en `frontend-vue/src/components/favoritos/BotonFavorito.vue`
+- [X] T010 [US1] Implementar el botón de favorito en `frontend-vue/src/components/favoritos/BotonFavorito.vue`
+- [X] T011 [US1] Integrar el botón en el detalle con `es_favorito` y `num_favoritos` en `frontend-vue/src/views/AnuncioDetalleView.vue`
+- [X] T012 [US1] Conectar añadir y quitar con la store y el servicio en `frontend-vue/src/components/favoritos/BotonFavorito.vue` y `frontend-vue/src/stores/favoritos.js`
+- [X] T013 [US1] Implementar la invitación a acceso para visitantes y el retorno al anuncio en `frontend-vue/src/components/favoritos/BotonFavorito.vue` y `frontend-vue/src/router/guards.js`
+- [X] T014 [US1] Gestionar anuncio propio, carga, doble pulsación, `401`, `400` y `404` en `frontend-vue/src/components/favoritos/BotonFavorito.vue`
 
 **Checkpoint**: Añadir y quitar favoritos funciona de forma independiente.
 
@@ -82,15 +82,15 @@ description: "Task list for the 005-favoritos feature"
 
 ### Tests for User Story 2
 
-- [ ] T015 [P] [US2] Crear pruebas de la lista de favoritos en `frontend-vue/tests/favoritos/favoritosView.spec.js`
+- [X] T015 [P] [US2] Crear pruebas de la lista de favoritos en `frontend-vue/tests/favoritos/favoritosView.spec.js`
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Implementar la vista de favoritos en `frontend-vue/src/views/FavoritosView.vue` y sustituir la ruta `/favoritos` por esa vista
-- [ ] T017 [US2] Reutilizar las tarjetas del catálogo y mostrar el estado vendido en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/components/catalog/AnuncioCard.vue`
-- [ ] T018 [US2] Implementar estados de carga, vacío, error y reintento en `frontend-vue/src/views/FavoritosView.vue`
-- [ ] T019 [US2] Gestionar anuncios eliminados y detalle no encontrado en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/views/AnuncioDetalleView.vue`
-- [ ] T020 [US2] Asegurar que la lista solo muestra favoritos propios y no ofrece acción de quitar en `frontend-vue/src/views/FavoritosView.vue`
+- [X] T016 [US2] Implementar la vista de favoritos en `frontend-vue/src/views/FavoritosView.vue` y sustituir la ruta `/favoritos` por esa vista
+- [X] T017 [US2] Reutilizar las tarjetas del catálogo y mostrar el estado vendido en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/components/catalog/AnuncioCard.vue`
+- [X] T018 [US2] Implementar estados de carga, vacío, error y reintento en `frontend-vue/src/views/FavoritosView.vue`
+- [X] T019 [US2] Gestionar anuncios eliminados y detalle no encontrado en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/views/AnuncioDetalleView.vue`
+- [X] T020 [US2] Asegurar que la lista solo muestra favoritos propios y no ofrece acción de quitar en `frontend-vue/src/views/FavoritosView.vue`
 
 **Checkpoint**: La lista de favoritos funciona de forma independiente.
 
@@ -104,13 +104,13 @@ description: "Task list for the 005-favoritos feature"
 
 ### Tests for User Story 3
 
-- [ ] T021 [P] [US3] Crear pruebas de paginación con un fixture de más de 20 favoritos en `frontend-vue/tests/favoritos/pagination.spec.js`
+- [X] T021 [P] [US3] Crear pruebas de paginación con un fixture de más de 20 favoritos en `frontend-vue/tests/favoritos/pagination.spec.js`
 
 ### Implementation for User Story 3
 
-- [ ] T022 [US3] Reutilizar los controles de paginación del catálogo en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
-- [ ] T023 [US3] Sincronizar la página de favoritos con la URL en `frontend-vue/src/views/FavoritosView.vue`
-- [ ] T024 [US3] Corregir la página fuera de rango a la última disponible en `frontend-vue/src/stores/favoritos.js` y `frontend-vue/src/views/FavoritosView.vue`
+- [X] T022 [US3] Reutilizar los controles de paginación del catálogo en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
+- [X] T023 [US3] Sincronizar la página de favoritos con la URL en `frontend-vue/src/views/FavoritosView.vue`
+- [X] T024 [US3] Corregir la página fuera de rango a la última disponible en `frontend-vue/src/stores/favoritos.js` y `frontend-vue/src/views/FavoritosView.vue`
 
 **Checkpoint**: La paginación de favoritos funciona y conserva la página.
 
@@ -124,14 +124,14 @@ description: "Task list for the 005-favoritos feature"
 
 ### Tests for User Story 4
 
-- [ ] T025 [P] [US4] Crear pruebas de accesibilidad de favoritos en `frontend-vue/tests/favoritos/favoritosAccessibility.spec.js`
+- [X] T025 [P] [US4] Crear pruebas de accesibilidad de favoritos en `frontend-vue/tests/favoritos/favoritosAccessibility.spec.js`
 
 ### Implementation for User Story 4
 
-- [ ] T026 [US4] Añadir nombre accesible, estado y foco visible al botón en `frontend-vue/src/components/favoritos/BotonFavorito.vue`
-- [ ] T027 [US4] Asegurar teclado y foco en tarjetas y paginación en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
-- [ ] T028 [US4] Ajustar la lista y la paginación a 360 px en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/styles/base.css`
-- [ ] T029 [US4] Revisar mensajes en español y ausencia de detalles técnicos en `frontend-vue/src/components/favoritos/BotonFavorito.vue` y `frontend-vue/src/views/FavoritosView.vue`
+- [X] T026 [US4] Añadir nombre accesible, estado y foco visible al botón en `frontend-vue/src/components/favoritos/BotonFavorito.vue`
+- [X] T027 [US4] Asegurar teclado y foco en tarjetas y paginación en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
+- [X] T028 [US4] Ajustar la lista y la paginación a 360 px en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/styles/base.css`
+- [X] T029 [US4] Revisar mensajes en español y ausencia de detalles técnicos en `frontend-vue/src/components/favoritos/BotonFavorito.vue` y `frontend-vue/src/views/FavoritosView.vue`
 
 **Checkpoint**: Favoritos es accesible y usable en móvil.
 
@@ -141,10 +141,10 @@ description: "Task list for the 005-favoritos feature"
 
 **Purpose**: Documentación, validación y calidad transversal.
 
-- [ ] T030 [P] Actualizar `README.md` con la gestión de favoritos y sus limitaciones
-- [ ] T031 Ejecutar `npm run test:unit` y `npm run build` en `frontend-vue/` y registrar el resultado
-- [ ] T032 Ejecutar la validación manual de `specs/005-favoritos/quickstart.md` y registrar el recorrido
-- [ ] T033 Revisar que no haya comentarios, llamadas directas a `fetch`, favoritos en el listado general, acciones de quitar en la lista ni cambios en `backend/` en `frontend-vue/src/`
+- [X] T030 [P] Actualizar `README.md` con la gestión de favoritos y sus limitaciones
+- [X] T031 Ejecutar `npm run test:unit` y `npm run build` en `frontend-vue/` y registrar el resultado
+- [X] T032 Ejecutar la validación manual de `specs/005-favoritos/quickstart.md` y registrar el recorrido
+- [X] T033 Revisar que no haya comentarios, llamadas directas a `fetch`, favoritos en el listado general, acciones de quitar en la lista ni cambios en `backend/` en `frontend-vue/src/`
 
 ---
 
