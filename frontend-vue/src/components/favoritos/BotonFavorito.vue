@@ -22,7 +22,9 @@ const notificaciones = useNotificaciones()
 const error = ref('')
 const enCurso = ref(false)
 
-const esAutor = computed(() => session.usuario?.id === props.anuncio.id_autor)
+const esAutor = computed(
+  () => session.usuario?.id === (props.anuncio.id_autor ?? props.anuncio.autor?.id)
+)
 const guardado = computed(() => Boolean(props.anuncio.es_favorito))
 const procesando = computed(() => favoritos.estaProcesando(props.anuncio.id))
 const etiqueta = computed(() => (guardado.value ? 'Quitar de favoritos' : 'Añadir a favoritos'))

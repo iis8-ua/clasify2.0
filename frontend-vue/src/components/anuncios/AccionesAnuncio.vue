@@ -22,7 +22,9 @@ const confirmacion = ref(null)
 const enCurso = ref(false)
 const error = ref('')
 
-const esAutor = computed(() => session.usuario?.id === props.anuncio.id_autor)
+const esAutor = computed(
+  () => session.usuario?.id === (props.anuncio.id_autor ?? props.anuncio.autor?.id)
+)
 const tituloConfirmacion = computed(() =>
   confirmacion.value?.tipo === 'eliminar' ? 'Eliminar anuncio' : 'Marcar como vendido'
 )
@@ -133,6 +135,8 @@ async function marcarDisponible() {
       :title="tituloConfirmacion"
       :message="mensajeConfirmacion"
       :confirm-label="etiquetaConfirmacion"
+      :loading="enCurso"
+      :loading-label="confirmacion?.tipo === 'eliminar' ? 'Eliminando…' : 'Marcando…'"
       cancel-label="Cancelar"
       @confirm="confirmar"
       @cancel="cancelar"

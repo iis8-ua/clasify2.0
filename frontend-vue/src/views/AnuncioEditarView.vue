@@ -24,12 +24,14 @@ const enviando = ref(false)
 const id = computed(() => Number(route.params.id))
 const idValido = computed(() => Number.isInteger(id.value) && id.value > 0)
 const detalle = computed(() => anuncios.detalle)
-const esAutor = computed(() => detalle.value && session.usuario?.id === detalle.value.id_autor)
+const esAutor = computed(
+  () => detalle.value && session.usuario?.id === (detalle.value.id_autor ?? detalle.value.autor?.id)
+)
 const valoresIniciales = computed(() => ({
   titulo: detalle.value?.titulo ?? '',
   descripcion: detalle.value?.descripcion ?? '',
   precio: detalle.value?.precio !== undefined ? String(detalle.value.precio) : '',
-  categoria: detalle.value?.id_categoria ?? null
+  categoria: detalle.value?.id_categoria ?? detalle.value?.categoria?.id ?? null
 }))
 const imagenActualUrl = computed(() => urlImagen(detalle.value?.imagen))
 
@@ -88,6 +90,9 @@ async function enviar({ valores, imagen }) {
 }
 
 function cancelar() {
+  if (hayCambios.value && !window.confirm('Tienes cambios sin guardar. ¿Quieres descartarlos?')) {
+    return
+  }
   hayCambios.value = false
   router.push({ name: 'anuncio-detalle', params: { id: id.value } })
 }

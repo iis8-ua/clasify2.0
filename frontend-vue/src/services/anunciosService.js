@@ -15,6 +15,18 @@ function crearFormData(valores, imagen) {
   return datos
 }
 
+function normalizarAnuncio(anuncio) {
+  if (!anuncio) {
+    return anuncio
+  }
+
+  return {
+    ...anuncio,
+    id_autor: anuncio.id_autor ?? anuncio.autor?.id ?? null,
+    id_categoria: anuncio.id_categoria ?? anuncio.categoria?.id ?? null
+  }
+}
+
 export const anunciosService = {
   async listar(filtros = {}) {
     const parametros = new URLSearchParams()
@@ -34,21 +46,21 @@ export const anunciosService = {
   },
   async detalle(id) {
     const respuesta = await http.get(`/anuncios/${id}`, { auth: true })
-    return respuesta.datos.anuncio
+    return normalizarAnuncio(respuesta.datos.anuncio)
   },
   async crear(valores, imagen) {
     const cuerpo = imagen ? crearFormData(valores, imagen) : valores
     const respuesta = await http.post('/anuncios', cuerpo, { auth: true })
-    return respuesta.datos.anuncio
+    return normalizarAnuncio(respuesta.datos.anuncio)
   },
   async actualizar(id, valores, imagen) {
     const cuerpo = imagen ? crearFormData(valores, imagen) : valores
     const respuesta = await http.patch(`/anuncios/${id}`, cuerpo, { auth: true })
-    return respuesta.datos.anuncio
+    return normalizarAnuncio(respuesta.datos.anuncio)
   },
   async cambiarEstado(id, estado) {
     const respuesta = await http.patch(`/anuncios/${id}/estado`, { estado }, { auth: true })
-    return respuesta.datos.anuncio
+    return normalizarAnuncio(respuesta.datos.anuncio)
   },
   async eliminar(id) {
     await http.delete(`/anuncios/${id}`, { auth: true })

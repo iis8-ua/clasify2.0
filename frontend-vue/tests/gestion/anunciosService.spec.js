@@ -66,6 +66,50 @@ describe('servicio de escritura de anuncios', () => {
     expect(opciones.body).toContain('vendido')
   })
 
+  it('normaliza la forma real del detalle anidado', async () => {
+    fetch.mockResolvedValue(
+      respuestaJson(200, {
+        datos: {
+          anuncio: {
+            id: 8,
+            titulo: 'Bicicleta',
+            autor: { id: 1, nombre: 'Ana' },
+            categoria: { id: 3, nombre: 'Deportes' }
+          }
+        }
+      })
+    )
+
+    const anuncio = await anunciosService.detalle(8)
+
+    expect(anuncio.id_autor).toBe(1)
+    expect(anuncio.id_categoria).toBe(3)
+    expect(anuncio.autor.id).toBe(1)
+    expect(anuncio.categoria.id).toBe(3)
+  })
+
+  it('normaliza también las respuestas de escritura', async () => {
+    fetch.mockResolvedValue(
+      respuestaJson(200, {
+        datos: {
+          anuncio: {
+            id: 8,
+            autor: { id: 1 },
+            categoria: { id: 3 }
+          }
+        }
+      })
+    )
+
+    const creado = await anunciosService.crear({ titulo: 'Bicicleta' })
+    const actualizado = await anunciosService.actualizar(8, { titulo: 'Nueva' })
+    const cambiado = await anunciosService.cambiarEstado(8, 'vendido')
+
+    expect(creado.id_autor).toBe(1)
+    expect(actualizado.id_categoria).toBe(3)
+    expect(cambiado.id_autor).toBe(1)
+  })
+
   it('elimina un anuncio con respuesta 204', async () => {
     fetch.mockResolvedValue({
       status: 204,

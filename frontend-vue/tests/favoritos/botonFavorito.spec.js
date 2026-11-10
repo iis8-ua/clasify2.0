@@ -114,6 +114,14 @@ describe('botón de favorito', () => {
     expect(wrapper.text()).toBe('')
   })
 
+  it('usa autor.id cuando el detalle no trae id_autor', async () => {
+    const { wrapper } = await montar({
+      datos: { ...anuncio, id_autor: undefined, autor: { id: 2 } }
+    })
+
+    expect(wrapper.text()).toBe('')
+  })
+
   it('converge a no guardado al quitar un favorito inexistente', async () => {
     const { wrapper, favoritos } = await montar({
       datos: { ...anuncio, es_favorito: true, num_favoritos: 3 }
