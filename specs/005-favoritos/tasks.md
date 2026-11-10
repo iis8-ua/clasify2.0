@@ -1,0 +1,242 @@
+---
+
+description: "Task list for the 005-favoritos feature"
+---
+
+# Tasks: Favoritos
+
+**Input**: Design documents from `/specs/005-favoritos/`
+
+**Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/
+
+**Tests**: Se incluyen tareas de prueba porque el plan y la constitución exigen Vitest para servicios, stores y componentes clave. Las pruebas deben escribirse antes de la implementación correspondiente y fallar primero.
+
+**Organization**: Las tareas se agrupan por historia de usuario para que cada una pueda implementarse y validarse de forma independiente.
+
+## Format: `[ID] [P?] [Story] Description`
+
+- **[P]**: Puede ejecutarse en paralelo (archivos distintos, sin dependencias pendientes)
+- **[Story]**: Historia de usuario a la que pertenece la tarea (`US1`–`US4`)
+- Todas las tareas incluyen la ruta exacta del archivo afectado
+
+## Path Conventions
+
+- Frontend: `frontend-vue/src/` y `frontend-vue/tests/`
+- Backend existente: `backend/` (no se modifica)
+
+---
+
+## Phase 1: Setup (Shared Infrastructure)
+
+**Purpose**: Confirmar la base de 001–004 y preparar la estructura de favoritos.
+
+- [ ] T001 Confirmar la base de 001–004, la sesión, el catálogo, las tarjetas y la paginación en `frontend-vue/package.json`, sin añadir dependencias nuevas
+- [ ] T002 [P] Crear la estructura de componentes y pruebas de favoritos en `frontend-vue/src/components/favoritos/` y `frontend-vue/tests/favoritos/`
+
+---
+
+## Phase 2: Foundational (Blocking Prerequisites)
+
+**Purpose**: Servicio, store y ruta que necesitan las historias.
+
+**⚠️ CRITICAL**: Ninguna historia puede empezar hasta completar esta fase.
+
+- [ ] T003 [P] Implementar `favoritosService` con añadir, quitar y listar en `frontend-vue/src/services/favoritosService.js`
+- [ ] T004 [P] Implementar `favoritosStore` con estado de lista, operaciones y errores en `frontend-vue/src/stores/favoritos.js`
+- [ ] T005 Implementar la limpieza de favoritos al cambiar `sessionVersion` en `frontend-vue/src/stores/favoritos.js`
+- [ ] T006 Sustituir el placeholder de la ruta `/favoritos` por la vista real en `frontend-vue/src/router/routes.js`
+- [ ] T007 [P] Mapear errores de favoritos a estados de interfaz en `frontend-vue/src/services/errors.js`
+- [ ] T008 Asegurar que `/favoritos` es una ruta protegida en `frontend-vue/src/router/routes.js` y `frontend-vue/src/router/guards.js`
+
+**Checkpoint**: La base de favoritos está lista para las historias.
+
+---
+
+## Phase 3: User Story 1 - Guardar o quitar un anuncio de favoritos (Priority: P1) 🎯 MVP
+
+**Goal**: Añadir o quitar un favorito desde el detalle y reflejar el estado y el contador.
+
+**Independent Test**: Abrir un anuncio ajeno, guardarlo, comprobar el botón y el contador, y quitarlo después.
+
+### Tests for User Story 1
+
+- [ ] T009 [P] [US1] Crear pruebas del botón y de añadir/quitar en `frontend-vue/tests/favoritos/botonFavorito.spec.js`
+
+### Implementation for User Story 1
+
+- [ ] T010 [US1] Implementar el botón de favorito en `frontend-vue/src/components/favoritos/BotonFavorito.vue`
+- [ ] T011 [US1] Integrar el botón en el detalle con `es_favorito` y `num_favoritos` en `frontend-vue/src/views/AnuncioDetalleView.vue`
+- [ ] T012 [US1] Conectar añadir y quitar con la store y el servicio en `frontend-vue/src/components/favoritos/BotonFavorito.vue` y `frontend-vue/src/stores/favoritos.js`
+- [ ] T013 [US1] Implementar la invitación a acceso para visitantes y el retorno al anuncio en `frontend-vue/src/components/favoritos/BotonFavorito.vue` y `frontend-vue/src/router/guards.js`
+- [ ] T014 [US1] Gestionar anuncio propio, carga, doble pulsación, `401`, `400` y `404` en `frontend-vue/src/components/favoritos/BotonFavorito.vue`
+
+**Checkpoint**: Añadir y quitar favoritos funciona de forma independiente.
+
+---
+
+## Phase 4: User Story 2 - Consultar mis favoritos (Priority: P2)
+
+**Goal**: Mostrar la lista personal de favoritos con tarjetas, estados y anuncios vendidos.
+
+**Independent Test**: Guardar varios anuncios, abrir `/favoritos` y comprobar que aparecen, se abre el detalle y los vendidos siguen visibles.
+
+### Tests for User Story 2
+
+- [ ] T015 [P] [US2] Crear pruebas de la lista de favoritos en `frontend-vue/tests/favoritos/favoritosView.spec.js`
+
+### Implementation for User Story 2
+
+- [ ] T016 [US2] Implementar la vista de favoritos en `frontend-vue/src/views/FavoritosView.vue`
+- [ ] T017 [US2] Reutilizar las tarjetas del catálogo y mostrar el estado vendido en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/components/catalog/AnuncioCard.vue`
+- [ ] T018 [US2] Implementar estados de carga, vacío, error y reintento en `frontend-vue/src/views/FavoritosView.vue`
+- [ ] T019 [US2] Gestionar anuncios eliminados y detalle no encontrado en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/views/AnuncioDetalleView.vue`
+- [ ] T020 [US2] Asegurar que la lista solo muestra favoritos propios y no ofrece acción de quitar en `frontend-vue/src/views/FavoritosView.vue`
+
+**Checkpoint**: La lista de favoritos funciona de forma independiente.
+
+---
+
+## Phase 5: User Story 3 - Recorrer todas las páginas de favoritos (Priority: P2)
+
+**Goal**: Permitir navegar por todas las páginas y conservar la página en la URL.
+
+**Independent Test**: Recorrer una lista de favoritos de varias páginas, comprobar controles y página fuera de rango.
+
+### Tests for User Story 3
+
+- [ ] T021 [P] [US3] Crear pruebas de paginación de favoritos en `frontend-vue/tests/favoritos/pagination.spec.js`
+
+### Implementation for User Story 3
+
+- [ ] T022 [US3] Reutilizar los controles de paginación del catálogo en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
+- [ ] T023 [US3] Sincronizar la página de favoritos con la URL en `frontend-vue/src/views/FavoritosView.vue`
+- [ ] T024 [US3] Corregir la página fuera de rango a la última disponible en `frontend-vue/src/stores/favoritos.js` y `frontend-vue/src/views/FavoritosView.vue`
+
+**Checkpoint**: La paginación de favoritos funciona y conserva la página.
+
+---
+
+## Phase 6: User Story 4 - Gestionar favoritos con teclado o en móvil (Priority: P3)
+
+**Goal**: Garantizar accesibilidad del botón, tarjetas y paginación, y uso a 360 px.
+
+**Independent Test**: Recorrer botón, lista y paginación solo con teclado y en una pantalla de 360 px.
+
+### Tests for User Story 4
+
+- [ ] T025 [P] [US4] Crear pruebas de accesibilidad de favoritos en `frontend-vue/tests/favoritos/favoritosAccessibility.spec.js`
+
+### Implementation for User Story 4
+
+- [ ] T026 [US4] Añadir nombre accesible, estado y foco visible al botón en `frontend-vue/src/components/favoritos/BotonFavorito.vue`
+- [ ] T027 [US4] Asegurar teclado y foco en tarjetas y paginación en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
+- [ ] T028 [US4] Ajustar la lista y la paginación a 360 px en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/styles/base.css`
+- [ ] T029 [US4] Revisar mensajes en español y ausencia de detalles técnicos en `frontend-vue/src/components/favoritos/BotonFavorito.vue` y `frontend-vue/src/views/FavoritosView.vue`
+
+**Checkpoint**: Favoritos es accesible y usable en móvil.
+
+---
+
+## Phase 7: Polish & Cross-Cutting Concerns
+
+**Purpose**: Documentación, validación y calidad transversal.
+
+- [ ] T030 [P] Actualizar `README.md` con la gestión de favoritos y sus limitaciones
+- [ ] T031 Ejecutar `npm run test:unit` y `npm run build` en `frontend-vue/` y registrar el resultado
+- [ ] T032 Ejecutar la validación manual de `specs/005-favoritos/quickstart.md` y registrar el recorrido
+- [ ] T033 Revisar que no haya comentarios, llamadas directas a `fetch`, favoritos en el listado general, acciones de quitar en la lista ni cambios en `backend/` en `frontend-vue/src/`
+
+---
+
+## Dependencies & Execution Order
+
+### Phase Dependencies
+
+- **Setup (Phase 1)**: sin dependencias.
+- **Foundational (Phase 2)**: depende de Setup y bloquea todas las historias.
+- **User Stories (Phase 3–6)**: dependen de Foundational.
+- **Polish (Phase 7)**: depende de las historias implementadas.
+
+### User Story Dependencies
+
+- **US1 (P1)**: depende de Foundational; no depende de otras historias.
+- **US2 (P2)**: depende de Foundational y de US1 para el estado del favorito.
+- **US3 (P2)**: depende de US2.
+- **US4 (P3)**: depende de US1, US2 y US3.
+
+### Within Each Story
+
+- Las pruebas se escriben antes de la implementación.
+- El botón antes de la integración en el detalle.
+- La vista antes de la paginación y la accesibilidad.
+- Cada historia se valida antes de pasar a la siguiente.
+
+### Parallel Opportunities
+
+- T003, T004 y T007 pueden ejecutarse en paralelo.
+- T010 y T011 pueden coordinarse; T011 depende del botón.
+- T016 y T017 comparten la vista y la tarjeta; deben coordinarse.
+- T026, T027 y T028 pueden ejecutarse en paralelo sobre archivos distintos.
+- Las pruebas de cada historia pueden ejecutarse en paralelo dentro de su fase.
+
+---
+
+## Parallel Example: User Story 1
+
+```bash
+Task: "Crear pruebas del botón en frontend-vue/tests/favoritos/botonFavorito.spec.js"
+Task: "Implementar el botón de favorito en frontend-vue/src/components/favoritos/BotonFavorito.vue"
+```
+
+## Parallel Example: User Story 2
+
+```bash
+Task: "Crear pruebas de la lista en frontend-vue/tests/favoritos/favoritosView.spec.js"
+Task: "Implementar la vista de favoritos en frontend-vue/src/views/FavoritosView.vue"
+```
+
+## Parallel Example: User Story 4
+
+```bash
+Task: "Añadir nombre accesible al botón en frontend-vue/src/components/favoritos/BotonFavorito.vue"
+Task: "Asegurar teclado en la lista y paginación en frontend-vue/src/views/FavoritosView.vue"
+Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
+```
+
+## Implementation Strategy
+
+### MVP First (User Story 1 Only)
+
+1. Completar Phase 1 y Phase 2.
+2. Completar US1.
+3. Detenerse y validar añadir/quitar favoritos.
+4. No avanzar a US2 hasta que el botón funcione.
+
+### Incremental Delivery
+
+1. Setup + Foundational → base de favoritos.
+2. US1 → botón y operaciones.
+3. US2 → lista de favoritos.
+4. US3 → paginación.
+5. US4 → accesibilidad y móvil.
+6. Polish → README, pruebas y validación manual.
+
+### Parallel Team Strategy
+
+- Una persona completa Setup y Foundational.
+- US1 y US2 pueden avanzar con coordinación en la store y el detalle.
+- US3 y US4 se integran después de la lista.
+
+---
+
+## Notes
+
+- [P] indica archivos distintos y sin dependencia pendiente.
+- [US1]–[US4] permiten trazabilidad con la spec.
+- Cada historia debe poder validarse de forma independiente.
+- Verificar que las pruebas fallan antes de implementar.
+- Commit después de cada tarea o grupo lógico.
+- Detenerse en cada checkpoint para revisar.
+- No modificar `backend/`.
+- No añadir comentarios al código.
+- La acción de quitar solo se ofrece en el detalle.
