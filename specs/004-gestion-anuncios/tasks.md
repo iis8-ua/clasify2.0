@@ -295,3 +295,9 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 - No añadir comentarios al código.
 - Las acciones de gestión se realizan solo desde el detalle.
 - La llamada de creación del estado vacío de “Mis anuncios” pertenece a `006-perfil`.
+
+## Phase 10: Convergence
+
+- [ ] T051 Normalizar de forma única las respuestas de detalle, creación, edición y cambio de estado para exponer `id_autor`/`id_categoria` desde `autor.id`/`categoria.id`, y adaptar todos los consumidores, per FR-012, FR-019, FR-023, FR-035, SC-009 (missing)
+- [ ] T052 Corregir la cancelación de creación y edición para pedir confirmación cuando haya cambios y no limpiar `hayCambios` antes de decidir, con pruebas de vista, per FR-018, US3/AC2, management-ui §4/§5 (contradicts)
+- [ ] T053 Pasar el estado de operación a `ConfirmAction`, mostrar carga y deshabilitar confirmar/cancelar mientras se elimina o cambia estado, con pruebas de doble pulsación, per management-ui §6/§7 (partial)

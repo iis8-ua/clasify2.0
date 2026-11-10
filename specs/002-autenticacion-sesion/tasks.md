@@ -289,3 +289,10 @@ Task: "Revisar etiquetas y errores en frontend-vue/src/components/auth/AuthCard.
 - No modificar `backend/`.
 - No usar `localStorage`.
 - No añadir comentarios al código.
+
+## Phase 10: Convergence
+
+- [ ] T047 Montar el shell antes de restaurar la sesión, mostrar el estado de comprobación inicial y bloquear acciones privadas hasta resolver `/auth/yo`, con prueba del arranque con token guardado, per FR-011, US3/AC2, T027 (missing)
+- [ ] T048 Limpiar el campo de contraseña después de enviar el acceso y el registro, conservando el resto del formulario ante error, con prueba explícita, per FR-018, SC-010 (partial)
+- [ ] T049 Implementar una reacción central a `401` de sesión que limpie la sesión, informe en español y redirija a acceso conservando la ruta actual, y usarla desde todas las operaciones privadas, per FR-016, SC-009, Constitución V (partial)
+- [ ] T050 Alinear la trazabilidad de las pruebas de 002 con los archivos reales, cubriendo carga inicial, limpieza de contraseña, caducidad de sesión y redirección tras acceso, per T030/T034 y quickstart (missing)

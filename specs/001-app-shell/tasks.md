@@ -256,3 +256,11 @@ Task: "Implementar notificaciones en frontend-vue/src/App.vue"
 - Detenerse en cada checkpoint para revisar.
 - No modificar `backend/`.
 - No añadir comentarios al código.
+
+## Phase 8: Convergence
+
+- [ ] T051 Guardar el elemento que abre `ConfirmAction` y restaurar el foco al cerrar, cancelar o confirmar, incluyendo el foco inicial cuando el diálogo monta abierto, y cubrirlo con pruebas, per 001 ui-contracts §5 (missing)
+- [ ] T052 Alinear `AppHeader` con el contrato presentacional de 001 o actualizar el contrato aprobado, y unificar la etiqueta visible a «Registrarse», per 001 ui-contracts §2/§3 (contradicts)
+- [ ] T053 Validar `VITE_API_URL` al arrancar y propagar `AbortSignal` en la capa HTTP, con pruebas de configuración y cancelación, per 001 http-contract §1/§2 (partial)
+- [ ] T054 Añadir y consumir los tokens `fontWeightRegular` y `fontWeightStrong`, eliminando pesos tipográficos literales, per 001 data-model ThemeTokens (partial)
+- [ ] T055 Actualizar el checklist de la Práctica 4 en `README.md`: marcar favoritos, aclarar el alcance Vue y retirar o justificar la línea de React, per README Práctica 4 (contradicts)

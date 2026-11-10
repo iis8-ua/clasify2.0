@@ -268,3 +268,12 @@ US1 y US2 son P1; el perfil necesita ambos para ser útil.
 - No añadir comentarios al código.
 - Las acciones de gestión de anuncios se realizan desde el detalle.
 - El email no se puede editar.
+
+## Phase 9: Convergence
+
+- [ ] T041 Verificar y cubrir con prueba de integración el flujo «Mis anuncios → detalle → acciones del autor» usando la forma real del detalle normalizado, ajustando cualquier consumidor restante, per FR-029, US4/AC3 (contradicts)
+- [ ] T042 Añadir obligatoriedad visible y `required`/`aria-required` a nombre, contraseña actual y contraseña nueva, con pruebas de accesibilidad, per FR-006, FR-008, FR-009, FR-023 (missing)
+- [ ] T043 Anunciar los errores de campo mediante región viva o `role="alert"` y mover el foco al primer campo inválido tras el envío, con pruebas, per FR-023, US5/AC2 (partial)
+- [ ] T044 Secuenciar las cargas de páginas de anuncios propios con token de solicitud o cancelación para evitar respuestas fuera de orden, con prueba, per FR-021, SC-011 (partial)
+- [ ] T045 Normalizar a página 1 una URL de anuncios propios fuera de rango cuando `paginas` sea 0, con prueba para usuario sin anuncios, per FR-022 (partial)
+- [ ] T046 Añadir aviso `beforeunload` con cambios sin guardar y reordenar el cierre de sesión para no limpiar la sesión antes de confirmar la salida, con pruebas, per FR-014, US2/AC8 (partial)
