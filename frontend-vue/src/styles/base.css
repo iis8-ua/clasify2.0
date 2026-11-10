@@ -433,6 +433,62 @@ button:disabled {
   margin-top: var(--space-2);
 }
 
+.perfil-layout {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.perfil-card {
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-small);
+}
+
+.perfil-section__title {
+  margin: 0 0 var(--space-4);
+}
+
+.perfil-datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.perfil-datos__item dt {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+}
+
+.perfil-datos__item dd {
+  margin: var(--space-1) 0 0;
+  overflow-wrap: anywhere;
+}
+
+.perfil-form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.perfil-form__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 48rem) {
+  .perfil-card {
+    padding: var(--space-4);
+  }
+
+  .perfil-datos {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 48rem) {
   .anuncio-form__row {
     grid-template-columns: 1fr;

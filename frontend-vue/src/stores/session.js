@@ -59,6 +59,11 @@ export const useSessionStore = defineStore('session', {
       this.limpiarSesion()
       this.sessionVersion += 1
     },
+    actualizarUsuario(usuario) {
+      if (usuario) {
+        this.usuario = { ...this.usuario, ...usuario }
+      }
+    },
     manejarNoAutorizado(error) {
       if (esErrorDeSesion(error.codigo)) {
         this.cerrarSesion()

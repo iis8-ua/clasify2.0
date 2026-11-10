@@ -1,4 +1,3 @@
-import PlaceholderView from '../views/PlaceholderView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
@@ -7,6 +6,7 @@ import AnuncioDetalleView from '../views/AnuncioDetalleView.vue'
 import AnuncioCrearView from '../views/AnuncioCrearView.vue'
 import AnuncioEditarView from '../views/AnuncioEditarView.vue'
 import FavoritosView from '../views/FavoritosView.vue'
+import PerfilView from '../views/PerfilView.vue'
 
 export const routes = [
   {
@@ -54,8 +54,8 @@ export const routes = [
   {
     path: '/perfil',
     name: 'perfil',
-    component: PlaceholderView,
-    meta: { title: 'Mi perfil', requiereSesion: true, placeholder: true }
+    component: PerfilView,
+    meta: { title: 'Mi perfil', requiereSesion: true }
   },
   {
     path: '/:pathMatch(.*)*',

@@ -25,6 +25,10 @@ export function esErrorDeCredenciales(codigo) {
   return codigo === 'CREDENCIALES_INVALIDAS'
 }
 
+export function esErrorDeContrasenaActual(error) {
+  return error?.codigo === 'CREDENCIALES_INVALIDAS'
+}
+
 export function mensajePorEstado(estado) {
   const mensajes = {
     400: 'Los datos enviados no son válidos',
