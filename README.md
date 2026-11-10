@@ -117,8 +117,17 @@ valoraciones y CORS.
 
 ## Frontend Vue
 
-El frontend se desarrolla en `frontend-vue/` con Spec Kit. Cuando esté generado,
-los comandos previstos son:
+El frontend está en `frontend-vue/` y usa Vue 3, Vite, Pinia, Vue Router,
+PrimeVue y `fetch`. La base común está implementada; el resto de vistas se
+incorporan con las especificaciones de `specs/`.
+
+Requisitos:
+
+- Node.js `^20.19.0 || >=22.12.0`.
+- npm.
+- Backend arrancado para las operaciones reales.
+
+Instalación y arranque:
 
 ```bash
 cd frontend-vue
@@ -133,7 +142,19 @@ Variable de entorno del frontend:
 VITE_API_URL=http://localhost:3000/clasify_api
 ```
 
+Pruebas y build:
+
+```bash
+npm run test:unit
+npm run build
+npm run preview
+```
+
 Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<fichero>`.
+
+Las rutas cuyas vistas aún no se han implementado muestran una vista de
+sustitución accesible. La ruta de acceso, el catálogo, la gestión, los favoritos
+y el perfil se incorporan en las especificaciones `specs/002` a `specs/006`.
 
 ### CORS
 

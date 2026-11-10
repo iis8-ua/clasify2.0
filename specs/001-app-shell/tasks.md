@@ -30,12 +30,12 @@ description: "Task list for the 001-app-shell feature"
 
 **Purpose**: Inicializar el proyecto frontend y su configuración base.
 
-- [ ] T001 Crear la estructura inicial del frontend en `frontend-vue/package.json` y `frontend-vue/index.html`
-- [ ] T002 Añadir dependencias y scripts exactos en `frontend-vue/package.json`: Vue 3.5.45, Vite 7.3.8, Pinia 3.0.4, Vue Router 4.6.4, PrimeVue 4.5.5, @primeuix/themes 1.2.5, primeicons 7.0.0, Vitest 3.2.7, @vue/test-utils 2.5.1, jsdom 26.1.0 y @vitejs/plugin-vue 6.0.10
-- [ ] T003 [P] Configurar Vite y Vitest en `frontend-vue/vite.config.js`
-- [ ] T004 [P] Crear la plantilla de entorno en `frontend-vue/.env.example` con `VITE_API_URL`
-- [ ] T005 Crear el arranque de la aplicación en `frontend-vue/src/main.js` y `frontend-vue/src/App.vue` con Vue, Pinia, Vue Router y PrimeVue
-- [ ] T006 Configurar el tema PrimeVue, los servicios de toast y confirmación en `frontend-vue/src/main.js`, `frontend-vue/src/App.vue` y `frontend-vue/src/styles/primevue-theme.js`
+- [X] T001 Crear la estructura inicial del frontend en `frontend-vue/package.json` y `frontend-vue/index.html`
+- [X] T002 Añadir dependencias y scripts exactos en `frontend-vue/package.json`: Vue 3.5.45, Vite 7.3.8, Pinia 3.0.4, Vue Router 4.6.4, PrimeVue 4.5.5, @primeuix/themes 1.2.5, primeicons 7.0.0, Vitest 3.2.7, @vue/test-utils 2.5.1, jsdom 26.1.0 y @vitejs/plugin-vue 6.0.10
+- [X] T003 [P] Configurar Vite y Vitest en `frontend-vue/vite.config.js`
+- [X] T004 [P] Crear la plantilla de entorno en `frontend-vue/.env.example` con `VITE_API_URL`
+- [X] T005 Crear el arranque de la aplicación en `frontend-vue/src/main.js` y `frontend-vue/src/App.vue` con Vue, Pinia, Vue Router y PrimeVue
+- [X] T006 Configurar el tema PrimeVue, los servicios de toast y confirmación en `frontend-vue/src/main.js`, `frontend-vue/src/App.vue` y `frontend-vue/src/styles/primevue-theme.js`
 
 ---
 
@@ -45,17 +45,17 @@ description: "Task list for the 001-app-shell feature"
 
 **⚠️ CRITICAL**: Ninguna historia puede empezar hasta completar esta fase.
 
-- [ ] T007 Definir la tabla de rutas y sus metadatos en `frontend-vue/src/router/routes.js` sin importar vistas; la conexión de componentes se completa en T013 y T017
-- [ ] T008 Implementar la estructura de guardas en `frontend-vue/src/router/guards.js`
-- [ ] T009 Implementar la frontera de sesión en `frontend-vue/src/stores/session.js` con estado de visitante por defecto
-- [ ] T010 [P] Implementar la capa HTTP base en `frontend-vue/src/services/http.js` y `frontend-vue/src/services/errors.js`
-- [ ] T011 [P] Crear tokens y estilos globales en `frontend-vue/src/styles/tokens.css` y `frontend-vue/src/styles/base.css`
-- [ ] T012 Implementar el layout base en `frontend-vue/src/components/layout/AppShell.vue`
-- [ ] T013 Crear las vistas de sustitución y 404 con contenido mínimo en `frontend-vue/src/views/PlaceholderView.vue` y `frontend-vue/src/views/NotFoundView.vue`
-- [ ] T014 [P] Crear los componentes de formato con implementación inicial en `frontend-vue/src/components/common/PriceText.vue`, `frontend-vue/src/components/common/DateText.vue` y `frontend-vue/src/components/common/ImageWithFallback.vue`
-- [ ] T015 [P] Crear el esqueleto de `StatePanel` con su API de props y eventos en `frontend-vue/src/components/states/StatePanel.vue`; las variantes se implementan en T033 y T034
-- [ ] T016 Crear el esqueleto de `ConfirmAction` y configurar los servicios de Toast y confirmación en `frontend-vue/src/components/states/ConfirmAction.vue` y `frontend-vue/src/App.vue`; el diálogo accesible se implementa en T035
-- [ ] T017 Conectar las vistas de sustitución con el router y configurar títulos de página en `frontend-vue/src/router/index.js`
+- [X] T007 Definir la tabla de rutas y sus metadatos en `frontend-vue/src/router/routes.js` sin importar vistas; la conexión de componentes se completa en T013 y T017
+- [X] T008 Implementar la estructura de guardas en `frontend-vue/src/router/guards.js`
+- [X] T009 Implementar la frontera de sesión en `frontend-vue/src/stores/session.js` con estado de visitante por defecto
+- [X] T010 [P] Implementar la capa HTTP base en `frontend-vue/src/services/http.js` y `frontend-vue/src/services/errors.js`
+- [X] T011 [P] Crear tokens y estilos globales en `frontend-vue/src/styles/tokens.css` y `frontend-vue/src/styles/base.css`
+- [X] T012 Implementar el layout base en `frontend-vue/src/components/layout/AppShell.vue`
+- [X] T013 Crear las vistas de sustitución y 404 con contenido mínimo en `frontend-vue/src/views/PlaceholderView.vue` y `frontend-vue/src/views/NotFoundView.vue`
+- [X] T014 [P] Crear los componentes de formato con implementación inicial en `frontend-vue/src/components/common/PriceText.vue`, `frontend-vue/src/components/common/DateText.vue` y `frontend-vue/src/components/common/ImageWithFallback.vue`
+- [X] T015 [P] Crear el esqueleto de `StatePanel` con su API de props y eventos en `frontend-vue/src/components/states/StatePanel.vue`; las variantes se implementan en T033 y T034
+- [X] T016 Crear el esqueleto de `ConfirmAction` y configurar los servicios de Toast y confirmación en `frontend-vue/src/components/states/ConfirmAction.vue` y `frontend-vue/src/App.vue`; el diálogo accesible se implementa en T035
+- [X] T017 Conectar las vistas de sustitución con el router y configurar títulos de página en `frontend-vue/src/router/index.js`
 
 **Checkpoint**: La base del frontend está lista para que empiecen las historias.
 
@@ -69,16 +69,16 @@ description: "Task list for the 001-app-shell feature"
 
 ### Tests for User Story 1
 
-- [ ] T018 [P] [US1] Crear pruebas de cabecera y navegación en `frontend-vue/tests/components/AppHeader.spec.js` y `frontend-vue/tests/components/AppNav.spec.js`
+- [X] T018 [P] [US1] Crear pruebas de cabecera y navegación en `frontend-vue/tests/components/AppHeader.spec.js` y `frontend-vue/tests/components/AppNav.spec.js`
 
 ### Implementation for User Story 1
 
-- [ ] T019 [P] [US1] Implementar la cabecera en `frontend-vue/src/components/layout/AppHeader.vue`
-- [ ] T020 [P] [US1] Implementar la navegación y el estado activo en `frontend-vue/src/components/layout/AppNav.vue`
-- [ ] T021 [US1] Componer cabecera, navegación y contenido en `frontend-vue/src/components/layout/AppShell.vue` y `frontend-vue/src/App.vue`
-- [ ] T022 [US1] Implementar la visibilidad de acciones por sesión y la acción principal de creación en `frontend-vue/src/components/layout/AppHeader.vue`
-- [ ] T023 [US1] Conectar la navegación con el router y las rutas en `frontend-vue/src/components/layout/AppNav.vue` y `frontend-vue/src/router/index.js`
-- [ ] T024 [US1] Verificar la presentación responsive de la cabecera y la navegación en `frontend-vue/src/components/layout/AppShell.vue` y `frontend-vue/src/styles/base.css`
+- [X] T019 [P] [US1] Implementar la cabecera en `frontend-vue/src/components/layout/AppHeader.vue`
+- [X] T020 [P] [US1] Implementar la navegación y el estado activo en `frontend-vue/src/components/layout/AppNav.vue`
+- [X] T021 [US1] Componer cabecera, navegación y contenido en `frontend-vue/src/components/layout/AppShell.vue` y `frontend-vue/src/App.vue`
+- [X] T022 [US1] Implementar la visibilidad de acciones por sesión y la acción principal de creación en `frontend-vue/src/components/layout/AppHeader.vue`
+- [X] T023 [US1] Conectar la navegación con el router y las rutas en `frontend-vue/src/components/layout/AppNav.vue` y `frontend-vue/src/router/index.js`
+- [X] T024 [US1] Verificar la presentación responsive de la cabecera y la navegación en `frontend-vue/src/components/layout/AppShell.vue` y `frontend-vue/src/styles/base.css`
 
 **Checkpoint**: La estructura común y la navegación funcionan de forma independiente.
 
@@ -92,16 +92,16 @@ description: "Task list for the 001-app-shell feature"
 
 ### Tests for User Story 2
 
-- [ ] T025 [P] [US2] Crear pruebas de rutas y guardas en `frontend-vue/tests/router/routes.spec.js` y `frontend-vue/tests/router/guards.spec.js`
+- [X] T025 [P] [US2] Crear pruebas de rutas y guardas en `frontend-vue/tests/router/routes.spec.js` y `frontend-vue/tests/router/guards.spec.js`
 
 ### Implementation for User Story 2
 
-- [ ] T026 [P] [US2] Completar la página 404 con acción de vuelta al inicio en `frontend-vue/src/views/NotFoundView.vue`
-- [ ] T027 [US2] Configurar la ruta catch-all y los metadatos de acceso en `frontend-vue/src/router/routes.js`
-- [ ] T028 [US2] Implementar la redirección de rutas protegidas y el parámetro `redirect` en `frontend-vue/src/router/guards.js`
-- [ ] T029 [US2] Implementar la redirección de acceso y registro con sesión en `frontend-vue/src/router/guards.js`
-- [ ] T030 [US2] Completar el estado de sustitución para vistas no implementadas en `frontend-vue/src/views/PlaceholderView.vue`
-- [ ] T031 [US2] Integrar la restauración de la ruta solicitada tras el acceso en `frontend-vue/src/router/guards.js` y `frontend-vue/src/views/PlaceholderView.vue`
+- [X] T026 [P] [US2] Completar la página 404 con acción de vuelta al inicio en `frontend-vue/src/views/NotFoundView.vue`
+- [X] T027 [US2] Configurar la ruta catch-all y los metadatos de acceso en `frontend-vue/src/router/routes.js`
+- [X] T028 [US2] Implementar la redirección de rutas protegidas y el parámetro `redirect` en `frontend-vue/src/router/guards.js`
+- [X] T029 [US2] Implementar la redirección de acceso y registro con sesión en `frontend-vue/src/router/guards.js`
+- [X] T030 [US2] Completar el estado de sustitución para vistas no implementadas en `frontend-vue/src/views/PlaceholderView.vue`
+- [X] T031 [US2] Integrar la restauración de la ruta solicitada tras el acceso en `frontend-vue/src/router/guards.js` y `frontend-vue/src/views/PlaceholderView.vue`
 
 **Checkpoint**: Las URLs directas, el historial, las rutas protegidas y el 404 funcionan de forma independiente.
 
@@ -115,16 +115,16 @@ description: "Task list for the 001-app-shell feature"
 
 ### Tests for User Story 3
 
-- [ ] T032 [P] [US3] Crear pruebas de estados y confirmaciones en `frontend-vue/tests/components/StatePanel.spec.js` y `frontend-vue/tests/components/ConfirmAction.spec.js`
+- [X] T032 [P] [US3] Crear pruebas de estados y confirmaciones en `frontend-vue/tests/components/StatePanel.spec.js` y `frontend-vue/tests/components/ConfirmAction.spec.js`
 
 ### Implementation for User Story 3
 
-- [ ] T033 [P] [US3] Implementar las variantes de carga, vacío, error, validación, permisos y éxito en `frontend-vue/src/components/states/StatePanel.vue`
-- [ ] T034 [US3] Implementar reintento, acción principal y asociación de errores de campo en `frontend-vue/src/components/states/StatePanel.vue`
-- [ ] T035 [P] [US3] Implementar el diálogo de confirmación accesible en `frontend-vue/src/components/states/ConfirmAction.vue`
-- [ ] T036 [P] [US3] Implementar notificaciones de éxito y error en `frontend-vue/src/App.vue` y `frontend-vue/src/main.js`
-- [ ] T037 [US3] Mapear errores HTTP a estados de interfaz en `frontend-vue/src/services/errors.js` y `frontend-vue/src/components/states/StatePanel.vue`
-- [ ] T038 [US3] Añadir mensajes en español y evitar detalles técnicos en `frontend-vue/src/components/states/StatePanel.vue`
+- [X] T033 [P] [US3] Implementar las variantes de carga, vacío, error, validación, permisos y éxito en `frontend-vue/src/components/states/StatePanel.vue`
+- [X] T034 [US3] Implementar reintento, acción principal y asociación de errores de campo en `frontend-vue/src/components/states/StatePanel.vue`
+- [X] T035 [P] [US3] Implementar el diálogo de confirmación accesible en `frontend-vue/src/components/states/ConfirmAction.vue`
+- [X] T036 [P] [US3] Implementar notificaciones de éxito y error en `frontend-vue/src/App.vue` y `frontend-vue/src/main.js`
+- [X] T037 [US3] Mapear errores HTTP a estados de interfaz en `frontend-vue/src/services/errors.js` y `frontend-vue/src/components/states/StatePanel.vue`
+- [X] T038 [US3] Añadir mensajes en español y evitar detalles técnicos en `frontend-vue/src/components/states/StatePanel.vue`
 
 **Checkpoint**: Los estados y las confirmaciones son coherentes y reutilizables.
 
@@ -138,16 +138,16 @@ description: "Task list for the 001-app-shell feature"
 
 ### Tests for User Story 4
 
-- [ ] T039 [P] [US4] Crear pruebas de accesibilidad, formato y títulos en `frontend-vue/tests/components/accessibility.spec.js` y `frontend-vue/tests/components/formatting.spec.js`
+- [X] T039 [P] [US4] Crear pruebas de accesibilidad, formato y títulos en `frontend-vue/tests/components/accessibility.spec.js` y `frontend-vue/tests/components/formatting.spec.js`
 
 ### Implementation for User Story 4
 
-- [ ] T040 [P] [US4] Aplicar tokens de color, tipografía, espaciado y forma en `frontend-vue/src/styles/tokens.css` y `frontend-vue/src/styles/base.css`
-- [ ] T041 [US4] Añadir enlace de salto, landmarks y jerarquía semántica en `frontend-vue/src/components/layout/AppShell.vue` y `frontend-vue/src/components/layout/AppHeader.vue`
-- [ ] T042 [US4] Implementar gestión de foco al cambiar de ruta en `frontend-vue/src/router/index.js`
-- [ ] T043 [P] [US4] Completar formatos de precio, fecha e imagen en `frontend-vue/src/components/common/PriceText.vue`, `frontend-vue/src/components/common/DateText.vue` y `frontend-vue/src/components/common/ImageWithFallback.vue`
-- [ ] T044 [US4] Ajustar el layout a 360 px sin desplazamiento horizontal en `frontend-vue/src/components/layout/AppShell.vue` y `frontend-vue/src/styles/base.css`
-- [ ] T045 [US4] Verificar títulos de página, textos en español y textos alternativos en `frontend-vue/src/router/index.js` y `frontend-vue/src/components/common/ImageWithFallback.vue`
+- [X] T040 [P] [US4] Aplicar tokens de color, tipografía, espaciado y forma en `frontend-vue/src/styles/tokens.css` y `frontend-vue/src/styles/base.css`
+- [X] T041 [US4] Añadir enlace de salto, landmarks y jerarquía semántica en `frontend-vue/src/components/layout/AppShell.vue` y `frontend-vue/src/components/layout/AppHeader.vue`
+- [X] T042 [US4] Implementar gestión de foco al cambiar de ruta en `frontend-vue/src/router/index.js`
+- [X] T043 [P] [US4] Completar formatos de precio, fecha e imagen en `frontend-vue/src/components/common/PriceText.vue`, `frontend-vue/src/components/common/DateText.vue` y `frontend-vue/src/components/common/ImageWithFallback.vue`
+- [X] T044 [US4] Ajustar el layout a 360 px sin desplazamiento horizontal en `frontend-vue/src/components/layout/AppShell.vue` y `frontend-vue/src/styles/base.css`
+- [X] T045 [US4] Verificar títulos de página, textos en español y textos alternativos en `frontend-vue/src/router/index.js` y `frontend-vue/src/components/common/ImageWithFallback.vue`
 
 **Checkpoint**: La estructura es accesible, coherente y usable en móvil.
 
@@ -157,11 +157,11 @@ description: "Task list for the 001-app-shell feature"
 
 **Purpose**: Cerrar documentación, validación y calidad transversal.
 
-- [ ] T046 [P] Actualizar `README.md` con instalación, variables de entorno, arranque, pruebas y limitaciones del frontend
-- [ ] T047 Revisar que no haya comentarios en el código nuevo y que los componentes no llamen a `fetch` directamente en `frontend-vue/src/`
-- [ ] T048 Ejecutar `npm run test:unit` y `npm run build` en `frontend-vue/` y registrar el resultado
-- [ ] T049 Ejecutar la validación manual de `specs/001-app-shell/quickstart.md` y registrar rutas, 404, teclado y 360 px
-- [ ] T050 Confirmar que `backend/` no se ha modificado y documentar las rutas de sustitución en `README.md`
+- [X] T046 [P] Actualizar `README.md` con instalación, variables de entorno, arranque, pruebas y limitaciones del frontend
+- [X] T047 Revisar que no haya comentarios en el código nuevo y que los componentes no llamen a `fetch` directamente en `frontend-vue/src/`
+- [X] T048 Ejecutar `npm run test:unit` y `npm run build` en `frontend-vue/` y registrar el resultado
+- [X] T049 Ejecutar la validación manual de `specs/001-app-shell/quickstart.md` y registrar rutas, 404, teclado y 360 px
+- [X] T050 Confirmar que `backend/` no se ha modificado y documentar las rutas de sustitución en `README.md`
 
 ---
 
