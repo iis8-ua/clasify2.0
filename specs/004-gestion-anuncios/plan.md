@@ -145,7 +145,7 @@ Resultado en [research.md](research.md). Decisiones principales:
 - Envío JSON sin imagen y `FormData` con imagen.
 - Edición parcial: solo campos modificados; sin cambios no se envía.
 - Cancelación local con confirmación si hay cambios.
-- Confirmaciones PrimeVue para eliminar y marcar como vendido.
+- Confirmaciones con el componente compartido `ConfirmAction`, basado en PrimeVue ConfirmDialog, para eliminar y marcar como vendido.
 - Actualización de listado y detalle mediante la store de 003.
 - Vitest para servicio, store, formularios, acciones y confirmaciones.
 

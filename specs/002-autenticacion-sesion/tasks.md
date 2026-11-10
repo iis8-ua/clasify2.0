@@ -45,10 +45,10 @@ description: "Task list for the 002-autenticacion-sesion feature"
 - [ ] T004 [P] Implementar el estado de sesión en `frontend-vue/src/stores/session.js` con token, usuario, estado, error y `sessionVersion`
 - [ ] T005 Implementar el almacenamiento del token en `sessionStorage` con la clave `clasify.session.token` en `frontend-vue/src/stores/session.js`
 - [ ] T006 Integrar la store de sesión con la capa HTTP en `frontend-vue/src/services/http.js` y `frontend-vue/src/stores/session.js`
-- [ ] T007 Implementar la distinción entre `401` de sesión y `401` de credenciales en `frontend-vue/src/services/errors.js` y `frontend-vue/src/stores/session.js`
-- [ ] T008 Implementar las guardas de rutas protegidas y de acceso/registro en `frontend-vue/src/router/guards.js`
+- [ ] T007 Definir la clasificación de códigos `401` y el contrato de error en `frontend-vue/src/services/errors.js`, sin limpiar la sesión en esta tarea
+- [ ] T008 Implementar las guardas base de rutas protegidas y de acceso/registro en `frontend-vue/src/router/guards.js`, sin la lógica de retorno tras sesión caducada
 - [ ] T009 [P] Implementar la tarjeta compartida de autenticación en `frontend-vue/src/components/auth/AuthCard.vue`
-- [ ] T010 Implementar la restauración inicial de sesión en `frontend-vue/src/main.js` y `frontend-vue/src/App.vue`
+- [ ] T010 Preparar el punto de arranque para invocar la restauración una sola vez en `frontend-vue/src/main.js` y `frontend-vue/src/App.vue`, sin implementar la lógica de `/auth/yo`
 - [ ] T011 Implementar el contrato de limpieza de datos privados mediante `sessionVersion` en `frontend-vue/src/stores/session.js`
 
 **Checkpoint**: La base de autenticación está lista para las historias.
@@ -112,7 +112,7 @@ description: "Task list for the 002-autenticacion-sesion feature"
 
 ### Implementation for User Story 3
 
-- [ ] T026 [US3] Implementar la comprobación de `/auth/yo` al arrancar con token en `frontend-vue/src/stores/session.js` y `frontend-vue/src/main.js`
+- [ ] T026 [US3] Implementar la restauración de sesión con token y `/auth/yo`, incluyendo estados y transiciones, en `frontend-vue/src/stores/session.js`
 - [ ] T027 [US3] Mostrar el estado de comprobación y evitar acciones privadas prematuras en `frontend-vue/src/App.vue` y `frontend-vue/src/components/layout/AppHeader.vue`
 - [ ] T028 [US3] Implementar el reintento ante error de conexión al comprobar la sesión en `frontend-vue/src/stores/session.js` y `frontend-vue/src/App.vue`
 - [ ] T029 [US3] Sincronizar la cabecera con el usuario restaurado en `frontend-vue/src/components/layout/AppHeader.vue`

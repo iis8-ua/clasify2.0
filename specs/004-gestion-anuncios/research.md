@@ -94,7 +94,7 @@
 
 ### 8. Confirmaciones de eliminar y marcar como vendido
 
-**Decision**: usar el diálogo de confirmación de PrimeVue para eliminar y para marcar como vendido. Cancelar no ejecuta la acción. Volver a disponible no requiere confirmación.
+**Decision**: usar el componente compartido `ConfirmAction` de 001, basado en PrimeVue ConfirmDialog, para eliminar y para marcar como vendido. Cancelar no ejecuta la acción. Volver a disponible no requiere confirmación.
 
 **Rationale**: eliminar es irreversible y marcar como vendido retira el anuncio del listado por defecto. Volver a disponible es una acción reversible y directa.
 

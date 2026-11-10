@@ -311,6 +311,8 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - La contraseña nueva debe tener al menos ocho caracteres y requiere la contraseña actual.
 - Una contraseña actual incorrecta no invalida la sesión ni se trata como sesión caducada.
 - La sesión actual se mantiene después de cambiar la contraseña.
+- La etiqueta visible “Mis anuncios” se usa en la interfaz; “anuncios propios” es el término técnico
+  en requisitos y documentación.
 - La lista de anuncios propios incluye anuncios vendidos y los muestra con su estado.
 - La lista de anuncios propios se ordena por fecha de creación, del más reciente al más antiguo, y
   usa 20 elementos por página.

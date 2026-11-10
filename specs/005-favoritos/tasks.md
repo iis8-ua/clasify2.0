@@ -44,7 +44,7 @@ description: "Task list for the 005-favoritos feature"
 - [ ] T003 [P] Implementar `favoritosService` con añadir, quitar y listar en `frontend-vue/src/services/favoritosService.js`
 - [ ] T004 [P] Implementar `favoritosStore` con estado de lista, operaciones y errores en `frontend-vue/src/stores/favoritos.js`
 - [ ] T005 Implementar la limpieza de favoritos al cambiar `sessionVersion` en `frontend-vue/src/stores/favoritos.js`
-- [ ] T006 Sustituir el placeholder de la ruta `/favoritos` por la vista real en `frontend-vue/src/router/routes.js`
+- [ ] T006 Configurar la ruta `/favoritos` apuntando a `PlaceholderView` en `frontend-vue/src/router/routes.js`; la vista real se conecta en T016
 - [ ] T007 [P] Mapear errores de favoritos a estados de interfaz en `frontend-vue/src/services/errors.js`
 - [ ] T008 Asegurar que `/favoritos` es una ruta protegida en `frontend-vue/src/router/routes.js` y `frontend-vue/src/router/guards.js`
 
@@ -86,7 +86,7 @@ description: "Task list for the 005-favoritos feature"
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Implementar la vista de favoritos en `frontend-vue/src/views/FavoritosView.vue`
+- [ ] T016 [US2] Implementar la vista de favoritos en `frontend-vue/src/views/FavoritosView.vue` y sustituir la ruta `/favoritos` por esa vista
 - [ ] T017 [US2] Reutilizar las tarjetas del catálogo y mostrar el estado vendido en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/components/catalog/AnuncioCard.vue`
 - [ ] T018 [US2] Implementar estados de carga, vacío, error y reintento en `frontend-vue/src/views/FavoritosView.vue`
 - [ ] T019 [US2] Gestionar anuncios eliminados y detalle no encontrado en `frontend-vue/src/views/FavoritosView.vue` y `frontend-vue/src/views/AnuncioDetalleView.vue`
@@ -104,7 +104,7 @@ description: "Task list for the 005-favoritos feature"
 
 ### Tests for User Story 3
 
-- [ ] T021 [P] [US3] Crear pruebas de paginación de favoritos en `frontend-vue/tests/favoritos/pagination.spec.js`
+- [ ] T021 [P] [US3] Crear pruebas de paginación con un fixture de más de 20 favoritos en `frontend-vue/tests/favoritos/pagination.spec.js`
 
 ### Implementation for User Story 3
 

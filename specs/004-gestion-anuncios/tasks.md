@@ -30,7 +30,7 @@ description: "Task list for the 004-gestion-anuncios feature"
 
 **Purpose**: Confirmar la base de 001–003 y preparar la estructura de gestión.
 
-- [ ] T001 Confirmar la base de 001–003, la capa HTTP, la sesión y el catálogo, sin añadir dependencias nuevas
+- [ ] T001 Confirmar la base de 001–003, la capa HTTP, la sesión y el catálogo en `frontend-vue/package.json`, sin añadir dependencias nuevas
 - [ ] T002 [P] Crear la estructura de componentes y pruebas de gestión en `frontend-vue/src/components/anuncios/` y `frontend-vue/tests/gestion/`
 
 ---
@@ -43,13 +43,13 @@ description: "Task list for the 004-gestion-anuncios feature"
 
 - [ ] T003 [P] Ampliar `anunciosService` con crear, editar, cambiar estado y eliminar en `frontend-vue/src/services/anunciosService.js`
 - [ ] T004 [P] Ampliar `anunciosStore` con las acciones de escritura y la invalidación de listado/detalle en `frontend-vue/src/stores/anuncios.js`
-- [ ] T005 [P] Implementar la base del formulario compartido en `frontend-vue/src/components/anuncios/AnuncioForm.vue`
-- [ ] T006 [P] Implementar el control de imagen y la previsualización en `frontend-vue/src/components/anuncios/CampoImagen.vue`
-- [ ] T007 Verificar la integración de PrimeVue ConfirmDialog y Toast en `frontend-vue/src/App.vue` y `frontend-vue/src/main.js`
-- [ ] T008 Sustituir los placeholders de creación y edición por rutas reales en `frontend-vue/src/router/routes.js`
+- [ ] T005 [P] Crear el esqueleto y la API del formulario compartido en `frontend-vue/src/components/anuncios/AnuncioForm.vue`, sin lógica de envío
+- [ ] T006 [P] Crear el control de imagen y la previsualización básica en `frontend-vue/src/components/anuncios/CampoImagen.vue`, sin subida
+- [ ] T007 Verificar los servicios de Toast y el componente compartido `ConfirmAction` en `frontend-vue/src/App.vue` y `frontend-vue/src/main.js`, sin implementar confirmaciones específicas
+- [ ] T008 Definir las rutas de creación y edición apuntando a `PlaceholderView` en `frontend-vue/src/router/routes.js`; las vistas reales se conectan en T014 y T021
 - [ ] T009 Mapear errores de escritura, permisos, imagen y conexión en `frontend-vue/src/services/errors.js`
-- [ ] T010 Implementar la actualización de detalle y listado tras una operación en `frontend-vue/src/stores/anuncios.js`
-- [ ] T011 Implementar la validación compartida de título, descripción, precio, categoría e imagen en `frontend-vue/src/components/anuncios/AnuncioForm.vue`
+- [ ] T010 Definir la invalidación y actualización de detalle y listado en `frontend-vue/src/stores/anuncios.js`, sin conectar operaciones concretas
+- [ ] T011 Implementar las reglas de validación compartidas en `frontend-vue/src/components/anuncios/AnuncioForm.vue`; la presentación de errores se completa en T016
 
 **Checkpoint**: La base de gestión está lista para las historias.
 
@@ -68,7 +68,7 @@ description: "Task list for the 004-gestion-anuncios feature"
 ### Implementation for User Story 1
 
 - [ ] T013 [US1] Implementar el modo de creación del formulario en `frontend-vue/src/components/anuncios/AnuncioForm.vue`
-- [ ] T014 [US1] Implementar la vista de creación en `frontend-vue/src/views/AnuncioCrearView.vue`
+- [ ] T014 [US1] Implementar la vista de creación en `frontend-vue/src/views/AnuncioCrearView.vue` y sustituir la ruta de creación por esa vista
 - [ ] T015 [US1] Conectar la creación con el servicio y la store en `frontend-vue/src/views/AnuncioCrearView.vue` y `frontend-vue/src/stores/anuncios.js`
 - [ ] T016 [US1] Mostrar errores de validación por campo y conservar datos ante fallos en `frontend-vue/src/components/anuncios/AnuncioForm.vue`
 - [ ] T017 [US1] Implementar la subida y previsualización de una imagen opcional en `frontend-vue/src/components/anuncios/CampoImagen.vue`
@@ -91,7 +91,7 @@ description: "Task list for the 004-gestion-anuncios feature"
 
 ### Implementation for User Story 2
 
-- [ ] T021 [US2] Implementar la vista de edición en `frontend-vue/src/views/AnuncioEditarView.vue`
+- [ ] T021 [US2] Implementar la vista de edición en `frontend-vue/src/views/AnuncioEditarView.vue` y sustituir la ruta de edición por esa vista
 - [ ] T022 [US2] Precargar los valores actuales del anuncio en `frontend-vue/src/views/AnuncioEditarView.vue` y `frontend-vue/src/components/anuncios/AnuncioForm.vue`
 - [ ] T023 [US2] Enviar solo los campos modificados y evitar el envío sin cambios en `frontend-vue/src/components/anuncios/AnuncioForm.vue`
 - [ ] T024 [US2] Permitir sustituir la imagen actual y mostrar la imagen existente en `frontend-vue/src/components/anuncios/CampoImagen.vue`
@@ -135,7 +135,7 @@ description: "Task list for the 004-gestion-anuncios feature"
 ### Implementation for User Story 4
 
 - [ ] T032 [US4] Implementar el componente de acciones del detalle en `frontend-vue/src/components/anuncios/AccionesAnuncio.vue`
-- [ ] T033 [US4] Implementar la confirmación de eliminación con el título del anuncio en `frontend-vue/src/components/anuncios/AccionesAnuncio.vue`
+- [ ] T033 [US4] Implementar la confirmación de eliminación con el título del anuncio usando `ConfirmAction` en `frontend-vue/src/components/anuncios/AccionesAnuncio.vue`
 - [ ] T034 [US4] Conectar la eliminación con el servicio, la store y la navegación al listado en `frontend-vue/src/components/anuncios/AccionesAnuncio.vue` y `frontend-vue/src/stores/anuncios.js`
 - [ ] T035 [US4] Gestionar cancelación, `403`, `404`, `401` y error de conexión en `frontend-vue/src/components/anuncios/AccionesAnuncio.vue`
 - [ ] T036 [US4] Mostrar las acciones de gestión solo al autor en `frontend-vue/src/components/anuncios/AccionesAnuncio.vue`
@@ -157,7 +157,7 @@ description: "Task list for the 004-gestion-anuncios feature"
 ### Implementation for User Story 5
 
 - [ ] T038 [US5] Implementar la acción de cambiar estado en `frontend-vue/src/components/anuncios/AccionesAnuncio.vue`
-- [ ] T039 [US5] Solicitar confirmación solo al marcar como vendido en `frontend-vue/src/components/anuncios/AccionesAnuncio.vue`
+- [ ] T039 [US5] Solicitar confirmación con `ConfirmAction` solo al marcar como vendido en `frontend-vue/src/components/anuncios/AccionesAnuncio.vue`
 - [ ] T040 [US5] Actualizar detalle, listado y estado local tras el cambio en `frontend-vue/src/stores/anuncios.js` y `frontend-vue/src/components/anuncios/AccionesAnuncio.vue`
 - [ ] T041 [US5] Gestionar volver a disponible, `403`, `404` y `401` en `frontend-vue/src/components/anuncios/AccionesAnuncio.vue`
 

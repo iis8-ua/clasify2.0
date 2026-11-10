@@ -45,17 +45,17 @@ description: "Task list for the 001-app-shell feature"
 
 **⚠️ CRITICAL**: Ninguna historia puede empezar hasta completar esta fase.
 
-- [ ] T007 Definir las rutas y sus metadatos en `frontend-vue/src/router/routes.js`
+- [ ] T007 Definir la tabla de rutas y sus metadatos en `frontend-vue/src/router/routes.js` sin importar vistas; la conexión de componentes se completa en T013 y T017
 - [ ] T008 Implementar la estructura de guardas en `frontend-vue/src/router/guards.js`
 - [ ] T009 Implementar la frontera de sesión en `frontend-vue/src/stores/session.js` con estado de visitante por defecto
 - [ ] T010 [P] Implementar la capa HTTP base en `frontend-vue/src/services/http.js` y `frontend-vue/src/services/errors.js`
 - [ ] T011 [P] Crear tokens y estilos globales en `frontend-vue/src/styles/tokens.css` y `frontend-vue/src/styles/base.css`
 - [ ] T012 Implementar el layout base en `frontend-vue/src/components/layout/AppShell.vue`
-- [ ] T013 Implementar las vistas de sustitución y 404 en `frontend-vue/src/views/PlaceholderView.vue` y `frontend-vue/src/views/NotFoundView.vue`
-- [ ] T014 [P] Implementar formatos comunes en `frontend-vue/src/components/common/PriceText.vue`, `frontend-vue/src/components/common/DateText.vue` y `frontend-vue/src/components/common/ImageWithFallback.vue`
-- [ ] T015 [P] Implementar el panel de estados en `frontend-vue/src/components/states/StatePanel.vue`
-- [ ] T016 Implementar el contenedor de confirmación y notificaciones en `frontend-vue/src/components/states/ConfirmAction.vue` y `frontend-vue/src/App.vue`
-- [ ] T017 Configurar títulos de página y sincronización con el router en `frontend-vue/src/router/index.js`
+- [ ] T013 Crear las vistas de sustitución y 404 con contenido mínimo en `frontend-vue/src/views/PlaceholderView.vue` y `frontend-vue/src/views/NotFoundView.vue`
+- [ ] T014 [P] Crear los componentes de formato con implementación inicial en `frontend-vue/src/components/common/PriceText.vue`, `frontend-vue/src/components/common/DateText.vue` y `frontend-vue/src/components/common/ImageWithFallback.vue`
+- [ ] T015 [P] Crear el esqueleto de `StatePanel` con su API de props y eventos en `frontend-vue/src/components/states/StatePanel.vue`; las variantes se implementan en T033 y T034
+- [ ] T016 Crear el esqueleto de `ConfirmAction` y configurar los servicios de Toast y confirmación en `frontend-vue/src/components/states/ConfirmAction.vue` y `frontend-vue/src/App.vue`; el diálogo accesible se implementa en T035
+- [ ] T017 Conectar las vistas de sustitución con el router y configurar títulos de página en `frontend-vue/src/router/index.js`
 
 **Checkpoint**: La base del frontend está lista para que empiecen las historias.
 

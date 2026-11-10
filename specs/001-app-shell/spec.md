@@ -84,8 +84,9 @@ contenido, ha fallado o ha completado una acción, para entender qué ocurre en 
 ausencia de datos. La aplicación necesita un lenguaje visual común para los estados antes de
 implementar las vistas de negocio.
 
-**Independent Test**: se puede comprobar recorriendo las vistas de ejemplo del shell y verificando
-que cada estado se distingue del resto y ofrece la información o acción esperada.
+**Independent Test**: se puede comprobar con pruebas de los componentes de estado y con las vistas
+de sustitución del shell, verificando que cada estado se distingue del resto y ofrece la información
+o acción esperada.
 
 **Acceptance Scenarios**:
 

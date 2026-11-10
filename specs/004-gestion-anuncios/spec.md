@@ -13,7 +13,7 @@
 ### Session 2026-11-10
 
 - Q: ¿Dónde deben estar disponibles las acciones de editar, eliminar y cambiar estado de un anuncio propio? → A: Solo en el detalle; la lista de anuncios propios solo abre el detalle.
-- Q: ¿Dónde debe aparecer la acción de crear un anuncio? → A: En la cabecera y en el estado vacío de “Mis anuncios”.
+- Q: ¿Dónde debe aparecer la acción de crear un anuncio? → A: En la cabecera; el estado vacío de “Mis anuncios” pertenece a 006 y abre la misma ruta.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -30,9 +30,10 @@ publicando un anuncio válido y verificando que aparece en su detalle y en el li
 
 **Acceptance Scenarios**:
 
-1. **Given** un usuario autenticado, **When** abre el formulario de creación desde la cabecera o
-   desde el estado vacío de “Mis anuncios”, **Then** ve los campos título, descripción, precio,
-   categoría e imagen opcional.
+1. **Given** un usuario autenticado, **When** abre el formulario de creación desde la cabecera,
+   **Then** ve los campos título, descripción, precio, categoría e imagen opcional. La llamada
+   contextual del estado vacío de “Mis anuncios” se implementa en la spec 006 y abre esta misma
+   ruta.
 2. **Given** un formulario completo y válido, **When** el usuario lo envía, **Then** el anuncio se
    crea, se muestra una confirmación y se abre su detalle.
 3. **Given** un formulario con datos inválidos, **When** el usuario intenta enviarlo, **Then** ve los
@@ -286,8 +287,9 @@ teclado y en una pantalla de 360 píxeles de ancho.
 - **FR-035**: Las acciones de editar, eliminar y cambiar estado MUST ofrecerse únicamente desde el
   detalle del anuncio; la lista de anuncios propios MUST limitarse a mostrar los anuncios y abrir su
   detalle.
-- **FR-036**: La creación de un anuncio MUST iniciarse desde la acción principal de la cabecera y
-  desde la llamada contextual del estado vacío de “Mis anuncios”.
+- **FR-036**: La creación de un anuncio MUST iniciarse desde la acción principal de la cabecera. La
+  llamada contextual del estado vacío de “Mis anuncios” MUST abrir esta misma ruta y se implementa
+  en la spec 006.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -333,8 +335,8 @@ teclado y en una pantalla de 360 píxeles de ancho.
   operaciones de gestión.
 - **SC-017**: El 100 % de las acciones de edición, eliminación y cambio de estado se ofrece únicamente
   desde el detalle; la lista de anuncios propios solo permite abrir el detalle.
-- **SC-018**: El 100 % de los usuarios autenticados puede iniciar la creación desde la cabecera y
-  desde el estado vacío de “Mis anuncios”.
+- **SC-018**: El 100 % de los usuarios autenticados puede iniciar la creación desde la cabecera. La
+  acción del estado vacío de “Mis anuncios” se valida en la spec 006 mediante SC-020.
 
 ## Assumptions
 
@@ -347,8 +349,8 @@ teclado y en una pantalla de 360 píxeles de ancho.
   independientemente de la interfaz.
 - Las acciones de editar, eliminar y cambiar estado se realizan únicamente desde el detalle; la lista
   de anuncios propios solo abre el detalle.
-- La creación se inicia desde la acción principal de la cabecera y desde el estado vacío de “Mis
-  anuncios”.
+- La creación se inicia desde la acción principal de la cabecera. La llamada contextual del estado
+  vacío de “Mis anuncios” pertenece a la spec 006 y reutiliza esta ruta.
 - Las categorías se obtienen del catálogo real y no se codifican en el formulario.
 - La imagen es opcional y única; puede sustituirse, pero no eliminarse sin subir otra.
 - El cambio de estado se realiza mediante una acción separada de la edición de datos.

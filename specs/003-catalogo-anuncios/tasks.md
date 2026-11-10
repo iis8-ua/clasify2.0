@@ -46,7 +46,7 @@ description: "Task list for the 003-catalogo-anuncios feature"
 - [ ] T005 Implementar `anunciosStore` con listado, detalle, paginación y filtros en `frontend-vue/src/stores/anuncios.js`
 - [ ] T006 Implementar `categoriasStore` con mapa `id → nombre` en `frontend-vue/src/stores/categorias.js`
 - [ ] T007 Implementar lectura y escritura de query de URL en `frontend-vue/src/router/catalogQuery.js`
-- [ ] T008 Sustituir los placeholders de listado y detalle por rutas reales en `frontend-vue/src/router/routes.js`
+- [ ] T008 Definir las rutas `/` y `/anuncios/:id` apuntando a `PlaceholderView` en `frontend-vue/src/router/routes.js`; las vistas reales se conectan en T015 y T020
 - [ ] T009 Mapear errores de catálogo a estados de interfaz en `frontend-vue/src/services/errors.js`
 - [ ] T010 Implementar el contador de solicitud para descartar respuestas obsoletas en `frontend-vue/src/stores/anuncios.js`
 - [ ] T011 Cargar todas las categorías, recorriendo páginas si es necesario, en `frontend-vue/src/stores/categorias.js`
@@ -67,9 +67,9 @@ description: "Task list for the 003-catalogo-anuncios feature"
 
 ### Implementation for User Story 1
 
-- [ ] T013 [P] [US1] Implementar la tarjeta de anuncio en `frontend-vue/src/components/catalog/AnuncioCard.vue`
+- [ ] T013 [P] [US1] Implementar la tarjeta y el badge de estado en `frontend-vue/src/components/catalog/AnuncioCard.vue` y `frontend-vue/src/components/catalog/EstadoAnuncioBadge.vue`
 - [ ] T014 [P] [US1] Implementar la cuadrícula de anuncios en `frontend-vue/src/components/catalog/AnuncioGrid.vue`
-- [ ] T015 [US1] Implementar la vista del listado en `frontend-vue/src/views/AnunciosListView.vue`
+- [ ] T015 [US1] Implementar la vista del listado en `frontend-vue/src/views/AnunciosListView.vue` y sustituir la ruta `/` por esa vista
 - [ ] T016 [US1] Conectar el listado con `anunciosStore` en `frontend-vue/src/views/AnunciosListView.vue` y `frontend-vue/src/stores/anuncios.js`
 - [ ] T017 [US1] Implementar estados de carga, vacío y error con reintento en `frontend-vue/src/views/AnunciosListView.vue`
 - [ ] T018 [US1] Resolver el nombre de categoría y evitar el nombre de autor en `frontend-vue/src/components/catalog/AnuncioCard.vue`
@@ -90,7 +90,7 @@ description: "Task list for the 003-catalogo-anuncios feature"
 
 ### Implementation for User Story 2
 
-- [ ] T020 [US2] Implementar la vista de detalle en `frontend-vue/src/views/AnuncioDetalleView.vue`
+- [ ] T020 [US2] Implementar la vista de detalle en `frontend-vue/src/views/AnuncioDetalleView.vue` y sustituir la ruta `/anuncios/:id` por esa vista
 - [ ] T021 [US2] Conectar el detalle con `anunciosStore` en `frontend-vue/src/views/AnuncioDetalleView.vue` y `frontend-vue/src/stores/anuncios.js`
 - [ ] T022 [US2] Mostrar autor, biografía, categoría y resumen de valoraciones en `frontend-vue/src/views/AnuncioDetalleView.vue`
 - [ ] T023 [US2] Mostrar número de favoritos y estado de favorito informativo en `frontend-vue/src/views/AnuncioDetalleView.vue`

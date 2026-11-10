@@ -44,7 +44,7 @@ description: "Task list for the 006-perfil feature"
 - [ ] T003 [P] Implementar `usuariosService` con perfil, edición y anuncios propios en `frontend-vue/src/services/usuariosService.js`
 - [ ] T004 [P] Implementar `perfilStore` con perfil, anuncios propios y estados en `frontend-vue/src/stores/perfil.js`
 - [ ] T005 Implementar la limpieza de perfil y anuncios propios al cambiar `sessionVersion` en `frontend-vue/src/stores/perfil.js`
-- [ ] T006 Sustituir el placeholder de la ruta `/perfil` por la vista real en `frontend-vue/src/router/routes.js`
+- [ ] T006 Configurar la ruta `/perfil` apuntando a `PlaceholderView` en `frontend-vue/src/router/routes.js`; la vista real se conecta en T011
 - [ ] T007 [P] Mapear errores de perfil y contraseña a estados de interfaz en `frontend-vue/src/services/errors.js`
 - [ ] T008 Asegurar que `/perfil` es una ruta protegida en `frontend-vue/src/router/routes.js` y `frontend-vue/src/router/guards.js`
 
@@ -65,7 +65,7 @@ description: "Task list for the 006-perfil feature"
 ### Implementation for User Story 1
 
 - [ ] T010 [US1] Implementar el bloque de datos del perfil en `frontend-vue/src/components/perfil/PerfilDatos.vue`
-- [ ] T011 [US1] Implementar la vista de perfil en `frontend-vue/src/views/PerfilView.vue`
+- [ ] T011 [US1] Implementar la vista de perfil en `frontend-vue/src/views/PerfilView.vue` y sustituir la ruta `/perfil` por esa vista
 - [ ] T012 [US1] Cargar el perfil con estados de carga, error y reintento en `frontend-vue/src/views/PerfilView.vue` y `frontend-vue/src/stores/perfil.js`
 - [ ] T013 [US1] Mostrar el email como dato informativo y no editable en `frontend-vue/src/components/perfil/PerfilDatos.vue`
 - [ ] T014 [US1] Mostrar fecha de alta y resumen de valoraciones en `frontend-vue/src/components/perfil/PerfilDatos.vue`
