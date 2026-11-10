@@ -118,9 +118,9 @@ valoraciones y CORS.
 ## Frontend Vue
 
 El frontend está en `frontend-vue/` y usa Vue 3, Vite, Pinia, Vue Router,
-PrimeVue y `fetch`. La base común, la autenticación y el catálogo están
-implementados; el resto de vistas se incorporan con las especificaciones de
-`specs/`.
+PrimeVue y `fetch`. La base común, la autenticación, el catálogo y la gestión de
+anuncios están implementados; el resto de vistas se incorporan con las
+especificaciones de `specs/`.
 
 Requisitos:
 
@@ -154,8 +154,8 @@ npm run preview
 Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<fichero>`.
 
 Las rutas cuyas vistas aún no se han implementado muestran una vista de
-sustitución accesible. La gestión, los favoritos y el perfil se incorporan en las
-especificaciones `specs/004` a `specs/006`.
+sustitución accesible. Los favoritos y el perfil se incorporan en las
+especificaciones `specs/005` y `specs/006`.
 
 ### Autenticación
 
@@ -176,6 +176,18 @@ especificaciones `specs/004` a `specs/006`.
 - Página y filtros conservados en la dirección.
 - Estados de carga, vacío, error, no encontrado e identificador inválido.
 - Las acciones de gestión y de favoritos se incorporan en `004` y `005`.
+
+### Gestión de anuncios
+
+- Crear anuncio desde la cabecera.
+- Editar solo los campos modificados.
+- Cancelar la edición sin guardar.
+- Eliminar con confirmación.
+- Cambiar entre disponible y vendido.
+- Subida de una imagen JPEG, PNG o WebP de hasta 5 MB.
+- Aviso de cambios sin guardar.
+- Acciones de gestión únicamente en el detalle y solo para el autor.
+- La acción de creación del estado vacío de “Mis anuncios” se completa en `006`.
 
 ### CORS
 
