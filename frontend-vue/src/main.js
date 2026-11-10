@@ -9,6 +9,7 @@ import { useSessionStore } from './stores/session'
 import { useFavoritosStore } from './stores/favoritos'
 import { usePerfilStore } from './stores/perfil'
 import { configurarHttp } from './services/http'
+import { esErrorDeSesion } from './services/errors'
 import { ClasifyPreset } from './styles/primevue-theme'
 import './styles/tokens.css'
 import './styles/base.css'
@@ -30,12 +31,30 @@ async function bootstrap() {
     perfil.sincronizarSesion(estado.sessionVersion)
   })
 
-  configurarHttp({
-    getToken: () => session.token,
-    onUnauthorized: (error) => session.manejarNoAutorizado(error)
-  })
+  const apiUrl = import.meta.env.VITE_API_URL
+  if (!apiUrl) {
+    throw new Error('Falta VITE_API_URL. Copia frontend-vue/.env.example a frontend-vue/.env')
+  }
+  if (!apiUrl.includes('/clasify_api')) {
+    throw new Error('VITE_API_URL debe incluir la ruta /clasify_api')
+  }
 
-  await session.restaurarSesion()
+  configurarHttp({
+    baseUrl: apiUrl,
+    getToken: () => session.token,
+    onUnauthorized: (error) => {
+      const estabaComprobando = session.estaComprobando
+      const ruta = router.currentRoute.value
+      const eraSesion = esErrorDeSesion(error.codigo)
+      session.manejarNoAutorizado(error)
+
+      if (eraSesion && !estabaComprobando) {
+        const redirect =
+          ruta.name && ruta.name !== 'login' ? { redirect: ruta.fullPath } : {}
+        router.push({ name: 'login', query: redirect })
+      }
+    }
+  })
 
   app.use(router)
   app.use(PrimeVue, {
@@ -49,6 +68,16 @@ async function bootstrap() {
   app.use(ToastService)
 
   app.mount('#app')
+
+  await router.isReady()
+  await session.restaurarSesion()
+
+  const ruta = router.currentRoute.value
+  if (session.estaAutenticado && ruta.meta.soloVisitantes) {
+    await router.replace({ name: 'anuncios' })
+  } else if (session.estado === 'visitante' && ruta.meta.requiereSesion) {
+    await router.replace({ name: 'login', query: { redirect: ruta.fullPath } })
+  }
 }
 
 bootstrap()

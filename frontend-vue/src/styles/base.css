@@ -87,7 +87,7 @@ button:disabled {
   gap: var(--space-2);
   color: var(--color-text);
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-strong);
   text-decoration: none;
 }
 
@@ -123,7 +123,7 @@ button:disabled {
 .app-nav__link--active {
   background: var(--color-primary-soft);
   color: var(--color-primary-strong);
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 
 .header-actions {
@@ -150,7 +150,7 @@ button:disabled {
   border-radius: var(--radius-small);
   background: var(--color-primary);
   color: var(--color-primary-contrast);
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
   text-decoration: none;
 }
 
@@ -201,7 +201,7 @@ button:disabled {
   margin: 0 0 var(--space-2);
   color: var(--color-primary-strong);
   font-size: var(--font-size-small);
-  font-weight: 700;
+  font-weight: var(--font-weight-strong);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -333,7 +333,7 @@ button:disabled {
 }
 
 .form-field label {
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 
 .form-field input,
@@ -460,7 +460,7 @@ button:disabled {
 .perfil-datos__item dt {
   color: var(--color-text-muted);
   font-size: var(--font-size-small);
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 
 .perfil-datos__item dd {
@@ -563,7 +563,7 @@ button:disabled {
 .anuncio-card__price {
   margin: 0 0 var(--space-1);
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-strong);
 }
 
 .anuncio-card__category {
@@ -586,7 +586,7 @@ button:disabled {
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-strong);
   text-transform: uppercase;
 }
 
@@ -668,7 +668,7 @@ button:disabled {
 
 .anuncio-detalle__price {
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-strong);
 }
 
 .anuncio-detalle__category {
@@ -692,7 +692,7 @@ button:disabled {
 
 .anuncio-detalle__author-name {
   margin: 0 0 var(--space-1);
-  font-weight: 700;
+  font-weight: var(--font-weight-strong);
 }
 
 .anuncio-detalle__author-bio,

@@ -10,8 +10,16 @@ const router = useRouter()
 const visibles = computed(() => itemsVisibles(navigationItems, session.estaAutenticado))
 
 function cerrarSesion() {
+  if (router.currentRoute.value.name !== 'anuncios') {
+    router.push({ name: 'anuncios' }).then((fallo) => {
+      if (!fallo) {
+        session.cerrarSesion()
+      }
+    })
+    return
+  }
+
   session.cerrarSesion()
-  router.push({ name: 'anuncios' })
 }
 
 function reintentarSesion() {
@@ -55,7 +63,7 @@ function reintentarSesion() {
           <RouterLink class="button button--secondary" :to="{ name: 'login' }">
             Iniciar sesión
           </RouterLink>
-          <RouterLink class="button" :to="{ name: 'registro' }">Crear cuenta</RouterLink>
+          <RouterLink class="button" :to="{ name: 'registro' }">Registrarse</RouterLink>
         </template>
       </div>
     </div>

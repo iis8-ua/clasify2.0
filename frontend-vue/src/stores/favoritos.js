@@ -11,6 +11,7 @@ export const useFavoritosStore = defineStore('favoritos', {
     estado: 'idle',
     error: null,
     procesando: {},
+    solicitudActual: 0,
     versionSesion: -1
   }),
   getters: {
@@ -19,16 +20,23 @@ export const useFavoritosStore = defineStore('favoritos', {
   },
   actions: {
     async cargar(pagina = 1) {
+      const solicitud = ++this.solicitudActual
       this.estado = 'loading'
       this.error = null
 
       try {
         const respuesta = await favoritosService.listar({ pagina, limite: 20 })
+        if (solicitud !== this.solicitudActual) {
+          return null
+        }
         this.listado = respuesta.datos
         this.paginacion = respuesta.paginacion
         this.estado = respuesta.datos.length > 0 ? 'success' : 'empty'
         return respuesta.paginacion
       } catch (error) {
+        if (solicitud !== this.solicitudActual) {
+          return null
+        }
         this.error = normalizarError(error)
         this.estado = 'error'
         return null
@@ -61,6 +69,7 @@ export const useFavoritosStore = defineStore('favoritos', {
       this.estado = 'idle'
       this.error = null
       this.procesando = {}
+      this.solicitudActual += 1
     },
     sincronizarSesion(version) {
       if (this.versionSesion !== version) {

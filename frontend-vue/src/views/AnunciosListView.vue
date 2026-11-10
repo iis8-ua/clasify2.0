@@ -22,8 +22,13 @@ const hayFiltrosActivos = computed(
     filtros.value.estado !== FILTROS_POR_DEFECTO.estado ||
     filtros.value.orden !== FILTROS_POR_DEFECTO.orden
 )
+const textoInvalido = computed(() => filtros.value.texto.length > 150)
 
 async function cargar() {
+  if (textoInvalido.value) {
+    return
+  }
+
   await categorias.cargar()
   await anuncios.cargarListado(filtros.value)
 
@@ -78,7 +83,14 @@ function cambiarPagina(pagina) {
     />
 
     <StatePanel
-      v-if="anuncios.estadoListado === 'loading'"
+      v-if="textoInvalido"
+      type="validation"
+      title="Búsqueda no válida"
+      message="El texto de búsqueda no puede superar los 150 caracteres"
+    />
+
+    <StatePanel
+      v-else-if="anuncios.estadoListado === 'loading'"
       type="loading"
       message="Cargando anuncios…"
     />

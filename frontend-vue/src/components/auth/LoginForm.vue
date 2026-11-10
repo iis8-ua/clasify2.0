@@ -47,6 +47,7 @@ async function enviar() {
       email: email.value.trim(),
       password: password.value
     })
+    password.value = ''
 
     const destino =
       typeof route.query.redirect === 'string' && route.query.redirect.startsWith('/')
@@ -55,6 +56,7 @@ async function enviar() {
 
     await router.push(destino ?? { name: 'anuncios' })
   } catch (error) {
+    password.value = ''
     if (error.campo) {
       errors.value = { ...errors.value, [error.campo]: error.mensaje }
     } else {
@@ -68,6 +70,9 @@ async function enviar() {
 
 <template>
   <form class="auth-form" novalidate @submit.prevent="enviar">
+    <p v-if="session.motivoSesion && !generalError" class="form-error" role="alert">
+      {{ session.motivoSesion }}
+    </p>
     <p v-if="generalError" class="form-error" role="alert">{{ generalError }}</p>
 
     <div class="form-field">

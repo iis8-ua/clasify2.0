@@ -8,6 +8,7 @@ import EstadoAnuncioBadge from '../components/catalog/EstadoAnuncioBadge.vue'
 import AccionesAnuncio from '../components/anuncios/AccionesAnuncio.vue'
 import BotonFavorito from '../components/favoritos/BotonFavorito.vue'
 import StatePanel from '../components/states/StatePanel.vue'
+import { urlImagen } from '../services/media'
 import { useAnunciosStore } from '../stores/anuncios'
 
 const route = useRoute()
@@ -18,13 +19,7 @@ const id = computed(() => Number(route.params.id))
 const idValido = computed(() => Number.isInteger(id.value) && id.value > 0)
 const detalle = computed(() => anuncios.detalle)
 
-const imagenUrl = computed(() => {
-  if (!detalle.value?.imagen) {
-    return null
-  }
-  const base = import.meta.env.VITE_API_URL ?? ''
-  return `${base.replace(/\/$/, '')}/uploads/${detalle.value.imagen}`
-})
+const imagenUrl = computed(() => urlImagen(detalle.value?.imagen))
 
 const valoracion = computed(() => {
   const autor = detalle.value?.autor

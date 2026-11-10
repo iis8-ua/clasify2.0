@@ -4,6 +4,7 @@ import DateText from '../common/DateText.vue'
 import ImageWithFallback from '../common/ImageWithFallback.vue'
 import PriceText from '../common/PriceText.vue'
 import EstadoAnuncioBadge from './EstadoAnuncioBadge.vue'
+import { urlImagen } from '../../services/media'
 
 const props = defineProps({
   anuncio: {
@@ -16,13 +17,7 @@ const props = defineProps({
   }
 })
 
-const imagenUrl = computed(() => {
-  if (!props.anuncio.imagen) {
-    return null
-  }
-  const base = import.meta.env.VITE_API_URL ?? ''
-  return `${base.replace(/\/$/, '')}/uploads/${props.anuncio.imagen}`
-})
+const imagenUrl = computed(() => urlImagen(props.anuncio.imagen))
 </script>
 
 <template>

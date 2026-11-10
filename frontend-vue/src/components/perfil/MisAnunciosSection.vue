@@ -33,6 +33,11 @@ async function cargar() {
     return
   }
 
+  if (pagina.value > 1 && perfil.paginacion.paginas === 0) {
+    await router.replace({ name: 'perfil', query: {} })
+    return
+  }
+
   if (perfil.paginacion.paginas > 0 && pagina.value > perfil.paginacion.paginas) {
     await router.replace({
       name: 'perfil',

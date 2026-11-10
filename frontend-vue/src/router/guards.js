@@ -1,7 +1,7 @@
 import { useSessionStore } from '../stores/session'
 
 export function resolverAcceso(to, session) {
-  if (to.meta.requiereSesion && !session.estaAutenticado) {
+  if (to.meta.requiereSesion && !session.estaAutenticado && !session.estaComprobando) {
     return {
       name: 'login',
       query: { redirect: to.fullPath }

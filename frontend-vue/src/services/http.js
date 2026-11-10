@@ -14,7 +14,7 @@ function construirUrl(path) {
   return `${configuracion.baseUrl.replace(/\/$/, '')}${path}`
 }
 
-async function solicitar(path, { method = 'GET', body, headers = {}, auth = false } = {}) {
+async function solicitar(path, { method = 'GET', body, headers = {}, auth = false, signal } = {}) {
   const cabeceras = { ...headers }
   let cuerpo
 
@@ -37,12 +37,11 @@ async function solicitar(path, { method = 'GET', body, headers = {}, auth = fals
     respuesta = await fetch(construirUrl(path), {
       method,
       headers: cabeceras,
-      body: cuerpo
+      body: cuerpo,
+      signal
     })
   } catch {
-    const error = normalizarErrorConexion()
-    configuracion.onUnauthorized(error)
-    throw error
+    throw normalizarErrorConexion()
   }
 
   if (respuesta.status === 204) {

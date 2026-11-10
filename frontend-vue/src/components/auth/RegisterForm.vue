@@ -57,8 +57,10 @@ async function enviar() {
       nombre: nombre.value.trim(),
       password: password.value
     })
+    password.value = ''
     await router.push({ name: 'anuncios' })
   } catch (error) {
+    password.value = ''
     if (error.campo) {
       errors.value = { ...errors.value, [error.campo]: error.mensaje }
     } else {

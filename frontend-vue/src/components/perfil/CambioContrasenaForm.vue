@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { esErrorDeContrasenaActual, esErrorDeSesion } from '../../services/errors'
 import { useNotificaciones } from '../../services/notifications'
@@ -15,6 +15,8 @@ const passwordNueva = ref('')
 const errores = ref({})
 const errorGeneral = ref('')
 const enviando = ref(false)
+const actualInput = ref(null)
+const nuevaInput = ref(null)
 
 function validar() {
   const nuevos = {}
@@ -30,11 +32,20 @@ function validar() {
   return nuevos
 }
 
+function enfocarPrimerError() {
+  if (errores.value.passwordActual) {
+    nextTick(() => actualInput.value?.focus())
+  } else if (errores.value.passwordNueva) {
+    nextTick(() => nuevaInput.value?.focus())
+  }
+}
+
 async function enviar() {
   errores.value = validar()
   errorGeneral.value = ''
 
   if (Object.keys(errores.value).length > 0 || enviando.value) {
+    enfocarPrimerError()
     return
   }
 
@@ -85,14 +96,23 @@ async function enviar() {
         <label for="perfil-password-actual">Contraseña actual</label>
         <input
           id="perfil-password-actual"
+          ref="actualInput"
           v-model="passwordActual"
           name="password_actual"
           type="password"
           autocomplete="current-password"
+          required
+          aria-required="true"
           :aria-invalid="Boolean(errores.passwordActual)"
-          :aria-describedby="errores.passwordActual ? 'perfil-password-actual-error' : undefined"
+          :aria-describedby="errores.passwordActual ? 'perfil-password-actual-error' : 'perfil-password-actual-help'"
         />
-        <p v-if="errores.passwordActual" id="perfil-password-actual-error" class="form-field__error">
+        <p id="perfil-password-actual-help" class="form-field__help">Obligatoria.</p>
+        <p
+          v-if="errores.passwordActual"
+          id="perfil-password-actual-error"
+          class="form-field__error"
+          role="alert"
+        >
           {{ errores.passwordActual }}
         </p>
       </div>
@@ -101,15 +121,25 @@ async function enviar() {
         <label for="perfil-password-nueva">Contraseña nueva</label>
         <input
           id="perfil-password-nueva"
+          ref="nuevaInput"
           v-model="passwordNueva"
           name="password"
           type="password"
           autocomplete="new-password"
+          required
+          aria-required="true"
           :aria-invalid="Boolean(errores.passwordNueva)"
           :aria-describedby="errores.passwordNueva ? 'perfil-password-nueva-error' : 'perfil-password-nueva-help'"
         />
-        <p id="perfil-password-nueva-help" class="form-field__help">Mínimo 8 caracteres.</p>
-        <p v-if="errores.passwordNueva" id="perfil-password-nueva-error" class="form-field__error">
+        <p id="perfil-password-nueva-help" class="form-field__help">
+          Obligatoria. Mínimo 8 caracteres.
+        </p>
+        <p
+          v-if="errores.passwordNueva"
+          id="perfil-password-nueva-error"
+          class="form-field__error"
+          role="alert"
+        >
           {{ errores.passwordNueva }}
         </p>
       </div>

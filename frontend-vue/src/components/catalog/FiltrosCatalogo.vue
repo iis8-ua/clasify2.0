@@ -16,11 +16,14 @@ const props = defineProps({
 
 const emit = defineEmits(['buscar', 'cambiar', 'limpiar'])
 const texto = ref(props.filtros.texto)
+const errorTexto = ref('')
+const LONGITUD_MAXIMA_TEXTO = 150
 
 watch(
   () => props.filtros.texto,
   (valor) => {
     texto.value = valor
+    errorTexto.value = ''
   }
 )
 
@@ -33,7 +36,15 @@ const hayFiltros = computed(
 )
 
 function buscar() {
-  emit('buscar', texto.value.trim())
+  const valor = texto.value.trim()
+
+  if (valor.length > LONGITUD_MAXIMA_TEXTO) {
+    errorTexto.value = 'El texto de búsqueda no puede superar los 150 caracteres'
+    return
+  }
+
+  errorTexto.value = ''
+  emit('buscar', valor)
 }
 
 function cambiar(campo, valor) {
@@ -50,9 +61,14 @@ function cambiar(campo, valor) {
           id="filtro-texto"
           v-model="texto"
           type="search"
-          maxlength="150"
           placeholder="Título o descripción"
+          :aria-invalid="Boolean(errorTexto)"
+          :aria-describedby="errorTexto ? 'filtro-texto-error' : undefined"
+          @input="errorTexto = ''"
         />
+        <p v-if="errorTexto" id="filtro-texto-error" class="form-field__error" role="alert">
+          {{ errorTexto }}
+        </p>
       </div>
       <button class="button" type="submit">Buscar</button>
     </form>

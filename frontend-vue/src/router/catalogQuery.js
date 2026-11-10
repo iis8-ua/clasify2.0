@@ -15,7 +15,7 @@ function enteroPositivo(valor, porDefecto) {
 }
 
 export function leerQuery(query = {}) {
-  const texto = typeof query.texto === 'string' ? query.texto.trim().slice(0, 150) : ''
+  const texto = typeof query.texto === 'string' ? query.texto.trim() : ''
   const categoria = query.categoria === undefined || query.categoria === ''
     ? null
     : enteroPositivo(query.categoria, null)

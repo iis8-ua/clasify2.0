@@ -21,18 +21,41 @@ const props = defineProps({
   cancelLabel: {
     type: String,
     default: 'Cancelar'
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  loadingLabel: {
+    type: String,
+    default: 'Procesando…'
   }
 })
 
 const emit = defineEmits(['confirm', 'cancel', 'close'])
 const cancelarBoton = ref(null)
+const origenFoco = ref(null)
+
+function restaurarFoco() {
+  const elemento = origenFoco.value
+  origenFoco.value = null
+  if (elemento && typeof elemento.focus === 'function') {
+    elemento.focus()
+  }
+}
 
 function cancelar() {
+  if (props.loading) {
+    return
+  }
   emit('cancel')
   emit('close')
 }
 
 function confirmar() {
+  if (props.loading) {
+    return
+  }
   emit('confirm')
 }
 
@@ -46,10 +69,14 @@ watch(
   () => props.open,
   async (abierto) => {
     if (abierto) {
+      origenFoco.value = document.activeElement
       await nextTick()
       cancelarBoton.value?.focus()
+    } else {
+      restaurarFoco()
     }
-  }
+  },
+  { immediate: true }
 )
 </script>
 
@@ -60,15 +87,32 @@ watch(
     @click.self="cancelar"
     @keydown="alPulsarTecla"
   >
-    <div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+    <div
+      class="confirm-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirm-title"
+      :aria-busy="loading"
+    >
       <h2 id="confirm-title" class="confirm-dialog__title">{{ title }}</h2>
       <p class="confirm-dialog__message">{{ message }}</p>
       <div class="confirm-dialog__actions">
-        <button ref="cancelarBoton" type="button" class="button button--secondary" @click="cancelar">
+        <button
+          ref="cancelarBoton"
+          type="button"
+          class="button button--secondary"
+          :disabled="loading"
+          @click="cancelar"
+        >
           {{ cancelLabel }}
         </button>
-        <button type="button" class="button button--danger" @click="confirmar">
-          {{ confirmLabel }}
+        <button
+          type="button"
+          class="button button--danger"
+          :disabled="loading"
+          @click="confirmar"
+        >
+          {{ loading ? loadingLabel : confirmLabel }}
         </button>
       </div>
     </div>

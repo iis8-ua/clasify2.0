@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 
 const props = defineProps({
   perfil: {
@@ -26,6 +26,8 @@ const valores = ref({
   biografia: props.perfil.biografia ?? ''
 })
 const errores = ref({})
+const nombreInput = ref(null)
+const biografiaInput = ref(null)
 
 const original = computed(() => ({
   nombre: props.perfil.nombre ?? '',
@@ -83,6 +85,11 @@ function enviar() {
   errores.value = validar()
 
   if (Object.keys(errores.value).length > 0 || props.guardando || sinCambios.value) {
+    if (errores.value.nombre) {
+      nextTick(() => nombreInput.value?.focus())
+    } else if (errores.value.biografia) {
+      nextTick(() => biografiaInput.value?.focus())
+    }
     return
   }
 
@@ -108,16 +115,21 @@ function descartar() {
         <label for="perfil-nombre">Nombre</label>
         <input
           id="perfil-nombre"
+          ref="nombreInput"
           v-model="valores.nombre"
           name="nombre"
           type="text"
           autocomplete="name"
           maxlength="100"
+          required
+          aria-required="true"
           :aria-invalid="Boolean(erroresVisibles.nombre)"
           :aria-describedby="erroresVisibles.nombre ? 'perfil-nombre-error' : 'perfil-nombre-help'"
         />
-        <p id="perfil-nombre-help" class="form-field__help">Máximo 100 caracteres.</p>
-        <p v-if="erroresVisibles.nombre" id="perfil-nombre-error" class="form-field__error">
+        <p id="perfil-nombre-help" class="form-field__help">
+          Obligatorio. Máximo 100 caracteres.
+        </p>
+        <p v-if="erroresVisibles.nombre" id="perfil-nombre-error" class="form-field__error" role="alert">
           {{ erroresVisibles.nombre }}
         </p>
       </div>
@@ -126,6 +138,7 @@ function descartar() {
         <label for="perfil-biografia">Biografía</label>
         <textarea
           id="perfil-biografia"
+          ref="biografiaInput"
           v-model="valores.biografia"
           name="biografia"
           rows="5"
@@ -134,7 +147,7 @@ function descartar() {
           :aria-describedby="erroresVisibles.biografia ? 'perfil-biografia-error' : 'perfil-biografia-help'"
         ></textarea>
         <p id="perfil-biografia-help" class="form-field__help">Máximo 500 caracteres.</p>
-        <p v-if="erroresVisibles.biografia" id="perfil-biografia-error" class="form-field__error">
+        <p v-if="erroresVisibles.biografia" id="perfil-biografia-error" class="form-field__error" role="alert">
           {{ erroresVisibles.biografia }}
         </p>
       </div>

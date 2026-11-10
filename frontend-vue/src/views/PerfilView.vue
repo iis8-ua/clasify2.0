@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import CambioContrasenaForm from '../components/perfil/CambioContrasenaForm.vue'
 import MisAnunciosSection from '../components/perfil/MisAnunciosSection.vue'
@@ -23,7 +23,14 @@ const cargando = computed(
   () => perfil.estadoPerfil === 'idle' || perfil.estadoPerfil === 'loading'
 )
 
-onMounted(cargar)
+onMounted(() => {
+  cargar()
+  window.addEventListener('beforeunload', avisarAntesDeCerrar)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('beforeunload', avisarAntesDeCerrar)
+})
 
 onBeforeRouteLeave(() => {
   if (hayCambios.value) {
@@ -31,6 +38,13 @@ onBeforeRouteLeave(() => {
   }
   return true
 })
+
+function avisarAntesDeCerrar(event) {
+  if (hayCambios.value) {
+    event.preventDefault()
+    event.returnValue = ''
+  }
+}
 
 async function cargar() {
   await perfil.cargarPerfil()

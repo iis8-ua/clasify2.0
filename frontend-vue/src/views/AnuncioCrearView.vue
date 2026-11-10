@@ -58,6 +58,9 @@ async function enviar({ valores, imagen }) {
 }
 
 function cancelar() {
+  if (hayCambios.value && !window.confirm('Tienes cambios sin guardar. ¿Quieres descartarlos?')) {
+    return
+  }
   hayCambios.value = false
   router.push({ name: 'anuncios' })
 }

@@ -14,6 +14,7 @@ export const usePerfilStore = defineStore('perfil', {
     paginacion: { ...PAGINACION_INICIAL },
     estadoAnuncios: 'idle',
     errorAnuncios: null,
+    solicitudAnuncios: 0,
     versionSesion: -1
   }),
   actions: {
@@ -43,16 +44,23 @@ export const usePerfilStore = defineStore('perfil', {
       return usuariosService.cambiarContrasena(datos)
     },
     async cargarAnuncios(pagina = 1) {
+      const solicitud = ++this.solicitudAnuncios
       this.estadoAnuncios = 'loading'
       this.errorAnuncios = null
 
       try {
         const respuesta = await usuariosService.listarAnuncios({ pagina, limite: 20 })
+        if (solicitud !== this.solicitudAnuncios) {
+          return null
+        }
         this.anuncios = respuesta.datos
         this.paginacion = respuesta.paginacion
         this.estadoAnuncios = respuesta.datos.length > 0 ? 'success' : 'empty'
         return respuesta.paginacion
       } catch (error) {
+        if (solicitud !== this.solicitudAnuncios) {
+          return null
+        }
         this.errorAnuncios = normalizarError(error)
         this.estadoAnuncios = 'error'
         return null
@@ -66,6 +74,7 @@ export const usePerfilStore = defineStore('perfil', {
       this.paginacion = { ...PAGINACION_INICIAL }
       this.estadoAnuncios = 'idle'
       this.errorAnuncios = null
+      this.solicitudAnuncios += 1
     },
     sincronizarSesion(version) {
       if (this.versionSesion !== version) {

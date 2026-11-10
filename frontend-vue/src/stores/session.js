@@ -29,6 +29,7 @@ export const useSessionStore = defineStore('session', {
     usuario: null,
     estado: leerToken() ? 'inicial' : 'visitante',
     error: null,
+    motivoSesion: null,
     sessionVersion: 0
   }),
   getters: {
@@ -45,6 +46,7 @@ export const useSessionStore = defineStore('session', {
       this.usuario = usuario
       this.estado = 'autenticado'
       this.error = null
+      this.motivoSesion = null
       this.sessionVersion += 1
       guardarToken(token)
     },
@@ -53,6 +55,7 @@ export const useSessionStore = defineStore('session', {
       this.usuario = null
       this.estado = 'visitante'
       this.error = null
+      this.motivoSesion = null
       borrarToken()
     },
     cerrarSesion() {
@@ -67,6 +70,7 @@ export const useSessionStore = defineStore('session', {
     manejarNoAutorizado(error) {
       if (esErrorDeSesion(error.codigo)) {
         this.cerrarSesion()
+        this.motivoSesion = 'Tu sesión ha caducado. Inicia sesión de nuevo.'
       }
     },
     async registrar(datos) {
@@ -95,7 +99,8 @@ export const useSessionStore = defineStore('session', {
         this.sessionVersion += 1
       } catch (error) {
         if (esErrorDeSesion(error.codigo)) {
-          this.limpiarSesion()
+          this.cerrarSesion()
+          this.motivoSesion = 'Tu sesión ha caducado. Inicia sesión de nuevo.'
           return
         }
         this.estado = 'error'
