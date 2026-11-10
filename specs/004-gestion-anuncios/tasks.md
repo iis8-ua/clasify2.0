@@ -63,7 +63,7 @@ description: "Task list for the 004-gestion-anuncios feature"
 
 ### Tests for User Story 1
 
-- [X] T012 [P] [US1] Crear pruebas de creación y validación en `frontend-vue/tests/gestion/crearAnuncio.spec.js`
+- [X] T012 [P] [US1] Crear pruebas de creación y validación en `frontend-vue/tests/gestion/anuncioForm.spec.js` y `frontend-vue/tests/gestion/cancelarVista.spec.js`
 
 ### Implementation for User Story 1
 
@@ -87,7 +87,7 @@ description: "Task list for the 004-gestion-anuncios feature"
 
 ### Tests for User Story 2
 
-- [X] T020 [P] [US2] Crear pruebas de edición y campos modificados en `frontend-vue/tests/gestion/editarAnuncio.spec.js`
+- [X] T020 [P] [US2] Crear pruebas de edición y campos modificados en `frontend-vue/tests/gestion/anuncioForm.spec.js` y `frontend-vue/tests/gestion/detalleReal.spec.js`
 
 ### Implementation for User Story 2
 
@@ -130,7 +130,7 @@ description: "Task list for the 004-gestion-anuncios feature"
 
 ### Tests for User Story 4
 
-- [X] T031 [P] [US4] Crear pruebas de eliminación y confirmación en `frontend-vue/tests/gestion/eliminarAnuncio.spec.js`
+- [X] T031 [P] [US4] Crear pruebas de eliminación y confirmación en `frontend-vue/tests/gestion/accionesAnuncio.spec.js` y `frontend-vue/tests/components/ConfirmAction.spec.js`
 
 ### Implementation for User Story 4
 
@@ -152,7 +152,7 @@ description: "Task list for the 004-gestion-anuncios feature"
 
 ### Tests for User Story 5
 
-- [X] T037 [P] [US5] Crear pruebas de cambio de estado en `frontend-vue/tests/gestion/cambiarEstado.spec.js`
+- [X] T037 [P] [US5] Crear pruebas de cambio de estado en `frontend-vue/tests/gestion/accionesAnuncio.spec.js`
 
 ### Implementation for User Story 5
 
@@ -304,6 +304,6 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 
 ## Phase 11: Convergence
 
-- [ ] T054 Coordinar la redirección central por `401` con el aviso de cambios sin guardar de creación y edición, de modo que la sesión inválida siempre lleve a login y no deje el formulario privado visible, con prueba de regresión, per 004 FR-016, 002 FR-016 (partial)
-- [ ] T055 Alinear el plan de 004 con la implementación de `ConfirmAction` o sustituir el diálogo propio por PrimeVue `ConfirmDialog`, documentando la decisión, per 004 plan (contradicts)
-- [ ] T056 Alinear la trazabilidad de las pruebas de 004 con los archivos reales, creando los archivos citados o actualizando las tareas para que apunten a la cobertura existente, per T012/T020/T031/T037 (missing)
+- [X] T054 Coordinar la redirección central por `401` con el aviso de cambios sin guardar de creación y edición, de modo que la sesión inválida siempre lleve a login y no deje el formulario privado visible, con prueba de regresión, per 004 FR-016, 002 FR-016 (partial)
+- [X] T055 Alinear el plan de 004 con la implementación de `ConfirmAction` o sustituir el diálogo propio por PrimeVue `ConfirmDialog`, documentando la decisión, per 004 plan (contradicts)
+- [X] T056 Alinear la trazabilidad de las pruebas de 004 con los archivos reales, creando los archivos citados o actualizando las tareas para que apunten a la cobertura existente, per T012/T020/T031/T037 (missing)

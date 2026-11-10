@@ -280,4 +280,4 @@ US1 y US2 son P1; el perfil necesita ambos para ser útil.
 
 ## Phase 10: Convergence
 
-- [ ] T047 Evitar que el aviso de cambios sin guardar del perfil bloquee una redirección motivada por sesión inválida desde el cambio de contraseña o “Mis anuncios”, con prueba de regresión, per 006 FR-026, 002 FR-016 (partial)
+- [X] T047 Evitar que el aviso de cambios sin guardar del perfil bloquee una redirección motivada por sesión inválida desde el cambio de contraseña o “Mis anuncios”, con prueba de regresión, per 006 FR-026, 002 FR-016 (partial)

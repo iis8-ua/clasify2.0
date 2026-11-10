@@ -20,9 +20,9 @@
 
 ### 2. Estado del botón desde el detalle
 
-**Decision**: el detalle de 003 entrega `es_favorito` y `num_favoritos`; el botón recibe ese estado como prop y emite el cambio al contenedor.
+**Decision**: el detalle de 003 entrega `es_favorito` y `num_favoritos`; `BotonFavorito` recibe el anuncio y delega añadir/quitar en `favoritosStore`, y emite `cambio` al detalle para actualizar el contador.
 
-**Rationale**: evita una consulta adicional y mantiene el botón como componente presentacional.
+**Rationale**: evita una consulta adicional, mantiene una única ubicación para modificar el estado y deja la operación HTTP encapsulada en la store y el servicio.
 
 **Alternatives considered**:
 - Consultar el estado desde el botón: descartado por una petición extra.

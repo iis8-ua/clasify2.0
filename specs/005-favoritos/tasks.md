@@ -250,4 +250,4 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 
 ## Phase 9: Convergence
 
-- [ ] T038 Reconciliar `research.md`, el contrato de UI y `BotonFavorito`: documentar la variante final de props/eventos y la responsabilidad de la store, per 005 research y favoritos-ui (contradicts)
+- [X] T038 Reconciliar `research.md`, el contrato de UI y `BotonFavorito`: documentar la variante final de props/eventos y la responsabilidad de la store, per 005 research y favoritos-ui (contradicts)

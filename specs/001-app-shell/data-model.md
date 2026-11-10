@@ -21,22 +21,22 @@ Representa una dirección navegable de la aplicación.
 | `name` | string | Único y estable; se usa para navegación programática |
 | `title` | string | No vacío; se muestra en el título de la página |
 | `access` | `public` \| `protected` | Determina si requiere sesión |
-| `view` | componente | Vista o sustitución asociada |
-| `placeholder` | boolean | Verdadero si la vista de negocio aún no está implementada |
+| `view` | componente | Vista asociada |
+| `placeholder` | boolean | Se conserva por compatibilidad; las rutas de la Práctica 4 usan vistas reales |
 
-Rutas iniciales:
+Rutas finales:
 
 | Path | Name | Access | Vista |
 |---|---|---|---|
-| `/` | `anuncios` | Pública | Sustitución del listado |
-| `/anuncios/:id` | `anuncio-detalle` | Pública | Sustitución del detalle |
-| `/login` | `login` | Pública; redirige si hay sesión | Sustitución de acceso |
-| `/registro` | `registro` | Pública; redirige si hay sesión | Sustitución de registro |
-| `/anuncios/nuevo` | `anuncio-crear` | Protegida | Sustitución de creación |
-| `/anuncios/:id/editar` | `anuncio-editar` | Protegida | Sustitución de edición |
-| `/favoritos` | `favoritos` | Protegida | Sustitución de favoritos |
-| `/perfil` | `perfil` | Protegida | Sustitución de perfil |
-| `/:pathMatch(.*)*` | `no-encontrado` | Pública | 404 |
+| `/` | `anuncios` | Pública | `AnunciosListView` |
+| `/anuncios/:id` | `anuncio-detalle` | Pública | `AnuncioDetalleView` |
+| `/login` | `login` | Pública; redirige si hay sesión | `LoginView` |
+| `/registro` | `registro` | Pública; redirige si hay sesión | `RegisterView` |
+| `/anuncios/nuevo` | `anuncio-crear` | Protegida | `AnuncioCrearView` |
+| `/anuncios/:id/editar` | `anuncio-editar` | Protegida | `AnuncioEditarView` |
+| `/favoritos` | `favoritos` | Protegida | `FavoritosView` |
+| `/perfil` | `perfil` | Protegida | `PerfilView` |
+| `/:pathMatch(.*)*` | `no-encontrado` | Pública | `NotFoundView` |
 
 ### Elemento de navegación
 
@@ -66,7 +66,7 @@ la hay. La acción de favorito del detalle no forma parte de la navegación glob
 
 ### Vista
 
-Representa una pantalla o sustitución montada por una ruta.
+Representa una pantalla real montada por una ruta.
 
 | Campo | Tipo | Reglas |
 |---|---|---|

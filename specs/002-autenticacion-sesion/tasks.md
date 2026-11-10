@@ -63,7 +63,7 @@ description: "Task list for the 002-autenticacion-sesion feature"
 
 ### Tests for User Story 1
 
-- [X] T012 [P] [US1] Crear pruebas de registro en `frontend-vue/tests/auth/register.spec.js`
+- [X] T012 [P] [US1] Crear pruebas de registro en `frontend-vue/tests/auth/forms.spec.js` y `frontend-vue/tests/auth/formsAccessibility.spec.js`
 
 ### Implementation for User Story 1
 
@@ -86,7 +86,7 @@ description: "Task list for the 002-autenticacion-sesion feature"
 
 ### Tests for User Story 2
 
-- [X] T019 [P] [US2] Crear pruebas de acceso en `frontend-vue/tests/auth/login.spec.js`
+- [X] T019 [P] [US2] Crear pruebas de acceso en `frontend-vue/tests/auth/forms.spec.js`
 
 ### Implementation for User Story 2
 
@@ -108,7 +108,7 @@ description: "Task list for the 002-autenticacion-sesion feature"
 
 ### Tests for User Story 3
 
-- [X] T025 [P] [US3] Crear pruebas de restauración de sesión en `frontend-vue/tests/auth/sessionRestore.spec.js`
+- [X] T025 [P] [US3] Crear pruebas de restauración de sesión en `frontend-vue/tests/auth/sessionStore.spec.js` y `frontend-vue/tests/auth/sessionStartup.spec.js`
 
 ### Implementation for User Story 3
 
@@ -129,7 +129,7 @@ description: "Task list for the 002-autenticacion-sesion feature"
 
 ### Tests for User Story 4
 
-- [X] T030 [P] [US4] Crear pruebas de cierre de sesión en `frontend-vue/tests/auth/logout.spec.js`
+- [X] T030 [P] [US4] Crear pruebas de cierre de sesión en `frontend-vue/tests/auth/sessionStore.spec.js` y `frontend-vue/tests/components/AppHeader.spec.js`
 
 ### Implementation for User Story 4
 
@@ -149,7 +149,7 @@ description: "Task list for the 002-autenticacion-sesion feature"
 
 ### Tests for User Story 5
 
-- [X] T034 [P] [US5] Crear pruebas de sesión caducada y `401` en `frontend-vue/tests/auth/sessionExpiry.spec.js`
+- [X] T034 [P] [US5] Crear pruebas de sesión caducada y `401` en `frontend-vue/tests/auth/sessionStore.spec.js` y `frontend-vue/tests/services/http.spec.js`
 
 ### Implementation for User Story 5
 
@@ -299,4 +299,4 @@ Task: "Revisar etiquetas y errores en frontend-vue/src/components/auth/AuthCard.
 
 ## Phase 11: Convergence
 
-- [ ] T051 Alinear la trazabilidad de las tareas de prueba de 002 con los archivos reales, creando los archivos citados o actualizando las tareas para que apunten a la cobertura existente de login, registro, logout, restauración y caducidad, per T030/T034 (missing)
+- [X] T051 Alinear la trazabilidad de las tareas de prueba de 002 con los archivos reales, creando los archivos citados o actualizando las tareas para que apunten a la cobertura existente de login, registro, logout, restauración y caducidad, per T030/T034 (missing)

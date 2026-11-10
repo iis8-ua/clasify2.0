@@ -267,4 +267,4 @@ Task: "Implementar notificaciones en frontend-vue/src/App.vue"
 
 ## Phase 9: Convergence
 
-- [ ] T056 Actualizar `data-model.md` y `quickstart.md` de 001 para describir las vistas reales que sustituyen a los placeholders y retirar las expectativas obsoletas de “sustitución”, per 001 data-model/quickstart (contradicts)
+- [X] T056 Actualizar `data-model.md` y `quickstart.md` de 001 para describir las vistas reales que sustituyen a los placeholders y retirar las expectativas obsoletas de “sustitución”, per 001 data-model/quickstart (contradicts)

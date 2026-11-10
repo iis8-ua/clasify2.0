@@ -78,7 +78,7 @@ Debe cubrir, como mínimo:
 3. Usar atrás y adelante del navegador.
 4. Abrir una dirección inexistente, por ejemplo `/ruta-inexistente`.
 
-**Expected**: las rutas conocidas muestran su sustitución; la ruta desconocida muestra 404 con una
+**Expected**: las rutas conocidas muestran su vista real; la ruta desconocida muestra 404 con una
 acción para volver al inicio; atrás y adelante conservan el contexto.
 
 ### 3. Rutas protegidas sin sesión
