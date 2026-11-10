@@ -13,6 +13,10 @@ function cerrarSesion() {
   session.cerrarSesion()
   router.push({ name: 'anuncios' })
 }
+
+function reintentarSesion() {
+  session.reintentarRestauracion()
+}
 </script>
 
 <template>
@@ -26,7 +30,18 @@ function cerrarSesion() {
       <AppNav :items="visibles" />
 
       <div class="header-actions">
-        <template v-if="session.estaAutenticado">
+        <div v-if="session.estado === 'error'" class="session-alert" role="alert">
+          <span>No se pudo comprobar la sesión</span>
+          <button type="button" class="button button--secondary" @click="reintentarSesion">
+            Reintentar
+          </button>
+        </div>
+
+        <span v-if="session.estaComprobando" class="header-actions__user">
+          Comprobando sesión…
+        </span>
+
+        <template v-else-if="session.estaAutenticado">
           <span class="header-actions__user">Hola, {{ session.nombreVisible }}</span>
           <RouterLink v-if="session.puedeCrear" class="button" :to="{ name: 'anuncio-crear' }">
             Publicar anuncio
@@ -35,7 +50,8 @@ function cerrarSesion() {
             Cerrar sesión
           </button>
         </template>
-        <template v-else>
+
+        <template v-else-if="session.estado !== 'error'">
           <RouterLink class="button button--secondary" :to="{ name: 'login' }">
             Iniciar sesión
           </RouterLink>

@@ -1,5 +1,7 @@
 import PlaceholderView from '../views/PlaceholderView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
+import LoginView from '../views/LoginView.vue'
+import RegisterView from '../views/RegisterView.vue'
 
 export const routes = [
   {
@@ -29,14 +31,14 @@ export const routes = [
   {
     path: '/login',
     name: 'login',
-    component: PlaceholderView,
-    meta: { title: 'Iniciar sesión', publica: true, soloVisitantes: true, placeholder: true }
+    component: LoginView,
+    meta: { title: 'Iniciar sesión', publica: true, soloVisitantes: true }
   },
   {
     path: '/registro',
     name: 'registro',
-    component: PlaceholderView,
-    meta: { title: 'Crear cuenta', publica: true, soloVisitantes: true, placeholder: true }
+    component: RegisterView,
+    meta: { title: 'Crear cuenta', publica: true, soloVisitantes: true }
   },
   {
     path: '/favoritos',

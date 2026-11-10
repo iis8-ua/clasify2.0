@@ -1,26 +1,44 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createPinia, setActivePinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import ToastService from 'primevue/toastservice'
 import 'primeicons/primeicons.css'
 import App from './App.vue'
 import router from './router'
+import { useSessionStore } from './stores/session'
+import { configurarHttp } from './services/http'
 import { ClasifyPreset } from './styles/primevue-theme'
 import './styles/tokens.css'
 import './styles/base.css'
 
-const app = createApp(App)
+async function bootstrap() {
+  const app = createApp(App)
+  const pinia = createPinia()
+  setActivePinia(pinia)
 
-app.use(createPinia())
-app.use(router)
-app.use(PrimeVue, {
-  theme: {
-    preset: ClasifyPreset,
-    options: {
-      darkModeSelector: false
+  app.use(pinia)
+
+  const session = useSessionStore(pinia)
+
+  configurarHttp({
+    getToken: () => session.token,
+    onUnauthorized: (error) => session.manejarNoAutorizado(error)
+  })
+
+  await session.restaurarSesion()
+
+  app.use(router)
+  app.use(PrimeVue, {
+    theme: {
+      preset: ClasifyPreset,
+      options: {
+        darkModeSelector: false
+      }
     }
-  }
-})
-app.use(ToastService)
+  })
+  app.use(ToastService)
 
-app.mount('#app')
+  app.mount('#app')
+}
+
+bootstrap()
