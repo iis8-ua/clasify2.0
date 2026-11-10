@@ -30,8 +30,8 @@ description: "Task list for the 006-perfil feature"
 
 **Purpose**: Confirmar la base de 001–005 y preparar la estructura del perfil.
 
-- [ ] T001 Confirmar la base de 001–005, la sesión, el catálogo y las tarjetas en `frontend-vue/package.json`, sin añadir dependencias nuevas
-- [ ] T002 [P] Crear la estructura de componentes y pruebas de perfil en `frontend-vue/src/components/perfil/` y `frontend-vue/tests/perfil/`
+- [X] T001 Confirmar la base de 001–005, la sesión, el catálogo y las tarjetas en `frontend-vue/package.json`, sin añadir dependencias nuevas
+- [X] T002 [P] Crear la estructura de componentes y pruebas de perfil en `frontend-vue/src/components/perfil/` y `frontend-vue/tests/perfil/`
 
 ---
 
@@ -41,12 +41,12 @@ description: "Task list for the 006-perfil feature"
 
 **⚠️ CRITICAL**: Ninguna historia puede empezar hasta completar esta fase.
 
-- [ ] T003 [P] Implementar `usuariosService` con perfil, edición y anuncios propios en `frontend-vue/src/services/usuariosService.js`
-- [ ] T004 [P] Implementar `perfilStore` con perfil, anuncios propios y estados en `frontend-vue/src/stores/perfil.js`
-- [ ] T005 Implementar la limpieza de perfil y anuncios propios al cambiar `sessionVersion` en `frontend-vue/src/stores/perfil.js`
-- [ ] T006 Configurar la ruta `/perfil` apuntando a `PlaceholderView` en `frontend-vue/src/router/routes.js`; la vista real se conecta en T011
-- [ ] T007 [P] Mapear errores de perfil y contraseña a estados de interfaz en `frontend-vue/src/services/errors.js`
-- [ ] T008 Asegurar que `/perfil` es una ruta protegida en `frontend-vue/src/router/routes.js` y `frontend-vue/src/router/guards.js`
+- [X] T003 [P] Implementar `usuariosService` con perfil, edición y anuncios propios en `frontend-vue/src/services/usuariosService.js`
+- [X] T004 [P] Implementar `perfilStore` con perfil, anuncios propios y estados en `frontend-vue/src/stores/perfil.js`
+- [X] T005 Implementar la limpieza de perfil y anuncios propios al cambiar `sessionVersion` en `frontend-vue/src/stores/perfil.js`
+- [X] T006 Configurar la ruta `/perfil` apuntando a `PlaceholderView` en `frontend-vue/src/router/routes.js`; la vista real se conecta en T011
+- [X] T007 [P] Mapear errores de perfil y contraseña a estados de interfaz en `frontend-vue/src/services/errors.js`
+- [X] T008 Asegurar que `/perfil` es una ruta protegida en `frontend-vue/src/router/routes.js` y `frontend-vue/src/router/guards.js`
 
 **Checkpoint**: La base del perfil está lista para las historias.
 
@@ -60,15 +60,15 @@ description: "Task list for the 006-perfil feature"
 
 ### Tests for User Story 1
 
-- [ ] T009 [P] [US1] Crear pruebas de consulta del perfil en `frontend-vue/tests/perfil/perfilView.spec.js`
+- [X] T009 [P] [US1] Crear pruebas de consulta del perfil en `frontend-vue/tests/perfil/perfilView.spec.js`
 
 ### Implementation for User Story 1
 
-- [ ] T010 [US1] Implementar el bloque de datos del perfil en `frontend-vue/src/components/perfil/PerfilDatos.vue`
-- [ ] T011 [US1] Implementar la vista de perfil en `frontend-vue/src/views/PerfilView.vue` y sustituir la ruta `/perfil` por esa vista
-- [ ] T012 [US1] Cargar el perfil con estados de carga, error y reintento en `frontend-vue/src/views/PerfilView.vue` y `frontend-vue/src/stores/perfil.js`
-- [ ] T013 [US1] Mostrar el email como dato informativo y no editable en `frontend-vue/src/components/perfil/PerfilDatos.vue`
-- [ ] T014 [US1] Mostrar fecha de alta y resumen de valoraciones en `frontend-vue/src/components/perfil/PerfilDatos.vue`
+- [X] T010 [US1] Implementar el bloque de datos del perfil en `frontend-vue/src/components/perfil/PerfilDatos.vue`
+- [X] T011 [US1] Implementar la vista de perfil en `frontend-vue/src/views/PerfilView.vue` y sustituir la ruta `/perfil` por esa vista
+- [X] T012 [US1] Cargar el perfil con estados de carga, error y reintento en `frontend-vue/src/views/PerfilView.vue` y `frontend-vue/src/stores/perfil.js`
+- [X] T013 [US1] Mostrar el email como dato informativo y no editable en `frontend-vue/src/components/perfil/PerfilDatos.vue`
+- [X] T014 [US1] Mostrar fecha de alta y resumen de valoraciones en `frontend-vue/src/components/perfil/PerfilDatos.vue`
 
 **Checkpoint**: La consulta del perfil funciona de forma independiente.
 
@@ -82,15 +82,15 @@ description: "Task list for the 006-perfil feature"
 
 ### Tests for User Story 2
 
-- [ ] T015 [P] [US2] Crear pruebas de edición de datos en `frontend-vue/tests/perfil/perfilForm.spec.js`
+- [X] T015 [P] [US2] Crear pruebas de edición de datos en `frontend-vue/tests/perfil/perfilForm.spec.js`
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Implementar el formulario de datos en `frontend-vue/src/components/perfil/PerfilForm.vue`
-- [ ] T017 [US2] Precargar valores y detectar cambios sin guardar en `frontend-vue/src/components/perfil/PerfilForm.vue`
-- [ ] T018 [US2] Enviar solo nombre y biografía modificados en `frontend-vue/src/components/perfil/PerfilForm.vue` y `frontend-vue/src/stores/perfil.js`
-- [ ] T019 [US2] Actualizar el usuario de sesión y la cabecera tras guardar en `frontend-vue/src/stores/perfil.js`, `frontend-vue/src/stores/session.js` y `frontend-vue/src/components/layout/AppHeader.vue`
-- [ ] T020 [US2] Gestionar validación, error de conexión y aviso de cambios sin guardar en `frontend-vue/src/components/perfil/PerfilForm.vue`
+- [X] T016 [US2] Implementar el formulario de datos en `frontend-vue/src/components/perfil/PerfilForm.vue`
+- [X] T017 [US2] Precargar valores y detectar cambios sin guardar en `frontend-vue/src/components/perfil/PerfilForm.vue`
+- [X] T018 [US2] Enviar solo nombre y biografía modificados en `frontend-vue/src/components/perfil/PerfilForm.vue` y `frontend-vue/src/stores/perfil.js`
+- [X] T019 [US2] Actualizar el usuario de sesión y la cabecera tras guardar en `frontend-vue/src/stores/perfil.js`, `frontend-vue/src/stores/session.js` y `frontend-vue/src/components/layout/AppHeader.vue`
+- [X] T020 [US2] Gestionar validación, error de conexión y aviso de cambios sin guardar en `frontend-vue/src/components/perfil/PerfilForm.vue`
 
 **Checkpoint**: La edición de datos funciona de forma independiente.
 
@@ -104,14 +104,14 @@ description: "Task list for the 006-perfil feature"
 
 ### Tests for User Story 3
 
-- [ ] T021 [P] [US3] Crear pruebas de cambio de contraseña en `frontend-vue/tests/perfil/cambioContrasena.spec.js`
+- [X] T021 [P] [US3] Crear pruebas de cambio de contraseña en `frontend-vue/tests/perfil/cambioContrasena.spec.js`
 
 ### Implementation for User Story 3
 
-- [ ] T022 [P] [US3] Implementar el formulario de contraseña en `frontend-vue/src/components/perfil/CambioContrasenaForm.vue`
-- [ ] T023 [US3] Validar contraseña actual obligatoria y nueva de mínimo 8 caracteres en `frontend-vue/src/components/perfil/CambioContrasenaForm.vue`
-- [ ] T024 [US3] Tratar la contraseña actual incorrecta como error de formulario sin cerrar sesión en `frontend-vue/src/components/perfil/CambioContrasenaForm.vue` y `frontend-vue/src/stores/perfil.js`
-- [ ] T025 [US3] Mostrar confirmación, limpiar campos y conservar la sesión tras el cambio en `frontend-vue/src/components/perfil/CambioContrasenaForm.vue`
+- [X] T022 [P] [US3] Implementar el formulario de contraseña en `frontend-vue/src/components/perfil/CambioContrasenaForm.vue`
+- [X] T023 [US3] Validar contraseña actual obligatoria y nueva de mínimo 8 caracteres en `frontend-vue/src/components/perfil/CambioContrasenaForm.vue`
+- [X] T024 [US3] Tratar la contraseña actual incorrecta como error de formulario sin cerrar sesión en `frontend-vue/src/components/perfil/CambioContrasenaForm.vue` y `frontend-vue/src/stores/perfil.js`
+- [X] T025 [US3] Mostrar confirmación, limpiar campos y conservar la sesión tras el cambio en `frontend-vue/src/components/perfil/CambioContrasenaForm.vue`
 
 **Checkpoint**: El cambio de contraseña funciona de forma independiente.
 
@@ -125,15 +125,15 @@ description: "Task list for the 006-perfil feature"
 
 ### Tests for User Story 4
 
-- [ ] T026 [P] [US4] Crear pruebas de anuncios propios en `frontend-vue/tests/perfil/misAnuncios.spec.js`
+- [X] T026 [P] [US4] Crear pruebas de anuncios propios en `frontend-vue/tests/perfil/misAnuncios.spec.js`
 
 ### Implementation for User Story 4
 
-- [ ] T027 [US4] Implementar la sección de anuncios propios en `frontend-vue/src/components/perfil/MisAnunciosSection.vue`
-- [ ] T028 [US4] Cargar la lista y sincronizar `pagina` con la URL en `frontend-vue/src/components/perfil/MisAnunciosSection.vue`
-- [ ] T029 [US4] Reutilizar tarjetas, mostrar vendidos y limitar la lista a abrir el detalle en `frontend-vue/src/components/perfil/MisAnunciosSection.vue` y `frontend-vue/src/components/catalog/AnuncioCard.vue`
-- [ ] T030 [US4] Añadir la acción de creación al estado vacío en `frontend-vue/src/components/perfil/MisAnunciosSection.vue` y `frontend-vue/src/router/index.js`
-- [ ] T031 [US4] Implementar paginación y corrección de página fuera de rango en `frontend-vue/src/components/perfil/MisAnunciosSection.vue` y `frontend-vue/src/stores/perfil.js`
+- [X] T027 [US4] Implementar la sección de anuncios propios en `frontend-vue/src/components/perfil/MisAnunciosSection.vue`
+- [X] T028 [US4] Cargar la lista y sincronizar `pagina` con la URL en `frontend-vue/src/components/perfil/MisAnunciosSection.vue`
+- [X] T029 [US4] Reutilizar tarjetas, mostrar vendidos y limitar la lista a abrir el detalle en `frontend-vue/src/components/perfil/MisAnunciosSection.vue` y `frontend-vue/src/components/catalog/AnuncioCard.vue`
+- [X] T030 [US4] Añadir la acción de creación al estado vacío en `frontend-vue/src/components/perfil/MisAnunciosSection.vue` y `frontend-vue/src/router/index.js`
+- [X] T031 [US4] Implementar paginación y corrección de página fuera de rango en `frontend-vue/src/components/perfil/MisAnunciosSection.vue` y `frontend-vue/src/stores/perfil.js`
 
 **Checkpoint**: Los anuncios propios funcionan de forma independiente.
 
@@ -147,14 +147,14 @@ description: "Task list for the 006-perfil feature"
 
 ### Tests for User Story 5
 
-- [ ] T032 [P] [US5] Crear pruebas de accesibilidad del perfil en `frontend-vue/tests/perfil/perfilAccessibility.spec.js`
+- [X] T032 [P] [US5] Crear pruebas de accesibilidad del perfil en `frontend-vue/tests/perfil/perfilAccessibility.spec.js`
 
 ### Implementation for User Story 5
 
-- [ ] T033 [US5] Asociar etiquetas, errores y descripciones a los campos en `frontend-vue/src/components/perfil/PerfilForm.vue` y `frontend-vue/src/components/perfil/CambioContrasenaForm.vue`
-- [ ] T034 [US5] Ajustar perfil, formularios y lista a 360 px en `frontend-vue/src/views/PerfilView.vue` y `frontend-vue/src/styles/base.css`
-- [ ] T035 [US5] Asegurar teclado y foco en perfil, lista y paginación en `frontend-vue/src/components/perfil/MisAnunciosSection.vue` y `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
-- [ ] T036 [US5] Revisar mensajes en español y ausencia de detalles técnicos en `frontend-vue/src/components/perfil/PerfilForm.vue` y `frontend-vue/src/components/perfil/CambioContrasenaForm.vue`
+- [X] T033 [US5] Asociar etiquetas, errores y descripciones a los campos en `frontend-vue/src/components/perfil/PerfilForm.vue` y `frontend-vue/src/components/perfil/CambioContrasenaForm.vue`
+- [X] T034 [US5] Ajustar perfil, formularios y lista a 360 px en `frontend-vue/src/views/PerfilView.vue` y `frontend-vue/src/styles/base.css`
+- [X] T035 [US5] Asegurar teclado y foco en perfil, lista y paginación en `frontend-vue/src/components/perfil/MisAnunciosSection.vue` y `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
+- [X] T036 [US5] Revisar mensajes en español y ausencia de detalles técnicos en `frontend-vue/src/components/perfil/PerfilForm.vue` y `frontend-vue/src/components/perfil/CambioContrasenaForm.vue`
 
 **Checkpoint**: El perfil es accesible y usable en móvil.
 
@@ -164,10 +164,10 @@ description: "Task list for the 006-perfil feature"
 
 **Purpose**: Documentación, validación y calidad transversal.
 
-- [ ] T037 [P] Actualizar `README.md` con perfil, contraseña y anuncios propios
-- [ ] T038 Ejecutar `npm run test:unit` y `npm run build` en `frontend-vue/` y registrar el resultado
-- [ ] T039 Ejecutar la validación manual de `specs/006-perfil/quickstart.md` y registrar el recorrido
-- [ ] T040 Revisar que no haya comentarios, llamadas directas a `fetch`, perfil público, avatar, cambio de email, búsqueda/filtros ni cambios en `backend/` en `frontend-vue/src/`
+- [X] T037 [P] Actualizar `README.md` con perfil, contraseña y anuncios propios
+- [X] T038 Ejecutar `npm run test:unit` y `npm run build` en `frontend-vue/` y registrar el resultado
+- [X] T039 Ejecutar la validación manual de `specs/006-perfil/quickstart.md` y registrar el recorrido
+- [X] T040 Revisar que no haya comentarios, llamadas directas a `fetch`, perfil público, avatar, cambio de email, búsqueda/filtros ni cambios en `backend/` en `frontend-vue/src/`
 
 ---
 

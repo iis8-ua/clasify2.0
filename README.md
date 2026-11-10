@@ -119,8 +119,7 @@ valoraciones y CORS.
 
 El frontend está en `frontend-vue/` y usa Vue 3, Vite, Pinia, Vue Router,
 PrimeVue y `fetch`. La base común, la autenticación, el catálogo, la gestión de
-anuncios y los favoritos están implementados; el perfil se incorpora con la
-especificación `specs/006`.
+anuncios, los favoritos y el perfil propio están implementados.
 
 Requisitos:
 
@@ -153,9 +152,6 @@ npm run preview
 
 Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<fichero>`.
 
-Las rutas cuyas vistas aún no se han implementado muestran una vista de
-sustitución accesible. El perfil se incorpora en la especificación `specs/006`.
-
 ### Autenticación
 
 - Registro y acceso contra `POST /auth/register` y `POST /auth/login`.
@@ -186,7 +182,7 @@ sustitución accesible. El perfil se incorpora en la especificación `specs/006`
 - Subida de una imagen JPEG, PNG o WebP de hasta 5 MB.
 - Aviso de cambios sin guardar.
 - Acciones de gestión únicamente en el detalle y solo para el autor.
-- La acción de creación del estado vacío de “Mis anuncios” se completa en `006`.
+- El estado vacío de “Mis anuncios” ofrece la creación de un anuncio.
 
 ### Favoritos
 
@@ -205,6 +201,28 @@ sustitución accesible. El perfil se incorpora en la especificación `specs/006`
 - Estados de carga, vacío, error y reintento.
 - La lista solo abre el detalle y no ofrece una acción directa para quitar.
 - Limpieza de favoritos al cerrar sesión o cambiar de cuenta.
+- La validación manual completa requiere el backend y la base de datos
+  arrancados.
+
+### Perfil propio
+
+- Vista protegida en `/perfil` con nombre, email, biografía, fecha de alta y
+  resumen de valoraciones.
+- El email es informativo y no editable.
+- Edición de nombre y biografía con validación, aviso de cambios sin guardar y
+  actualización de la cabecera.
+- Cambio de contraseña con la contraseña actual y una nueva de al menos ocho
+  caracteres.
+- La contraseña actual incorrecta se muestra como error de formulario sin
+  cerrar la sesión.
+- “Mis anuncios” muestra solo los anuncios del usuario autenticado, incluidos
+  los vendidos.
+- Paginación de 20 elementos con la página conservada en la dirección y
+  corrección de páginas fuera de rango.
+- Cada tarjeta abre el detalle; la lista no ofrece acciones de gestión.
+- El estado vacío de “Mis anuncios” permite publicar un anuncio.
+- Perfil público, avatar, cambio de email, eliminación de cuenta y recuperación
+  de contraseña quedan fuera del alcance.
 - La validación manual completa requiere el backend y la base de datos
   arrancados.
 
