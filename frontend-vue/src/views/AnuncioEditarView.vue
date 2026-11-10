@@ -54,7 +54,7 @@ onMounted(() => {
 })
 
 onBeforeRouteLeave(() => {
-  if (hayCambios.value) {
+  if (hayCambios.value && session.estaAutenticado) {
     return window.confirm('Tienes cambios sin guardar. ¿Quieres salir?')
   }
   return true
@@ -90,7 +90,11 @@ async function enviar({ valores, imagen }) {
 }
 
 function cancelar() {
-  if (hayCambios.value && !window.confirm('Tienes cambios sin guardar. ¿Quieres descartarlos?')) {
+  if (
+    hayCambios.value &&
+    session.estaAutenticado &&
+    !window.confirm('Tienes cambios sin guardar. ¿Quieres descartarlos?')
+  ) {
     return
   }
   hayCambios.value = false

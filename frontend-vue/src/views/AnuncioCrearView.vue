@@ -5,10 +5,12 @@ import AnuncioForm from '../components/anuncios/AnuncioForm.vue'
 import StatePanel from '../components/states/StatePanel.vue'
 import { useAnunciosStore } from '../stores/anuncios'
 import { useCategoriasStore } from '../stores/categorias'
+import { useSessionStore } from '../stores/session'
 import { useNotificaciones } from '../services/notifications'
 
 const anuncios = useAnunciosStore()
 const categorias = useCategoriasStore()
+const session = useSessionStore()
 const router = useRouter()
 const notificaciones = useNotificaciones()
 
@@ -22,7 +24,7 @@ onMounted(() => {
 })
 
 onBeforeRouteLeave(() => {
-  if (hayCambios.value) {
+  if (hayCambios.value && session.estaAutenticado) {
     return window.confirm('Tienes cambios sin guardar. ¿Quieres salir?')
   }
   return true
@@ -58,7 +60,11 @@ async function enviar({ valores, imagen }) {
 }
 
 function cancelar() {
-  if (hayCambios.value && !window.confirm('Tienes cambios sin guardar. ¿Quieres descartarlos?')) {
+  if (
+    hayCambios.value &&
+    session.estaAutenticado &&
+    !window.confirm('Tienes cambios sin guardar. ¿Quieres descartarlos?')
+  ) {
     return
   }
   hayCambios.value = false

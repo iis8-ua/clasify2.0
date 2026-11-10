@@ -162,4 +162,19 @@ describe('vista de perfil', () => {
 
     expect(evento.defaultPrevented).toBe(true)
   })
+
+  it('permite ir a login con cambios si la sesión ya no es válida', async () => {
+    const confirmar = vi.spyOn(window, 'confirm').mockReturnValue(false)
+    const { wrapper, router, session } = await montar()
+
+    await wrapper.get('#perfil-nombre').setValue('Nombre sin guardar')
+    await flushPromises()
+    session.cerrarSesion()
+    await router.push('/login')
+    await flushPromises()
+
+    expect(router.currentRoute.value.name).toBe('login')
+    expect(confirmar).not.toHaveBeenCalled()
+    confirmar.mockRestore()
+  })
 })

@@ -4,6 +4,7 @@ import { createPinia, setActivePinia } from 'pinia'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import AnuncioCrearView from '../../src/views/AnuncioCrearView.vue'
 import { categoriasService } from '../../src/services/categoriasService'
+import { useSessionStore } from '../../src/stores/session'
 
 vi.mock('primevue/usetoast', () => ({
   useToast: () => ({ add: vi.fn() })
@@ -27,10 +28,13 @@ describe('cancelación de creación', () => {
   it('pide confirmación si hay cambios y respeta la cancelación', async () => {
     const pinia = createPinia()
     setActivePinia(pinia)
+    const session = useSessionStore()
+    session.establecerSesion('token', { id: 1, nombre: 'Ana' })
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [
         { path: '/', name: 'anuncios', component: { template: '<div />' } },
+        { path: '/login', name: 'login', component: { template: '<div />' } },
         { path: '/anuncios/nuevo', name: 'anuncio-crear', component: AnuncioCrearView }
       ]
     })
@@ -56,6 +60,39 @@ describe('cancelación de creación', () => {
     await flushPromises()
 
     expect(router.currentRoute.value.name).toBe('anuncios')
+    confirmar.mockRestore()
+  })
+
+  it('permite ir a login con cambios si la sesión ya no es válida', async () => {
+    const pinia = createPinia()
+    setActivePinia(pinia)
+    const session = useSessionStore()
+    session.establecerSesion('token', { id: 1, nombre: 'Ana' })
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [
+        { path: '/', name: 'anuncios', component: { template: '<div />' } },
+        { path: '/login', name: 'login', component: { template: '<div />' } },
+        { path: '/anuncios/nuevo', name: 'anuncio-crear', component: AnuncioCrearView }
+      ]
+    })
+    await router.push('/anuncios/nuevo')
+    await router.isReady()
+    const confirmar = vi.spyOn(window, 'confirm').mockReturnValue(false)
+    const wrapper = mount(
+      { template: '<RouterView />' },
+      { global: { plugins: [pinia, router] } }
+    )
+    await flushPromises()
+
+    await wrapper.get('#anuncio-titulo').setValue('Cambio sin guardar')
+    await flushPromises()
+    session.cerrarSesion()
+    await router.push('/login')
+    await flushPromises()
+
+    expect(router.currentRoute.value.name).toBe('login')
+    expect(confirmar).not.toHaveBeenCalled()
     confirmar.mockRestore()
   })
 })

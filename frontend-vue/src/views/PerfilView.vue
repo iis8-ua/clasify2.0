@@ -9,8 +9,10 @@ import StatePanel from '../components/states/StatePanel.vue'
 import { esErrorDeSesion } from '../services/errors'
 import { useNotificaciones } from '../services/notifications'
 import { usePerfilStore } from '../stores/perfil'
+import { useSessionStore } from '../stores/session'
 
 const perfil = usePerfilStore()
+const session = useSessionStore()
 const router = useRouter()
 const notificaciones = useNotificaciones()
 
@@ -33,14 +35,14 @@ onBeforeUnmount(() => {
 })
 
 onBeforeRouteLeave(() => {
-  if (hayCambios.value) {
+  if (hayCambios.value && session.estaAutenticado) {
     return window.confirm('Tienes cambios sin guardar. ¿Quieres salir?')
   }
   return true
 })
 
 function avisarAntesDeCerrar(event) {
-  if (hayCambios.value) {
+  if (hayCambios.value && session.estaAutenticado) {
     event.preventDefault()
     event.returnValue = ''
   }
