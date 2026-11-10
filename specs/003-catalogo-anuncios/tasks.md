@@ -30,8 +30,8 @@ description: "Task list for the 003-catalogo-anuncios feature"
 
 **Purpose**: Confirmar la base de 001/002 y preparar la estructura del catálogo.
 
-- [ ] T001 Confirmar la base de `frontend-vue/package.json`, la capa HTTP y la sesión de 001/002, sin añadir dependencias nuevas
-- [ ] T002 [P] Crear la estructura de componentes y pruebas de catálogo en `frontend-vue/src/components/catalog/` y `frontend-vue/tests/catalog/`
+- [X] T001 Confirmar la base de `frontend-vue/package.json`, la capa HTTP y la sesión de 001/002, sin añadir dependencias nuevas
+- [X] T002 [P] Crear la estructura de componentes y pruebas de catálogo en `frontend-vue/src/components/catalog/` y `frontend-vue/tests/catalog/`
 
 ---
 
@@ -41,15 +41,15 @@ description: "Task list for the 003-catalogo-anuncios feature"
 
 **⚠️ CRITICAL**: Ninguna historia puede empezar hasta completar esta fase.
 
-- [ ] T003 [P] Implementar `anunciosService` con listado y detalle en `frontend-vue/src/services/anunciosService.js`
-- [ ] T004 [P] Implementar `categoriasService` en `frontend-vue/src/services/categoriasService.js`
-- [ ] T005 Implementar `anunciosStore` con listado, detalle, paginación y filtros en `frontend-vue/src/stores/anuncios.js`
-- [ ] T006 Implementar `categoriasStore` con mapa `id → nombre` en `frontend-vue/src/stores/categorias.js`
-- [ ] T007 Implementar lectura y escritura de query de URL en `frontend-vue/src/router/catalogQuery.js`
-- [ ] T008 Definir las rutas `/` y `/anuncios/:id` apuntando a `PlaceholderView` en `frontend-vue/src/router/routes.js`; las vistas reales se conectan en T015 y T020
-- [ ] T009 Mapear errores de catálogo a estados de interfaz en `frontend-vue/src/services/errors.js`
-- [ ] T010 Implementar el contador de solicitud para descartar respuestas obsoletas en `frontend-vue/src/stores/anuncios.js`
-- [ ] T011 Cargar todas las categorías, recorriendo páginas si es necesario, en `frontend-vue/src/stores/categorias.js`
+- [X] T003 [P] Implementar `anunciosService` con listado y detalle en `frontend-vue/src/services/anunciosService.js`
+- [X] T004 [P] Implementar `categoriasService` en `frontend-vue/src/services/categoriasService.js`
+- [X] T005 Implementar `anunciosStore` con listado, detalle, paginación y filtros en `frontend-vue/src/stores/anuncios.js`
+- [X] T006 Implementar `categoriasStore` con mapa `id → nombre` en `frontend-vue/src/stores/categorias.js`
+- [X] T007 Implementar lectura y escritura de query de URL en `frontend-vue/src/router/catalogQuery.js`
+- [X] T008 Definir las rutas `/` y `/anuncios/:id` apuntando a `PlaceholderView` en `frontend-vue/src/router/routes.js`; las vistas reales se conectan en T015 y T020
+- [X] T009 Mapear errores de catálogo a estados de interfaz en `frontend-vue/src/services/errors.js`
+- [X] T010 Implementar el contador de solicitud para descartar respuestas obsoletas en `frontend-vue/src/stores/anuncios.js`
+- [X] T011 Cargar todas las categorías, recorriendo páginas si es necesario, en `frontend-vue/src/stores/categorias.js`
 
 **Checkpoint**: La base del catálogo está lista para las historias.
 
@@ -63,16 +63,16 @@ description: "Task list for the 003-catalogo-anuncios feature"
 
 ### Tests for User Story 1
 
-- [ ] T012 [P] [US1] Crear pruebas del listado y las tarjetas en `frontend-vue/tests/catalog/catalogList.spec.js`
+- [X] T012 [P] [US1] Crear pruebas del listado y las tarjetas en `frontend-vue/tests/catalog/catalogList.spec.js`
 
 ### Implementation for User Story 1
 
-- [ ] T013 [P] [US1] Implementar la tarjeta y el badge de estado en `frontend-vue/src/components/catalog/AnuncioCard.vue` y `frontend-vue/src/components/catalog/EstadoAnuncioBadge.vue`
-- [ ] T014 [P] [US1] Implementar la cuadrícula de anuncios en `frontend-vue/src/components/catalog/AnuncioGrid.vue`
-- [ ] T015 [US1] Implementar la vista del listado en `frontend-vue/src/views/AnunciosListView.vue` y sustituir la ruta `/` por esa vista
-- [ ] T016 [US1] Conectar el listado con `anunciosStore` en `frontend-vue/src/views/AnunciosListView.vue` y `frontend-vue/src/stores/anuncios.js`
-- [ ] T017 [US1] Implementar estados de carga, vacío y error con reintento en `frontend-vue/src/views/AnunciosListView.vue`
-- [ ] T018 [US1] Resolver el nombre de categoría y evitar el nombre de autor en `frontend-vue/src/components/catalog/AnuncioCard.vue`
+- [X] T013 [P] [US1] Implementar la tarjeta y el badge de estado en `frontend-vue/src/components/catalog/AnuncioCard.vue` y `frontend-vue/src/components/catalog/EstadoAnuncioBadge.vue`
+- [X] T014 [P] [US1] Implementar la cuadrícula de anuncios en `frontend-vue/src/components/catalog/AnuncioGrid.vue`
+- [X] T015 [US1] Implementar la vista del listado en `frontend-vue/src/views/AnunciosListView.vue` y sustituir la ruta `/` por esa vista
+- [X] T016 [US1] Conectar el listado con `anunciosStore` en `frontend-vue/src/views/AnunciosListView.vue` y `frontend-vue/src/stores/anuncios.js`
+- [X] T017 [US1] Implementar estados de carga, vacío y error con reintento en `frontend-vue/src/views/AnunciosListView.vue`
+- [X] T018 [US1] Resolver el nombre de categoría y evitar el nombre de autor en `frontend-vue/src/components/catalog/AnuncioCard.vue`
 
 **Checkpoint**: El listado funciona de forma independiente.
 
@@ -86,15 +86,15 @@ description: "Task list for the 003-catalogo-anuncios feature"
 
 ### Tests for User Story 2
 
-- [ ] T019 [P] [US2] Crear pruebas del detalle en `frontend-vue/tests/catalog/catalogDetail.spec.js`
+- [X] T019 [P] [US2] Crear pruebas del detalle en `frontend-vue/tests/catalog/catalogDetail.spec.js`
 
 ### Implementation for User Story 2
 
-- [ ] T020 [US2] Implementar la vista de detalle en `frontend-vue/src/views/AnuncioDetalleView.vue` y sustituir la ruta `/anuncios/:id` por esa vista
-- [ ] T021 [US2] Conectar el detalle con `anunciosStore` en `frontend-vue/src/views/AnuncioDetalleView.vue` y `frontend-vue/src/stores/anuncios.js`
-- [ ] T022 [US2] Mostrar autor, biografía, categoría y resumen de valoraciones en `frontend-vue/src/views/AnuncioDetalleView.vue`
-- [ ] T023 [US2] Mostrar número de favoritos y estado de favorito informativo en `frontend-vue/src/views/AnuncioDetalleView.vue`
-- [ ] T024 [US2] Implementar estados de anuncio no encontrado, identificador inválido y error de conexión en `frontend-vue/src/views/AnuncioDetalleView.vue`
+- [X] T020 [US2] Implementar la vista de detalle en `frontend-vue/src/views/AnuncioDetalleView.vue` y sustituir la ruta `/anuncios/:id` por esa vista
+- [X] T021 [US2] Conectar el detalle con `anunciosStore` en `frontend-vue/src/views/AnuncioDetalleView.vue` y `frontend-vue/src/stores/anuncios.js`
+- [X] T022 [US2] Mostrar autor, biografía, categoría y resumen de valoraciones en `frontend-vue/src/views/AnuncioDetalleView.vue`
+- [X] T023 [US2] Mostrar número de favoritos y estado de favorito informativo en `frontend-vue/src/views/AnuncioDetalleView.vue`
+- [X] T024 [US2] Implementar estados de anuncio no encontrado, identificador inválido y error de conexión en `frontend-vue/src/views/AnuncioDetalleView.vue`
 
 **Checkpoint**: El detalle funciona de forma independiente.
 
@@ -108,14 +108,14 @@ description: "Task list for the 003-catalogo-anuncios feature"
 
 ### Tests for User Story 3
 
-- [ ] T025 [P] [US3] Crear pruebas de paginación en `frontend-vue/tests/catalog/pagination.spec.js`
+- [X] T025 [P] [US3] Crear pruebas de paginación en `frontend-vue/tests/catalog/pagination.spec.js`
 
 ### Implementation for User Story 3
 
-- [ ] T026 [US3] Implementar los controles de paginación en `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
-- [ ] T027 [US3] Sincronizar la página con la URL en `frontend-vue/src/router/catalogQuery.js` y `frontend-vue/src/views/AnunciosListView.vue`
-- [ ] T028 [US3] Corregir la página fuera de rango a la última disponible en `frontend-vue/src/stores/anuncios.js`
-- [ ] T029 [US3] Conservar página y filtros al volver desde el detalle en `frontend-vue/src/views/AnunciosListView.vue` y `frontend-vue/src/views/AnuncioDetalleView.vue`
+- [X] T026 [US3] Implementar los controles de paginación en `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
+- [X] T027 [US3] Sincronizar la página con la URL en `frontend-vue/src/router/catalogQuery.js` y `frontend-vue/src/views/AnunciosListView.vue`
+- [X] T028 [US3] Corregir la página fuera de rango a la última disponible en `frontend-vue/src/stores/anuncios.js`
+- [X] T029 [US3] Conservar página y filtros al volver desde el detalle en `frontend-vue/src/views/AnunciosListView.vue` y `frontend-vue/src/views/AnuncioDetalleView.vue`
 
 **Checkpoint**: La paginación funciona y conserva el contexto.
 
@@ -129,16 +129,16 @@ description: "Task list for the 003-catalogo-anuncios feature"
 
 ### Tests for User Story 4
 
-- [ ] T030 [P] [US4] Crear pruebas de búsqueda, filtros y query en `frontend-vue/tests/catalog/catalogFilters.spec.js`
+- [X] T030 [P] [US4] Crear pruebas de búsqueda, filtros y query en `frontend-vue/tests/catalog/catalogFilters.spec.js`
 
 ### Implementation for User Story 4
 
-- [ ] T031 [P] [US4] Implementar el panel de filtros en `frontend-vue/src/components/catalog/FiltrosCatalogo.vue`
-- [ ] T032 [P] [US4] Implementar el selector de categoría en `frontend-vue/src/components/catalog/SelectorCategoria.vue`
-- [ ] T033 [US4] Implementar la búsqueda al enviar o pulsar Enter en `frontend-vue/src/components/catalog/FiltrosCatalogo.vue`
-- [ ] T034 [US4] Sincronizar texto, categoría, estado y orden con la URL en `frontend-vue/src/router/catalogQuery.js` y `frontend-vue/src/views/AnunciosListView.vue`
-- [ ] T035 [US4] Volver a página 1 al cambiar un filtro en `frontend-vue/src/stores/anuncios.js`
-- [ ] T036 [US4] Implementar limpiar filtros, indicador de filtros activos y estado sin coincidencias en `frontend-vue/src/components/catalog/FiltrosCatalogo.vue` y `frontend-vue/src/views/AnunciosListView.vue`
+- [X] T031 [P] [US4] Implementar el panel de filtros en `frontend-vue/src/components/catalog/FiltrosCatalogo.vue`
+- [X] T032 [P] [US4] Implementar el selector de categoría en `frontend-vue/src/components/catalog/SelectorCategoria.vue`
+- [X] T033 [US4] Implementar la búsqueda al enviar o pulsar Enter en `frontend-vue/src/components/catalog/FiltrosCatalogo.vue`
+- [X] T034 [US4] Sincronizar texto, categoría, estado y orden con la URL en `frontend-vue/src/router/catalogQuery.js` y `frontend-vue/src/views/AnunciosListView.vue`
+- [X] T035 [US4] Volver a página 1 al cambiar un filtro en `frontend-vue/src/stores/anuncios.js`
+- [X] T036 [US4] Implementar limpiar filtros, indicador de filtros activos y estado sin coincidencias en `frontend-vue/src/components/catalog/FiltrosCatalogo.vue` y `frontend-vue/src/views/AnunciosListView.vue`
 
 **Checkpoint**: La búsqueda y los filtros funcionan de forma independiente.
 
@@ -152,14 +152,14 @@ description: "Task list for the 003-catalogo-anuncios feature"
 
 ### Tests for User Story 5
 
-- [ ] T037 [P] [US5] Crear pruebas de accesibilidad y formatos en `frontend-vue/tests/catalog/catalogAccessibility.spec.js`
+- [X] T037 [P] [US5] Crear pruebas de accesibilidad y formatos en `frontend-vue/tests/catalog/catalogAccessibility.spec.js`
 
 ### Implementation for User Story 5
 
-- [ ] T038 [US5] Hacer accesibles las tarjetas y enlaces con teclado y foco visible en `frontend-vue/src/components/catalog/AnuncioCard.vue` y `frontend-vue/src/components/catalog/AnuncioGrid.vue`
-- [ ] T039 [US5] Añadir etiquetas y foco visible a filtros y paginación en `frontend-vue/src/components/catalog/FiltrosCatalogo.vue` y `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
-- [ ] T040 [US5] Ajustar listado, filtros y detalle a 360 px en `frontend-vue/src/views/AnunciosListView.vue`, `frontend-vue/src/views/AnuncioDetalleView.vue` y `frontend-vue/src/styles/base.css`
-- [ ] T041 [US5] Aplicar textos alternativos y formatos de precio, fecha e imagen en `frontend-vue/src/components/catalog/AnuncioCard.vue` y `frontend-vue/src/views/AnuncioDetalleView.vue`
+- [X] T038 [US5] Hacer accesibles las tarjetas y enlaces con teclado y foco visible en `frontend-vue/src/components/catalog/AnuncioCard.vue` y `frontend-vue/src/components/catalog/AnuncioGrid.vue`
+- [X] T039 [US5] Añadir etiquetas y foco visible a filtros y paginación en `frontend-vue/src/components/catalog/FiltrosCatalogo.vue` y `frontend-vue/src/components/catalog/PaginacionCatalogo.vue`
+- [X] T040 [US5] Ajustar listado, filtros y detalle a 360 px en `frontend-vue/src/views/AnunciosListView.vue`, `frontend-vue/src/views/AnuncioDetalleView.vue` y `frontend-vue/src/styles/base.css`
+- [X] T041 [US5] Aplicar textos alternativos y formatos de precio, fecha e imagen en `frontend-vue/src/components/catalog/AnuncioCard.vue` y `frontend-vue/src/views/AnuncioDetalleView.vue`
 
 **Checkpoint**: El catálogo es accesible y usable en móvil.
 
@@ -169,10 +169,10 @@ description: "Task list for the 003-catalogo-anuncios feature"
 
 **Purpose**: Documentación, validación y calidad transversal.
 
-- [ ] T042 [P] Actualizar `README.md` con el catálogo, filtros, paginación y datos de ejemplo
-- [ ] T043 Ejecutar `npm run test:unit` y `npm run build` en `frontend-vue/` y registrar el resultado
-- [ ] T044 Ejecutar la validación manual de `specs/003-catalogo-anuncios/quickstart.md` y registrar el recorrido
-- [ ] T045 Revisar que no haya comentarios, llamadas directas a `fetch`, operaciones de gestión ni cambios en `backend/` en `frontend-vue/src/`
+- [X] T042 [P] Actualizar `README.md` con el catálogo, filtros, paginación y datos de ejemplo
+- [X] T043 Ejecutar `npm run test:unit` y `npm run build` en `frontend-vue/` y registrar el resultado
+- [X] T044 Ejecutar la validación manual de `specs/003-catalogo-anuncios/quickstart.md` y registrar el recorrido
+- [X] T045 Revisar que no haya comentarios, llamadas directas a `fetch`, operaciones de gestión ni cambios en `backend/` en `frontend-vue/src/`
 
 ---
 

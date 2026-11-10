@@ -118,8 +118,9 @@ valoraciones y CORS.
 ## Frontend Vue
 
 El frontend está en `frontend-vue/` y usa Vue 3, Vite, Pinia, Vue Router,
-PrimeVue y `fetch`. La base común y la autenticación están implementadas; el
-resto de vistas se incorporan con las especificaciones de `specs/`.
+PrimeVue y `fetch`. La base común, la autenticación y el catálogo están
+implementados; el resto de vistas se incorporan con las especificaciones de
+`specs/`.
 
 Requisitos:
 
@@ -153,8 +154,8 @@ npm run preview
 Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<fichero>`.
 
 Las rutas cuyas vistas aún no se han implementado muestran una vista de
-sustitución accesible. El catálogo, la gestión, los favoritos y el perfil se
-incorporan en las especificaciones `specs/003` a `specs/006`.
+sustitución accesible. La gestión, los favoritos y el perfil se incorporan en las
+especificaciones `specs/004` a `specs/006`.
 
 ### Autenticación
 
@@ -166,6 +167,15 @@ incorporan en las especificaciones `specs/003` a `specs/006`.
 - Sesión por pestaña, sin refresh token ni sincronización entre pestañas.
 - Usuarios de prueba: `ana@example.com` y `carlos@example.com`, contraseña
   `Clasify123!`.
+
+### Catálogo
+
+- Listado público paginado con 20 anuncios por página.
+- Búsqueda por texto, filtros por categoría y estado, y ordenación.
+- Detalle público con autor, categoría, valoraciones y número de favoritos.
+- Página y filtros conservados en la dirección.
+- Estados de carga, vacío, error, no encontrado e identificador inválido.
+- Las acciones de gestión y de favoritos se incorporan en `004` y `005`.
 
 ### CORS
 
