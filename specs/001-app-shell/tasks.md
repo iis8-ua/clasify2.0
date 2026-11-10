@@ -264,3 +264,7 @@ Task: "Implementar notificaciones en frontend-vue/src/App.vue"
 - [X] T053 Validar `VITE_API_URL` al arrancar y propagar `AbortSignal` en la capa HTTP, con pruebas de configuración y cancelación, per 001 http-contract §1/§2 (partial)
 - [X] T054 Añadir y consumir los tokens `fontWeightRegular` y `fontWeightStrong`, eliminando pesos tipográficos literales, per 001 data-model ThemeTokens (partial)
 - [X] T055 Actualizar el checklist de la Práctica 4 en `README.md`: marcar favoritos, aclarar el alcance Vue y retirar o justificar la línea de React, per README Práctica 4 (contradicts)
+
+## Phase 9: Convergence
+
+- [ ] T056 Actualizar `data-model.md` y `quickstart.md` de 001 para describir las vistas reales que sustituyen a los placeholders y retirar las expectativas obsoletas de “sustitución”, per 001 data-model/quickstart (contradicts)

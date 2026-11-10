@@ -247,3 +247,7 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 - [X] T035 Alinear las props y eventos de `BotonFavorito` con `contracts/favoritos-ui.md` o actualizar el contrato aprobado, con prueba de contrato, per favoritos-ui §1 (contradicts)
 - [X] T036 Secuenciar las cargas de páginas de favoritos con token de solicitud o cancelación para evitar que respuestas antiguas pisen la página nueva, con prueba de respuestas fuera de orden, per FR-016, SC-008 (partial)
 - [X] T037 Normalizar a página 1 una URL de favoritos fuera de rango cuando `paginas` sea 0, con prueba para usuario sin favoritos, per FR-017 (partial)
+
+## Phase 9: Convergence
+
+- [ ] T038 Reconciliar `research.md`, el contrato de UI y `BotonFavorito`: documentar la variante final de props/eventos y la responsabilidad de la store, per 005 research y favoritos-ui (contradicts)

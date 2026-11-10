@@ -277,3 +277,7 @@ US1 y US2 son P1; el perfil necesita ambos para ser útil.
 - [X] T044 Secuenciar las cargas de páginas de anuncios propios con token de solicitud o cancelación para evitar respuestas fuera de orden, con prueba, per FR-021, SC-011 (partial)
 - [X] T045 Normalizar a página 1 una URL de anuncios propios fuera de rango cuando `paginas` sea 0, con prueba para usuario sin anuncios, per FR-022 (partial)
 - [X] T046 Añadir aviso `beforeunload` con cambios sin guardar y reordenar el cierre de sesión para no limpiar la sesión antes de confirmar la salida, con pruebas, per FR-014, US2/AC8 (partial)
+
+## Phase 10: Convergence
+
+- [ ] T047 Evitar que el aviso de cambios sin guardar del perfil bloquee una redirección motivada por sesión inválida desde el cambio de contraseña o “Mis anuncios”, con prueba de regresión, per 006 FR-026, 002 FR-016 (partial)

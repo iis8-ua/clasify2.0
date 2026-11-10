@@ -296,3 +296,7 @@ Task: "Revisar etiquetas y errores en frontend-vue/src/components/auth/AuthCard.
 - [X] T048 Limpiar el campo de contraseña después de enviar el acceso y el registro, conservando el resto del formulario ante error, con prueba explícita, per FR-018, SC-010 (partial)
 - [X] T049 Implementar una reacción central a `401` de sesión que limpie la sesión, informe en español y redirija a acceso conservando la ruta actual, y usarla desde todas las operaciones privadas, per FR-016, SC-009, Constitución V (partial)
 - [X] T050 Alinear la trazabilidad de las pruebas de 002 con los archivos reales, cubriendo carga inicial, limpieza de contraseña, caducidad de sesión y redirección tras acceso, per T030/T034 y quickstart (missing)
+
+## Phase 11: Convergence
+
+- [ ] T051 Alinear la trazabilidad de las tareas de prueba de 002 con los archivos reales, creando los archivos citados o actualizando las tareas para que apunten a la cobertura existente de login, registro, logout, restauración y caducidad, per T030/T034 (missing)
