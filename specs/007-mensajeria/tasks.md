@@ -86,7 +86,7 @@ description: "Task list for the 007-mensajeria feature"
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Implementar `TarjetaConversacion` con anuncio, contraparte, último mensaje, fecha y no leídos en `frontend-vue/src/components/mensajeria/TarjetaConversacion.vue`
+- [X] T016 [US2] Implementar `TarjetaConversacion` con anuncio, contraparte, último mensaje, fecha y no leídos en `frontend-vue/src/components/mensajeria/TarjetaConversacion.vue`
 - [ ] T017 [US2] Implementar `MensajesView` con carga, resultados, vacío, error y reintento en `frontend-vue/src/views/MensajesView.vue`
 - [ ] T018 [US2] Sincronizar página y tamaño 10/20/50 con la URL en `frontend-vue/src/views/MensajesView.vue`
 - [ ] T019 [US2] Añadir enlaces al perfil público de la contraparte y al detalle del anuncio en `frontend-vue/src/components/mensajeria/TarjetaConversacion.vue`
