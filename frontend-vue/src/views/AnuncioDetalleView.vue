@@ -111,7 +111,11 @@ function actualizarFavorito({ esFavorito, numFavoritos }) {
 
         <section class="anuncio-detalle__author" aria-labelledby="author-title">
           <h2 id="author-title" class="anuncio-detalle__section-title">Sobre el vendedor</h2>
-          <p class="anuncio-detalle__author-name">{{ detalle.autor.nombre }}</p>
+          <p class="anuncio-detalle__author-name">
+            <RouterLink :to="{ name: 'perfil-publico', params: { id: detalle.autor.id } }">
+              {{ detalle.autor.nombre }}
+            </RouterLink>
+          </p>
           <p v-if="detalle.autor.biografia" class="anuncio-detalle__author-bio">
             {{ detalle.autor.biografia }}
           </p>

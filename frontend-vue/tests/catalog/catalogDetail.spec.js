@@ -13,13 +13,15 @@ vi.mock('primevue/usetoast', () => ({
 vi.mock('../../src/services/anunciosService', () => ({
   anunciosService: {
     listar: vi.fn(),
+    listarDeUsuario: vi.fn(),
     detalle: vi.fn()
   }
 }))
 
 const rutas = [
   { path: '/', name: 'anuncios', component: { template: '<div />' } },
-  { path: '/anuncios/:id', name: 'anuncio-detalle', component: AnuncioDetalleView }
+  { path: '/anuncios/:id', name: 'anuncio-detalle', component: AnuncioDetalleView },
+  { path: '/usuarios/:id', name: 'perfil-publico', component: { template: '<div />' } }
 ]
 
 const detalle = {
@@ -59,6 +61,8 @@ async function montar() {
 describe('detalle de anuncio', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    anunciosService.listar.mockResolvedValue({ datos: [] })
+    anunciosService.listarDeUsuario.mockResolvedValue({ datos: [] })
   })
 
   it('muestra los datos públicos del anuncio', async () => {
@@ -75,6 +79,7 @@ describe('detalle de anuncio', () => {
     expect(wrapper.text()).not.toContain('ana@example.com')
     expect(wrapper.text()).not.toContain('Editar')
     expect(wrapper.text()).not.toContain('Eliminar')
+    expect(wrapper.get('a[href="/usuarios/1"]').text()).toBe('Ana Ruiz')
   })
 
   it('muestra anuncio no encontrado', async () => {
