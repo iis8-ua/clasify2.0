@@ -82,7 +82,7 @@ description: "Task list for the 007-mensajeria feature"
 
 ### Tests for User Story 2
 
-- [ ] T015 [P] [US2] Crear pruebas de la bandeja con resultados, vacío, error, no leídos, paginación y tamaño en `frontend-vue/tests/mensajeria/bandeja.spec.js`
+- [X] T015 [P] [US2] Crear pruebas de la bandeja con resultados, vacío, error, no leídos, paginación y tamaño en `frontend-vue/tests/mensajeria/bandeja.spec.js`
 
 ### Implementation for User Story 2
 
