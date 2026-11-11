@@ -121,6 +121,11 @@ El frontend está en `frontend-vue/` y usa Vue 3, Vite, Pinia, Vue Router,
 PrimeVue y `fetch`. La base común, la autenticación, el catálogo, la gestión de
 anuncios, los favoritos y el perfil propio están implementados.
 
+Las specs 007–009 y las ampliaciones de 001, 003, 005 y 006 están especificadas y
+pendientes de implementar: mensajería, perfil público, valoraciones, modo oscuro,
+selector de tamaño de página, compartir anuncios, anuncios similares, “Más de
+este vendedor” y quitar favoritos desde la lista.
+
 Requisitos:
 
 - Node.js `^20.19.0 || >=22.12.0`.
@@ -174,7 +179,8 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 
 ### Catálogo
 
-- Listado público paginado con 20 anuncios por página.
+- Listado público paginado con 20 anuncios por página en la implementación actual; la ampliación
+  especificada añade selector de 10, 20 o 50.
 - Búsqueda por texto, filtros por categoría y estado, y ordenación.
 - Detalle público con autor, categoría, valoraciones y número de favoritos.
 - Página y filtros conservados en la dirección.
@@ -201,14 +207,16 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 - Un visitante que pulsa favorito accede y vuelve al anuncio; después debe
   confirmar la acción.
 - El autor no ve la acción sobre su propio anuncio.
-- Lista protegida en `/favoritos` con 20 elementos por página.
+- Lista protegida en `/favoritos` con 20 elementos por página en la implementación actual; la
+  ampliación especificada añade selector de 10, 20 o 50.
 - Tarjetas del catálogo con título, precio, imagen o marcador, categoría, estado
   y fecha.
 - Los anuncios vendidos siguen visibles con su estado.
 - Paginación completa con la página conservada en la dirección.
 - La página fuera de rango se corrige a la última disponible.
 - Estados de carga, vacío, error y reintento.
-- La lista solo abre el detalle y no ofrece una acción directa para quitar.
+- En la implementación actual la lista solo abre el detalle; la ampliación especificada añade una
+  acción de quitar con confirmación.
 - Limpieza de favoritos al cerrar sesión o cambiar de cuenta.
 - La validación manual completa requiere el backend y la base de datos
   arrancados.
@@ -226,14 +234,30 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
   cerrar la sesión.
 - “Mis anuncios” muestra solo los anuncios del usuario autenticado, incluidos
   los vendidos.
-- Paginación de 20 elementos con la página conservada en la dirección y
-  corrección de páginas fuera de rango.
+- Paginación de 20 elementos en la implementación actual, con la página conservada en la dirección y
+  corrección de páginas fuera de rango; la ampliación especificada añade selector de 10, 20 o 50.
 - Cada tarjeta abre el detalle; la lista no ofrece acciones de gestión.
 - El estado vacío de “Mis anuncios” permite publicar un anuncio.
-- Perfil público, avatar, cambio de email, eliminación de cuenta y recuperación
-  de contraseña quedan fuera del alcance.
+- El perfil propio enlazará al perfil público propio.
+- El avatar, el cambio de email, la eliminación de cuenta y la recuperación de
+  contraseña siguen fuera del alcance.
 - La validación manual completa requiere el backend y la base de datos
   arrancados.
+
+### Alcance ampliado pendiente de implementar
+
+- Mensajería: bandeja, hilo, envío de mensajes, Contactar desde el detalle y no
+  leídos por conversación.
+- Perfil público con datos públicos, valoraciones recibidas y anuncios
+  publicados, incluidos los vendidos.
+- Valoraciones: puntuación de 1 a 5, comentario opcional, edición y borrado, y
+  listados en el perfil propio.
+- Modo claro y oscuro con selector y preferencia guardada en el navegador.
+- Selector de tamaño de página de 10, 20 o 50 en los listados paginados.
+- Compartir anuncio con la función nativa o copiando el enlace.
+- Anuncios similares y “Más de este vendedor” en el detalle.
+- Enlaces al perfil público desde autor, conversación y valoraciones.
+- Quitar favoritos desde la lista con confirmación.
 
 ### CORS
 
@@ -256,9 +280,12 @@ El prefijo de todas las rutas es `/clasify_api`. Las rutas principales:
 - `GET /categorias`
 - `GET /usuarios/me`, `PATCH /usuarios/me`, `GET /usuarios/:id`
 - `GET /usuarios/me/anuncios`, `GET /usuarios/me/favoritos`
+- `GET /usuarios/:id/anuncios`
 - `POST /anuncios/:id/favorito`, `DELETE /anuncios/:id/favorito`
 - `GET /usuarios/me/conversaciones`
+- `POST /anuncios/:id/mensajes`, `GET /anuncios/:id/mensajes`
 - `GET /conversaciones/:id/mensajes`, `POST /conversaciones/:id/mensajes`
+- `GET /usuarios/me/valoraciones`
 - `GET /usuarios/:id/valoraciones`, `PUT /usuarios/:id/valoracion`, `DELETE /usuarios/:id/valoracion`
 
 La tabla completa, los permisos y el formato de error están en
@@ -283,3 +310,10 @@ Se irán completando con el frontend:
   sustituir por otra, pero no dejar el campo vacío sin subir una nueva.
 - Fuera de alcance: pagos, envíos, moderación automática y moderación de
   valoraciones.
+- La mensajería será de texto y sin tiempo real; no habrá adjuntos,
+  notificaciones push ni email.
+- Seguirán fuera de alcance el avatar, el cambio de email, la recuperación de
+  contraseña, el 2FA, la eliminación de cuenta, la multiimagen y el borrado de la
+  imagen sin sustituirla.
+- No se incluyen mapa, filtros por rango de precio, búsquedas guardadas,
+  paginación infinita ni búsqueda dentro de favoritos.

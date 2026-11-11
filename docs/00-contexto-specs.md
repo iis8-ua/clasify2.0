@@ -20,15 +20,18 @@ La documentación de historias de usuario está en `docs/`. La constitución est
 |---|---|
 | Backend | Node.js, Express 5, MySQL, `mysql2`, JWT, bcrypt, multer y CORS |
 | Prefijo de API | `/clasify_api` |
-| Frontend | No existe todavía `frontend-vue/` ni su `package.json` |
-| Node.js | Requisito `>=20.6.0` |
+| Frontend | Implementado en `frontend-vue/`; las specs 001–006 están implementadas y las 007–009 están especificadas |
+| Node.js | Backend `>=20.6.0`; frontend `^20.19.0 || >=22.12.0` |
 | Pruebas backend | Jest + Supertest en `backend/tests/` |
+| Pruebas frontend | Vitest en `frontend-vue/tests/` |
 | Documentación | `README.md`, `Diseno.md`, `docs/` y `.specify/memory/constitution.md` |
-| Specs | Todavía no existe `specs/`; se crearán con Spec Kit |
+| Specs | `specs/001`–`specs/009` definidas con Spec Kit |
 
 ## 3. Alcance acordado
 
-Está en alcance **todo el backlog documentado: historias 01 a 16**.
+Está en alcance **todo el backlog documentado: historias 01 a 16**, junto con las ampliaciones de
+mensajería, perfil público, valoraciones, tema oscuro, tamaño de página y mejoras del catálogo
+recogidas en las specs 007–009 y en las actualizaciones de 001, 003, 005 y 006.
 
 Decisiones de alcance:
 
@@ -36,26 +39,34 @@ Decisiones de alcance:
 - Vue Router es obligatorio en el MVP.
 - La búsqueda y los filtros forman parte del alcance.
 - Favoritos y perfil propio forman parte del alcance.
+- El perfil público de otros usuarios forma parte del alcance.
+- La mensajería y las conversaciones forman parte del alcance.
+- Las valoraciones entre usuarios forman parte del alcance.
 - El cambio de estado de un anuncio forma parte del alcance.
+- Compartir anuncios, los anuncios similares y “Más de este vendedor” forman parte del alcance.
+- El usuario podrá quitar favoritos desde la lista de favoritos con confirmación.
 - PrimeVue se usará con personalización amplia.
-- El tema visual será neutral con un color de acento y solo modo claro.
-- El tamaño de página del listado será fijo en 20.
+- El tema visual será neutral con un color de acento y ofrecerá modo claro y modo oscuro.
+- El tamaño de página será configurable entre 10, 20 y 50, con 20 por defecto.
 - El nombre de la categoría se mostrará en el listado cargando el catálogo una vez.
 - Las pruebas automatizadas usarán Vitest para servicios, stores y componentes clave.
 - El recorrido completo se validará manualmente contra el backend real.
 
 ### Fuera de alcance
 
-- Perfil público de otros usuarios.
-- Mensajería y conversaciones.
-- Valoraciones entre usuarios.
 - Pagos, envíos y logística.
-- Moderación automática o de contenido.
+- Moderación automática o de contenido y moderación de valoraciones.
+- Notificaciones push o por email.
+- Mensajería en tiempo real.
+- Adjuntos en mensajes.
 - Implementación con React, Svelte o Angular.
-- Modo oscuro.
-- Selector de tamaño de página.
+- Avatar o imagen de perfil.
+- Cambio de email, recuperación de contraseña, 2FA y eliminación de cuenta.
 - Subida de varias imágenes.
 - Eliminar la imagen de un anuncio sin sustituirla.
+- Mapa, filtros por rango de precio y búsquedas guardadas.
+- Paginación infinita, edición colaborativa, borradores persistentes, historial de estados, papelera y
+  programación de venta.
 - Cambios en el backend, en el esquema o en los contratos de la API.
 
 ## 4. Stack y arquitectura del frontend
@@ -151,8 +162,8 @@ Los nombres exactos pueden ajustarse en el plan, pero las responsabilidades no d
 ### Tema
 
 - PrimeVue con personalización amplia.
-- Base neutral clara con un color de acento.
-- Solo modo claro.
+- Base neutral con un color de acento.
+- Tema claro y tema oscuro, con selector accesible y preferencia guardada en el navegador.
 - Tokens propios para color, tipografía, espaciado, bordes, sombras y estados.
 - No se crea un sistema de diseño completo; se personalizan los tokens y los componentes usados.
 
@@ -248,6 +259,9 @@ acciones destructivas deben pedir confirmación y permitir cancelar.
 | `/anuncios/:id/editar` | Editar anuncio | Protegida y solo autor |
 | `/favoritos` | Favoritos | Protegida |
 | `/perfil` | Perfil propio | Protegida |
+| `/usuarios/:id` | Perfil público | Pública |
+| `/mensajes` | Bandeja de conversaciones | Protegida |
+| `/conversaciones/:id` | Hilo de mensajes | Protegida |
 | `/:pathMatch(.*)*` | 404 | Pública |
 
 Reglas:
@@ -255,7 +269,7 @@ Reglas:
 - `/anuncios/nuevo` debe declararse antes de `/anuncios/:id`.
 - Las rutas protegidas redirigen a `/login` con la ruta solicitada.
 - Tras el login se vuelve a la ruta solicitada o a `/`.
-- Los filtros y la página del listado pueden reflejarse en la URL.
+- Los filtros, la página y el tamaño de página pueden reflejarse en la URL.
 - La autorización real siempre la comprueba el backend.
 
 ## 7. Contratos del backend que debe usar el frontend
@@ -278,6 +292,17 @@ Reglas:
 | Perfil propio | `GET /clasify_api/usuarios/me` | JWT |
 | Editar perfil | `PATCH /clasify_api/usuarios/me` | JWT |
 | Mis anuncios | `GET /clasify_api/usuarios/me/anuncios` | JWT |
+| Perfil público | `GET /clasify_api/usuarios/:id` | Opcional |
+| Anuncios de un usuario | `GET /clasify_api/usuarios/:id/anuncios` | No |
+| Valoraciones recibidas | `GET /clasify_api/usuarios/:id/valoraciones` | No |
+| Mis valoraciones escritas | `GET /clasify_api/usuarios/me/valoraciones` | JWT |
+| Crear o editar valoración | `PUT /clasify_api/usuarios/:id/valoracion` | JWT |
+| Eliminar valoración | `DELETE /clasify_api/usuarios/:id/valoracion` | JWT |
+| Bandeja de conversaciones | `GET /clasify_api/usuarios/me/conversaciones` | JWT |
+| Hilo de mensajes | `GET /clasify_api/conversaciones/:id/mensajes` | JWT del participante |
+| Enviar mensaje | `POST /clasify_api/conversaciones/:id/mensajes` | JWT del participante |
+| Iniciar conversación | `POST /clasify_api/anuncios/:id/mensajes` | JWT |
+| Conversación del comprador | `GET /clasify_api/anuncios/:id/mensajes` | JWT |
 | Imágenes | `GET /clasify_api/uploads/:fichero` | No |
 
 Contratos comunes:
@@ -296,7 +321,7 @@ Los contratos detallados de cada operación están en las historias de `docs/`.
 
 ## 8. Mapa de specs
 
-Se crearán seis specs, en este orden. Cada spec debe leerse junto con este documento y con las
+Se crearán nueve specs, en este orden. Cada spec debe leerse junto con este documento y con las
 historias indicadas.
 
 ### 001-app-shell
@@ -309,8 +334,9 @@ historias indicadas.
 - Vue, Vite, Pinia, Vue Router y PrimeVue.
 - Layout, cabecera y navegación.
 - Mapa de rutas, guards y 404.
-- Tema neutral con acento, solo claro.
-- Tokens visuales y estilos globales.
+- Tema neutral con acento, con modo claro y oscuro.
+- Selector de tema accesible y preferencia guardada en el navegador.
+- Tokens visuales y estilos globales para ambos temas.
 - Componentes compartidos de carga, vacío, error, éxito y confirmación.
 - Servicio HTTP base con `fetch`.
 - Configuración de `VITE_API_URL`.
@@ -348,7 +374,10 @@ el 404 y deja preparadas las rutas y la infraestructura para las demás specs.
 
 - Listado paginado de anuncios.
 - Detalle de anuncio.
-- Paginación completa.
+- Paginación completa con tamaño de página 10, 20 o 50.
+- Compartir anuncio.
+- Anuncios similares y “Más de este vendedor”.
+- Enlace al perfil público del autor.
 - Búsqueda por texto.
 - Filtros por categoría y estado.
 - Ordenación.
@@ -383,11 +412,12 @@ el 404 y deja preparadas las rutas y la infraestructura para las demás specs.
 
 - Añadir y quitar favoritos.
 - Botón de favorito en el detalle.
+- Quitar favoritos desde la lista con confirmación.
 - Listado de favoritos.
-- Paginación, estados de carga, vacío y error.
+- Paginación con tamaño de página 10, 20 o 50, estados de carga, vacío y error.
 - Actualización del estado tras añadir o quitar.
 
-**No incluye:** favoritos compartidos ni notificaciones.
+**No incluye:** favoritos compartidos, notificaciones ni acciones masivas.
 
 ### 006-perfil
 
@@ -399,10 +429,50 @@ el 404 y deja preparadas las rutas y la infraestructura para las demás specs.
 - Edición de nombre y biografía.
 - Cambio de contraseña.
 - Resumen de valoraciones.
-- Listado de anuncios propios.
+- Enlace al perfil público propio.
+- Listado de anuncios propios con tamaño de página 10, 20 o 50.
 - Actualización del usuario en el estado compartido.
 
-**No incluye:** perfil público, mensajería ni valoraciones entre usuarios.
+**No incluye:** implementación del perfil público, mensajería ni gestión de valoraciones.
+
+### 007-mensajeria
+
+**Incluye:**
+
+- Bandeja de conversaciones.
+- Hilo de mensajes con paginación y tamaño de página.
+- Envío de mensajes de texto.
+- Botón Contactar en el detalle.
+- Mensajes no leídos por conversación.
+- Últimos mensajes en el detalle para participantes.
+- Enlaces al perfil público de la contraparte.
+
+**No incluye:** tiempo real, adjuntos, notificaciones push/email ni conversaciones grupales.
+
+### 008-perfil-publico
+
+**Incluye:**
+
+- Perfil público de otros usuarios.
+- Valoraciones recibidas de solo lectura.
+- Anuncios publicados, incluidos los vendidos.
+- Enlaces desde detalle, mensajería y valoraciones.
+- Paginación con tamaño de página 10, 20 o 50.
+
+**No incluye:** edición del perfil público, avatar, seguimiento ni acciones de gestión de anuncios.
+
+### 009-valoraciones
+
+**Incluye:**
+
+- Crear o actualizar una valoración desde el perfil público.
+- Puntuación 1–5 y comentario opcional de hasta 500 caracteres.
+- Eliminar la valoración propia con confirmación.
+- Valoraciones recibidas y escritas en el perfil propio.
+- Enlaces al perfil público del autor.
+- Paginación con tamaño de página 10, 20 o 50.
+
+**No incluye:** moderación, respuestas, votos de utilidad ni valoraciones anónimas.
 
 ## 9. Prompts para Spec Kit
 
@@ -433,6 +503,18 @@ anterior.
 /speckit.specify Implementa la spec 006-perfil descrita en docs/00-contexto-specs.md. Lee también docs/13-perfil.md. No modifiques el backend.
 ```
 
+```text
+/speckit.specify Implementa la spec 007-mensajeria descrita en docs/00-contexto-specs.md. Usa los endpoints existentes de conversaciones y mensajes. No modifiques el backend.
+```
+
+```text
+/speckit.specify Implementa la spec 008-perfil-publico descrita en docs/00-contexto-specs.md. Usa los endpoints existentes de perfil público, anuncios y valoraciones. No modifiques el backend.
+```
+
+```text
+/speckit.specify Implementa la spec 009-valoraciones descrita en docs/00-contexto-specs.md. Usa los endpoints existentes de valoraciones. No modifiques el backend.
+```
+
 Después de cada `specify`:
 
 ```text
@@ -459,7 +541,8 @@ Después de cada `specify`:
 - Respetar la accesibilidad y los estados de interfaz.
 - Detenerse al terminar cada tarea y esperar revisión.
 - Actualizar `README.md` y la documentación cuando cambie el comportamiento.
-- No implementar mensajería, valoraciones ni perfil público.
+- Implementar solo lo incluido en las specs 001–009 y no añadir mensajería en tiempo real,
+  notificaciones push/email, adjuntos, moderación ni cambios de backend.
 
 ## 11. Pruebas y definición de terminado
 
@@ -469,8 +552,9 @@ Debe cubrir, como mínimo:
 
 - Servicios de acceso al backend.
 - Transformación de errores.
-- Stores de sesión, anuncios, categorías y favoritos.
-- Componentes compartidos clave: estados, tarjetas, formularios, paginación y confirmaciones.
+- Stores de sesión, anuncios, categorías, favoritos, perfil, mensajería y valoraciones.
+- Componentes compartidos clave: estados, tarjetas, formularios, paginación, tamaños de página,
+  selector de tema y confirmaciones.
 
 Las pruebas unitarias pueden simular HTTP. La aceptación y el recorrido completo deben ejecutarse
 contra el backend real.
@@ -483,7 +567,11 @@ contra el backend real.
 4. Consultar su detalle.
 5. Editarlo.
 6. Eliminarlo.
-7. Cerrar sesión.
+7. Compartir un anuncio y abrir sus similares y los del vendedor.
+8. Valorar a otro usuario y consultar las valoraciones recibidas y escritas.
+9. Contactar con un vendedor, consultar la bandeja y responder en el hilo.
+10. Cambiar el tamaño de página y el tema claro/oscuro.
+11. Cerrar sesión.
 
 Debe documentarse con pasos, datos, resultados esperados y resultados obtenidos.
 
