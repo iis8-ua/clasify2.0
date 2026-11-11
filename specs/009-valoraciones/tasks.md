@@ -142,7 +142,7 @@ description: "Task list for the 009-valoraciones feature"
 
 - [X] T029 [P] Actualizar `README.md` y `specs/009-valoraciones/quickstart.md` con las valoraciones y sus límites
 - [X] T030 Ejecutar `npm run test:unit`, `npm run build` y la validación de `specs/009-valoraciones/quickstart.md`
-- [ ] T031 Revisar ausencia de comentarios, llamadas directas a `fetch`, moderación y cambios en `backend/`
+- [X] T031 Revisar ausencia de comentarios, llamadas directas a `fetch`, moderación y cambios en `backend/`
 
 ---
 
