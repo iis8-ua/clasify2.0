@@ -80,7 +80,7 @@ description: "Task list for the 008-perfil-publico feature"
 
 ### Tests for User Story 2
 
-- [ ] T013 [P] [US2] Crear pruebas de valoraciones recibidas, vacío, paginación y tamaño en `frontend-vue/tests/perfil-publico/valoracionesRecibidas.spec.js`
+- [X] T013 [P] [US2] Crear pruebas de valoraciones recibidas, vacío, paginación y tamaño en `frontend-vue/tests/perfil-publico/valoracionesRecibidas.spec.js`
 
 ### Implementation for User Story 2
 
