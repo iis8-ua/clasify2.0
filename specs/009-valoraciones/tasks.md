@@ -110,7 +110,7 @@ description: "Task list for the 009-valoraciones feature"
 - [X] T021 [US3] Integrar `MisValoracionesSection` en `frontend-vue/src/views/PerfilView.vue` sin romper el perfil de 006
 - [X] T022 [US3] Conectar editar con el perfil público del destinatario y el formulario precargado en `frontend-vue/src/components/valoraciones/MisValoracionesSection.vue` y `frontend-vue/src/views/PerfilPublicoView.vue`
 - [X] T023 [US3] Sincronizar `valoracionesRecibidasPagina`, `valoracionesRecibidasLimite`, `valoracionesEscritasPagina` y `valoracionesEscritasLimite` con la URL en `frontend-vue/src/views/PerfilView.vue`
-- [ ] T024 [US3] Gestionar estados de carga, vacío, error y reintento de cada lista de forma independiente en `frontend-vue/src/components/valoraciones/MisValoracionesSection.vue`
+- [X] T024 [US3] Gestionar estados de carga, vacío, error y reintento de cada lista de forma independiente en `frontend-vue/src/components/valoraciones/MisValoracionesSection.vue`
 
 **Checkpoint**: Las valoraciones del perfil propio funcionan de forma independiente.
 
