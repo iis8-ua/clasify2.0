@@ -119,10 +119,10 @@ valoraciones y CORS.
 
 El frontend está en `frontend-vue/` y usa Vue 3, Vite, Pinia, Vue Router,
 PrimeVue y `fetch`. La base común, la autenticación, el catálogo, la gestión de
-anuncios, los favoritos y el perfil propio están implementados.
+anuncios, los favoritos, el perfil propio, la mensajería, el perfil público y las
+valoraciones están implementados.
 
-Las specs 007–009 y las ampliaciones de 001, 003, 005 y 006 están especificadas y
-pendientes de implementar: mensajería, perfil público, valoraciones, modo oscuro,
+También están implementadas las ampliaciones de 001, 003, 005 y 006: modo oscuro,
 selector de tamaño de página, compartir anuncios, anuncios similares, “Más de
 este vendedor” y quitar favoritos desde la lista.
 
@@ -244,7 +244,7 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 - La validación manual completa requiere el backend y la base de datos
   arrancados.
 
-### Alcance ampliado pendiente de implementar
+### Mejoras de catálogo y tema
 
 - Modo claro y oscuro con selector y preferencia guardada en el navegador.
 - Selector de tamaño de página de 10, 20 o 50 en los listados paginados.
