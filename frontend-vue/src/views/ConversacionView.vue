@@ -11,40 +11,73 @@ import { TAMANOS_PAGINA } from '../router/catalogQuery'
 const route = useRoute()
 const router = useRouter()
 const mensajes = useMensajesStore()
-const pagina = ref(1)
+const cargandoAnteriores = ref(false)
 
 const id = computed(() => Number(route.params.id))
 const idValido = computed(() => Number.isInteger(id.value) && id.value > 0)
+const pagina = computed(() => {
+  const valor = Number(route.query.pagina)
+  return Number.isInteger(valor) && valor >= 1 ? valor : 1
+})
 const limite = computed(() => {
   const valor = Number(route.query.limite)
   return TAMANOS_PAGINA.includes(valor) ? valor : 20
 })
-const conversacion = computed(() =>
-  mensajes.conversaciones.find((item) => item.id === id.value) ?? null
+const conversacion = computed(
+  () => mensajes.conversacionActual ?? mensajes.conversaciones.find((item) => item.id === id.value) ?? null
 )
+
+function query(paginaDestino = pagina.value) {
+  const resultado = {}
+  if (paginaDestino > 1) resultado.pagina = String(paginaDestino)
+  if (limite.value !== 20) resultado.limite = String(limite.value)
+  return resultado
+}
 
 async function cargar() {
   if (!idValido.value) {
     return
   }
-  if (route.query.limite !== undefined && String(limite.value) !== String(route.query.limite)) {
-    await router.replace({ name: 'conversacion', params: { id: id.value }, query: limite.value !== 20 ? { limite: String(limite.value) } : {} })
+  if (cargandoAnteriores.value) {
+    cargandoAnteriores.value = false
     return
   }
-  pagina.value = 1
-  await mensajes.cargarHilo(id.value, 1, limite.value)
+
+  const paginaEnUrl = route.query.pagina === undefined || String(pagina.value) === String(route.query.pagina)
+  const limiteEnUrl = route.query.limite === undefined || String(limite.value) === String(route.query.limite)
+  if (!paginaEnUrl || !limiteEnUrl) {
+    await router.replace({ name: 'conversacion', params: { id: id.value }, query: query() })
+    return
+  }
+
+  await Promise.all([
+    mensajes.cargarConversacion(id.value),
+    mensajes.cargarHilo(id.value, pagina.value, limite.value)
+  ])
   if (mensajes.errorHilo?.estado === 401) {
     await router.push({ name: 'login', query: { redirect: route.fullPath } })
+    return
+  }
+  if (mensajes.estadoHilo === 'error') {
+    return
+  }
+  if (pagina.value > 1 && mensajes.paginacionHilo.paginas === 0) {
+    await router.replace({ name: 'conversacion', params: { id: id.value }, query: query(1) })
+    return
+  }
+  if (mensajes.paginacionHilo.paginas > 0 && pagina.value > mensajes.paginacionHilo.paginas) {
+    await router.replace({ name: 'conversacion', params: { id: id.value }, query: query(mensajes.paginacionHilo.paginas) })
   }
 }
 
-watch(() => [route.params.id, route.query.limite], cargar, { immediate: true })
+watch(() => [route.params.id, route.query.pagina, route.query.limite], cargar, { immediate: true })
 
 async function cargarAnteriores() {
   const siguiente = pagina.value + 1
   await mensajes.cargarHilo(id.value, siguiente, limite.value, { reemplazar: false })
-  if (mensajes.estadoHilo !== 'error') {
-    pagina.value = siguiente
+  if (mensajes.estadoHilo !== 'error' && mensajes.errorHilo?.estado !== 404) {
+    cargandoAnteriores.value = true
+    await router.replace({ name: 'conversacion', params: { id: id.value }, query: query(siguiente) })
   }
 }
 

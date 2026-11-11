@@ -15,6 +15,7 @@ export const useMensajesStore = defineStore('mensajes', {
     estadoHilo: 'idle',
     errorHilo: null,
     conversacionId: null,
+    conversacionActual: null,
     enviando: false,
     solicitudLista: 0,
     solicitudHilo: 0,
@@ -47,6 +48,29 @@ export const useMensajesStore = defineStore('mensajes', {
         this.estado = 'error'
         return null
       }
+    },
+    async cargarConversacion(id) {
+      const existente = this.conversaciones.find((item) => item.id === id)
+      if (existente) {
+        this.conversacionActual = existente
+        return existente
+      }
+
+      let pagina = 1
+      let paginas = 1
+      do {
+        const respuesta = await mensajesService.listarConversaciones({ pagina, limite: 100 })
+        const encontrada = respuesta.datos.find((item) => item.id === id)
+        if (encontrada) {
+          this.conversacionActual = encontrada
+          return encontrada
+        }
+        paginas = respuesta.paginacion.paginas
+        pagina += 1
+      } while (pagina <= paginas)
+
+      this.conversacionActual = null
+      return null
     },
     async cargarHilo(id, pagina = 1, limite = 20, { reemplazar = true } = {}) {
       const solicitud = ++this.solicitudHilo
@@ -106,6 +130,7 @@ export const useMensajesStore = defineStore('mensajes', {
       this.estadoHilo = 'idle'
       this.errorHilo = null
       this.conversacionId = null
+      this.conversacionActual = null
       this.enviando = false
       this.solicitudLista += 1
       this.solicitudHilo += 1

@@ -9,7 +9,7 @@ import { ApiError } from '../../src/services/errors'
 
 vi.mock('primevue/usetoast', () => ({ useToast: () => ({ add: vi.fn() }) }))
 vi.mock('../../src/services/mensajesService', () => ({
-  mensajesService: { listarMensajes: vi.fn(), enviar: vi.fn() }
+  mensajesService: { listarMensajes: vi.fn(), listarConversaciones: vi.fn(), enviar: vi.fn() }
 }))
 
 const mensaje = { id: 1, texto: 'Hola', fecha: '2026-11-11T10:00:00.000Z', leido: true, id_conversacion: 4, id_emisor: 2 }
@@ -38,6 +38,7 @@ describe('hilo de mensajes', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mensajesService.listarMensajes.mockResolvedValue({ datos: [mensaje], paginacion: { pagina: 1, limite: 20, total: 2, paginas: 2 } })
+    mensajesService.listarConversaciones.mockResolvedValue({ datos: [{ id: 4, anuncio: { id: 25, titulo: 'Bicicleta' }, contraparte: { id: 2, nombre: 'Carlos' } }], paginacion: { pagina: 1, limite: 100, total: 1, paginas: 1 } })
     mensajesService.enviar.mockResolvedValue({ datos: { mensaje: { ...mensaje, id: 2, texto: 'Respuesta', id_emisor: 1 } } })
   })
 
@@ -51,6 +52,13 @@ describe('hilo de mensajes', () => {
     await flushPromises()
 
     expect(wrapper.text()).toContain('Anterior')
+    expect(wrapper.vm.$route.query.pagina).toBe('2')
+  })
+
+  it('recupera anuncio y contraparte al abrir directamente', async () => {
+    const { wrapper } = await montar()
+    expect(wrapper.text()).toContain('Bicicleta')
+    expect(wrapper.text()).toContain('Carlos')
   })
 
   it('envía una respuesta y la muestra', async () => {
