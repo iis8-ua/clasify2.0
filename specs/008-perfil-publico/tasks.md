@@ -84,7 +84,7 @@ description: "Task list for the 008-perfil-publico feature"
 
 ### Implementation for User Story 2
 
-- [ ] T014 [US2] Implementar `ValoracionesRecibidas` con autor, puntuación, comentario, fecha y enlace al perfil del autor en `frontend-vue/src/components/perfil-publico/ValoracionesRecibidas.vue`
+- [X] T014 [US2] Implementar `ValoracionesRecibidas` con autor, puntuación, comentario, fecha y enlace al perfil del autor en `frontend-vue/src/components/perfil-publico/ValoracionesRecibidas.vue`
 - [ ] T015 [US2] Integrar el listado en `frontend-vue/src/views/PerfilPublicoView.vue` con estados de carga, vacío, error y reintento
 - [ ] T016 [US2] Sincronizar `paginaValoraciones` y `limiteValoraciones` con la URL y volver a la primera página al cambiar el tamaño en `frontend-vue/src/views/PerfilPublicoView.vue`
 - [ ] T017 [US2] Mantener el listado de valoraciones de solo lectura y sin acciones de alta, edición o borrado en `frontend-vue/src/components/perfil-publico/ValoracionesRecibidas.vue`
