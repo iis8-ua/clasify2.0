@@ -785,3 +785,76 @@ button:disabled {
 .contact-control {
   margin-top: var(--space-3);
 }
+
+.conversation-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.conversation-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-small);
+}
+
+.conversation-card__main {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-3);
+  color: inherit;
+  text-decoration: none;
+}
+
+.conversation-card__image {
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+  border: 0;
+  border-radius: var(--radius-small);
+  object-fit: cover;
+}
+
+.conversation-card__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.conversation-card__title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.conversation-card__unread {
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-strong);
+}
+
+.conversation-card__price {
+  margin: var(--space-1) 0;
+  font-weight: var(--font-weight-strong);
+}
+
+.conversation-card__counterpart,
+.conversation-card__last {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.conversation-card__profile {
+  color: var(--color-primary-strong);
+}
+
+@media (max-width: 48rem) {
+  .conversation-card__main {
+    grid-template-columns: 5rem minmax(0, 1fr);
+  }
+}
