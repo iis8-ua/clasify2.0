@@ -4,8 +4,9 @@ import { useRoute, useRouter } from 'vue-router'
 import AnuncioGrid from '../components/catalog/AnuncioGrid.vue'
 import FiltrosCatalogo from '../components/catalog/FiltrosCatalogo.vue'
 import PaginacionCatalogo from '../components/catalog/PaginacionCatalogo.vue'
+import SelectorTamanoPagina from '../components/catalog/SelectorTamanoPagina.vue'
 import StatePanel from '../components/states/StatePanel.vue'
-import { conFiltro, conPagina, escribirQuery, leerQuery, FILTROS_POR_DEFECTO } from '../router/catalogQuery'
+import { conFiltro, conPagina, conTamano, escribirQuery, leerQuery, FILTROS_POR_DEFECTO } from '../router/catalogQuery'
 import { useAnunciosStore } from '../stores/anuncios'
 import { useCategoriasStore } from '../stores/categorias'
 
@@ -72,6 +73,10 @@ function limpiar() {
 function cambiarPagina(pagina) {
   navegar(conPagina(filtros.value, pagina))
 }
+
+function cambiarTamano(limite) {
+  navegar(conTamano(filtros.value, limite))
+}
 </script>
 
 <template>
@@ -125,11 +130,17 @@ function cambiarPagina(pagina) {
         :categorias-por-id="categorias.porId"
         :nivel-titulo="2"
       />
-      <PaginacionCatalogo
-        :pagina="anuncios.paginacion.pagina"
-        :paginas="anuncios.paginacion.paginas"
-        @cambiar="cambiarPagina"
-      />
+      <div class="catalog-pagination__row">
+        <SelectorTamanoPagina
+          :model-value="filtros.limite"
+          @update:model-value="cambiarTamano"
+        />
+        <PaginacionCatalogo
+          :pagina="anuncios.paginacion.pagina"
+          :paginas="anuncios.paginacion.paginas"
+          @cambiar="cambiarPagina"
+        />
+      </div>
     </template>
   </section>
 </template>

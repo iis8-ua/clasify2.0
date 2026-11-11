@@ -737,3 +737,15 @@ button:disabled {
     display: none;
   }
 }
+
+.catalog-pagination__row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.page-size {
+  min-width: 10rem;
+}
