@@ -144,7 +144,7 @@ description: "Task list for the 007-mensajeria feature"
 **Purpose**: Documentación y validación.
 
 - [X] T032 [P] Actualizar `README.md` y `specs/007-mensajeria/quickstart.md` con la mensajería y sus límites
-- [ ] T033 Ejecutar `npm run test:unit`, `npm run build` y la validación de `specs/007-mensajeria/quickstart.md`
+- [X] T033 Ejecutar `npm run test:unit`, `npm run build` y la validación de `specs/007-mensajeria/quickstart.md`
 - [ ] T034 Revisar ausencia de comentarios, llamadas directas a `fetch`, tiempo real, adjuntos y cambios en `backend/`
 
 ---
