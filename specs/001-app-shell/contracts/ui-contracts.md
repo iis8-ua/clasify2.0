@@ -15,6 +15,9 @@
 | `/anuncios/:id/editar` | `anuncio-editar` | Protegida | Editar anuncio | `AnuncioEditarView` |
 | `/favoritos` | `favoritos` | Protegida | Favoritos | `FavoritosView` |
 | `/perfil` | `perfil` | Protegida | Mi perfil | `PerfilView` |
+| `/usuarios/:id` | `perfil-publico` | Pública | Perfil público | `PerfilPublicoView` |
+| `/mensajes` | `mensajes` | Protegida | Mensajes | `MensajesView` |
+| `/conversaciones/:id` | `conversacion` | Protegida | Conversación | `ConversacionView` |
 | `/:pathMatch(.*)*` | `no-encontrado` | Pública | Página no encontrada | `NotFoundView` |
 
 Rules:
@@ -32,6 +35,7 @@ Rules:
 |---|---|---|---|
 | Anuncios | `anuncios` | Pública | No |
 | Favoritos | `favoritos` | Autenticada | No |
+| Mensajes | `mensajes` | Autenticada | No |
 | Perfil | `perfil` | Autenticada | No |
 | Publicar anuncio | `anuncio-crear` | Autenticada | Sí |
 | Iniciar sesión | `login` | Visitante | No |
@@ -58,6 +62,8 @@ Rules:
 - El cierre de sesión se delega en la store de sesión de la spec 002.
 - La cabecera no muestra datos privados de otras cuentas.
 - La etiqueta de registro es «Registrarse».
+- La cabecera incluye `ThemeToggle`, con nombre accesible que indica el tema actual y la acción.
+- `ThemeToggle` delega en `useTemaStore` y no accede al backend.
 
 ## 4. Interface State Contract
 
@@ -149,10 +155,14 @@ Rules:
 
 Rules:
 
-- Solo existe un tema claro.
-- No se definen tokens de modo oscuro.
+- Existen tema claro y tema oscuro, con el claro como valor inicial.
+- Los tokens de color, superficie, texto, borde y estados tienen equivalente en ambos temas.
+- El tema activo se refleja en un atributo del documento y en `ThemeToggle`.
+- La preferencia se guarda en `localStorage` bajo una clave propia; nunca se guardan tokens,
+  credenciales ni datos privados.
+- Si la preferencia guardada no es válida, se usa el tema claro.
 - El color de acento no sustituye los colores semánticos de error, éxito y advertencia.
-- Los contrastes deben ser legibles.
+- Los contrastes deben ser legibles en ambos temas.
 
 ## 8. Out of Scope
 
@@ -160,5 +170,4 @@ Rules:
 - Listado, detalle, favoritos o perfil con datos reales.
 - Lógica de negocio.
 - Llamadas HTTP a endpoints concretos.
-- Modo oscuro.
-- Selector de tamaño de página.
+- Selector de tamaño de página; pertenece a las specs de listados.

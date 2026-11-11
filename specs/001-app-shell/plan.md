@@ -6,7 +6,7 @@
 
 ## Summary
 
-Crear la base del frontend Vue de Clasify: estructura visual común, cabecera con acción de creación para usuarios autenticados, navegación por URL, rutas protegidas, página 404, estados de interfaz compartidos, tema visual, accesibilidad y capa HTTP base. Esta feature no implementa los flujos de negocio de autenticación, catálogo, gestión de anuncios, favoritos ni perfil; deja las rutas y sustituciones preparadas para las specs 002–006.
+Crear la base del frontend Vue de Clasify: estructura visual común, cabecera con acción de creación para usuarios autenticados, navegación por URL, rutas protegidas, página 404, estados de interfaz compartidos, tema claro y oscuro, accesibilidad y capa HTTP base. Esta feature no implementa los flujos de negocio de autenticación, catálogo, gestión de anuncios, favoritos, perfil, perfil público, mensajería ni valoraciones; deja las rutas preparadas para las specs 002–009.
 
 El enfoque técnico es una aplicación Vue 3 con Vite, Pinia, Vue Router y PrimeVue, escrita en JavaScript, con una separación estricta entre vistas, componentes, stores, servicios y router. El backend existente no se modifica.
 
@@ -25,7 +25,7 @@ El enfoque técnico es una aplicación Vue 3 con Vite, Pinia, Vue Router y Prime
 - `primeicons` `7.0.0`
 - `fetch` nativo; sin axios
 
-**Storage**: Sin datos de negocio persistentes en esta feature. `sessionStorage` queda reservado para la sesión de la spec 002. La configuración de la API se lee de `VITE_API_URL`.
+**Storage**: Sin datos de negocio persistentes en esta feature. `sessionStorage` queda reservado para la sesión de la spec 002. La preferencia de tema se guarda en `localStorage` bajo una clave propia y nunca contiene tokens ni datos privados. La configuración de la API se lee de `VITE_API_URL`.
 
 **Testing**: Vitest `3.2.7`, `@vue/test-utils` `2.5.1`, `jsdom` `26.1.0`; comprobación manual de rutas, accesibilidad y responsive.
 
@@ -44,14 +44,17 @@ El enfoque técnico es una aplicación Vue 3 con Vite, Pinia, Vue Router y Prime
 - No implementar flujos de negocio en esta feature.
 - No añadir comentarios al código.
 - No realizar llamadas HTTP directas desde componentes.
-- No usar axios, TypeScript, Tailwind, modo oscuro ni selector de tamaño de página.
-- Interfaz en español y en un único modo claro.
-- Diseño usable a 360 px y con navegación por teclado.
+- No usar axios, TypeScript ni Tailwind.
+- Interfaz en español, con tema claro y oscuro conmutables y preferencia local.
+- El selector de tamaño de página pertenece a las specs de listados, no al shell.
+- Diseño usable a 360 px y con navegación por teclado, en ambos temas.
 
 **Scale/Scope**:
-- 9 rutas: listado, detalle, acceso, registro, creación, edición, favoritos, perfil y 404.
+- 12 rutas: listado, detalle, acceso, registro, creación, edición, favoritos, perfil, perfil público,
+  mensajes, conversación y 404.
 - 4 historias de usuario del shell.
-- 1 layout principal, 1 cabecera, 1 navegación y un conjunto reducido de estados compartidos.
+- 1 layout principal, 1 cabecera, 1 navegación, 1 selector de tema y un conjunto reducido de estados
+  compartidos.
 - Sin llamadas a datos de negocio en esta feature.
 
 ## Constitution Check
@@ -65,13 +68,13 @@ El enfoque técnico es una aplicación Vue 3 con Vite, Pinia, Vue Router y Prime
 | III. Código limpio y sin comentarios | PASS | El plan y las tareas exigirán código autoexplicativo y cero comentarios en el código nuevo o modificado. |
 | IV. Consistencia y convenciones | PASS | Nombres PascalCase para componentes y vistas, camelCase para JavaScript, rutas y estados con nombres canónicos. |
 | V. Seguridad y protección de datos | PASS | No se almacenan secretos ni datos privados; la sesión queda como frontera para la spec 002; el backend no se modifica. |
-| VI. Experiencia de usuario y accesibilidad | PASS | Se definen estados comunes, 404, confirmaciones, foco visible, teclado, textos alternativos y diseño a 360 px. |
+| VI. Experiencia de usuario y accesibilidad | PASS | Se definen estados comunes, 404, confirmaciones, foco visible, teclado, textos alternativos, diseño a 360 px y contraste en tema claro y oscuro. |
 | VII. Desarrollo orientado a especificaciones | PASS | El alcance se limita a `001-app-shell`; las funcionalidades de negocio quedan en specs posteriores. |
 | VIII. Calidad y verificabilidad | PASS | Vitest cubrirá router, servicios y componentes clave; habrá comprobación manual de rutas, teclado y responsive. |
 | Tecnología obligatoria | PASS | Vue, Vite, Pinia, Vue Router, PrimeVue y `fetch`; sin cambios en el backend. |
 | Gobernanza | PASS | No hay violaciones ni excepciones que justificar. |
 
-**Post-Phase 1 re-check**: PASS. El diseño mantiene el alcance fundacional y no introduce dependencias ni flujos fuera de la constitución.
+**Post-Phase 1 re-check**: PASS. El diseño mantiene el alcance fundacional, añade el tema oscuro como preferencia local sin datos sensibles y no introduce dependencias ni flujos fuera de la constitución.
 
 ## Project Structure
 
@@ -105,6 +108,7 @@ frontend-vue/
 │   ├── components/
 │   │   ├── common/
 │   │   ├── layout/
+│   │   │   └── ThemeToggle.vue
 │   │   └── states/
 │   ├── router/
 │   │   ├── index.js
@@ -114,7 +118,8 @@ frontend-vue/
 │   │   ├── http.js
 │   │   └── errors.js
 │   ├── stores/
-│   │   └── session.js
+│   │   ├── session.js
+│   │   └── tema.js
 │   ├── styles/
 │   │   ├── base.css
 │   │   ├── tokens.css
@@ -123,18 +128,20 @@ frontend-vue/
 │       └── NotFoundView.vue
 └── tests/
     ├── components/
+    │   └── theme.spec.js
     ├── router/
     └── services/
 ```
 
-**Structure Decision**: se crea un único proyecto frontend en `frontend-vue/`. El backend existente en `backend/` se mantiene intacto. Las vistas de negocio de las specs 002–006 se incorporarán en `src/views/` y sus stores y servicios en `src/stores/` y `src/services/`, sin duplicar la infraestructura de esta feature.
+**Structure Decision**: se crea un único proyecto frontend en `frontend-vue/`. El backend existente en `backend/` se mantiene intacto. Las vistas de negocio de las specs 002–009 se incorporarán en `src/views/` y sus stores y servicios en `src/stores/` y `src/services/`, sin duplicar la infraestructura de esta feature. El tema se gestiona en `stores/tema.js`, se aplica en `styles/tokens.css` y `styles/primevue-theme.js`, y se controla desde `components/layout/ThemeToggle.vue`.
 
 ## Phase 0: Research
 
 Resultado en [research.md](research.md). Decisiones principales:
 
 - Versiones estables y compatibles: Vue 3.5.45, Vite 7.3.8, Pinia 3.0.4, Vue Router 4.6.4, PrimeVue 4.5.5 y Vitest 3.2.7.
-- PrimeVue 4.5.5 con `@primeuix/themes` 1.2.5 y `primeicons` 7.0.0, con tema neutral personalizado y sin modo oscuro.
+- PrimeVue 4.5.5 con `@primeuix/themes` 1.2.5 y `primeicons` 7.0.0, con tema neutral personalizado y modo claro/oscuro.
+- Preferencia de tema en `localStorage`, sin datos sensibles; tema claro por defecto cuando no haya preferencia guardada.
 - `fetch` nativo y capa HTTP propia; sin axios.
 - Vitest + Vue Test Utils + jsdom para servicios, router y componentes clave.
 - Sin cambios en el backend.
@@ -142,7 +149,7 @@ Resultado en [research.md](research.md). Decisiones principales:
 ## Phase 1: Design & Contracts
 
 - [data-model.md](data-model.md): rutas, vistas, estados, navegación, sesión de presentación y tokens visuales.
-- [contracts/ui-contracts.md](contracts/ui-contracts.md): contrato de rutas, navegación, cabecera, estados y formato.
+- [contracts/ui-contracts.md](contracts/ui-contracts.md): contrato de rutas, navegación, cabecera, estados, formato y tema claro/oscuro.
 - [contracts/http-contract.md](contracts/http-contract.md): configuración, peticiones, respuestas, errores y frontera de sesión.
 - [quickstart.md](quickstart.md): instalación, arranque y validación manual.
 

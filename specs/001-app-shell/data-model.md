@@ -125,10 +125,12 @@ Tokens visuales compartidos.
 
 Reglas:
 
-- Solo existe un tema claro.
+- Existen tema claro y tema oscuro.
+- Cada token de color, superficie, texto y borde tiene valor en ambos temas.
+- El tema claro es el valor inicial si no hay preferencia guardada.
+- La preferencia de tema se guarda en `localStorage` y no contiene datos privados.
 - El color de acento se usa para acciones principales y foco.
-- Los contrastes deben ser legibles.
-- No se crean tokens para modo oscuro.
+- Los contrastes deben ser legibles en ambos temas.
 
 ### Confirmación
 
@@ -187,7 +189,7 @@ En 001, `unknown` se resuelve como `visitor` hasta que la spec 002 implemente la
   colisionar.
 - Los estados usan valores cerrados y mensajes en español.
 - Los errores no exponen detalles internos.
-- Los tokens no incluyen variantes de modo oscuro.
+- Los tokens incluyen variantes de tema claro y oscuro.
 
 ## Relationships
 

@@ -60,7 +60,7 @@
 
 **Decision**: utilizar PrimeVue `4.5.5`, `@primeuix/themes` `1.2.5` y `primeicons` `7.0.0`.
 
-**Rationale**: PrimeVue 4.5.5 es la línea estable 4.x, ofrece los componentes necesarios y no incorpora la dependencia `@primeui/license-manager` que aparece en PrimeVue 5. El tema parte de un preset neutral y se personaliza con un color de acento, solo en modo claro.
+**Rationale**: PrimeVue 4.5.5 es la línea estable 4.x, ofrece los componentes necesarios y no incorpora la dependencia `@primeui/license-manager` que aparece en PrimeVue 5. El tema parte de un preset neutral y se personaliza con un color de acento, con variantes clara y oscura.
 
 **Alternatives considered**:
 - PrimeVue `5.0.4`: descartado por la introducción del gestor de licencias y por ser una línea más nueva sin necesidad funcional.
@@ -94,15 +94,17 @@
 
 ---
 
-### 8. Tema neutral con acento y solo modo claro
+### 8. Tema neutral con acento y modos claro/oscuro
 
-**Decision**: partir de un preset neutral de PrimeVue y personalizar tokens de color, tipografía, espaciado, bordes y sombras con un color de acento. No se implementa modo oscuro.
+**Decision**: partir de un preset neutral de PrimeVue y personalizar tokens de color, tipografía, espaciado, bordes y sombras con un color de acento para tema claro y oscuro. El tema se elige con un control accesible y la preferencia se guarda en `localStorage`.
 
-**Rationale**: mantiene coherencia visual en todas las vistas sin construir un sistema de diseño completo. El modo claro reduce alcance y pruebas.
+**Rationale**: mantiene coherencia visual en todas las vistas sin construir un sistema de diseño completo y permite adaptar el contraste sin tocar el backend.
 
 **Alternatives considered**:
 - Tema visual completamente propio: descartado por coste y por el principio de simplicidad.
-- Modo oscuro: fuera de alcance.
+- Solo modo claro: descartado por la ampliación de alcance.
+- Preferencia en el backend: descartada porque el usuario no tiene campo de tema.
+- Seguir siempre `prefers-color-scheme`: descartado porque el usuario debe poder fijar su elección.
 
 ---
 
