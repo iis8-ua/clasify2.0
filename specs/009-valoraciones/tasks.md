@@ -43,7 +43,7 @@ description: "Task list for the 009-valoraciones feature"
 
 - [X] T003 Implementar `valoracionesService` con listar recibidas, listar escritas, guardar y eliminar en `frontend-vue/src/services/valoracionesService.js`
 - [X] T004 Implementar `valoracionesStore` con listas, operaciones, estados y limpieza por sesión en `frontend-vue/src/stores/valoraciones.js`
-- [ ] T005 [P] Reutilizar `ConfirmAction` y la normalización de errores en `frontend-vue/src/components/states/ConfirmAction.vue` y `frontend-vue/src/services/errors.js`
+- [X] T005 [P] Reutilizar `ConfirmAction` y la normalización de errores en `frontend-vue/src/components/states/ConfirmAction.vue` y `frontend-vue/src/services/errors.js`
 - [ ] T006 [P] Definir los parámetros de URL y la paginación independiente de recibidas y escritas en `frontend-vue/src/views/PerfilView.vue`
 
 **Checkpoint**: La base de valoraciones está lista para las historias.
