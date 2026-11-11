@@ -31,7 +31,7 @@ description: "Task list for the 008-perfil-publico feature"
 **Purpose**: Confirmar la base de 001–003 y preparar la estructura del perfil público.
 
 - [X] T001 Confirmar el shell, el tema, las tarjetas, la paginación, el selector de tamaño y los estados en `frontend-vue/src/`
-- [ ] T002 [P] Crear la estructura de componentes y pruebas del perfil público en `frontend-vue/src/components/perfil-publico/` y `frontend-vue/tests/perfil-publico/`
+- [X] T002 [P] Crear la estructura de componentes y pruebas del perfil público en `frontend-vue/src/components/perfil-publico/` y `frontend-vue/tests/perfil-publico/`
 
 ---
 
