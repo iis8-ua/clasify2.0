@@ -63,7 +63,7 @@ description: "Task list for the 009-valoraciones feature"
 
 ### Implementation for User Story 1
 
-- [ ] T009 [US1] Implementar `FormularioValoracion` con puntuación 1–5, comentario opcional de 500, carga, error y confirmación en `frontend-vue/src/components/valoraciones/FormularioValoracion.vue`
+- [X] T009 [US1] Implementar `FormularioValoracion` con puntuación 1–5, comentario opcional de 500, carga, error y confirmación en `frontend-vue/src/components/valoraciones/FormularioValoracion.vue`
 - [ ] T010 [US1] Integrar el formulario en `frontend-vue/src/views/PerfilPublicoView.vue`, sin mostrarlo en el perfil propio
 - [ ] T011 [US1] Precargar `mi_valoracion` cuando exista y usar `PUT` para crear o actualizar sin duplicados en `frontend-vue/src/components/valoraciones/FormularioValoracion.vue` y `frontend-vue/src/views/PerfilPublicoView.vue`
 - [ ] T012 [US1] Gestionar validación por campo, foco en el primer error, `401`, `404` y conexión, conservando el comentario si falla en `frontend-vue/src/components/valoraciones/FormularioValoracion.vue`
