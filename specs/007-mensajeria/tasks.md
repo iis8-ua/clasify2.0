@@ -30,7 +30,7 @@ description: "Task list for the 007-mensajeria feature"
 
 **Purpose**: Confirmar la base de 001–003 y preparar la estructura de mensajería.
 
-- [ ] T001 Confirmar el shell, la sesión, las tarjetas, la paginación, el selector de tamaño y los estados en `frontend-vue/src/`, sin añadir dependencias nuevas
+- [X] T001 Confirmar el shell, la sesión, las tarjetas, la paginación, el selector de tamaño y los estados en `frontend-vue/src/`, sin añadir dependencias nuevas
 - [ ] T002 [P] Crear la estructura de componentes y pruebas de mensajería en `frontend-vue/src/components/mensajeria/` y `frontend-vue/tests/mensajeria/`
 
 ---
