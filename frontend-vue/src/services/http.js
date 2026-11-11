@@ -72,6 +72,9 @@ export const http = {
   patch(path, body, options = {}) {
     return solicitar(path, { ...options, method: 'PATCH', body })
   },
+  put(path, body, options = {}) {
+    return solicitar(path, { ...options, method: 'PUT', body })
+  },
   delete(path, options = {}) {
     return solicitar(path, { ...options, method: 'DELETE' })
   }
