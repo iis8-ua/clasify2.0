@@ -83,7 +83,7 @@ Debe cubrir:
 ### 1. Listado por defecto
 
 1. Abrir `/`.
-2. Comprobar que se muestran 20 anuncios disponibles.
+2. Comprobar que se muestran 20 anuncios disponibles por defecto.
 3. Comprobar título, precio, imagen o marcador, categoría, estado y fecha.
 
 **Expected**: primera página correcta, sin nombre de autor y con categorías resueltas.
@@ -127,7 +127,15 @@ mayúsculas y acentos.
 **Expected**: los filtros y el orden se conservan al cambiar de página; al cambiar un filtro se
 vuelve a la página 1.
 
-### 7. URL compartible
+### 7. Tamaño de página
+
+1. Elegir 10, 20 o 50 elementos por página.
+2. Comprobar que el listado se actualiza y vuelve a la página 1.
+3. Recargar y compartir la URL.
+
+**Expected**: el tamaño se conserva en la dirección.
+
+### 8. URL compartible
 
 1. Aplicar texto, categoría, estado, orden y página.
 2. Copiar la URL.
@@ -135,17 +143,19 @@ vuelve a la página 1.
 
 **Expected**: se recupera el mismo estado del listado.
 
-### 8. Detalle
+### 9. Detalle
 
 1. Abrir un anuncio desde el listado.
 2. Comprobar título, descripción, precio, estado, imagen, fecha, categoría, autor, biografía,
    valoraciones y número de favoritos.
 3. Comprobar que no se muestra el email del autor.
 4. Comprobar que no hay acciones de gestión ni de favoritos.
+5. Comprobar que el autor enlaza a su perfil público.
+6. Comprobar que aparecen hasta cuatro similares y cuatro anuncios del vendedor.
 
 **Expected**: detalle completo y público, sin acciones de otras features.
 
-### 9. URL directa del detalle
+### 10. URL directa del detalle
 
 1. Abrir `/anuncios/1` directamente.
 2. Recargar.
@@ -153,7 +163,7 @@ vuelve a la página 1.
 
 **Expected**: el detalle se abre y el listado conserva la página y filtros anteriores.
 
-### 10. Anuncio inexistente e identificador inválido
+### 11. Anuncio inexistente e identificador inválido
 
 1. Abrir `/anuncios/999999`.
 2. Abrir `/anuncios/abc`.
@@ -161,7 +171,7 @@ vuelve a la página 1.
 **Expected**: el primero muestra “no encontrado”; el segundo muestra un error comprensible de
 identificador inválido. Ninguno rompe la estructura.
 
-### 11. Error de conexión
+### 12. Error de conexión
 
 1. Detener el backend.
 2. Recargar el listado.
@@ -169,7 +179,7 @@ identificador inválido. Ninguno rompe la estructura.
 
 **Expected**: error comprensible con reintento; el vacío no se confunde con el error.
 
-### 12. Accesibilidad y móvil
+### 13. Accesibilidad y móvil
 
 1. Recorrer listado, filtros, paginación y detalle solo con teclado.
 2. Comprobar foco visible.
@@ -179,7 +189,15 @@ identificador inválido. Ninguno rompe la estructura.
 
 **Expected**: catálogo usable con teclado y en pantalla estrecha.
 
-### 13. Build
+### 14. Compartir anuncio
+
+1. Abrir un detalle.
+2. Pulsar Compartir anuncio.
+3. Usar la hoja nativa o copiar el enlace.
+
+**Expected**: se comparte o copia la URL correcta y se muestra confirmación.
+
+### 15. Build
 
 ```bash
 npm run build
@@ -195,6 +213,4 @@ npm run preview
 - Acciones de autor en el detalle.
 - Filtros por precio.
 - Mapa, recomendaciones o historial de búsquedas.
-- Selector de tamaño de página.
 - Paginación infinita.
-- Modo oscuro.

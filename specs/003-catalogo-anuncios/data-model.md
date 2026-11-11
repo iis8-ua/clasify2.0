@@ -173,7 +173,8 @@ pagina -> conserva texto/categoria/estado/orden
 - `estado` solo admite `disponible`, `vendido` o `todos`.
 - `orden` solo admite los cuatro valores del backend.
 - `pagina` debe ser un entero positivo.
-- Si la página supera `paginas`, se usa la última página disponible.
+- El tamaño de página es 10, 20 o 50; 20 por defecto.
+- Si la página supera `paginas`, se usa la última página disponible solo tras una carga correcta.
 - El detalle rechaza identificadores no enteros o menores que 1.
 - El precio se interpreta como decimal, no como número ya formateado.
 - La fecha se interpreta según el valor serializado del backend.
@@ -186,6 +187,16 @@ pagina -> conserva texto/categoria/estado/orden
 - Un `AnuncioDetalle` contiene un `AutorResumen` y una `Categoria`.
 - Un `AnuncioDetalle` incluye `num_favoritos` y `es_favorito` como datos informativos.
 - Un `FiltrosCatalogo` genera una `Pagina de resultados`.
-- La URL del listado serializa `FiltrosCatalogo` sin `limite`.
+- El detalle obtiene similares del listado y anuncios del vendedor de `/usuarios/:id/anuncios`.
+- El detalle enlaza al perfil público de 008.
+- La URL del listado serializa `FiltrosCatalogo`, incluido `limite` cuando no es 20.
 - La store `anuncios` mantiene lista, detalle y estados; la store `categorias` mantiene el mapa de
   categorías.
+
+
+## Related sections
+
+- **Similares**: misma categoría, disponibles, máximo 4, excluyendo el actual.
+- **Más del vendedor**: disponibles del autor, máximo 4, excluyendo el actual.
+- **Compartir**: Web Share o copia de enlace; no altera datos.
+- **Perfil público**: enlace a `/usuarios/:id`.
