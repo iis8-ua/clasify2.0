@@ -101,7 +101,7 @@ description: "Task list for the 009-valoraciones feature"
 
 ### Tests for User Story 3
 
-- [ ] T018 [P] [US3] Crear pruebas de recibidas, escritas, vacío, error, paginación y tamaño en `frontend-vue/tests/valoraciones/valoracionesRecibidas.spec.js` y `frontend-vue/tests/valoraciones/valoracionesEscritas.spec.js`
+- [X] T018 [P] [US3] Crear pruebas de recibidas, escritas, vacío, error, paginación y tamaño en `frontend-vue/tests/valoraciones/valoracionesRecibidas.spec.js` y `frontend-vue/tests/valoraciones/valoracionesEscritas.spec.js`
 
 ### Implementation for User Story 3
 
