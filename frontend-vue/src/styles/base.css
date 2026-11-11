@@ -858,3 +858,47 @@ button:disabled {
     grid-template-columns: 5rem minmax(0, 1fr);
   }
 }
+
+.conversation-header {
+  color: var(--color-text-muted);
+}
+
+.message-thread {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-4) 0;
+}
+
+.message-thread__item {
+  max-width: 80%;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+}
+
+.message-thread__item--own {
+  justify-self: end;
+  background: var(--color-primary-soft);
+}
+
+.message-thread__text {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.message-thread__meta {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.message-thread__more {
+  margin-top: var(--space-3);
+}
+
+.message-form {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
