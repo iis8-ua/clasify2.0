@@ -781,3 +781,7 @@ button:disabled {
   gap: var(--space-3);
   flex-wrap: wrap;
 }
+
+.contact-control {
+  margin-top: var(--space-3);
+}
