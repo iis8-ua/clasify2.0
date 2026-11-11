@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useSessionStore } from '../../stores/session'
 import { navigationItems, itemsVisibles } from './navigation'
 import AppNav from './AppNav.vue'
+import ThemeToggle from './ThemeToggle.vue'
 
 const session = useSessionStore()
 const router = useRouter()
@@ -38,6 +39,8 @@ function reintentarSesion() {
       <AppNav :items="visibles" />
 
       <div class="header-actions">
+        <ThemeToggle />
+
         <div v-if="session.estado === 'error'" class="session-alert" role="alert">
           <span>No se pudo comprobar la sesión</span>
           <button type="button" class="button button--secondary" @click="reintentarSesion">

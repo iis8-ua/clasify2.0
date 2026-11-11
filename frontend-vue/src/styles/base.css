@@ -730,3 +730,10 @@ button:disabled {
     padding: var(--space-4);
   }
 }
+
+
+@media (max-width: 48rem) {
+  .theme-toggle__label {
+    display: none;
+  }
+}
