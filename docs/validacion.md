@@ -10,8 +10,8 @@
 | Comprobación | Comando | Resultado obtenido |
 |---|---|---|
 | Pruebas del backend (Jest + Supertest) | `cd backend && npm test` | 6 suites y 307 pruebas correctas, 0 fallos, 201,965 s |
-| Pruebas del frontend (Vitest) | `cd frontend-vue && npm run test:unit` | 78 archivos (77 ejecutados y 1 omitido), 292 pruebas (289 ejecutadas y 3 omitidas), 0 fallos, 13,82 s |
-| Build de producción | `cd frontend-vue && npm run build` | 217 módulos transformados, build correcto, 4,16 s |
+| Pruebas del frontend (Vitest) | `cd frontend-vue && npm run test:unit` | 79 archivos (78 ejecutados y 1 omitido), 296 pruebas (293 ejecutadas y 3 omitidas), 0 fallos, 9,06 s |
+| Build de producción | `cd frontend-vue && npm run build` | 217 módulos transformados, build correcto, 2,61 s |
 | Integración con el backend real | `cd frontend-vue && VALIDACION_BACKEND=1 npx vitest run tests/integracion/backendReal.spec.js` | 3 pruebas correctas, 0 fallos, 767 ms |
 
 Las specs 007–009 añaden mensajería, perfil público y valoraciones; las ampliaciones de 001, 003, 005 y 006 añaden tema oscuro, tamaño de página, compartir, relacionados y retirada de favoritos desde la lista.
