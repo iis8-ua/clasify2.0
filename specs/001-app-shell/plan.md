@@ -102,7 +102,6 @@ frontend-vue/
 ├── src/
 │   ├── App.vue
 │   ├── main.js
-│   ├── assets/
 │   ├── components/
 │   │   ├── common/
 │   │   ├── layout/
@@ -121,7 +120,6 @@ frontend-vue/
 │   │   ├── tokens.css
 │   │   └── primevue-theme.js
 │   └── views/
-│       ├── PlaceholderView.vue
 │       └── NotFoundView.vue
 └── tests/
     ├── components/
