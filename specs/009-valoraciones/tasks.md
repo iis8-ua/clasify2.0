@@ -58,7 +58,7 @@ description: "Task list for the 009-valoraciones feature"
 
 ### Tests for User Story 1
 
-- [ ] T007 [P] [US1] Crear pruebas del servicio de guardar y listar valoraciones en `frontend-vue/tests/valoraciones/valoracionesService.spec.js`
+- [X] T007 [P] [US1] Crear pruebas del servicio de guardar y listar valoraciones en `frontend-vue/tests/valoraciones/valoracionesService.spec.js`
 - [ ] T008 [P] [US1] Crear pruebas del formulario de valoración, validación y precarga en `frontend-vue/tests/valoraciones/formularioValoracion.spec.js`
 
 ### Implementation for User Story 1
