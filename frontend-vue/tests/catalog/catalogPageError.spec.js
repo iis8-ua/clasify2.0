@@ -79,7 +79,8 @@ describe('paginación del catálogo con error', () => {
       categoria: null,
       estado: 'disponible',
       orden: 'fecha_desc',
-      pagina: 2
+      pagina: 2,
+      limite: 20
     })
     expect(router.currentRoute.value.query.pagina).toBe('2')
     expect(wrapper.text()).toContain('Anuncio de la página dos')

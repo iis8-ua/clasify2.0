@@ -1,7 +1,5 @@
 import { http } from './http'
 
-const LIMITE = 20
-
 function crearFormData(valores, imagen) {
   const datos = new FormData()
   Object.entries(valores).forEach(([campo, valor]) => {
@@ -33,7 +31,7 @@ export const anunciosService = {
     parametros.set('estado', filtros.estado ?? 'disponible')
     parametros.set('orden', filtros.orden ?? 'fecha_desc')
     parametros.set('pagina', String(filtros.pagina ?? 1))
-    parametros.set('limite', String(LIMITE))
+    parametros.set('limite', String(filtros.limite ?? 20))
 
     if (filtros.texto) {
       parametros.set('texto', filtros.texto)
