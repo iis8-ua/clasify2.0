@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import CambioContrasenaForm from '../components/perfil/CambioContrasenaForm.vue'
 import MisAnunciosSection from '../components/perfil/MisAnunciosSection.vue'
+import MisValoracionesSection from '../components/valoraciones/MisValoracionesSection.vue'
 import PerfilDatos from '../components/perfil/PerfilDatos.vue'
 import PerfilForm from '../components/perfil/PerfilForm.vue'
 import StatePanel from '../components/states/StatePanel.vue'
@@ -137,6 +138,8 @@ async function guardar(cambios) {
       />
 
       <CambioContrasenaForm />
+
+      <MisValoracionesSection />
 
       <MisAnunciosSection />
     </div>
