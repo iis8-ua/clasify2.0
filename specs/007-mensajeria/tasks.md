@@ -108,7 +108,7 @@ description: "Task list for the 007-mensajeria feature"
 
 ### Implementation for User Story 3
 
-- [ ] T022 [US3] Implementar `HiloMensajes` con orden cronológico, emisor, fecha y estados en `frontend-vue/src/components/mensajeria/HiloMensajes.vue`
+- [X] T022 [US3] Implementar `HiloMensajes` con orden cronológico, emisor, fecha y estados en `frontend-vue/src/components/mensajeria/HiloMensajes.vue`
 - [ ] T023 [US3] Implementar `FormularioMensaje` con validación, carga, doble envío y conservación de texto en `frontend-vue/src/components/mensajeria/FormularioMensaje.vue`
 - [ ] T024 [US3] Implementar `ConversacionView` con apertura en `desde=final`, carga de anteriores y estado vacío/error en `frontend-vue/src/views/ConversacionView.vue`
 - [ ] T025 [US3] Integrar `UltimosMensajes` en `frontend-vue/src/views/AnuncioDetalleView.vue`, solo para participantes y sin marcar leídos
