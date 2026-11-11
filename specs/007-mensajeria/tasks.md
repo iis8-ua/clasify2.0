@@ -132,7 +132,7 @@ description: "Task list for the 007-mensajeria feature"
 ### Implementation for User Story 4
 
 - [ ] T029 [US4] Añadir nombres accesibles, etiquetas, `aria-live`, foco visible y orden de tabulación en `frontend-vue/src/components/mensajeria/` y `frontend-vue/src/views/`
-- [ ] T030 [US4] Ajustar bandeja, hilo y formulario a 360 px en `frontend-vue/src/styles/base.css`
+- [X] T030 [US4] Ajustar bandeja, hilo y formulario a 360 px en `frontend-vue/src/styles/base.css`
 - [ ] T031 [US4] Revisar mensajes en español y ausencia de detalles técnicos en `frontend-vue/src/components/mensajeria/` y `frontend-vue/src/views/`
 
 **Checkpoint**: Mensajería accesible y usable en móvil.
