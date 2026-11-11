@@ -124,7 +124,7 @@ description: "Task list for the 009-valoraciones feature"
 
 ### Tests for User Story 4
 
-- [ ] T025 [P] [US4] Crear pruebas de accesibilidad de valoraciones en `frontend-vue/tests/valoraciones/valoracionesAccessibility.spec.js`
+- [X] T025 [P] [US4] Crear pruebas de accesibilidad de valoraciones en `frontend-vue/tests/valoraciones/valoracionesAccessibility.spec.js`
 
 ### Implementation for User Story 4
 
