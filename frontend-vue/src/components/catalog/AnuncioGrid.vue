@@ -26,6 +26,10 @@ defineProps({
       :anuncio="anuncio"
       :nombre-categoria="categoriasPorId[anuncio.id_categoria] ?? 'Categoría no disponible'"
       :nivel-titulo="nivelTitulo"
-    />
+    >
+      <template v-if="$slots.acciones" #acciones>
+        <slot name="acciones" :anuncio="anuncio" />
+      </template>
+    </AnuncioCard>
   </div>
 </template>

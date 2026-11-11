@@ -769,3 +769,7 @@ button:disabled {
 .related-section__profile {
   font-size: var(--font-size-small);
 }
+
+.anuncio-card__actions {
+  padding: 0 var(--space-3) var(--space-3);
+}

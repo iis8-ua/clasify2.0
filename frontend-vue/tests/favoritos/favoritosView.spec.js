@@ -7,6 +7,8 @@ import { favoritosService } from '../../src/services/favoritosService'
 import { categoriasService } from '../../src/services/categoriasService'
 import { ApiError } from '../../src/services/errors'
 
+vi.mock('primevue/usetoast', () => ({ useToast: () => ({ add: vi.fn() }) }))
+
 vi.mock('../../src/services/favoritosService', () => ({
   favoritosService: {
     listar: vi.fn()

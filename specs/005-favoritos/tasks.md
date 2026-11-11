@@ -285,6 +285,6 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 ## Phase 14: Ampliación de alcance (retirada desde lista y tamaño)
 
 - [X] T057 Crear `frontend-vue/src/components/favoritos/BotonQuitarFavorito.vue` con confirmación, estado de carga, nombre accesible, toast y emisión del anuncio retirado, con pruebas en `frontend-vue/tests/favoritos/` per 005 FR-032, US2/AC10–AC11 (missing)
-- [ ] T058 Integrar `BotonQuitarFavorito` en las tarjetas de `FavoritosView.vue`, retirar el elemento de la lista sin recargar y corregir la página si queda vacía, con pruebas de lista y navegación per 005 FR-018, FR-032, FR-035 (missing)
+- [X] T058 Integrar `BotonQuitarFavorito` en las tarjetas de `FavoritosView.vue`, retirar el elemento de la lista sin recargar y corregir la página si queda vacía, con pruebas de lista y navegación per 005 FR-018, FR-032, FR-035 (missing)
 - [ ] T059 Añadir el tamaño de página 10/20/50 a `favoritosService`, `favoritosStore` y `FavoritosView.vue`, conservarlo en la URL y volver a página 1 al cambiarlo, con pruebas per 005 FR-014, FR-033, FR-034, SC-021–SC-022 (missing)
 - [ ] T060 Ajustar `data-model.md` y `quickstart.md` de 005 a la retirada desde la tarjeta y al tamaño de página, y cubrir accesibilidad y validación manual de ambos cambios per 005 data-model/quickstart y US4 (partial)

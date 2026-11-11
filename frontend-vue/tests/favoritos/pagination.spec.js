@@ -6,6 +6,8 @@ import FavoritosView from '../../src/views/FavoritosView.vue'
 import { favoritosService } from '../../src/services/favoritosService'
 import { categoriasService } from '../../src/services/categoriasService'
 
+vi.mock('primevue/usetoast', () => ({ useToast: () => ({ add: vi.fn() }) }))
+
 vi.mock('../../src/services/favoritosService', () => ({
   favoritosService: {
     listar: vi.fn()

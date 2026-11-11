@@ -45,5 +45,8 @@ const imagenUrl = computed(() => urlImagen(props.anuncio.imagen))
         </div>
       </div>
     </RouterLink>
+    <div v-if="$slots.acciones" class="anuncio-card__actions">
+      <slot name="acciones" />
+    </div>
   </article>
 </template>

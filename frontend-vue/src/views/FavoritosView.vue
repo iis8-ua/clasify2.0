@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import AnuncioGrid from '../components/catalog/AnuncioGrid.vue'
 import PaginacionCatalogo from '../components/catalog/PaginacionCatalogo.vue'
 import StatePanel from '../components/states/StatePanel.vue'
+import BotonQuitarFavorito from '../components/favoritos/BotonQuitarFavorito.vue'
 import { useCategoriasStore } from '../stores/categorias'
 import { useFavoritosStore } from '../stores/favoritos'
 
@@ -56,6 +57,13 @@ watch(
   { immediate: true }
 )
 
+function quitarDeLista(id) {
+  favoritos.listado = favoritos.listado.filter((item) => item.id !== id)
+  if (favoritos.listado.length === 0 && pagina.value > 1) {
+    router.replace({ name: 'favoritos', query: { pagina: String(pagina.value - 1) } })
+  }
+}
+
 function cambiarPagina(nuevaPagina) {
   router.push({
     name: 'favoritos',
@@ -97,7 +105,11 @@ function cambiarPagina(nuevaPagina) {
         :anuncios="favoritos.listado"
         :categorias-por-id="categorias.porId"
         :nivel-titulo="2"
-      />
+      >
+        <template #acciones="{ anuncio }">
+          <BotonQuitarFavorito :anuncio="anuncio" @quitar="quitarDeLista" />
+        </template>
+      </AnuncioGrid>
       <PaginacionCatalogo
         :pagina="favoritos.paginacion.pagina"
         :paginas="favoritos.paginacion.paginas"
