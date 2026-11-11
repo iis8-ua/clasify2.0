@@ -48,7 +48,7 @@ npm run test:unit
 
 Debe cubrir, como mínimo:
 
-- Tabla de rutas y nombres únicos.
+- Tabla de rutas y nombres únicos, incluidas `/usuarios/:id`, `/mensajes` y `/conversaciones/:id`.
 - Orden de `/anuncios/nuevo` antes de `/anuncios/:id`.
 - Redirección de rutas protegidas sin sesión.
 - Redirección de acceso y registro con sesión.
@@ -59,6 +59,8 @@ Debe cubrir, como mínimo:
 - Confirmación de acciones destructivas.
 - Formato de precio, fecha e imagen ausente.
 - Navegación por teclado de la cabecera y la página 404.
+- Cambio de tema claro/oscuro, persistencia e invalidación de valores.
+- Nombre accesible y estado del selector de tema.
 
 ## Manual validation
 
@@ -68,6 +70,7 @@ Debe cubrir, como mínimo:
 2. Comprobar que se ve la cabecera con la marca Clasify, la navegación y la zona de contenido.
 3. Comprobar que la entrada activa se identifica.
 4. Cambiar el tamaño de la ventana y comprobar que la estructura sigue siendo utilizable.
+5. Abrir `/mensajes`, `/conversaciones/1` y `/usuarios/1`; con sesión, las dos primeras deben quedar protegidas y la tercera debe ser pública.
 
 **Expected**: la estructura no se rompe y la navegación se mantiene legible.
 
@@ -98,7 +101,15 @@ acción para volver al inicio; atrás y adelante conservan el contexto.
 
 **Expected**: la cabecera cambia de estado sin recargar la aplicación.
 
-### 5. Accesibilidad y móvil
+### 5. Tema claro y oscuro
+
+1. Pulsar el selector de tema en la cabecera.
+2. Comprobar que cambian los colores, el contraste y el foco.
+3. Recargar la aplicación.
+
+**Expected**: se conserva el tema elegido; si la preferencia guardada es inválida, se usa el tema claro.
+
+### 6. Accesibilidad y móvil
 
 1. Recorrer la cabecera, la navegación y la página 404 solo con teclado.
 2. Comprobar que el foco es visible.
@@ -108,7 +119,7 @@ acción para volver al inicio; atrás y adelante conservan el contexto.
 
 **Expected**: la navegación es comprensible y usable sin ratón y en pantalla estrecha.
 
-### 6. Estados compartidos
+### 7. Estados compartidos
 
 1. Ejecutar las pruebas de componentes de estados.
 2. Revisar que carga, vacío, error, validación, permisos y éxito se distinguen.
@@ -117,7 +128,7 @@ acción para volver al inicio; atrás y adelante conservan el contexto.
 
 **Expected**: todos los estados tienen representación distinta y accesible.
 
-### 7. Build
+### 8. Build
 
 1. Ejecutar `npm run build`.
 2. Ejecutar `npm run preview`.
@@ -129,6 +140,4 @@ acción para volver al inicio; atrás y adelante conservan el contexto.
 
 - Registro, acceso, listado real, detalle real, CRUD, favoritos y perfil.
 - Operaciones contra el backend.
-- Modo oscuro.
-- Selector de tamaño de página.
 - Pruebas de extremo a extremo con navegador automatizado.
