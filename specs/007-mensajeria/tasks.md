@@ -113,7 +113,7 @@ description: "Task list for the 007-mensajeria feature"
 - [X] T024 [US3] Implementar `ConversacionView` con apertura en `desde=final`, carga de anteriores y estado vacío/error en `frontend-vue/src/views/ConversacionView.vue`
 - [X] T025 [US3] Integrar `UltimosMensajes` en `frontend-vue/src/views/AnuncioDetalleView.vue`, solo para participantes y sin marcar leídos
 - [X] T026 [US3] Sincronizar página y tamaño del hilo con la URL y conservar el contexto al cargar anteriores en `frontend-vue/src/views/ConversacionView.vue`
-- [ ] T027 [US3] Gestionar `403`, `404`, `401` y conexión en el hilo y el envío, sin revelar mensajes a no participantes en `frontend-vue/src/views/ConversacionView.vue` y `frontend-vue/src/components/mensajeria/FormularioMensaje.vue`
+- [X] T027 [US3] Gestionar `403`, `404`, `401` y conexión en el hilo y el envío, sin revelar mensajes a no participantes en `frontend-vue/src/views/ConversacionView.vue` y `frontend-vue/src/components/mensajeria/FormularioMensaje.vue`
 
 **Checkpoint**: El hilo funciona de forma independiente.
 
