@@ -246,14 +246,20 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 
 ### Alcance ampliado pendiente de implementar
 
-- Valoraciones: puntuación de 1 a 5, comentario opcional, edición y borrado, y
-  listados en el perfil propio.
 - Modo claro y oscuro con selector y preferencia guardada en el navegador.
 - Selector de tamaño de página de 10, 20 o 50 en los listados paginados.
 - Compartir anuncio con la función nativa o copiando el enlace.
 - Anuncios similares y “Más de este vendedor” en el detalle.
 - Enlaces al perfil público desde autor, conversación y valoraciones.
 - Quitar favoritos desde la lista con confirmación.
+
+### Valoraciones
+
+- Formulario en el perfil público de otro usuario.
+- Puntuación de 1 a 5 y comentario opcional de hasta 500 caracteres.
+- Crear, actualizar y eliminar con confirmación.
+- Valoraciones recibidas y escritas en `/perfil`, con edición y borrado de las escritas.
+- Sin moderación, respuestas, votos ni valoraciones anónimas.
 
 ### Perfil público
 
