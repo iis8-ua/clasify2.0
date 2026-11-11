@@ -64,7 +64,7 @@ description: "Task list for the 007-mensajeria feature"
 
 ### Implementation for User Story 1
 
-- [ ] T010 [US1] Implementar `ModalContactar` con campo de texto, validación de 1000 caracteres, carga y error en `frontend-vue/src/components/mensajeria/ModalContactar.vue`
+- [X] T010 [US1] Implementar `ModalContactar` con campo de texto, validación de 1000 caracteres, carga y error en `frontend-vue/src/components/mensajeria/ModalContactar.vue`
 - [ ] T011 [US1] Integrar Contactar en `frontend-vue/src/views/AnuncioDetalleView.vue`, ocultando la acción en anuncios propios y deshabilitándola en vendidos sin conversación
 - [ ] T012 [US1] Conectar el modal con `mensajesService` y `mensajesStore`, tratar `201` y `200`, abrir el hilo y mostrar confirmación en `frontend-vue/src/components/mensajeria/ModalContactar.vue` y `frontend-vue/src/views/ConversacionView.vue`
 - [ ] T013 [US1] Gestionar el acceso de visitantes con retorno al anuncio y reapertura manual del modal en `frontend-vue/src/components/mensajeria/ModalContactar.vue`
