@@ -33,6 +33,10 @@ async function cargar() {
     return
   }
 
+  if (favoritos.estado === 'error') {
+    return
+  }
+
   if (pagina.value > 1 && favoritos.paginacion.paginas === 0) {
     await router.replace({ name: 'favoritos', query: {} })
     return

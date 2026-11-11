@@ -33,6 +33,10 @@ async function cargar() {
     return
   }
 
+  if (perfil.estadoAnuncios === 'error') {
+    return
+  }
+
   if (pagina.value > 1 && perfil.paginacion.paginas === 0) {
     await router.replace({ name: 'perfil', query: {} })
     return

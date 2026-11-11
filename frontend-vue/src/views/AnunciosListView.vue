@@ -32,6 +32,10 @@ async function cargar() {
   await categorias.cargar()
   await anuncios.cargarListado(filtros.value)
 
+  if (anuncios.estadoListado === 'error') {
+    return
+  }
+
   if (anuncios.paginacion.paginas > 0 && filtros.value.pagina > anuncios.paginacion.paginas) {
     await router.replace({
       name: 'anuncios',

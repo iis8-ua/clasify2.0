@@ -108,6 +108,27 @@ describe('sección de anuncios propios', () => {
     expect(wrapper.text()).toContain('Bicicleta de montaña')
   })
 
+  it('conserva la página y permite reintentar cuando falla una página', async () => {
+    usuariosService.listarAnuncios.mockRejectedValueOnce(
+      new ApiError({ estado: 500, codigo: 'ERROR', mensaje: 'Fallo del servidor' })
+    )
+    const { wrapper, router } = await montar('/perfil?pagina=2')
+
+    expect(router.currentRoute.value.query.pagina).toBe('2')
+    expect(wrapper.text()).toContain('No se pudieron cargar tus anuncios')
+
+    usuariosService.listarAnuncios.mockResolvedValue({
+      datos: [anuncio],
+      paginacion: { pagina: 2, limite: 20, total: 21, paginas: 2 }
+    })
+    await wrapper.findAll('button').find((boton) => boton.text() === 'Reintentar').trigger('click')
+    await flushPromises()
+
+    expect(usuariosService.listarAnuncios).toHaveBeenLastCalledWith({ pagina: 2, limite: 20 })
+    expect(router.currentRoute.value.query.pagina).toBe('2')
+    expect(wrapper.text()).toContain('Bicicleta de montaña')
+  })
+
   it('sincroniza la página con la URL y corrige una página fuera de rango', async () => {
     usuariosService.listarAnuncios.mockImplementation(({ pagina }) => {
       if (pagina === 5) {
