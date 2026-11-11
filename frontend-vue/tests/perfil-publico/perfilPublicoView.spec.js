@@ -7,6 +7,8 @@ import { perfilPublicoService } from '../../src/services/perfilPublicoService'
 import { categoriasService } from '../../src/services/categoriasService'
 import { ApiError } from '../../src/services/errors'
 
+vi.mock('primevue/usetoast', () => ({ useToast: () => ({ add: vi.fn() }) }))
+
 vi.mock('../../src/services/perfilPublicoService', () => ({
   perfilPublicoService: { perfil: vi.fn(), anuncios: vi.fn(), valoraciones: vi.fn() }
 }))
