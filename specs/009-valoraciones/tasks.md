@@ -80,7 +80,7 @@ description: "Task list for the 009-valoraciones feature"
 
 ### Tests for User Story 2
 
-- [ ] T013 [P] [US2] Crear pruebas de eliminación, confirmación, cancelación y `404` en `frontend-vue/tests/valoraciones/eliminarValoracion.spec.js`
+- [X] T013 [P] [US2] Crear pruebas de eliminación, confirmación, cancelación y `404` en `frontend-vue/tests/valoraciones/eliminarValoracion.spec.js`
 
 ### Implementation for User Story 2
 
