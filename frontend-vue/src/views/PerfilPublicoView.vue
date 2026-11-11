@@ -4,16 +4,19 @@ import { useRoute, useRouter } from 'vue-router'
 import PerfilPublicoDatos from '../components/perfil-publico/PerfilPublicoDatos.vue'
 import ValoracionesRecibidas from '../components/perfil-publico/ValoracionesRecibidas.vue'
 import AnunciosUsuario from '../components/perfil-publico/AnunciosUsuario.vue'
+import FormularioValoracion from '../components/valoraciones/FormularioValoracion.vue'
 import PaginacionCatalogo from '../components/catalog/PaginacionCatalogo.vue'
 import SelectorTamanoPagina from '../components/catalog/SelectorTamanoPagina.vue'
 import StatePanel from '../components/states/StatePanel.vue'
 import { useCategoriasStore } from '../stores/categorias'
 import { usePerfilPublicoStore } from '../stores/perfilPublico'
+import { useSessionStore } from '../stores/session'
 import { TAMANOS_PAGINA } from '../router/catalogQuery'
 
 const route = useRoute()
 const router = useRouter()
 const perfilPublico = usePerfilPublicoStore()
+const session = useSessionStore()
 const categorias = useCategoriasStore()
 
 const id = computed(() => Number(route.params.id))
@@ -142,6 +145,15 @@ watch(() => [route.params.id, route.query], cargar, { immediate: true, deep: tru
       <h1 id="public-profile-title" class="page-title">{{ perfilPublico.perfil.nombre }}</h1>
       <div class="perfil-layout">
         <PerfilPublicoDatos :perfil="perfilPublico.perfil" />
+
+        <FormularioValoracion
+          v-if="id !== session.usuario?.id"
+          :usuario-id="id"
+          :valoracion="perfilPublico.perfil.mi_valoracion"
+          :nombre="perfilPublico.perfil.nombre"
+          @guardado="cargar"
+          @eliminado="cargar"
+        />
 
         <ValoracionesRecibidas
           :valoraciones="perfilPublico.valoraciones"
