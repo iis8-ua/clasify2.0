@@ -30,7 +30,7 @@ description: "Task list for the 009-valoraciones feature"
 
 **Purpose**: Confirmar la base de 001–003 y 006–008 y preparar la estructura de valoraciones.
 
-- [ ] T001 Confirmar el perfil público de 008, el perfil propio de 006, las confirmaciones y la paginación en `frontend-vue/src/`
+- [X] T001 Confirmar el perfil público de 008, el perfil propio de 006, las confirmaciones y la paginación en `frontend-vue/src/`
 - [ ] T002 [P] Crear la estructura de componentes y pruebas de valoraciones en `frontend-vue/src/components/valoraciones/` y `frontend-vue/tests/valoraciones/`
 
 ---
