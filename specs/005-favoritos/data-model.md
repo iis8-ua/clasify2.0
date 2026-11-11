@@ -62,7 +62,7 @@ Estado del botón en el detalle.
 |---|---|---|
 | `items` | `AnuncioFavorito[]` | Página actual |
 | `pagina` | number | Página actual |
-| `limite` | number | Fijo en 20 |
+| `limite` | number | 10, 20 o 50; 20 por defecto |
 | `total` | number | Total de favoritos |
 | `paginas` | number | Total de páginas |
 | `estado` | `idle` \| `loading` \| `success` \| `empty` \| `error` | Estado de la vista |
@@ -73,7 +73,7 @@ Estado del botón en el detalle.
 | Campo | Tipo | Reglas |
 |---|---|---|
 | `pagina` | number | `>= 1` |
-| `limite` | number | 20 |
+| `limite` | number | 10, 20 o 50; 20 por defecto |
 | `total` | number | Total de favoritos |
 | `paginas` | number | Total de páginas |
 
@@ -129,13 +129,15 @@ detalle directo -> no encontrado
 - Añadir un favorito ya existente mantiene el estado guardado sin duplicados.
 - Quitar un favorito inexistente deja el estado no guardado.
 - La página debe ser un entero positivo.
-- El tamaño de página es fijo en 20.
-- La página fuera de rango se corrige a la última disponible.
+- El tamaño de página es 20 por defecto y admite 10, 20 o 50.
+- La página y el tamaño se conservan en la URL.
+- Cambiar el tamaño vuelve a la primera página.
+- La página fuera de rango se corrige a la última disponible solo tras una carga correcta.
 - La lista solo contiene favoritos del usuario autenticado.
 - Los anuncios vendidos se muestran con su estado.
 - Los anuncios eliminados desaparecen al actualizar la lista.
-- La lista no ofrece acción de quitar.
-- La acción no se ofrece para anuncios propios.
+- La lista ofrece una acción de quitar por tarjeta con confirmación.
+- La acción de añadir no se ofrece para anuncios propios.
 
 ## Relationships
 

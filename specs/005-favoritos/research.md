@@ -68,13 +68,13 @@
 
 ### 6. Lista de favoritos
 
-**Decision**: `FavoritosView` consume `GET /usuarios/me/favoritos` con `pagina` y `limite=20`. La página se conserva en la URL. La lista se ordena por fecha de guardado descendente.
+**Decision**: `FavoritosView` consume `GET /usuarios/me/favoritos` con `pagina` y `limite`. La página y el tamaño (10, 20 o 50; 20 por defecto) se conservan en la URL. La lista se ordena por fecha de guardado descendente.
 
-**Rationale**: coincide con el backend y con la decisión de página en la dirección. El tamaño fijo reduce complejidad.
+**Rationale**: coincide con el backend y con la decisión de página en la dirección. El tamaño configurable se comparte con el catálogo.
 
 **Alternatives considered**:
 - Paginación infinita: descartada.
-- Selector de tamaño: descartado.
+- Mantener 20 fijo: descartado por la ampliación de alcance.
 - Filtros o búsqueda: fuera de alcance.
 
 ---
@@ -91,14 +91,15 @@
 
 ---
 
-### 8. Quitar solo desde el detalle
+### 8. Quitar desde el detalle y desde la lista
 
-**Decision**: la lista de favoritos solo muestra los anuncios y abre el detalle. No incluye una acción directa de quitar.
+**Decision**: la lista de favoritos muestra los anuncios, abre el detalle y ofrece una acción de quitar en cada tarjeta con confirmación. El detalle mantiene su propia acción.
 
-**Rationale**: mantiene una única ubicación para modificar el estado y evita duplicar acciones.
+**Rationale**: la ampliación de alcance prioriza gestionar la lista sin abrir cada anuncio. La confirmación evita retiradas accidentales.
 
 **Alternatives considered**:
-- Quitar desde cada tarjeta: descartado por decisión cruzada.
+- Mantener la retirada solo en el detalle: decisión inicial descartada por la ampliación.
+- Quitar sin confirmación: descartado por seguridad y coherencia.
 - Acciones masivas: fuera de alcance.
 
 ---

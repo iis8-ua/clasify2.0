@@ -52,7 +52,7 @@ Rules:
 - La operación es idempotente.
 - `201` y `200` se tratan como éxito.
 - El autor del anuncio no puede guardarlo en sus favoritos.
-- La acción se ofrece solo desde el detalle.
+- La acción de añadir se ofrece desde el detalle.
 
 ## 2. Quitar favorito
 
@@ -74,7 +74,7 @@ Rules:
 
 - Un `204` deja el estado no guardado.
 - Un `404` de favorito inexistente también deja el estado no guardado, sin un error incomprensible.
-- No se ofrece desde la lista de favoritos.
+- Se ofrece desde el detalle y desde cada tarjeta de la lista, con confirmación en la lista.
 
 ## 3. Listar favoritos
 
@@ -122,9 +122,9 @@ Rules:
 - El orden es por fecha de guardado descendente.
 - Los anuncios vendidos se incluyen con su estado.
 - Los anuncios eliminados no se devuelven.
-- El tamaño de página es fijo en 20.
+- El tamaño de página es 20 por defecto y la interfaz permite 10, 20 o 50.
 - La página fuera de rango devuelve datos vacíos y la paginación real; el frontend corrige a la
-  última página.
+  última página solo tras una carga correcta.
 
 ## 4. Response Handling
 
@@ -144,7 +144,6 @@ Rules:
 - Listas públicas.
 - Notificaciones.
 - Acciones masivas.
-- Quitar favoritos desde la lista.
 - Búsqueda, filtros u ordenación personalizada.
 - Sincronización entre dispositivos.
 - Modificaciones del backend.

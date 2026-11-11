@@ -281,3 +281,10 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 - [X] T054 CRITICAL: Completar la accesibilidad de `LoginForm`, `RegisterForm` y `AnuncioForm`: indicar los campos obligatorios con `required`, `aria-required` y texto visible, anunciar los errores de campo con `role="alert"` y mover el foco al primer campo inválido tras el envío, con pruebas, per Constitution VI, 002 FR-019 y 004 FR-029 (missing)
 - [X] T055 Corregir la página solicitada solo cuando la carga haya sido correcta en `FavoritosView`, `MisAnunciosSection` y `AnunciosListView`, conservando la página en la URL y permitiendo reintentar la página actual cuando falle, con pruebas, per 005 FR-015, US3/AC6, 003 FR-008 y 006 FR-020 (partial)
 - [X] T056 Limpiar también los errores del servidor al descartar cambios en `PerfilForm` y `PerfilView`, con prueba, per 006 FR-013 y Constitution VI (partial)
+
+## Phase 14: Ampliación de alcance (retirada desde lista y tamaño)
+
+- [ ] T057 Crear `frontend-vue/src/components/favoritos/BotonQuitarFavorito.vue` con confirmación, estado de carga, nombre accesible, toast y emisión del anuncio retirado, con pruebas en `frontend-vue/tests/favoritos/` per 005 FR-032, US2/AC10–AC11 (missing)
+- [ ] T058 Integrar `BotonQuitarFavorito` en las tarjetas de `FavoritosView.vue`, retirar el elemento de la lista sin recargar y corregir la página si queda vacía, con pruebas de lista y navegación per 005 FR-018, FR-032, FR-035 (missing)
+- [ ] T059 Añadir el tamaño de página 10/20/50 a `favoritosService`, `favoritosStore` y `FavoritosView.vue`, conservarlo en la URL y volver a página 1 al cambiarlo, con pruebas per 005 FR-014, FR-033, FR-034, SC-021–SC-022 (missing)
+- [ ] T060 Ajustar `data-model.md` y `quickstart.md` de 005 a la retirada desde la tarjeta y al tamaño de página, y cubrir accesibilidad y validación manual de ambos cambios per 005 data-model/quickstart y US4 (partial)
