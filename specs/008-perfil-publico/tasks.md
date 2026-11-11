@@ -59,7 +59,7 @@ description: "Task list for the 008-perfil-publico feature"
 ### Tests for User Story 1
 
 - [X] T007 [P] [US1] Crear pruebas del servicio de perfil público en `frontend-vue/tests/perfil-publico/perfilPublicoService.spec.js`
-- [ ] T008 [P] [US1] Crear pruebas de la vista y estados de perfil en `frontend-vue/tests/perfil-publico/perfilPublicoView.spec.js`
+- [X] T008 [P] [US1] Crear pruebas de la vista y estados de perfil en `frontend-vue/tests/perfil-publico/perfilPublicoView.spec.js`
 
 ### Implementation for User Story 1
 
