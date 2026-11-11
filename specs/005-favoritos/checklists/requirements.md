@@ -32,9 +32,10 @@
 ## Notes
 
 - Validation completed on 2026-11-10.
-- The specification covers adding and removing favourites, the personal favourites list, pagination,
-  sold announcements, empty and error states, session expiry, logout cleanup, accessibility and
-  responsive use.
+- Ampliación de retirada desde la lista y tamaño de página validada el 2026-11-11.
+- The specification covers adding and removing favourites, removal from the list with confirmation,
+  the personal favourites list, pagination with page-size selection, sold announcements, empty and
+  error states, session expiry, logout cleanup, accessibility and responsive use.
 - The general catalogue, detail base, authentication, profile, messaging and ratings remain outside
   this feature.
 - Favourites are scoped to the authenticated user; sharing, notifications, bulk actions and custom

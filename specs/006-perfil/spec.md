@@ -17,6 +17,12 @@
 - Q: Cuando el usuario introduce mal su contraseña actual al cambiarla, ¿debe tratarse como un error del formulario o como una sesión caducada? → A: Error de formulario: mantener la sesión, mostrar el error y conservar los datos introducidos.
 - Q: ¿Dónde debe aparecer la acción de crear un anuncio? → A: En la cabecera y en el estado vacío de “Mis anuncios”.
 
+### Session 2026-11-11
+
+- Q: ¿El perfil propio enlaza al perfil público? → A: Sí; se ofrece un enlace para ver la propia vista pública.
+- Q: ¿Qué tamaño de página usan los anuncios propios? → A: 20 por defecto, con selector de 10, 20 o 50.
+- Q: ¿Las valoraciones recibidas y escritas se gestionan en esta feature? → A: No; se especifican en la spec 009, aunque se muestran dentro de `/perfil`.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Consultar mi perfil (Priority: P1)
@@ -41,6 +47,8 @@ muestran el nombre, el email, la biografía, la fecha de alta y el resumen de va
    mensaje comprensible y puede reintentar.
 5. **Given** que la sesión deja de ser válida, **When** el usuario abre el perfil, **Then** se le
    solicita acceso de nuevo.
+6. **Given** un usuario autenticado, **When** consulta su perfil, **Then** ve una acción para abrir su
+   perfil público.
 
 ---
 
@@ -165,6 +173,8 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
    contiene detalles técnicos internos.
 5. **Given** una lista de anuncios propios, **When** el usuario la recorre con teclado, **Then** puede
    abrir cada anuncio y usar la paginación.
+6. **Given** la lista de anuncios propios, **When** el usuario cambia el tamaño de página entre 10,
+   20 y 50, **Then** la lista se actualiza y vuelve a la primera página.
 
 ### Edge Cases
 
@@ -181,11 +191,14 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - El usuario no tiene anuncios publicados.
 - La lista de anuncios propios tiene varias páginas.
 - La página solicitada supera el total de páginas.
+- El usuario cambia el tamaño de página en una página avanzada.
+- El tamaño de página solicitado no es válido.
 - La carga del perfil o de los anuncios falla por conexión.
 - El usuario cierra sesión y vuelve al perfil.
 - El usuario navega con teclado o lector de pantalla.
 - La pantalla es muy estrecha.
 - La imagen de un anuncio propio no existe o tarda en cargar.
+- El perfil público propio no existe o no se puede cargar.
 
 ## Requirements *(mandatory)*
 
@@ -215,8 +228,8 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - **FR-014**: Si hay cambios sin guardar, el usuario MUST recibir una advertencia antes de salir.
 - **FR-015**: La contraseña MUST NOT mostrarse ni conservarse visible después del envío.
 - **FR-016**: La lista de anuncios propios MUST mostrar solo los anuncios del usuario autenticado.
-- **FR-017**: La lista de anuncios propios MUST ser paginada, con 20 elementos por página y los más
-  recientes primero.
+- **FR-017**: La lista de anuncios propios MUST ser paginada, con 20 elementos por página por defecto
+  y los más recientes primero, y MUST permitir elegir entre 10, 20 y 50.
 - **FR-018**: Cada anuncio propio MUST mostrar título, precio, imagen o marcador, categoría, estado y
   fecha, y MUST permitir abrir su detalle.
 - **FR-019**: Los anuncios vendidos MUST seguir apareciendo en la lista de anuncios propios con su
@@ -236,8 +249,9 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
   internos.
 - **FR-026**: Un fallo de sesión MUST solicitar un nuevo acceso y MUST NOT dejar datos privados
   obsoletos visibles.
-- **FR-027**: Esta feature MUST NOT incluir cambio de email, subida de avatar, eliminación de cuenta,
-  perfil público, mensajería ni valoraciones.
+- **FR-027**: Esta feature MUST NOT incluir cambio de email, subida de avatar ni eliminación de
+  cuenta. El perfil público se especifica en la spec 008, la mensajería en la 007 y la gestión de
+  valoraciones en la 009.
 - **FR-028**: Esta feature MUST NOT modificar el backend ni sustituir sus respuestas por datos
   simulados.
 - **FR-029**: La lista de anuncios propios MUST limitarse a mostrar los anuncios y abrir su detalle;
@@ -246,6 +260,11 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
   compartir la vista.
 - **FR-031**: El estado vacío de anuncios propios MUST ofrecer una acción que abra el formulario de
   creación de un anuncio.
+- **FR-032**: El perfil propio MUST ofrecer un enlace al perfil público propio.
+- **FR-033**: El tamaño de página y la página actual de anuncios propios MUST conservarse en la
+  dirección para permitir recargar o compartir la vista.
+- **FR-034**: Cambiar el tamaño de página de anuncios propios MUST volver a la primera página y MUST
+  recalcular los controles de paginación.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -271,8 +290,8 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - **SC-006**: El 100 % de las contraseñas actuales incorrectas muestra un mensaje comprensible,
   mantiene la sesión y no pierde el resto de datos del formulario.
 - **SC-007**: El 100 % de los errores de validación se muestra en el campo correspondiente.
-- **SC-008**: El 100 % de las listas de anuncios propios muestra solo anuncios del usuario, con un
-  máximo de 20 elementos por página y los más recientes primero.
+- **SC-008**: El 100 % de las listas de anuncios propios muestra solo anuncios del usuario, con el
+  tamaño de página elegido, 20 por defecto, y los más recientes primero.
 - **SC-009**: El 100 % de los anuncios propios permite abrir su detalle y muestra su estado, incluido
   el estado vendido.
 - **SC-010**: El 100 % de las listas vacías de anuncios propios muestra un estado vacío distinto de
@@ -296,6 +315,11 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
   la misma página en la dirección.
 - **SC-020**: El 100 % de los estados vacíos de anuncios propios ofrece una acción que abre el
   formulario de creación.
+- **SC-021**: El 100 % de los perfiles propios ofrece un enlace al perfil público propio.
+- **SC-022**: El 100 % de las listas de anuncios propios permite elegir 10, 20 o 50 elementos por
+  página y conserva el tamaño y la página en la dirección.
+- **SC-023**: El 100 % de los cambios de tamaño de página en anuncios propios vuelve a la primera
+  página.
 
 ## Assumptions
 
@@ -315,7 +339,7 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
   en requisitos y documentación.
 - La lista de anuncios propios incluye anuncios vendidos y los muestra con su estado.
 - La lista de anuncios propios se ordena por fecha de creación, del más reciente al más antiguo, y
-  usa 20 elementos por página.
+  usa 20 elementos por página por defecto; se puede elegir 10 o 50.
 - La página actual de anuncios propios se conserva en la dirección para permitir recargar o compartir
   la vista.
 - La lista de anuncios propios no incluye búsqueda, filtros ni ordenación personalizada.
@@ -323,20 +347,22 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
   según la spec 004; la lista de anuncios propios solo abre el detalle.
 - La creación de anuncios se inicia desde la cabecera o desde la acción del estado vacío de “Mis
   anuncios”; no se ofrece una acción de creación en cada tarjeta de la lista.
-- No se incluye avatar, eliminación de cuenta, cambio de email, perfil público, mensajería ni
-  valoraciones.
+- No se incluye avatar, eliminación de cuenta ni cambio de email.
+- El perfil público se especifica en la spec 008; la mensajería en la 007; las valoraciones
+  recibidas y escritas en la 009.
 - No se incluye verificación de email, recuperación de contraseña ni autenticación en dos pasos.
-- La interfaz se usa en escritorio y en móvil, con un único modo claro.
+- La interfaz se usa en escritorio y en móvil, con tema claro u oscuro según la preferencia de 001.
 
 ## Out of Scope
 
-- Perfil público de otros usuarios.
+- Implementación del perfil público de otros usuarios; se especifica en 008 y solo se enlaza desde
+  el perfil propio.
 - Subida de avatar o imagen de perfil.
 - Eliminación de la cuenta.
 - Cambio de email y verificación de email.
 - Recuperación o restablecimiento de contraseña.
 - Autenticación en dos pasos.
-- Mensajería, conversaciones y valoraciones.
+- Mensajería y gestión de valoraciones; se especifican en 007 y 009.
 - Preferencias de privacidad o de notificaciones.
 - Historial de actividad.
 - Búsqueda, filtros u ordenación personalizada de anuncios propios.

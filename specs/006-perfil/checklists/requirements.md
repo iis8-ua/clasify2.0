@@ -32,10 +32,12 @@
 ## Notes
 
 - Validation completed on 2026-11-10.
+- Ampliación de enlace al perfil público y tamaño de página validada el 2026-11-11.
 - The specification covers profile viewing, editing name and biography, changing password with the
-  current password, the user's own announcements, pagination, empty and error states, session expiry,
-  accessibility and responsive forms.
-- Public profiles, avatar uploads, account deletion, email changes, password recovery, two-factor
-  authentication, messaging and ratings remain outside this feature.
+  current password, the user's own announcements, pagination with page-size selection, a link to the
+  own public profile, empty and error states, session expiry, accessibility and responsive forms.
+- Public profiles, ratings, messaging, avatar uploads, account deletion, email changes, password
+  recovery and two-factor authentication remain outside this feature and are specified in 007–009
+  where applicable.
 - Email is explicitly read-only; the current password is required for password changes.
 - No backend changes or simulated responses are authorised.
