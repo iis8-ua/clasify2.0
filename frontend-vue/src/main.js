@@ -9,6 +9,7 @@ import { useSessionStore } from './stores/session'
 import { useTemaStore } from './stores/tema'
 import { useAnunciosStore } from './stores/anuncios'
 import { useFavoritosStore } from './stores/favoritos'
+import { useMensajesStore } from './stores/mensajes'
 import { usePerfilStore } from './stores/perfil'
 import { configurarHttp } from './services/http'
 import { esErrorDeSesion } from './services/errors'
@@ -28,13 +29,16 @@ async function bootstrap() {
   tema.aplicar()
   const anuncios = useAnunciosStore(pinia)
   const favoritos = useFavoritosStore(pinia)
+  const mensajes = useMensajesStore(pinia)
   const perfil = usePerfilStore(pinia)
   anuncios.sincronizarSesion(session.sessionVersion)
   favoritos.sincronizarSesion(session.sessionVersion)
+  mensajes.sincronizarSesion(session.sessionVersion)
   perfil.sincronizarSesion(session.sessionVersion)
   session.$subscribe((_mutacion, estado) => {
     anuncios.sincronizarSesion(estado.sessionVersion)
     favoritos.sincronizarSesion(estado.sessionVersion)
+    mensajes.sincronizarSesion(estado.sessionVersion)
     perfil.sincronizarSesion(estado.sessionVersion)
   })
 
