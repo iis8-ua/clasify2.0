@@ -107,7 +107,7 @@ description: "Task list for the 008-perfil-publico feature"
 
 - [X] T019 [US3] Implementar `AnunciosUsuario` reutilizando tarjetas y categorías en `frontend-vue/src/components/perfil-publico/AnunciosUsuario.vue`
 - [X] T020 [US3] Integrar anuncios en `frontend-vue/src/views/PerfilPublicoView.vue` con estados independientes de valoraciones
-- [ ] T021 [US3] Mostrar anuncios vendidos con su estado y enlazar cada uno al detalle en `frontend-vue/src/components/perfil-publico/AnunciosUsuario.vue`
+- [X] T021 [US3] Mostrar anuncios vendidos con su estado y enlazar cada uno al detalle en `frontend-vue/src/components/perfil-publico/AnunciosUsuario.vue`
 - [ ] T022 [US3] Sincronizar `paginaAnuncios` y `limiteAnuncios` con la URL y volver a la primera página al cambiar el tamaño en `frontend-vue/src/views/PerfilPublicoView.vue`
 
 **Checkpoint**: Los anuncios del perfil funcionan de forma independiente.
