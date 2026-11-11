@@ -44,7 +44,7 @@ description: "Task list for the 008-perfil-publico feature"
 - [X] T003 Implementar `perfilPublicoService` con perfil, anuncios y valoraciones recibidas en `frontend-vue/src/services/perfilPublicoService.js`
 - [X] T004 Implementar `perfilPublicoStore` con perfil, listas, estados y limpieza por sesión en `frontend-vue/src/stores/perfilPublico.js`
 - [X] T005 Crear la ruta pública `/usuarios/:id` y la vista base `PerfilPublicoView` en `frontend-vue/src/router/routes.js` y `frontend-vue/src/views/PerfilPublicoView.vue`
-- [ ] T006 [P] Añadir la normalización de errores de perfil, anuncios y valoraciones en `frontend-vue/src/services/perfilPublicoService.js` reutilizando `frontend-vue/src/services/errors.js`
+- [X] T006 [P] Añadir la normalización de errores de perfil, anuncios y valoraciones en `frontend-vue/src/services/perfilPublicoService.js` reutilizando `frontend-vue/src/services/errors.js`
 
 **Checkpoint**: La base del perfil público está lista para las historias.
 
