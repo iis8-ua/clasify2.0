@@ -83,7 +83,7 @@ Reglas:
 | Campo | Tipo | Reglas |
 |---|---|---|
 | `pagina` | number | Página actual; `>= 1` |
-| `limite` | number | Fijo en 20 para esta feature |
+| `limite` | number | 10, 20 o 50; 20 por defecto |
 | `total` | number | Total de resultados |
 | `paginas` | number | Total de páginas |
 
@@ -96,7 +96,7 @@ Reglas:
 | `estado` | `disponible` \| `vendido` \| `todos` | Por defecto `disponible` | Filtro de estado |
 | `orden` | `fecha_desc` \| `fecha_asc` \| `precio_desc` \| `precio_asc` | Por defecto `fecha_desc` | Orden del listado |
 | `pagina` | number | Por defecto 1 | Entero positivo |
-| `limite` | number | Fijo 20 | No se expone en la URL |
+| `limite` | number | 10, 20 o 50 | 20 por defecto; se conserva en la URL |
 
 ### EstadoListado
 

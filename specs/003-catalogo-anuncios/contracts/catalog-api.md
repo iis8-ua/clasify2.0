@@ -28,7 +28,7 @@ Query:
 | `estado` | string | `disponible`, `vendido`, `todos` | `disponible` |
 | `orden` | string | `fecha_desc`, `fecha_asc`, `precio_desc`, `precio_asc` | `fecha_desc` |
 | `pagina` | number | Entero `>= 1` | `1` |
-| `limite` | number | 1–100 | `20` |
+| `limite` | number | `10`, `20` o `50` desde la interfaz; backend admite 1–100 | `20` |
 
 Success `200`:
 
@@ -61,7 +61,8 @@ Rules:
 - El listado no incluye nombre de autor ni nombre de categoría.
 - `imagen` puede ser `null`.
 - La página fuera de rango devuelve `datos` vacío y la paginación real; el frontend corrige a la
-  última página.
+  última página solo tras una carga correcta.
+- Las secciones de similares usan `limite=4` y filtran el anuncio actual en el cliente.
 - Un error de validación devuelve `400` con `campo`.
 
 ## 2. Detalle
@@ -119,8 +120,28 @@ Rules:
 - El email del autor no se incluye.
 - Los campos de conversación no forman parte de esta feature y se ignoran.
 - El detalle no ofrece acciones de edición, eliminación, estado ni favoritos.
+- Los similares se obtienen del listado con la categoría del anuncio y `estado=disponible`.
+- Más del vendedor se obtiene de `/usuarios/:autorId/anuncios` y se filtra a disponibles.
+- El detalle enlaza al perfil público de 008.
 
-## 3. Categorías
+## 3. Anuncios por usuario
+
+```text
+GET /usuarios/:id/anuncios?pagina=1&limite=4
+```
+
+Se usa para “Más de este vendedor” y para el listado del perfil público de 008.
+
+Success `200`: sobre paginado con los mismos campos del listado.
+
+Rules:
+
+- El listado es público.
+- Incluye anuncios vendidos; la sección del detalle filtra solo disponibles.
+- El frontend excluye el anuncio actual y limita la sección a 4 elementos.
+- El identificador de usuario inexistente devuelve `404`.
+
+## 4. Categorías
 
 ```text
 GET /categorias?pagina=1&limite=100
@@ -149,7 +170,7 @@ Rules:
 - No se codifican categorías en el frontend.
 - La lista de categorías es pública.
 
-## 4. Imágenes
+## 5. Imágenes
 
 | Aspecto | Valor |
 |---|---|
@@ -159,7 +180,7 @@ Rules:
 | Carga en detalle | Prioritaria |
 | Texto alternativo | Describe el contenido o indica ausencia |
 
-## 5. Out of Scope
+## 6. Out of Scope
 
 - Crear, editar, eliminar o cambiar estado.
 - Añadir o quitar favoritos.

@@ -12,15 +12,15 @@
 | `estado` | `disponible`, `vendido`, `todos` | `disponible` | Se aplica al cambiar el selector |
 | `orden` | `fecha_desc`, `fecha_asc`, `precio_desc`, `precio_asc` | `fecha_desc` | Se aplica al cambiar el selector |
 | `pagina` | Entero `>= 1` | `1` | Se aplica al cambiar de página |
+| `limite` | `10`, `20`, `50` | `20` | Se aplica al cambiar el tamaño de página |
 
 Rules:
 
-- `limite` no se incluye en la URL; es fijo en 20.
-- Al cambiar un filtro se vuelve a `pagina=1`.
-- Al cambiar de página se conservan los filtros.
+- Al cambiar un filtro o el tamaño de página se vuelve a `pagina=1`.
+- Al cambiar de página se conservan los filtros y el tamaño.
 - Los valores inválidos se normalizan a los valores por defecto.
 - La URL debe poder compartirse y recargarse.
-- La página fuera de rango se corrige a la última disponible.
+- La página fuera de rango se corrige a la última disponible solo tras una carga correcta.
 
 ## 2. Listado
 
@@ -41,7 +41,7 @@ No se muestra el nombre del autor en el listado.
 Rules:
 
 - El listado puede ser público.
-- El listado inicial muestra anuncios disponibles, por fecha descendente y 20 por página.
+- El listado inicial muestra anuncios disponibles, por fecha descendente y 20 por página por defecto.
 - La tarjeta completa es un enlace o contiene un enlace accesible.
 - El estado vendido se muestra cuando el filtro lo permite.
 - La imagen no debe romper el layout si tarda o falla.
@@ -63,14 +63,20 @@ La vista muestra:
 | Email del autor | No se muestra |
 | Número de favoritos | Informativo |
 | Estado de favorito | Informativo; sin acción en 003 |
+| Compartir | Web Share nativo o copia de enlace, con confirmación |
+| Anuncios similares | Hasta 4 disponibles de la misma categoría, sin el actual |
+| Más del vendedor | Hasta 4 disponibles del autor, sin el actual |
+| Enlace al perfil | Abre `/usuarios/:autorId` |
 
 Rules:
 
 - No se muestran acciones de edición, eliminación, cambio de estado ni favoritos.
 - El detalle es público.
 - El detalle se puede abrir por URL directa.
-- Volver al listado conserva página y filtros.
+- Volver al listado conserva página, tamaño y filtros.
 - El identificador inválido y el anuncio inexistente tienen estados distintos.
+- Compartir no modifica el anuncio ni requiere sesión.
+- Las secciones relacionadas muestran un estado vacío u oculto si no hay resultados.
 
 ## 4. Paginación
 
@@ -81,14 +87,16 @@ Controls:
 - Página actual y total.
 - Página siguiente.
 - Última página.
+- Selector de tamaño: 10, 20 o 50.
 
 Rules:
 
 - Los controles se deshabilitan en los extremos.
 - La página actual se muestra de forma comprensible.
 - La paginación conserva filtros y orden.
+- El tamaño se conserva en la URL y al cambiar de página.
+- Cambiar el tamaño vuelve a la primera página.
 - La paginación se usa con teclado.
-- No hay selector de tamaño de página.
 - No hay paginación infinita.
 
 ## 5. Estados
@@ -146,7 +154,5 @@ Rules:
 - Búsqueda en otros recursos.
 - Filtros por precio.
 - Mapa, recomendaciones e historial.
-- Selector de tamaño de página.
 - Paginación infinita.
-- Modo oscuro.
 - Cambios en el backend.

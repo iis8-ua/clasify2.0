@@ -6,9 +6,9 @@
 
 ## Summary
 
-Implementar el catálogo público de anuncios: listado paginado, detalle, búsqueda por texto, filtros por categoría y estado, ordenación y estados de interfaz. La feature se apoya en la estructura común y la capa HTTP de `001-app-shell`, y en la sesión de `002-autenticacion-sesion` para mostrar el estado de favorito del detalle de forma informativa.
+Implementar el catálogo público de anuncios: listado paginado, detalle, búsqueda por texto, filtros por categoría y estado, ordenación, tamaño de página, compartir, anuncios similares, más anuncios del vendedor y enlace a su perfil público. La feature se apoya en la estructura común y la capa HTTP de `001-app-shell`, y en la sesión de `002-autenticacion-sesion` para mostrar el estado de favorito del detalle de forma informativa.
 
-El listado usa un tamaño fijo de 20, conserva página y filtros en la dirección y carga el catálogo real de categorías para mostrar nombres y alimentar el filtro. No implementa creación, edición, eliminación, cambio de estado ni acciones de favoritos. El backend no se modifica.
+El listado permite 10, 20 o 50 elementos por página, conserva página, tamaño y filtros en la dirección y carga el catálogo real de categorías para mostrar nombres y alimentar el filtro. El detalle incorpora enlaces al perfil público de 008. No implementa creación, edición, eliminación, cambio de estado ni acciones de favoritos. El backend no se modifica.
 
 ## Technical Context
 
@@ -25,7 +25,7 @@ El listado usa un tamaño fijo de 20, conserva página y filtros en la direcció
 - `primeicons` `7.0.0`
 - `fetch` nativo; sin axios
 
-**Storage**: Sin datos de catálogo persistidos. La página y los filtros del listado se reflejan en la URL. La sesión se lee de la store de `002` para el estado informativo de favorito. No se usa `localStorage`.
+**Storage**: Sin datos de catálogo persistidos. La página, el tamaño de página y los filtros del listado se reflejan en la URL. La sesión se lee de la store de `002` para el estado informativo de favorito. No se usa `localStorage`.
 
 **Testing**: Vitest `3.2.7`, `@vue/test-utils` `2.5.1`, `jsdom` `26.1.0`; validación manual contra el backend real con los datos del seed.
 
@@ -44,16 +44,17 @@ El listado usa un tamaño fijo de 20, conserva página y filtros en la direcció
 - No implementar creación, edición, eliminación, cambio de estado ni acciones de favoritos.
 - No añadir búsqueda en otros recursos, historial de búsquedas, sugerencias, filtros de precio, mapa,
   recomendaciones ni búsquedas guardadas.
-- No usar paginación infinita ni selector de tamaño de página.
-- Tamaño de página fijo en 20.
+- No usar paginación infinita.
+- Tamaño de página configurable entre 10, 20 y 50, con 20 por defecto.
 - No añadir comentarios al código.
 - No realizar llamadas HTTP directas desde componentes.
 - Interfaz en español, accesible y usable a 360 px.
 - El estado de favorito del detalle es informativo; no se añade ni se quita.
 
 **Scale/Scope**:
-- 3 endpoints existentes: listado, detalle y categorías.
+- 4 endpoints existentes: listado, detalle, categorías y anuncios por usuario.
 - 2 vistas: listado y detalle.
+- 3 componentes nuevos: `SelectorTamanoPagina`, `CompartirAnuncio` y `AnunciosRelacionados`.
 - 2 stores: anuncios y categorías.
 - 2 servicios: anuncios y categorías.
 - 5 historias de usuario.
@@ -76,7 +77,7 @@ El listado usa un tamaño fijo de 20, conserva página y filtros en la direcció
 | Tecnología obligatoria | PASS | Vue, Vite, Pinia, Vue Router, PrimeVue y `fetch`; sin cambios en el backend. |
 | Gobernanza | PASS | No hay violaciones ni excepciones que justificar. |
 
-**Post-Phase 1 re-check**: PASS. El diseño mantiene el catálogo público, el tamaño fijo de página y la separación entre datos y presentación, sin invadir la gestión ni los favoritos.
+**Post-Phase 1 re-check**: PASS. El diseño mantiene el catálogo público, el tamaño de página configurable, las secciones relacionadas y la separación entre datos y presentación, sin invadir la gestión ni los favoritos.
 
 ## Project Structure
 
@@ -107,6 +108,9 @@ frontend-vue/
 │   │   │   ├── AnuncioGrid.vue
 │   │   │   ├── FiltrosCatalogo.vue
 │   │   │   ├── PaginacionCatalogo.vue
+│   │   │   ├── SelectorTamanoPagina.vue
+│   │   │   ├── CompartirAnuncio.vue
+│   │   │   ├── AnunciosRelacionados.vue
 │   │   │   ├── SelectorCategoria.vue
 │   │   │   └── EstadoAnuncioBadge.vue
 │   │   └── common/
@@ -136,30 +140,38 @@ frontend-vue/
         ├── catalogFilters.spec.js
         ├── catalogAccessibility.spec.js
         ├── catalogLongSearch.spec.js
+        ├── catalogPageError.spec.js
+        ├── catalogPageSize.spec.js
+        ├── catalogRelated.spec.js
+        ├── catalogShare.spec.js
         └── pagination.spec.js
 ```
 
-**Structure Decision**: se reutiliza `frontend-vue/` y los componentes comunes de 001. Las rutas `/` y `/anuncios/:id` sustituyen sus placeholders. Las stores `anuncios` y `categorias` encapsulan listado, detalle y catálogo; los servicios usan la capa HTTP base. La sincronización de la URL se aísla en `router/catalogQuery.js`.
+**Structure Decision**: se reutiliza `frontend-vue/` y los componentes comunes de 001. Las rutas `/` y `/anuncios/:id` usan las vistas reales. Las stores `anuncios` y `categorias` encapsulan listado, detalle y catálogo; los servicios usan la capa HTTP base. La sincronización de la URL se aísla en `router/catalogQuery.js`; el tamaño de página se comparte con `SelectorTamanoPagina` y las secciones del detalle se encapsulan en `CompartirAnuncio` y `AnunciosRelacionados`.
 
 ## Phase 0: Research
 
 Resultado en [research.md](research.md). Decisiones principales:
 
-- Parámetros de URL: `texto`, `categoria`, `estado`, `orden` y `pagina`; `limite` fijo en 20.
+- Parámetros de URL: `texto`, `categoria`, `estado`, `orden`, `pagina` y `limite` (10, 20 o 50; 20 por defecto).
 - Búsqueda por texto al enviar o pulsar Enter; filtros de categoría, estado y orden al cambiar.
-- Cambio de filtro vuelve a página 1; cambio de página conserva filtros.
+- Cambio de filtro o de tamaño vuelve a página 1; cambio de página conserva filtros y tamaño.
 - Categorías cargadas una vez con `limite=100`; si hay más páginas, se recorren.
-- Página fuera de rango redirige a la última página disponible.
+- Página fuera de rango redirige a la última página disponible solo tras una carga correcta.
 - Estado de favorito del detalle solo informativo.
 - Sin nombre de autor en el listado.
 - Imágenes del listado con carga diferida y marcador accesible.
-- Vitest para servicios, stores, query y componentes clave.
+- Compartir usa Web Share si existe y copia de enlace como alternativa.
+- Similares: misma categoría, disponibles, máximo 4, excluyendo el actual.
+- Más del vendedor: anuncios disponibles del autor, máximo 4, excluyendo el actual.
+- Enlace al perfil público del autor según 008.
+- Vitest para servicios, stores, query, tamaño, compartir, relacionados y componentes clave.
 
 ## Phase 1: Design & Contracts
 
 - [data-model.md](data-model.md): anuncio resumido, detalle, autor, categoría, paginación, filtros y estados.
-- [contracts/catalog-api.md](contracts/catalog-api.md): listado, detalle y categorías.
-- [contracts/catalog-ui.md](contracts/catalog-ui.md): query de URL, tarjetas, detalle, paginación, estados y accesibilidad.
+- [contracts/catalog-api.md](contracts/catalog-api.md): listado, detalle, categorías y anuncios por usuario.
+- [contracts/catalog-ui.md](contracts/catalog-ui.md): query de URL, tamaño de página, tarjetas, detalle, compartir, relacionados, perfil público, paginación, estados y accesibilidad.
 - [quickstart.md](quickstart.md): arranque, pruebas y recorrido manual con los datos del seed.
 
 ## Complexity Tracking

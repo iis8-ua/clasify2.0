@@ -8,13 +8,13 @@
 
 ### 1. Estado de la URL del catálogo
 
-**Decision**: representar `texto`, `categoria`, `estado`, `orden` y `pagina` en la query de la URL. `limite` no se expone porque es fijo en 20.
+**Decision**: representar `texto`, `categoria`, `estado`, `orden`, `pagina` y `limite` en la query de la URL. `limite` admite 10, 20 o 50.
 
-**Rationale**: permite recargar, compartir y volver al listado sin perder el contexto. Mantiene una sola fuente de verdad para filtros y paginación.
+**Rationale**: permite recargar, compartir y volver al listado sin perder el contexto. Mantiene una sola fuente de verdad para filtros, tamaño y paginación.
 
 **Alternatives considered**:
 - Guardar filtros solo en memoria: descartado porque se perderían al recargar.
-- Incluir `limite` en la URL: descartado porque el tamaño de página es fijo.
+- No exponer `limite`: descartado porque el tamaño es elegible.
 
 ---
 
@@ -54,14 +54,14 @@
 
 ---
 
-### 5. Tamaño de página fijo en 20
+### 5. Tamaño de página configurable
 
-**Decision**: usar 20 elementos por página y no mostrar selector de tamaño.
+**Decision**: usar 20 elementos por página por defecto y ofrecer un selector de 10, 20 y 50. Al cambiarlo se vuelve a la primera página y se conserva en la URL.
 
-**Rationale**: es el valor por defecto del backend y reduce la complejidad de la primera versión.
+**Rationale**: el backend admite `limite` y el usuario puede ajustar la densidad del listado sin cambiar la paginación numerada.
 
 **Alternatives considered**:
-- Selector 10/20/50: descartado en esta versión.
+- Mantener 20 fijo: descartado por la ampliación de alcance.
 - Paginación infinita: descartada porque el alcance exige páginas navegables.
 
 ---
@@ -160,6 +160,39 @@
 **Alternatives considered**:
 - Solo pruebas manuales: descartado por la constitución.
 - E2E automatizado: se deja para el recorrido manual de la Práctica 4.
+
+### 14. Compartir anuncio
+
+**Decision**: usar la Web Share API cuando esté disponible y, como alternativa, copiar el enlace al portapapeles. En ambos casos se muestra una confirmación.
+
+**Rationale**: no requiere backend, funciona en móvil y escritorio y cubre navegadores sin Web Share.
+
+**Alternatives considered**:
+- Solo Web Share: descartado porque no está disponible en todos los navegadores.
+- Solo copiar enlace: válido, pero peor experiencia en móvil.
+
+---
+
+### 15. Anuncios relacionados
+
+**Decision**: los similares se obtienen del listado con la categoría del anuncio y `limite=4`; los del vendedor, de `/usuarios/:id/anuncios`. Ambos filtran a disponibles, excluyen el anuncio actual y muestran como máximo cuatro.
+
+**Rationale**: reutiliza endpoints existentes y evita una consulta por tarjeta.
+
+**Alternatives considered**:
+- Endpoint específico de similares: no existe y no se modifica el backend.
+- Mostrar todos: descartado por longitud de la página.
+
+---
+
+### 16. Enlace al perfil público
+
+**Decision**: el autor del detalle enlaza a `/usuarios/:id`, especificado en 008.
+
+**Rationale**: conecta el catálogo con la reputación y los anuncios del vendedor sin duplicar la vista pública en el detalle.
+
+**Alternatives considered**:
+- Mostrar el perfil completo dentro del detalle: descartado por duplicación y peso.
 
 ## Open Questions
 

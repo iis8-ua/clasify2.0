@@ -277,3 +277,12 @@ Task: "Aplicar formatos en frontend-vue/src/views/AnuncioDetalleView.vue"
 - [X] T046 Rechazar textos de búsqueda de más de 150 caracteres con un mensaje comprensible asociado al campo, sin truncarlos silenciosamente ni ejecutar la búsqueda, con prueba de SC-009, per SC-009, US4/AC9, FR-023 (partial)
 - [X] T047 Reutilizar `urlImagen()` de `services/media.js` en `AnuncioCard` y `AnuncioDetalleView`, eliminando la construcción directa de URLs del backend, per Constitución II y plan 003 (contradicts)
 - [X] T048 Corregir los contratos y el data-model del detalle para documentar la forma real del backend (`autor.id`, `categoria.id`) y la normalización que hace el frontend, per 003 catalog-api y 004 write-api (contradicts)
+
+## Phase 10: Ampliación de alcance (paginación y detalle)
+
+- [ ] T049 Extender `catalogQuery.js`, `anunciosService` y `anunciosStore` con el tamaño de página 10/20/50, su valor por defecto y la vuelta a página 1 al cambiarlo, con pruebas en `frontend-vue/tests/catalog/` per 003 FR-022, FR-036, US3/AC10–AC12 (missing)
+- [ ] T050 Crear `frontend-vue/src/components/catalog/SelectorTamanoPagina.vue` y conectarlo al listado de `AnunciosListView.vue`, conservando página, tamaño y filtros en la URL, con pruebas per 003 FR-022, FR-036, SC-016 (missing)
+- [ ] T051 Crear `frontend-vue/src/components/catalog/CompartirAnuncio.vue` con Web Share API, copia de enlace como alternativa y confirmación perceptible, e integrarlo en `AnuncioDetalleView.vue`, con pruebas per 003 FR-037, FR-038, SC-017 (missing)
+- [ ] T052 Crear `frontend-vue/src/components/catalog/AnunciosRelacionados.vue` para anuncios similares y “Más de este vendedor”, con máximo 4, solo disponibles y exclusión del actual, integrado en `AnuncioDetalleView.vue`, con pruebas per 003 FR-039, FR-040, SC-018, SC-019 (missing)
+- [ ] T053 Enlazar al perfil público del autor desde `AnuncioDetalleView.vue` y desde la sección “Más de este vendedor”, con pruebas de navegación per 003 FR-041, SC-020 y 008 FR-021 (missing)
+- [ ] T054 Actualizar `specs/003-catalogo-anuncios/data-model.md` y `quickstart.md` con tamaño de página, compartir, relacionados, más del vendedor y enlace al perfil público, y registrar la validación manual per 003 data-model/quickstart (partial)
