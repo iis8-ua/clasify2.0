@@ -45,7 +45,7 @@ description: "Task list for the 007-mensajeria feature"
 - [X] T004 Implementar `mensajesStore` con estado de bandeja, hilo, operaciones y limpieza por sesión en `frontend-vue/src/stores/mensajes.js`
 - [X] T005 Crear las vistas base `MensajesView` y `ConversacionView` y las rutas protegidas `/mensajes` y `/conversaciones/:id` en `frontend-vue/src/views/MensajesView.vue`, `frontend-vue/src/views/ConversacionView.vue` y `frontend-vue/src/router/routes.js`
 - [X] T006 [P] Añadir la entrada Mensajes a la navegación de cabecera en `frontend-vue/src/components/layout/navigation.js`, visible solo con sesión
-- [ ] T007 [P] Reutilizar la normalización de errores de `frontend-vue/src/services/errors.js` para `401`, `403`, `404`, `400` y errores de conexión
+- [X] T007 [P] Reutilizar la normalización de errores de `frontend-vue/src/services/errors.js` para `401`, `403`, `404`, `400` y errores de conexión
 
 **Checkpoint**: La base de mensajería está lista para las historias.
 
