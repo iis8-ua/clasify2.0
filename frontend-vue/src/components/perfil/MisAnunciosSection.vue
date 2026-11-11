@@ -3,6 +3,8 @@ import { computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import AnuncioGrid from '../catalog/AnuncioGrid.vue'
 import PaginacionCatalogo from '../catalog/PaginacionCatalogo.vue'
+import SelectorTamanoPagina from '../catalog/SelectorTamanoPagina.vue'
+import { TAMANOS_PAGINA } from '../../router/catalogQuery'
 import StatePanel from '../states/StatePanel.vue'
 import { useCategoriasStore } from '../../stores/categorias'
 import { usePerfilStore } from '../../stores/perfil'
@@ -17,16 +19,28 @@ const pagina = computed(() => {
   return Number.isInteger(valor) && valor >= 1 ? valor : 1
 })
 
+const limite = computed(() => {
+  const valor = Number(route.query.limite)
+  return TAMANOS_PAGINA.includes(valor) ? valor : 20
+})
+
 async function cargar() {
-  if (route.query.pagina !== undefined && String(pagina.value) !== String(route.query.pagina)) {
-    await router.replace({
-      name: 'perfil',
-      query: pagina.value > 1 ? { pagina: String(pagina.value) } : {}
-    })
+  const queryNormalizada = {}
+  if (pagina.value > 1) {
+    queryNormalizada.pagina = String(pagina.value)
+  }
+  if (limite.value !== 20) {
+    queryNormalizada.limite = String(limite.value)
+  }
+  const paginaEnUrl = route.query.pagina === undefined || String(pagina.value) === String(route.query.pagina)
+  const limiteEnUrl = route.query.limite === undefined || String(limite.value) === String(route.query.limite)
+
+  if (!paginaEnUrl || !limiteEnUrl) {
+    await router.replace({ name: 'perfil', query: queryNormalizada })
     return
   }
 
-  await Promise.all([categorias.cargar(), perfil.cargarAnuncios(pagina.value)])
+  await Promise.all([categorias.cargar(), perfil.cargarAnuncios(pagina.value, limite.value)])
 
   if (perfil.errorAnuncios?.estado === 401) {
     await router.push({ name: 'login', query: { redirect: route.fullPath } })
@@ -38,15 +52,16 @@ async function cargar() {
   }
 
   if (pagina.value > 1 && perfil.paginacion.paginas === 0) {
-    await router.replace({ name: 'perfil', query: {} })
+    await router.replace({ name: 'perfil', query: limite.value !== 20 ? { limite: String(limite.value) } : {} })
     return
   }
 
   if (perfil.paginacion.paginas > 0 && pagina.value > perfil.paginacion.paginas) {
-    await router.replace({
-      name: 'perfil',
-      query: { pagina: String(perfil.paginacion.paginas) }
-    })
+    const query = { pagina: String(perfil.paginacion.paginas) }
+    if (limite.value !== 20) {
+      query.limite = String(limite.value)
+    }
+    await router.replace({ name: 'perfil', query })
   }
 }
 
@@ -57,9 +72,17 @@ watch(
 )
 
 function cambiarPagina(nuevaPagina) {
+  const query = nuevaPagina > 1 ? { pagina: String(nuevaPagina) } : {}
+  if (limite.value !== 20) {
+    query.limite = String(limite.value)
+  }
+  router.push({ name: 'perfil', query })
+}
+
+function cambiarTamano(nuevoLimite) {
   router.push({
     name: 'perfil',
-    query: nuevaPagina > 1 ? { pagina: String(nuevaPagina) } : {}
+    query: nuevoLimite !== 20 ? { limite: String(nuevoLimite) } : {}
   })
 }
 
@@ -98,12 +121,18 @@ function crearAnuncio() {
 
     <template v-else-if="perfil.estadoAnuncios === 'success'">
       <AnuncioGrid :anuncios="perfil.anuncios" :categorias-por-id="categorias.porId" />
-      <PaginacionCatalogo
-        :pagina="perfil.paginacion.pagina"
-        :paginas="perfil.paginacion.paginas"
-        aria-label="Paginación de mis anuncios"
-        @cambiar="cambiarPagina"
-      />
+      <div class="catalog-pagination__row">
+        <SelectorTamanoPagina
+          :model-value="limite"
+          @update:model-value="cambiarTamano"
+        />
+        <PaginacionCatalogo
+          :pagina="perfil.paginacion.pagina"
+          :paginas="perfil.paginacion.paginas"
+          aria-label="Paginación de mis anuncios"
+          @cambiar="cambiarPagina"
+        />
+      </div>
     </template>
   </section>
 </template>
