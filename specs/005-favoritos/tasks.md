@@ -269,9 +269,9 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 
 ## Phase 12: Convergence
 
-- [ ] T048 CRITICAL: Limpiar los datos privados de `anunciosStore` (detalle con `conversacion`, `ultimos_mensajes` y `num_mensajes`) al cambiar `sessionVersion`, integrándolo en `main.js` como favoritos y perfil, con prueba de cierre de sesión, per Constitution V, 005 FR-022 y 002 FR-014/FR-017 (missing)
-- [ ] T049 CRITICAL: Invalidar las respuestas en vuelo de `perfilStore.cargarPerfil`, `perfilStore.actualizarPerfil` y `anunciosStore.cargarDetalle` al cerrar sesión o cambiar de cuenta, mediante token de solicitud o comprobación de sesión, con prueba de respuesta tardía, per Constitution V, 005 FR-021, 002 FR-017 y 006 FR-026 (partial)
-- [ ] T050 Añadir pruebas de fallo de conexión al añadir y quitar favorito, de la confirmación perceptible y de la actualización de la lista tras la operación, per 005 FR-018, FR-020, FR-026 y Constitution VIII (missing)
-- [ ] T051 Mover el foco al primer campo con error de servidor en `PerfilForm` y `CambioContrasenaForm`, con pruebas, per 006 FR-023 y 006 T043 (partial)
-- [ ] T052 Diferenciar el texto de progreso de añadir y quitar (`Añadiendo…`/`Quitando…`) y exponer el estado en curso con `aria-busy`, con prueba durante la operación, per 005 FR-019 y Constitution VI (partial)
-- [ ] T053 Alinear el árbol de pruebas de `specs/005-favoritos/plan.md` con los archivos reales, incluyendo `favoritosAccessibility.spec.js`, per 005 plan (partial)
+- [X] T048 CRITICAL: Limpiar los datos privados de `anunciosStore` (detalle con `conversacion`, `ultimos_mensajes` y `num_mensajes`) al cambiar `sessionVersion`, integrándolo en `main.js` como favoritos y perfil, con prueba de cierre de sesión, per Constitution V, 005 FR-022 y 002 FR-014/FR-017 (missing)
+- [X] T049 CRITICAL: Invalidar las respuestas en vuelo de `perfilStore.cargarPerfil`, `perfilStore.actualizarPerfil` y `anunciosStore.cargarDetalle` al cerrar sesión o cambiar de cuenta, mediante token de solicitud o comprobación de sesión, con prueba de respuesta tardía, per Constitution V, 005 FR-021, 002 FR-017 y 006 FR-026 (partial)
+- [X] T050 Añadir pruebas de fallo de conexión al añadir y quitar favorito, de la confirmación perceptible y de la actualización de la lista tras la operación, per 005 FR-018, FR-020, FR-026 y Constitution VIII (missing)
+- [X] T051 Mover el foco al primer campo con error de servidor en `PerfilForm` y `CambioContrasenaForm`, con pruebas, per 006 FR-023 y 006 T043 (partial)
+- [X] T052 Diferenciar el texto de progreso de añadir y quitar (`Añadiendo…`/`Quitando…`) y exponer el estado en curso con `aria-busy`, con prueba durante la operación, per 005 FR-019 y Constitution VI (partial)
+- [X] T053 Alinear el árbol de pruebas de `specs/005-favoritos/plan.md` con los archivos reales, incluyendo `favoritosAccessibility.spec.js`, per 005 plan (partial)

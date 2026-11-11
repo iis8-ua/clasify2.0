@@ -122,7 +122,8 @@ frontend-vue/
         ├── favoritosStore.spec.js
         ├── botonFavorito.spec.js
         ├── favoritosView.spec.js
-        └── pagination.spec.js
+        ├── pagination.spec.js
+        └── favoritosAccessibility.spec.js
 ```
 
 **Structure Decision**: se reutiliza `frontend-vue/` y los componentes de catálogo de 003. La ruta `/favoritos` sustituye su placeholder. `BotonFavorito` se monta solo en el detalle. `favoritosStore` mantiene la lista y el estado de las operaciones; `favoritosService` usa la capa HTTP base. La lista reutiliza las tarjetas y la paginación del catálogo.

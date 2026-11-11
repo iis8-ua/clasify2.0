@@ -10,8 +10,8 @@
 | Comprobación | Comando | Resultado obtenido |
 |---|---|---|
 | Pruebas del backend (Jest + Supertest) | `cd backend && npm test` | 6 suites y 307 pruebas correctas, 0 fallos, 201,965 s |
-| Pruebas del frontend (Vitest) | `cd frontend-vue && npm run test:unit` | 51 archivos (50 ejecutados y 1 omitido), 205 pruebas (202 ejecutadas y 3 omitidas), 0 fallos, 8,21 s |
-| Build de producción | `cd frontend-vue && npm run build` | 217 módulos transformados, build correcto, 1,75 s |
+| Pruebas del frontend (Vitest) | `cd frontend-vue && npm run test:unit` | 51 archivos (50 ejecutados y 1 omitido), 215 pruebas (212 ejecutadas y 3 omitidas), 0 fallos, 6,98 s |
+| Build de producción | `cd frontend-vue && npm run build` | 217 módulos transformados, build correcto, 1,21 s |
 | Integración con el backend real | `cd frontend-vue && VALIDACION_BACKEND=1 npx vitest run tests/integracion/backendReal.spec.js` | 3 pruebas correctas, 0 fallos, 767 ms |
 
 La suite `tests/integracion/backendReal.spec.js` está omitida por defecto para que
