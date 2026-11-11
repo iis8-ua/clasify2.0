@@ -55,4 +55,13 @@ describe('capa HTTP', () => {
     await expect(http.get('/perfil', { auth: true })).rejects.toBeInstanceOf(ApiError)
     expect(onUnauthorized).toHaveBeenCalled()
   })
+
+  it('expone el estado HTTP cuando se solicita', async () => {
+    fetch.mockResolvedValue(respuestaJson(201, { datos: { favorito: { id: 1 } } }))
+
+    const respuesta = await http.post('/anuncios/25/favorito', undefined, { conEstado: true })
+
+    expect(respuesta.estado).toBe(201)
+    expect(respuesta.datos.datos.favorito.id).toBe(1)
+  })
 })

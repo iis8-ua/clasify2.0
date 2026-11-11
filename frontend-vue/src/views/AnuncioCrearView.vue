@@ -51,7 +51,7 @@ async function enviar({ valores, imagen }) {
     const anuncio = await anuncios.crear(valores, imagen)
     hayCambios.value = false
     notificaciones.exito('Anuncio creado')
-    await router.push({ name: 'anuncio-detalle', params: { id: anuncio.id } })
+    await router.replace({ name: 'anuncio-detalle', params: { id: anuncio.id } })
   } catch (error) {
     manejarError(error)
   } finally {

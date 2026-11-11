@@ -44,11 +44,27 @@ describe('listado de anuncios', () => {
     const wrapper = mount(AnuncioGrid, {
       props: {
         anuncios: [anuncio],
-        categoriasPorId: { 8: 'Bicicletas' }
+        categoriasPorId: { 8: 'Bicicletas' },
+        nivelTitulo: 2
       },
       global: { stubs: { RouterLink: RouterLinkStub } }
     })
     expect(wrapper.findAll('.anuncio-card')).toHaveLength(1)
     expect(wrapper.text()).toContain('Bicicletas')
+    expect(wrapper.get('.anuncio-card__title').element.tagName).toBe('H2')
+  })
+
+  it('usa h3 por defecto y el nivel indicado por la vista', () => {
+    const porDefecto = mount(AnuncioCard, {
+      props: { anuncio, nombreCategoria: 'Bicicletas' },
+      global: { stubs: { RouterLink: RouterLinkStub } }
+    })
+    expect(porDefecto.get('.anuncio-card__title').element.tagName).toBe('H3')
+
+    const enListado = mount(AnuncioCard, {
+      props: { anuncio, nombreCategoria: 'Bicicletas', nivelTitulo: 2 },
+      global: { stubs: { RouterLink: RouterLinkStub } }
+    })
+    expect(enListado.get('.anuncio-card__title').element.tagName).toBe('H2')
   })
 })

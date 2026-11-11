@@ -89,7 +89,11 @@ function cambiarPagina(nuevaPagina) {
     />
 
     <template v-else-if="favoritos.estado === 'success'">
-      <AnuncioGrid :anuncios="favoritos.listado" :categorias-por-id="categorias.porId" />
+      <AnuncioGrid
+        :anuncios="favoritos.listado"
+        :categorias-por-id="categorias.porId"
+        :nivel-titulo="2"
+      />
       <PaginacionCatalogo
         :pagina="favoritos.paginacion.pagina"
         :paginas="favoritos.paginacion.paginas"

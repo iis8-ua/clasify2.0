@@ -33,13 +33,26 @@ describe('servicio de favoritos', () => {
       })
     )
 
-    const favorito = await favoritosService.anadir(25)
+    const { favorito, nuevo } = await favoritosService.anadir(25)
 
     const [url, opciones] = fetch.mock.calls[0]
     expect(url).toBe('http://api.test/clasify_api/anuncios/25/favorito')
     expect(opciones.method).toBe('POST')
     expect(opciones.headers.Authorization).toBe('Bearer token')
     expect(favorito.id).toBe(10)
+    expect(nuevo).toBe(true)
+  })
+
+  it('reconoce que el favorito ya existía con una respuesta 200', async () => {
+    fetch.mockResolvedValue(
+      respuestaJson(200, {
+        datos: { favorito: { id: 10, id_usuario: 1, id_anuncio: 25 } }
+      })
+    )
+
+    const { nuevo } = await favoritosService.anadir(25)
+
+    expect(nuevo).toBe(false)
   })
 
   it('quita un favorito con respuesta 204', async () => {

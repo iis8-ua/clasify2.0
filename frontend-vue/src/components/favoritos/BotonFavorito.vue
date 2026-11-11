@@ -52,10 +52,10 @@ async function alternar() {
       })
       notificaciones.exito('Anuncio quitado de favoritos')
     } else {
-      await favoritos.anadir(props.anuncio.id)
+      const { nuevo } = await favoritos.anadir(props.anuncio.id)
       emit('cambio', {
         esFavorito: true,
-        numFavoritos: props.anuncio.num_favoritos + 1
+        numFavoritos: props.anuncio.num_favoritos + (nuevo ? 1 : 0)
       })
       notificaciones.exito('Anuncio guardado en favoritos')
     }

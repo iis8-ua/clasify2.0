@@ -61,7 +61,9 @@ describe('botón de favorito', () => {
 
   it('añade un favorito y actualiza el estado', async () => {
     const { wrapper, favoritos } = await montar()
-    const anadir = vi.spyOn(favoritos, 'anadir').mockResolvedValue({ id: 1 })
+    const anadir = vi
+      .spyOn(favoritos, 'anadir')
+      .mockResolvedValue({ favorito: { id: 1 }, nuevo: true })
 
     await wrapper.get('button').trigger('click')
     await flushPromises()
@@ -72,6 +74,16 @@ describe('botón de favorito', () => {
     await wrapper.setProps({ anuncio: { ...anuncio, es_favorito: true, num_favoritos: 3 } })
     expect(wrapper.get('button').attributes('aria-pressed')).toBe('true')
     expect(wrapper.get('button').attributes('aria-label')).toBe('Quitar de favoritos')
+  })
+
+  it('no incrementa el contador cuando el favorito ya existía', async () => {
+    const { wrapper, favoritos } = await montar()
+    vi.spyOn(favoritos, 'anadir').mockResolvedValue({ favorito: { id: 1 }, nuevo: false })
+
+    await wrapper.get('button').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.emitted('cambio')[0][0]).toEqual({ esFavorito: true, numFavoritos: 2 })
   })
 
   it('quita un favorito y actualiza el estado', async () => {
@@ -102,7 +114,7 @@ describe('botón de favorito', () => {
     expect(anadir).toHaveBeenCalledTimes(1)
     expect(wrapper.get('button').attributes('disabled')).toBeDefined()
 
-    resolver({ id: 1 })
+    resolver({ favorito: { id: 1 }, nuevo: true })
     await flushPromises()
   })
 

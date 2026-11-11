@@ -150,6 +150,15 @@ npm run build
 npm run preview
 ```
 
+Con el backend arrancado, la comprobación de integración contra datos reales:
+
+```bash
+VALIDACION_BACKEND=1 npx vitest run tests/integracion/backendReal.spec.js
+```
+
+El registro de las comprobaciones ejecutadas y su resultado está en
+[`docs/validacion.md`](docs/validacion.md).
+
 Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<fichero>`.
 
 ### Autenticación

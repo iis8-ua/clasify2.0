@@ -78,6 +78,7 @@ describe('vista de favoritos', () => {
     expect(wrapper.text()).toContain('Bicicletas')
     expect(wrapper.text()).toContain('Vendido')
     expect(wrapper.text()).toContain('250,00')
+    expect(wrapper.get('.anuncio-card__title').element.tagName).toBe('H2')
     expect(wrapper.text()).not.toContain('Quitar de favoritos')
     expect(wrapper.get('nav').attributes('aria-label')).toBe('Paginación de favoritos')
   })

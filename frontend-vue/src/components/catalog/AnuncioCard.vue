@@ -14,6 +14,11 @@ const props = defineProps({
   nombreCategoria: {
     type: String,
     default: 'Categoría no disponible'
+  },
+  nivelTitulo: {
+    type: Number,
+    default: 3,
+    validator: (value) => [2, 3, 4].includes(value)
   }
 })
 
@@ -29,7 +34,7 @@ const imagenUrl = computed(() => urlImagen(props.anuncio.imagen))
     >
       <ImageWithFallback :src="imagenUrl" :alt="`Imagen de ${anuncio.titulo}`" />
       <div class="anuncio-card__body">
-        <h3 class="anuncio-card__title">{{ anuncio.titulo }}</h3>
+        <component :is="`h${nivelTitulo}`" class="anuncio-card__title">{{ anuncio.titulo }}</component>
         <p class="anuncio-card__price">
           <PriceText :value="anuncio.precio" />
         </p>

@@ -2,8 +2,11 @@ import { http } from './http'
 
 export const favoritosService = {
   async anadir(idAnuncio) {
-    const respuesta = await http.post(`/anuncios/${idAnuncio}/favorito`, undefined, { auth: true })
-    return respuesta.datos.favorito
+    const { estado, datos } = await http.post(`/anuncios/${idAnuncio}/favorito`, undefined, {
+      auth: true,
+      conEstado: true
+    })
+    return { favorito: datos.datos.favorito, nuevo: estado === 201 }
   },
   async quitar(idAnuncio) {
     await http.delete(`/anuncios/${idAnuncio}/favorito`, { auth: true })

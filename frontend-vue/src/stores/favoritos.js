@@ -45,9 +45,9 @@ export const useFavoritosStore = defineStore('favoritos', {
     async anadir(idAnuncio) {
       this.procesando = { ...this.procesando, [idAnuncio]: true }
       try {
-        const favorito = await favoritosService.anadir(idAnuncio)
+        const resultado = await favoritosService.anadir(idAnuncio)
         this.estado = 'idle'
-        return favorito
+        return resultado
       } finally {
         const { [idAnuncio]: _eliminado, ...resto } = this.procesando
         this.procesando = resto

@@ -9,6 +9,11 @@ defineProps({
   categoriasPorId: {
     type: Object,
     default: () => ({})
+  },
+  nivelTitulo: {
+    type: Number,
+    default: 3,
+    validator: (value) => [2, 3, 4].includes(value)
   }
 })
 </script>
@@ -20,6 +25,7 @@ defineProps({
       :key="anuncio.id"
       :anuncio="anuncio"
       :nombre-categoria="categoriasPorId[anuncio.id_categoria] ?? 'Categoría no disponible'"
+      :nivel-titulo="nivelTitulo"
     />
   </div>
 </template>

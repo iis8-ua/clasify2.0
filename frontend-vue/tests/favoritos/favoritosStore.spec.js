@@ -59,11 +59,13 @@ describe('store de favoritos', () => {
   })
 
   it('añade y quita favoritos sin dejar operaciones pendientes', async () => {
-    favoritosService.anadir.mockResolvedValue({ id: 1 })
+    favoritosService.anadir.mockResolvedValue({ favorito: { id: 1 }, nuevo: true })
     favoritosService.quitar.mockResolvedValue()
     const store = useFavoritosStore()
 
-    await store.anadir(1)
+    const resultado = await store.anadir(1)
+    expect(resultado.nuevo).toBe(true)
+    expect(resultado.favorito.id).toBe(1)
     expect(store.procesando[1]).toBeUndefined()
 
     await store.quitar(1)

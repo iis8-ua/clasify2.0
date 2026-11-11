@@ -116,7 +116,11 @@ function cambiarPagina(pagina) {
     />
 
     <template v-else-if="anuncios.estadoListado === 'success'">
-      <AnuncioGrid :anuncios="anuncios.listado" :categorias-por-id="categorias.porId" />
+      <AnuncioGrid
+        :anuncios="anuncios.listado"
+        :categorias-por-id="categorias.porId"
+        :nivel-titulo="2"
+      />
       <PaginacionCatalogo
         :pagina="anuncios.paginacion.pagina"
         :paginas="anuncios.paginacion.paginas"

@@ -14,7 +14,7 @@ function construirUrl(path) {
   return `${configuracion.baseUrl.replace(/\/$/, '')}${path}`
 }
 
-async function solicitar(path, { method = 'GET', body, headers = {}, auth = false, signal } = {}) {
+async function solicitar(path, { method = 'GET', body, headers = {}, auth = false, signal, conEstado = false } = {}) {
   const cabeceras = { ...headers }
   let cuerpo
 
@@ -45,7 +45,7 @@ async function solicitar(path, { method = 'GET', body, headers = {}, auth = fals
   }
 
   if (respuesta.status === 204) {
-    return null
+    return conEstado ? { estado: 204, datos: null } : null
   }
 
   const tipo = respuesta.headers.get('content-type') ?? ''
@@ -59,7 +59,7 @@ async function solicitar(path, { method = 'GET', body, headers = {}, auth = fals
     throw error
   }
 
-  return datos
+  return conEstado ? { estado: respuesta.status, datos } : datos
 }
 
 export const http = {

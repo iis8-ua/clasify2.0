@@ -73,6 +73,7 @@ describe('sección de anuncios propios', () => {
     expect(wrapper.text()).toContain('Mesa vendida')
     expect(wrapper.text()).toContain('Bicicletas')
     expect(wrapper.text()).toContain('Vendido')
+    expect(wrapper.get('.anuncio-card__title').element.tagName).toBe('H3')
     expect(wrapper.text()).not.toContain('Editar')
     expect(wrapper.text()).not.toContain('Eliminar')
     expect(wrapper.get('nav').attributes('aria-label')).toBe('Paginación de mis anuncios')
