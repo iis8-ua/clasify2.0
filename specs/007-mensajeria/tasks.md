@@ -59,7 +59,7 @@ description: "Task list for the 007-mensajeria feature"
 
 ### Tests for User Story 1
 
-- [ ] T008 [P] [US1] Crear pruebas del servicio de inicio de conversación en `frontend-vue/tests/mensajeria/mensajesService.spec.js`
+- [X] T008 [P] [US1] Crear pruebas del servicio de inicio de conversación en `frontend-vue/tests/mensajeria/mensajesService.spec.js`
 - [ ] T009 [P] [US1] Crear pruebas del modal de contacto, anuncio propio, anuncio vendido y visitante en `frontend-vue/tests/mensajeria/contactar.spec.js`
 
 ### Implementation for User Story 1
