@@ -35,3 +35,22 @@
   --header-height: 4.5rem;
   --breakpoint-mobile: 48rem;
 }
+
+[data-tema="oscuro"] {
+  color-scheme: dark;
+  --color-primary: #60a5fa;
+  --color-primary-strong: #93c5fd;
+  --color-primary-soft: #1e3a8a;
+  --color-primary-contrast: #0f172a;
+  --color-surface: #0f172a;
+  --color-surface-alt: #1e293b;
+  --color-text: #f8fafc;
+  --color-text-muted: #cbd5e1;
+  --color-border: #334155;
+  --color-danger: #f87171;
+  --color-danger-soft: #450a0a;
+  --color-success: #4ade80;
+  --color-success-soft: #052e16;
+  --color-warning: #fbbf24;
+  --color-warning-soft: #451a03;
+}

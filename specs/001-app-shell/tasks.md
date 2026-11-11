@@ -272,7 +272,7 @@ Task: "Implementar notificaciones en frontend-vue/src/App.vue"
 ## Phase 10: Ampliación de alcance (tema y rutas)
 
 - [X] T057 Implementar `stores/tema.js` con tema claro/oscuro, tema claro por defecto, persistencia en `localStorage` y lectura tolerante a valores inválidos, con pruebas en `frontend-vue/tests/components/` per 001 FR-029, FR-030 (missing)
-- [ ] T058 Añadir tokens de color y superficies para tema oscuro en `frontend-vue/src/styles/tokens.css` y configurar PrimeVue con selector de modo oscuro en `frontend-vue/src/styles/primevue-theme.js` y `frontend-vue/src/main.js`, con comprobación de contraste en ambos temas per 001 FR-017 y SC-013 (missing)
+- [X] T058 Añadir tokens de color y superficies para tema oscuro en `frontend-vue/src/styles/tokens.css` y configurar PrimeVue con selector de modo oscuro en `frontend-vue/src/styles/primevue-theme.js` y `frontend-vue/src/main.js`, con comprobación de contraste en ambos temas per 001 FR-017 y SC-013 (missing)
 - [ ] T059 Integrar `ThemeToggle` en `frontend-vue/src/components/layout/AppHeader.vue`, con nombre accesible que indique tema actual y acción, foco visible y pruebas de teclado per 001 FR-029, FR-030 y SC-015 (missing)
 - [ ] T060 Añadir al contrato y a `frontend-vue/src/router/routes.js` las rutas y la entrada de navegación de perfil público, mensajes y conversación cuando existan sus vistas, con metadata, guardas y pruebas de rutas per 001 FR-003, FR-004 y docs/00 §6 (missing)
 - [ ] T061 Actualizar `specs/001-app-shell/quickstart.md` y la validación manual con el cambio de tema, persistencia y las nuevas rutas per 001 quickstart y US1/AC7 (partial)

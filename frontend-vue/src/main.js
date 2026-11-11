@@ -6,6 +6,7 @@ import 'primeicons/primeicons.css'
 import App from './App.vue'
 import router from './router'
 import { useSessionStore } from './stores/session'
+import { useTemaStore } from './stores/tema'
 import { useAnunciosStore } from './stores/anuncios'
 import { useFavoritosStore } from './stores/favoritos'
 import { usePerfilStore } from './stores/perfil'
@@ -23,6 +24,8 @@ async function bootstrap() {
   app.use(pinia)
 
   const session = useSessionStore(pinia)
+  const tema = useTemaStore(pinia)
+  tema.aplicar()
   const anuncios = useAnunciosStore(pinia)
   const favoritos = useFavoritosStore(pinia)
   const perfil = usePerfilStore(pinia)
@@ -65,7 +68,7 @@ async function bootstrap() {
     theme: {
       preset: ClasifyPreset,
       options: {
-        darkModeSelector: false
+        darkModeSelector: '[data-tema="oscuro"]'
       }
     }
   })
