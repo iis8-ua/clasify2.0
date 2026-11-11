@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { nextTick } from 'vue'
 import { flushPromises, mount } from '@vue/test-utils'
 import { createPinia, setActivePinia } from 'pinia'
 import { createMemoryHistory, createRouter } from 'vue-router'
@@ -34,7 +35,8 @@ async function montar() {
   await router.push('/perfil')
   await router.isReady()
   const wrapper = mount(CambioContrasenaForm, {
-    global: { plugins: [pinia, router] }
+    global: { plugins: [pinia, router] },
+    attachTo: document.body
   })
   return { wrapper, router, session }
 }
@@ -102,6 +104,9 @@ describe('formulario de cambio de contraseña', () => {
     expect(wrapper.text()).toContain('La contraseña actual no es correcta')
     expect(session.estaAutenticado).toBe(true)
     expect(router.currentRoute.value.name).toBe('perfil')
+
+    await nextTick()
+    expect(document.activeElement).toBe(wrapper.get('#perfil-password-actual').element)
   })
 
   it('solicita acceso si la sesión ha caducado', async () => {

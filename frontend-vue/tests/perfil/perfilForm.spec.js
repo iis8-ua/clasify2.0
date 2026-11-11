@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
 import PerfilForm from '../../src/components/perfil/PerfilForm.vue'
 
@@ -78,5 +79,20 @@ describe('formulario de datos del perfil', () => {
 
     expect(wrapper.text()).toContain('El nombre ya está en uso')
     expect(wrapper.get('#perfil-nombre').attributes('aria-invalid')).toBe('true')
+  })
+
+  it('mueve el foco al primer campo con error del servidor', async () => {
+    const wrapper = mount(PerfilForm, {
+      props: { perfil },
+      attachTo: document.body
+    })
+
+    await wrapper.setProps({
+      erroresServidor: { biografia: 'La biografía no es válida' }
+    })
+    await nextTick()
+
+    expect(document.activeElement).toBe(wrapper.get('#perfil-biografia').element)
+    wrapper.unmount()
   })
 })

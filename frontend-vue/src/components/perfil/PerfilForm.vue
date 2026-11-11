@@ -52,6 +52,18 @@ const sinCambios = computed(() => Object.keys(cambios.value).length === 0)
 watch(sinCambios, (valor) => emit('dirty-change', !valor))
 
 watch(
+  () => props.erroresServidor,
+  (errores) => {
+    if (errores?.nombre) {
+      nextTick(() => nombreInput.value?.focus())
+    } else if (errores?.biografia) {
+      nextTick(() => biografiaInput.value?.focus())
+    }
+  },
+  { deep: true }
+)
+
+watch(
   () => [props.perfil.nombre, props.perfil.biografia],
   () => {
     if (sinCambios.value) {

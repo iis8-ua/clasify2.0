@@ -65,6 +65,7 @@ async function enviar() {
       errores.value = {
         passwordActual: error.mensaje ?? 'La contraseña actual no es correcta'
       }
+      enfocarPrimerError()
       return
     }
 
@@ -80,6 +81,7 @@ async function enviar() {
     } else {
       errorGeneral.value = error.mensaje ?? 'No se pudo cambiar la contraseña'
     }
+    enfocarPrimerError()
   } finally {
     enviando.value = false
   }
