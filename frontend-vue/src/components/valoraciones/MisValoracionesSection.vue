@@ -41,11 +41,51 @@ function query() {
   return resultado
 }
 
+function coincideQuery() {
+  const esperado = query()
+  return ['valoracionesRecibidasPagina', 'valoracionesRecibidasLimite', 'valoracionesEscritasPagina', 'valoracionesEscritasLimite'].every(
+    (clave) => route.query[clave] === undefined || String(route.query[clave]) === String(esperado[clave])
+  )
+}
+
 async function cargar() {
+  if (!coincideQuery()) {
+    await router.replace({ name: 'perfil', query: query() })
+    return
+  }
+
   await Promise.all([
     valoraciones.cargarRecibidas(session.usuario?.id, paginaRecibidas.value, limiteRecibidas.value),
     valoraciones.cargarEscritas(paginaEscritas.value, limiteEscritas.value)
   ])
+
+  if (valoraciones.estadoRecibidas !== 'error' && paginaRecibidas.value > 1 && valoraciones.paginacionRecibidas.paginas === 0) {
+    const limpia = { ...query() }
+    delete limpia.valoracionesRecibidasPagina
+    await router.replace({ name: 'perfil', query: limpia })
+    return
+  }
+  if (valoraciones.estadoRecibidas !== 'error' && valoraciones.paginacionRecibidas.paginas > 0 && paginaRecibidas.value > valoraciones.paginacionRecibidas.paginas) {
+    await router.replace({ name: 'perfil', query: { ...query(), valoracionesRecibidasPagina: String(valoraciones.paginacionRecibidas.paginas) } })
+    return
+  }
+  if (valoraciones.estadoEscritas !== 'error' && paginaEscritas.value > 1 && valoraciones.paginacionEscritas.paginas === 0) {
+    const limpia = { ...query() }
+    delete limpia.valoracionesEscritasPagina
+    await router.replace({ name: 'perfil', query: limpia })
+    return
+  }
+  if (valoraciones.estadoEscritas !== 'error' && valoraciones.paginacionEscritas.paginas > 0 && paginaEscritas.value > valoraciones.paginacionEscritas.paginas) {
+    await router.replace({ name: 'perfil', query: { ...query(), valoracionesEscritasPagina: String(valoraciones.paginacionEscritas.paginas) } })
+  }
+}
+
+function cambiarTamano(clavePagina, claveLimite, valor, defecto) {
+  const nueva = { ...query() }
+  delete nueva[clavePagina]
+  if (valor === defecto) delete nueva[claveLimite]
+  else nueva[claveLimite] = String(valor)
+  router.push({ name: 'perfil', query: nueva })
 }
 
 watch(() => route.query, cargar, { immediate: true, deep: true })
@@ -86,7 +126,7 @@ async function confirmarEliminar() {
     @retry="cargar"
   />
   <div v-if="valoraciones.estadoRecibidas === 'success'" class="catalog-pagination__row">
-    <SelectorTamanoPagina :model-value="limiteRecibidas" @update:model-value="cambiar('valoracionesRecibidasLimite', $event, 20)" />
+    <SelectorTamanoPagina :model-value="limiteRecibidas" @update:model-value="cambiarTamano('valoracionesRecibidasPagina', 'valoracionesRecibidasLimite', $event, 20)" />
     <PaginacionCatalogo
       :pagina="valoraciones.paginacionRecibidas.pagina"
       :paginas="valoraciones.paginacionRecibidas.paginas"
@@ -106,7 +146,7 @@ async function confirmarEliminar() {
     @eliminar="porEliminar = $event"
   />
   <div v-if="valoraciones.estadoEscritas === 'success'" class="catalog-pagination__row">
-    <SelectorTamanoPagina :model-value="limiteEscritas" @update:model-value="cambiar('valoracionesEscritasLimite', $event, 20)" />
+    <SelectorTamanoPagina :model-value="limiteEscritas" @update:model-value="cambiarTamano('valoracionesEscritasPagina', 'valoracionesEscritasLimite', $event, 20)" />
     <PaginacionCatalogo
       :pagina="valoraciones.paginacionEscritas.pagina"
       :paginas="valoraciones.paginacionEscritas.paginas"
