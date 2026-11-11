@@ -19,13 +19,13 @@ export const useFavoritosStore = defineStore('favoritos', {
     estaProcesando: (state) => (id) => Boolean(state.procesando[id])
   },
   actions: {
-    async cargar(pagina = 1) {
+    async cargar(pagina = 1, limite = 20) {
       const solicitud = ++this.solicitudActual
       this.estado = 'loading'
       this.error = null
 
       try {
-        const respuesta = await favoritosService.listar({ pagina, limite: 20 })
+        const respuesta = await favoritosService.listar({ pagina, limite })
         if (solicitud !== this.solicitudActual) {
           return null
         }
