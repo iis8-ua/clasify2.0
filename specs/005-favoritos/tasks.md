@@ -295,3 +295,7 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 - [X] T062 Conservar la página del hilo en la URL y recuperar anuncio y contraparte al abrir una conversación directamente, sin depender de que la bandeja se haya cargado antes, con pruebas en `frontend-vue/src/views/ConversacionView.vue` y `frontend-vue/src/stores/mensajes.js`, per 007 FR-028 y `mensajeria-ui.md` §3 (partial)
 - [X] T063 Normalizar y corregir las páginas fuera de rango de valoraciones recibidas y escritas en `frontend-vue/src/components/valoraciones/MisValoracionesSection.vue`, conservando el tamaño en la URL, con pruebas, per 009 FR-024 y FR-026 (partial)
 - [X] T064 Mostrar el estado vacío al retirar el último favorito de la primera página en `frontend-vue/src/views/FavoritosView.vue`, con prueba del caso, per 005 FR-015 y FR-035 (partial)
+
+## Phase 16: Convergence
+
+- [ ] T065 Recalcular la paginación de favoritos o recargar la lista después de retirar una tarjeta, de modo que `total` y `paginas` reflejen el nuevo estado y los controles no queden obsoletos, con pruebas de retirada en una lista que cruza el límite de página, per 005 FR-016, FR-018 y FR-035 (partial)
