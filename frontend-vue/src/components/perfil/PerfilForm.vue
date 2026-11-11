@@ -20,7 +20,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['submit', 'dirty-change'])
+const emit = defineEmits(['submit', 'dirty-change', 'discard'])
 const valores = ref({
   nombre: props.perfil.nombre ?? '',
   biografia: props.perfil.biografia ?? ''
@@ -114,6 +114,7 @@ function descartar() {
     biografia: original.value.biografia
   }
   errores.value = {}
+  emit('discard')
 }
 </script>
 

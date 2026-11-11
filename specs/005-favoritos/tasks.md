@@ -280,4 +280,4 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 
 - [X] T054 CRITICAL: Completar la accesibilidad de `LoginForm`, `RegisterForm` y `AnuncioForm`: indicar los campos obligatorios con `required`, `aria-required` y texto visible, anunciar los errores de campo con `role="alert"` y mover el foco al primer campo inválido tras el envío, con pruebas, per Constitution VI, 002 FR-019 y 004 FR-029 (missing)
 - [X] T055 Corregir la página solicitada solo cuando la carga haya sido correcta en `FavoritosView`, `MisAnunciosSection` y `AnunciosListView`, conservando la página en la URL y permitiendo reintentar la página actual cuando falle, con pruebas, per 005 FR-015, US3/AC6, 003 FR-008 y 006 FR-020 (partial)
-- [ ] T056 Limpiar también los errores del servidor al descartar cambios en `PerfilForm` y `PerfilView`, con prueba, per 006 FR-013 y Constitution VI (partial)
+- [X] T056 Limpiar también los errores del servidor al descartar cambios en `PerfilForm` y `PerfilView`, con prueba, per 006 FR-013 y Constitution VI (partial)

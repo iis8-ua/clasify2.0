@@ -127,6 +127,30 @@ describe('vista de perfil', () => {
     expect(wrapper.text()).toContain('Ana Editada')
   })
 
+  it('limpia el error del servidor al descartar cambios', async () => {
+    usuariosService.actualizarPerfil.mockRejectedValueOnce(
+      new ApiError({
+        estado: 400,
+        codigo: 'VALIDACION',
+        mensaje: 'El nombre no es válido',
+        campo: 'nombre'
+      })
+    )
+    const { wrapper } = await montar()
+
+    await wrapper.get('#perfil-nombre').setValue('Nombre inválido')
+    await wrapper.get('form').trigger('submit')
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('El nombre no es válido')
+
+    await wrapper.findAll('button').find((boton) => boton.text() === 'Descartar cambios').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.text()).not.toContain('El nombre no es válido')
+    expect(wrapper.get('#perfil-nombre').element.value).toBe('Ana Ruiz')
+  })
+
   it('solicita acceso si la sesión ha caducado al cargar', async () => {
     usuariosService.perfil.mockRejectedValueOnce(
       new ApiError({ estado: 401, codigo: 'TOKEN_CADUCADO', mensaje: 'Sesión caducada' })

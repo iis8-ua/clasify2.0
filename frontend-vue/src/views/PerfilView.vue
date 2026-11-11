@@ -60,6 +60,11 @@ function actualizarCambios(valor) {
   hayCambios.value = valor
 }
 
+function limpiarErrores() {
+  errores.value = {}
+  errorGeneral.value = ''
+}
+
 async function guardar(cambios) {
   guardando.value = true
   errores.value = {}
@@ -119,6 +124,7 @@ async function guardar(cambios) {
         :error-general="errorGeneral"
         @submit="guardar"
         @dirty-change="actualizarCambios"
+        @discard="limpiarErrores"
       />
 
       <CambioContrasenaForm />
