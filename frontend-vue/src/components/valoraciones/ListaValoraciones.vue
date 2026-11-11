@@ -1,20 +1,24 @@
 <script setup>
+import { computed, useId } from 'vue'
 import StatePanel from '../states/StatePanel.vue'
 import ValoracionItem from './ValoracionItem.vue'
 
-defineProps({
+const props = defineProps({
   items: { type: Array, default: () => [] },
   estado: { type: String, default: 'idle' },
   error: { type: Object, default: null },
   modo: { type: String, default: 'recibida' },
-  titulo: { type: String, required: true }
+  titulo: { type: String, required: true },
+  id: { type: String, default: '' }
 })
 const emit = defineEmits(['retry', 'editar', 'eliminar'])
+const idGenerado = useId()
+const identificador = computed(() => props.id || `ratings-list-${idGenerado}`)
 </script>
 
 <template>
-  <section class="perfil-card" aria-labelledby="ratings-list-title">
-    <h2 id="ratings-list-title" class="perfil-section__title">{{ titulo }}</h2>
+  <section class="perfil-card" :aria-labelledby="identificador">
+    <h2 :id="identificador" class="perfil-section__title">{{ titulo }}</h2>
 
     <StatePanel v-if="estado === 'loading'" type="loading" message="Cargando valoraciones…" />
     <StatePanel

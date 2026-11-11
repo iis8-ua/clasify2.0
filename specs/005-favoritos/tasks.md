@@ -291,7 +291,7 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 
 ## Phase 15: Convergence
 
-- [ ] T061 CRITICAL: Generar identificadores únicos y válidos para cada instancia de `SelectorTamanoPagina` y de las listas de valoraciones, evitando IDs con espacios o repetidos, y cubrirlo con pruebas de accesibilidad en `frontend-vue/src/components/catalog/SelectorTamanoPagina.vue` y `frontend-vue/src/components/valoraciones/ListaValoraciones.vue`, per 001 FR-019 y Constitution VI (partial)
+- [X] T061 CRITICAL: Generar identificadores únicos y válidos para cada instancia de `SelectorTamanoPagina` y de las listas de valoraciones, evitando IDs con espacios o repetidos, y cubrirlo con pruebas de accesibilidad en `frontend-vue/src/components/catalog/SelectorTamanoPagina.vue` y `frontend-vue/src/components/valoraciones/ListaValoraciones.vue`, per 001 FR-019 y Constitution VI (partial)
 - [ ] T062 Conservar la página del hilo en la URL y recuperar anuncio y contraparte al abrir una conversación directamente, sin depender de que la bandeja se haya cargado antes, con pruebas en `frontend-vue/src/views/ConversacionView.vue` y `frontend-vue/src/stores/mensajes.js`, per 007 FR-028 y `mensajeria-ui.md` §3 (partial)
 - [ ] T063 Normalizar y corregir las páginas fuera de rango de valoraciones recibidas y escritas en `frontend-vue/src/components/valoraciones/MisValoracionesSection.vue`, conservando el tamaño en la URL, con pruebas, per 009 FR-024 y FR-026 (partial)
 - [ ] T064 Mostrar el estado vacío al retirar el último favorito de la primera página en `frontend-vue/src/views/FavoritosView.vue`, con prueba del caso, per 005 FR-015 y FR-035 (partial)
