@@ -101,7 +101,7 @@ description: "Task list for the 008-perfil-publico feature"
 
 ### Tests for User Story 3
 
-- [ ] T018 [P] [US3] Crear pruebas de anuncios del perfil, vendidos, vacío, paginación y tamaño en `frontend-vue/tests/perfil-publico/anunciosUsuario.spec.js`
+- [X] T018 [P] [US3] Crear pruebas de anuncios del perfil, vendidos, vacío, paginación y tamaño en `frontend-vue/tests/perfil-publico/anunciosUsuario.spec.js`
 
 ### Implementation for User Story 3
 
