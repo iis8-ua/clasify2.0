@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import CampoImagen from './CampoImagen.vue'
 
 const props = defineProps({
@@ -45,6 +45,10 @@ const valores = ref({
 const imagen = ref(null)
 const errores = ref({})
 const imagenError = ref('')
+const tituloInput = ref(null)
+const descripcionInput = ref(null)
+const precioInput = ref(null)
+const categoriaInput = ref(null)
 const formatoPrecio = /^\d{1,8}(\.\d{1,2})?$/
 const precioMaximo = 99999999.99
 
@@ -74,6 +78,12 @@ const sinCambios = computed(
 const sucio = computed(() => Object.keys(cambios.value).length > 0 || Boolean(imagen.value))
 
 watch(sucio, (valor) => emit('dirty-change', valor))
+
+watch(
+  () => props.erroresServidor,
+  () => enfocarPrimerError(),
+  { deep: true }
+)
 
 function validar() {
   const nuevos = {}
@@ -106,10 +116,25 @@ function validar() {
   return nuevos
 }
 
+function enfocarPrimerError() {
+  if (erroresVisibles.value.titulo) {
+    nextTick(() => tituloInput.value?.focus())
+  } else if (erroresVisibles.value.descripcion) {
+    nextTick(() => descripcionInput.value?.focus())
+  } else if (erroresVisibles.value.precio) {
+    nextTick(() => precioInput.value?.focus())
+  } else if (erroresVisibles.value.categoria) {
+    nextTick(() => categoriaInput.value?.focus())
+  }
+}
+
 function enviar() {
   errores.value = validar()
 
   if (Object.keys(errores.value).length > 0 || props.enviando || sinCambios.value) {
+    if (Object.keys(errores.value).length > 0) {
+      enfocarPrimerError()
+    }
     return
   }
 
@@ -138,13 +163,17 @@ function cancelar() {
       <label for="anuncio-titulo">Título</label>
       <input
         id="anuncio-titulo"
+        ref="tituloInput"
         v-model="valores.titulo"
         type="text"
         maxlength="150"
+        required
+        aria-required="true"
         :aria-invalid="Boolean(erroresVisibles.titulo)"
-        :aria-describedby="erroresVisibles.titulo ? 'anuncio-titulo-error' : undefined"
+        :aria-describedby="erroresVisibles.titulo ? 'anuncio-titulo-help anuncio-titulo-error' : 'anuncio-titulo-help'"
       />
-      <p v-if="erroresVisibles.titulo" id="anuncio-titulo-error" class="form-field__error">
+      <p id="anuncio-titulo-help" class="form-field__help">Obligatorio. Máximo 150 caracteres.</p>
+      <p v-if="erroresVisibles.titulo" id="anuncio-titulo-error" class="form-field__error" role="alert">
         {{ erroresVisibles.titulo }}
       </p>
     </div>
@@ -153,13 +182,17 @@ function cancelar() {
       <label for="anuncio-descripcion">Descripción</label>
       <textarea
         id="anuncio-descripcion"
+        ref="descripcionInput"
         v-model="valores.descripcion"
         rows="6"
         maxlength="5000"
+        required
+        aria-required="true"
         :aria-invalid="Boolean(erroresVisibles.descripcion)"
-        :aria-describedby="erroresVisibles.descripcion ? 'anuncio-descripcion-error' : undefined"
+        :aria-describedby="erroresVisibles.descripcion ? 'anuncio-descripcion-help anuncio-descripcion-error' : 'anuncio-descripcion-help'"
       ></textarea>
-      <p v-if="erroresVisibles.descripcion" id="anuncio-descripcion-error" class="form-field__error">
+      <p id="anuncio-descripcion-help" class="form-field__help">Obligatoria. Máximo 5000 caracteres.</p>
+      <p v-if="erroresVisibles.descripcion" id="anuncio-descripcion-error" class="form-field__error" role="alert">
         {{ erroresVisibles.descripcion }}
       </p>
     </div>
@@ -169,13 +202,17 @@ function cancelar() {
         <label for="anuncio-precio">Precio (€)</label>
         <input
           id="anuncio-precio"
+          ref="precioInput"
           v-model="valores.precio"
           type="text"
           inputmode="decimal"
+          required
+          aria-required="true"
           :aria-invalid="Boolean(erroresVisibles.precio)"
-          :aria-describedby="erroresVisibles.precio ? 'anuncio-precio-error' : undefined"
+          :aria-describedby="erroresVisibles.precio ? 'anuncio-precio-help anuncio-precio-error' : 'anuncio-precio-help'"
         />
-        <p v-if="erroresVisibles.precio" id="anuncio-precio-error" class="form-field__error">
+        <p id="anuncio-precio-help" class="form-field__help">Obligatorio. Hasta 2 decimales.</p>
+        <p v-if="erroresVisibles.precio" id="anuncio-precio-error" class="form-field__error" role="alert">
           {{ erroresVisibles.precio }}
         </p>
       </div>
@@ -184,9 +221,12 @@ function cancelar() {
         <label for="anuncio-categoria">Categoría</label>
         <select
           id="anuncio-categoria"
+          ref="categoriaInput"
           :value="valores.categoria ?? ''"
+          required
+          aria-required="true"
           :aria-invalid="Boolean(erroresVisibles.categoria)"
-          :aria-describedby="erroresVisibles.categoria ? 'anuncio-categoria-error' : undefined"
+          :aria-describedby="erroresVisibles.categoria ? 'anuncio-categoria-help anuncio-categoria-error' : 'anuncio-categoria-help'"
           @change="valores.categoria = $event.target.value ? Number($event.target.value) : null"
         >
           <option value="">Selecciona una categoría</option>
@@ -194,7 +234,8 @@ function cancelar() {
             {{ categoria.nombre }}
           </option>
         </select>
-        <p v-if="erroresVisibles.categoria" id="anuncio-categoria-error" class="form-field__error">
+        <p id="anuncio-categoria-help" class="form-field__help">Obligatoria.</p>
+        <p v-if="erroresVisibles.categoria" id="anuncio-categoria-error" class="form-field__error" role="alert">
           {{ erroresVisibles.categoria }}
         </p>
       </div>

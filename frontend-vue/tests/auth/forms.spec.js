@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { nextTick } from 'vue'
 import { flushPromises, mount } from '@vue/test-utils'
 import { createPinia, setActivePinia } from 'pinia'
 import { createMemoryHistory, createRouter } from 'vue-router'
@@ -31,7 +32,8 @@ async function montar(componente, ruta) {
   const wrapper = mount(componente, {
     global: {
       plugins: [pinia, router]
-    }
+    },
+    attachTo: document.body
   })
   return { wrapper, router, pinia }
 }
@@ -131,5 +133,7 @@ describe('formularios de autenticación', () => {
 
     expect(wrapper.text()).toContain('Ya existe un usuario con ese email')
     expect(wrapper.get('#register-password').element.value).toBe('')
+    await nextTick()
+    expect(document.activeElement).toBe(wrapper.get('#register-email').element)
   })
 })

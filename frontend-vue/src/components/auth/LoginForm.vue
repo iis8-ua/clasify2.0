@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSessionStore } from '../../stores/session'
 
@@ -12,6 +12,8 @@ const password = ref('')
 const errors = ref({})
 const generalError = ref('')
 const submitting = ref(false)
+const emailInput = ref(null)
+const passwordInput = ref(null)
 
 const formatoEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -32,11 +34,20 @@ function validar() {
   return nuevos
 }
 
+function enfocarPrimerError() {
+  if (errors.value.email) {
+    nextTick(() => emailInput.value?.focus())
+  } else if (errors.value.password) {
+    nextTick(() => passwordInput.value?.focus())
+  }
+}
+
 async function enviar() {
   errors.value = validar()
   generalError.value = ''
 
   if (Object.keys(errors.value).length > 0 || submitting.value) {
+    enfocarPrimerError()
     return
   }
 
@@ -59,6 +70,7 @@ async function enviar() {
     password.value = ''
     if (error.campo) {
       errors.value = { ...errors.value, [error.campo]: error.mensaje }
+      enfocarPrimerError()
     } else {
       generalError.value = error.mensaje ?? 'No se pudo iniciar sesión'
     }
@@ -79,15 +91,19 @@ async function enviar() {
       <label for="login-email">Email</label>
       <input
         id="login-email"
+        ref="emailInput"
         v-model="email"
         name="email"
         type="email"
         autocomplete="email"
         maxlength="255"
+        required
+        aria-required="true"
         :aria-invalid="Boolean(errors.email)"
-        :aria-describedby="errors.email ? 'login-email-error' : undefined"
+        :aria-describedby="errors.email ? 'login-email-help login-email-error' : 'login-email-help'"
       />
-      <p v-if="errors.email" id="login-email-error" class="form-field__error">
+      <p id="login-email-help" class="form-field__help">Obligatorio.</p>
+      <p v-if="errors.email" id="login-email-error" class="form-field__error" role="alert">
         {{ errors.email }}
       </p>
     </div>
@@ -96,14 +112,18 @@ async function enviar() {
       <label for="login-password">Contraseña</label>
       <input
         id="login-password"
+        ref="passwordInput"
         v-model="password"
         name="password"
         type="password"
         autocomplete="current-password"
+        required
+        aria-required="true"
         :aria-invalid="Boolean(errors.password)"
-        :aria-describedby="errors.password ? 'login-password-error' : undefined"
+        :aria-describedby="errors.password ? 'login-password-help login-password-error' : 'login-password-help'"
       />
-      <p v-if="errors.password" id="login-password-error" class="form-field__error">
+      <p id="login-password-help" class="form-field__help">Obligatoria.</p>
+      <p v-if="errors.password" id="login-password-error" class="form-field__error" role="alert">
         {{ errors.password }}
       </p>
     </div>

@@ -89,7 +89,7 @@ function quitarSeleccion() {
     <p id="anuncio-imagen-help" class="form-field__help">
       JPEG, PNG o WebP. Máximo 5 MB. La imagen es opcional.
     </p>
-    <p v-if="error" id="anuncio-imagen-error" class="form-field__error">{{ error }}</p>
+    <p v-if="error" id="anuncio-imagen-error" class="form-field__error" role="alert">{{ error }}</p>
 
     <div v-if="urlVisible" class="campo-imagen__preview">
       <img :src="urlVisible" alt="Previsualización de la imagen del anuncio" />
