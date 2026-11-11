@@ -749,3 +749,23 @@ button:disabled {
 .page-size {
   min-width: 10rem;
 }
+
+.anuncio-detalle__related {
+  grid-column: 1 / -1;
+}
+
+.related-section {
+  margin-top: var(--space-5);
+}
+
+.related-section__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.related-section__profile {
+  font-size: var(--font-size-small);
+}

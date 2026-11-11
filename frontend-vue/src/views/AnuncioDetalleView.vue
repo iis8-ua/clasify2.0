@@ -6,6 +6,7 @@ import ImageWithFallback from '../components/common/ImageWithFallback.vue'
 import PriceText from '../components/common/PriceText.vue'
 import EstadoAnuncioBadge from '../components/catalog/EstadoAnuncioBadge.vue'
 import CompartirAnuncio from '../components/catalog/CompartirAnuncio.vue'
+import AnunciosRelacionados from '../components/catalog/AnunciosRelacionados.vue'
 import AccionesAnuncio from '../components/anuncios/AccionesAnuncio.vue'
 import BotonFavorito from '../components/favoritos/BotonFavorito.vue'
 import StatePanel from '../components/states/StatePanel.vue'
@@ -128,6 +129,8 @@ function actualizarFavorito({ esFavorito, numFavoritos }) {
 
         <AccionesAnuncio :anuncio="detalle" />
       </div>
+
+      <AnunciosRelacionados class="anuncio-detalle__related" :anuncio="detalle" />
     </article>
   </section>
 </template>

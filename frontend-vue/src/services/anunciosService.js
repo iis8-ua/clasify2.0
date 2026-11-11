@@ -42,6 +42,9 @@ export const anunciosService = {
 
     return http.get(`/anuncios?${parametros.toString()}`)
   },
+  async listarDeUsuario(id, { limite = 4 } = {}) {
+    return http.get(`/usuarios/${id}/anuncios?pagina=1&limite=${limite}`)
+  },
   async detalle(id) {
     const respuesta = await http.get(`/anuncios/${id}`, { auth: true })
     return normalizarAnuncio(respuesta.datos.anuncio)
