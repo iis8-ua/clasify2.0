@@ -49,7 +49,8 @@ async function montar(ruta = '/perfil') {
       { path: '/login', name: 'login', component: { template: '<div>Acceso</div>' } },
       { path: '/perfil', name: 'perfil', component: PerfilView },
       { path: '/anuncios/nuevo', name: 'anuncio-crear', component: { template: '<div />' } },
-      { path: '/anuncios/:id', name: 'anuncio-detalle', component: { template: '<div />' } }
+      { path: '/anuncios/:id', name: 'anuncio-detalle', component: { template: '<div />' } },
+      { path: '/usuarios/:id', name: 'perfil-publico', component: { template: '<div />' } }
     ]
   })
   await router.push(ruta)
@@ -89,6 +90,7 @@ describe('vista de perfil', () => {
     expect(wrapper.text()).toContain('10/11/2026')
     expect(wrapper.find('input[type="email"]').exists()).toBe(false)
     expect(wrapper.text()).toContain('Sin anuncios publicados')
+    expect(wrapper.get('a[href="/usuarios/1"]').text()).toBe('Ver mi perfil público')
   })
 
   it('muestra un error de carga y permite reintentar', async () => {

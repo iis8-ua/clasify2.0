@@ -97,7 +97,16 @@ async function guardar(cambios) {
 
 <template>
   <section aria-labelledby="perfil-title">
-    <h1 id="perfil-title" class="page-title">Mi perfil</h1>
+    <div class="perfil-heading">
+      <h1 id="perfil-title" class="page-title">Mi perfil</h1>
+      <RouterLink
+        v-if="session.usuario"
+        class="button button--secondary"
+        :to="{ name: 'perfil-publico', params: { id: session.usuario.id } }"
+      >
+        Ver mi perfil público
+      </RouterLink>
+    </div>
 
     <StatePanel
       v-if="cargando"
