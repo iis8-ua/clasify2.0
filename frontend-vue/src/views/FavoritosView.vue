@@ -74,6 +74,10 @@ watch(
 
 function quitarDeLista(id) {
   favoritos.listado = favoritos.listado.filter((item) => item.id !== id)
+  const total = Math.max(0, favoritos.paginacion.total - 1)
+  const paginas = total > 0 ? Math.ceil(total / limite.value) : 0
+  favoritos.paginacion = { ...favoritos.paginacion, total, paginas }
+
   if (favoritos.listado.length === 0) {
     if (pagina.value > 1) {
       const query = { pagina: String(pagina.value - 1) }
@@ -84,6 +88,15 @@ function quitarDeLista(id) {
     } else {
       favoritos.estado = 'empty'
     }
+    return
+  }
+
+  if (paginas > 0 && pagina.value > paginas) {
+    const query = { pagina: String(paginas) }
+    if (limite.value !== 20) {
+      query.limite = String(limite.value)
+    }
+    router.replace({ name: 'favoritos', query })
   }
 }
 

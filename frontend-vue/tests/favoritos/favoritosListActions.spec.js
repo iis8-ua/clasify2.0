@@ -72,4 +72,29 @@ describe('acciones de la lista de favoritos', () => {
     expect(useFavoritosStore().estado).toBe('empty')
     expect(wrapper.text()).toContain('Sin favoritos')
   })
+
+  it('recalcula la paginación al retirar una tarjeta', async () => {
+    const anuncios = Array.from({ length: 20 }, (_valor, indice) => ({
+      ...anuncio,
+      id: indice + 1,
+      titulo: `Anuncio ${indice + 1}`
+    }))
+    favoritosService.listar.mockResolvedValue({
+      datos: anuncios,
+      paginacion: { pagina: 1, limite: 20, total: 21, paginas: 2 }
+    })
+    favoritosService.quitar.mockResolvedValue()
+    const { wrapper } = await montar()
+
+    expect(wrapper.findAll('.anuncio-card')).toHaveLength(20)
+
+    await wrapper.get('.favorite-remove button').trigger('click')
+    await wrapper.get('.confirm-dialog .button--danger').trigger('click')
+    await flushPromises()
+
+    const store = useFavoritosStore()
+    expect(store.paginacion.total).toBe(20)
+    expect(store.paginacion.paginas).toBe(1)
+    expect(wrapper.findAll('.anuncio-card')).toHaveLength(19)
+  })
 })

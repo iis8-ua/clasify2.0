@@ -298,4 +298,4 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 
 ## Phase 16: Convergence
 
-- [ ] T065 Recalcular la paginación de favoritos o recargar la lista después de retirar una tarjeta, de modo que `total` y `paginas` reflejen el nuevo estado y los controles no queden obsoletos, con pruebas de retirada en una lista que cruza el límite de página, per 005 FR-016, FR-018 y FR-035 (partial)
+- [X] T065 Recalcular la paginación de favoritos o recargar la lista después de retirar una tarjeta, de modo que `total` y `paginas` reflejen el nuevo estado y los controles no queden obsoletos, con pruebas de retirada en una lista que cruza el límite de página, per 005 FR-016, FR-018 y FR-035 (partial)
