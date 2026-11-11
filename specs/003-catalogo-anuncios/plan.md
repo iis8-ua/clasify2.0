@@ -131,7 +131,11 @@ frontend-vue/
         ├── categoriasService.spec.js
         ├── anunciosStore.spec.js
         ├── catalogQuery.spec.js
-        ├── catalogView.spec.js
+        ├── catalogList.spec.js
+        ├── catalogDetail.spec.js
+        ├── catalogFilters.spec.js
+        ├── catalogAccessibility.spec.js
+        ├── catalogLongSearch.spec.js
         └── pagination.spec.js
 ```
 
