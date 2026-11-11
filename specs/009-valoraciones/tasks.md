@@ -85,7 +85,7 @@ description: "Task list for the 009-valoraciones feature"
 ### Implementation for User Story 2
 
 - [X] T014 [US2] Añadir la acción de eliminar y la confirmación en `frontend-vue/src/components/valoraciones/FormularioValoracion.vue` y `frontend-vue/src/components/valoraciones/ValoracionItem.vue`
-- [ ] T015 [US2] Actualizar listados y resumen tras eliminar en `frontend-vue/src/stores/valoraciones.js` y `frontend-vue/src/views/PerfilPublicoView.vue`
+- [X] T015 [US2] Actualizar listados y resumen tras eliminar en `frontend-vue/src/stores/valoraciones.js` y `frontend-vue/src/views/PerfilPublicoView.vue`
 - [ ] T016 [US2] Converger a sin valoración ante `404`, sin error incomprensible en `frontend-vue/src/components/valoraciones/FormularioValoracion.vue` y `frontend-vue/src/components/valoraciones/ValoracionItem.vue`
 - [ ] T017 [US2] Asegurar que cancelar no modifica la valoración ni el resumen en `frontend-vue/src/components/valoraciones/FormularioValoracion.vue` y `frontend-vue/src/components/valoraciones/ValoracionItem.vue`
 
