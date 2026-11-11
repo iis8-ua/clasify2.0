@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import TarjetaConversacion from '../../src/components/mensajeria/TarjetaConversacion.vue'
+import ValoracionItem from '../../src/components/valoraciones/ValoracionItem.vue'
 
 const rutas = [
   { path: '/usuarios/:id', name: 'perfil-publico', component: { template: '<div />' } },
@@ -21,6 +22,29 @@ describe('enlaces al perfil público', () => {
           contraparte: { id: 2, nombre: 'Carlos' },
           ultimo_mensaje: { texto: 'Hola', fecha: '2026-11-11T10:00:00.000Z' },
           no_leidos: 0
+        }
+      },
+      global: { plugins: [router] }
+    })
+
+    expect(wrapper.get('a[href="/usuarios/2"]').text()).toBe('Carlos')
+  })
+})
+
+
+describe('enlace del autor de una valoración', () => {
+  it('abre el perfil público del autor', async () => {
+    const router = createRouter({ history: createMemoryHistory(), routes: rutas })
+    await router.push('/usuarios/1')
+    await router.isReady()
+    const wrapper = mount(ValoracionItem, {
+      props: {
+        valoracion: {
+          id: 1,
+          puntuacion: 5,
+          comentario: 'Muy bien',
+          fecha: '2026-11-11T10:00:00.000Z',
+          autor: { id: 2, nombre: 'Carlos' }
         }
       },
       global: { plugins: [router] }
