@@ -106,7 +106,7 @@ description: "Task list for the 009-valoraciones feature"
 ### Implementation for User Story 3
 
 - [X] T019 [US3] Implementar `ListaValoraciones` y `ValoracionItem` con autor, destinatario, puntuación, comentario y fecha en `frontend-vue/src/components/valoraciones/`
-- [ ] T020 [US3] Implementar `MisValoracionesSection` con listas de recibidas y escritas independientes en `frontend-vue/src/components/valoraciones/MisValoracionesSection.vue`
+- [X] T020 [US3] Implementar `MisValoracionesSection` con listas de recibidas y escritas independientes en `frontend-vue/src/components/valoraciones/MisValoracionesSection.vue`
 - [ ] T021 [US3] Integrar `MisValoracionesSection` en `frontend-vue/src/views/PerfilView.vue` sin romper el perfil de 006
 - [ ] T022 [US3] Conectar editar con el perfil público del destinatario y el formulario precargado en `frontend-vue/src/components/valoraciones/MisValoracionesSection.vue` y `frontend-vue/src/views/PerfilPublicoView.vue`
 - [ ] T023 [US3] Sincronizar `valoracionesRecibidasPagina`, `valoracionesRecibidasLimite`, `valoracionesEscritasPagina` y `valoracionesEscritasLimite` con la URL en `frontend-vue/src/views/PerfilView.vue`
