@@ -11,6 +11,7 @@ import { useAnunciosStore } from './stores/anuncios'
 import { useFavoritosStore } from './stores/favoritos'
 import { useMensajesStore } from './stores/mensajes'
 import { usePerfilPublicoStore } from './stores/perfilPublico'
+import { useValoracionesStore } from './stores/valoraciones'
 import { usePerfilStore } from './stores/perfil'
 import { configurarHttp } from './services/http'
 import { esErrorDeSesion } from './services/errors'
@@ -32,17 +33,20 @@ async function bootstrap() {
   const favoritos = useFavoritosStore(pinia)
   const mensajes = useMensajesStore(pinia)
   const perfilPublico = usePerfilPublicoStore(pinia)
+  const valoraciones = useValoracionesStore(pinia)
   const perfil = usePerfilStore(pinia)
   anuncios.sincronizarSesion(session.sessionVersion)
   favoritos.sincronizarSesion(session.sessionVersion)
   mensajes.sincronizarSesion(session.sessionVersion)
   perfilPublico.sincronizarSesion(session.sessionVersion)
+  valoraciones.sincronizarSesion(session.sessionVersion)
   perfil.sincronizarSesion(session.sessionVersion)
   session.$subscribe((_mutacion, estado) => {
     anuncios.sincronizarSesion(estado.sessionVersion)
     favoritos.sincronizarSesion(estado.sessionVersion)
     mensajes.sincronizarSesion(estado.sessionVersion)
     perfilPublico.sincronizarSesion(estado.sessionVersion)
+    valoraciones.sincronizarSesion(estado.sessionVersion)
     perfil.sincronizarSesion(estado.sessionVersion)
   })
 
