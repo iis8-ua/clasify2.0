@@ -16,6 +16,7 @@ const ejecutar = process.env.VALIDACION_BACKEND === '1'
 const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3000/clasify_api'
 let token = null
 let idAnuncio = null
+let favoritoCreado = false
 let pinia = null
 
 function crearRouter(rutas) {
@@ -43,12 +44,20 @@ describe.skipIf(!ejecutar)('validación contra el backend real', () => {
     useSessionStore().establecerSesion(sesion.token, sesion.usuario)
     const respuesta = await fetch(`${API}/anuncios?pagina=1&limite=100`)
     const listado = await respuesta.json()
-    const ajeno = listado.datos.find((anuncio) => anuncio.id_autor !== sesion.usuario.id)
+    const favoritosActuales = await favoritosService.listar({ pagina: 1, limite: 100 })
+    const idsFavoritos = new Set(favoritosActuales.datos.map((favorito) => favorito.id))
+    const ajeno = listado.datos.find(
+      (anuncio) =>
+        anuncio.id_autor !== sesion.usuario.id && !idsFavoritos.has(anuncio.id)
+    )
+    if (!ajeno) {
+      throw new Error('No hay anuncios ajenos sin favorito para ejecutar la validación')
+    }
     idAnuncio = ajeno.id
   })
 
   afterAll(async () => {
-    if (token && idAnuncio) {
+    if (token && idAnuncio && favoritoCreado) {
       await fetch(`${API}/anuncios/${idAnuncio}/favorito`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
@@ -87,6 +96,7 @@ describe.skipIf(!ejecutar)('validación contra el backend real', () => {
   it('añade una sola vez el favorito real y lo lista', async () => {
     const primero = await favoritosService.anadir(idAnuncio)
     const segundo = await favoritosService.anadir(idAnuncio)
+    favoritoCreado = primero.nuevo
 
     expect(primero.nuevo).toBe(true)
     expect(segundo.nuevo).toBe(false)
