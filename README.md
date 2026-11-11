@@ -246,8 +246,6 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 
 ### Alcance ampliado pendiente de implementar
 
-- Perfil público con datos públicos, valoraciones recibidas y anuncios
-  publicados, incluidos los vendidos.
 - Valoraciones: puntuación de 1 a 5, comentario opcional, edición y borrado, y
   listados en el perfil propio.
 - Modo claro y oscuro con selector y preferencia guardada en el navegador.
@@ -256,6 +254,14 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 - Anuncios similares y “Más de este vendedor” en el detalle.
 - Enlaces al perfil público desde autor, conversación y valoraciones.
 - Quitar favoritos desde la lista con confirmación.
+
+### Perfil público
+
+- Ruta pública `/usuarios/:id` con datos públicos, resumen de valoraciones y anuncios.
+- Valoraciones recibidas de solo lectura.
+- Anuncios publicados, incluidos los vendidos, con enlace al detalle.
+- Enlaces desde autor del anuncio, conversaciones, valoraciones y perfil propio.
+- Sin email, edición, avatar ni seguimiento.
 
 ### Mensajería
 

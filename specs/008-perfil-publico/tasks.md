@@ -141,7 +141,7 @@ description: "Task list for the 008-perfil-publico feature"
 
 **Purpose**: Documentación y validación.
 
-- [ ] T030 [P] Actualizar `README.md` y `specs/008-perfil-publico/quickstart.md` con el perfil público
+- [X] T030 [P] Actualizar `README.md` y `specs/008-perfil-publico/quickstart.md` con el perfil público
 - [ ] T031 Ejecutar `npm run test:unit`, `npm run build` y la validación de `specs/008-perfil-publico/quickstart.md`
 - [ ] T032 Revisar ausencia de comentarios, llamadas directas a `fetch`, datos privados y cambios en `backend/`
 
