@@ -302,4 +302,4 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 
 ## Phase 17: Convergence
 
-- [ ] T066 Recuperar los metadatos de la conversación en el detalle y enlazar al perfil público de la contraparte desde `UltimosMensajes`, incluyendo el caso del vendedor que ve su propio anuncio, con pruebas de navegación, per 007 FR-032 y `mensajeria-ui.md` §6 (partial)
+- [X] T066 Recuperar los metadatos de la conversación en el detalle y enlazar al perfil público de la contraparte desde `UltimosMensajes`, incluyendo el caso del vendedor que ve su propio anuncio, con pruebas de navegación, per 007 FR-032 y `mensajeria-ui.md` §6 (partial)

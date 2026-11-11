@@ -15,11 +15,13 @@ import StatePanel from '../components/states/StatePanel.vue'
 import { urlImagen } from '../services/media'
 import { useAnunciosStore } from '../stores/anuncios'
 import { useSessionStore } from '../stores/session'
+import { useMensajesStore } from '../stores/mensajes'
 
 const route = useRoute()
 const router = useRouter()
 const anuncios = useAnunciosStore()
 const session = useSessionStore()
+const mensajes = useMensajesStore()
 const contactoAbierto = ref(false)
 
 const id = computed(() => Number(route.params.id))
@@ -31,6 +33,9 @@ const esAutor = computed(
   () => session.usuario?.id === (detalle.value?.id_autor ?? detalle.value?.autor?.id)
 )
 const conversacionExistente = computed(() => detalle.value?.conversacion?.id ?? null)
+const conversacionDetalle = computed(() =>
+  mensajes.conversacionActual?.id === conversacionExistente.value ? mensajes.conversacionActual : null
+)
 const contactoDeshabilitado = computed(
   () => Boolean(detalle.value) && detalle.value.estado === 'vendido' && !conversacionExistente.value
 )
@@ -64,6 +69,16 @@ function volver() {
     router.push({ name: 'anuncios' })
   }
 }
+
+watch(
+  () => conversacionExistente.value,
+  async (id) => {
+    if (id) {
+      await mensajes.cargarConversacion(id)
+    }
+  },
+  { immediate: true }
+)
 
 function actualizarFavorito({ esFavorito, numFavoritos }) {
   anuncios.actualizarFavorito(detalle.value.id, esFavorito, numFavoritos)
@@ -175,7 +190,7 @@ function abrirConversacion(id) {
 
         <AccionesAnuncio :anuncio="detalle" />
 
-        <UltimosMensajes :detalle="detalle" />
+        <UltimosMensajes :detalle="detalle" :conversacion="conversacionDetalle" />
       </div>
 
       <AnunciosRelacionados class="anuncio-detalle__related" :anuncio="detalle" />

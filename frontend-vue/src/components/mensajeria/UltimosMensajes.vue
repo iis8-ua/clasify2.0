@@ -5,6 +5,10 @@ defineProps({
   detalle: {
     type: Object,
     required: true
+  },
+  conversacion: {
+    type: Object,
+    default: null
   }
 })
 </script>
@@ -16,6 +20,12 @@ defineProps({
     aria-labelledby="last-messages-title"
   >
     <h2 id="last-messages-title" class="anuncio-detalle__section-title">Últimos mensajes</h2>
+    <p v-if="conversacion?.contraparte" class="last-messages__counterpart">
+      Con
+      <RouterLink :to="{ name: 'perfil-publico', params: { id: conversacion.contraparte.id } }">
+        {{ conversacion.contraparte.nombre }}
+      </RouterLink>
+    </p>
     <ul class="last-messages__list">
       <li v-for="mensaje in detalle.ultimos_mensajes" :key="mensaje.id" class="last-messages__item">
         <span>{{ mensaje.texto }}</span>

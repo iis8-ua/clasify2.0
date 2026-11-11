@@ -56,18 +56,23 @@ export const useMensajesStore = defineStore('mensajes', {
         return existente
       }
 
-      let pagina = 1
-      let paginas = 1
-      do {
-        const respuesta = await mensajesService.listarConversaciones({ pagina, limite: 100 })
-        const encontrada = respuesta.datos.find((item) => item.id === id)
-        if (encontrada) {
-          this.conversacionActual = encontrada
-          return encontrada
-        }
-        paginas = respuesta.paginacion.paginas
-        pagina += 1
-      } while (pagina <= paginas)
+      try {
+        let pagina = 1
+        let paginas = 1
+        do {
+          const respuesta = await mensajesService.listarConversaciones({ pagina, limite: 100 })
+          const encontrada = respuesta.datos.find((item) => item.id === id)
+          if (encontrada) {
+            this.conversacionActual = encontrada
+            return encontrada
+          }
+          paginas = respuesta.paginacion.paginas
+          pagina += 1
+        } while (pagina <= paginas)
+      } catch {
+        this.conversacionActual = null
+        return null
+      }
 
       this.conversacionActual = null
       return null
