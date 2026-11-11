@@ -13,6 +13,9 @@ describe('rutas de la aplicación', () => {
       'registro',
       'favoritos',
       'perfil',
+      'perfil-publico',
+      'mensajes',
+      'conversacion',
       'no-encontrado'
     ])
   })
@@ -32,6 +35,6 @@ describe('rutas de la aplicación', () => {
     const protegidas = routes
       .filter((route) => route.meta.requiereSesion)
       .map((route) => route.name)
-    expect(protegidas).toEqual(['anuncio-crear', 'anuncio-editar', 'favoritos', 'perfil'])
+    expect(protegidas).toEqual(['anuncio-crear', 'anuncio-editar', 'favoritos', 'perfil', 'mensajes', 'conversacion'])
   })
 })

@@ -7,6 +7,9 @@ import AnuncioCrearView from '../views/AnuncioCrearView.vue'
 import AnuncioEditarView from '../views/AnuncioEditarView.vue'
 import FavoritosView from '../views/FavoritosView.vue'
 import PerfilView from '../views/PerfilView.vue'
+import PerfilPublicoView from '../views/PerfilPublicoView.vue'
+import MensajesView from '../views/MensajesView.vue'
+import ConversacionView from '../views/ConversacionView.vue'
 
 export const routes = [
   {
@@ -56,6 +59,24 @@ export const routes = [
     name: 'perfil',
     component: PerfilView,
     meta: { title: 'Mi perfil', requiereSesion: true }
+  },
+  {
+    path: '/usuarios/:id',
+    name: 'perfil-publico',
+    component: PerfilPublicoView,
+    meta: { title: 'Perfil público', publica: true }
+  },
+  {
+    path: '/mensajes',
+    name: 'mensajes',
+    component: MensajesView,
+    meta: { title: 'Mensajes', requiereSesion: true }
+  },
+  {
+    path: '/conversaciones/:id',
+    name: 'conversacion',
+    component: ConversacionView,
+    meta: { title: 'Conversación', requiereSesion: true }
   },
   {
     path: '/:pathMatch(.*)*',

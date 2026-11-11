@@ -1,6 +1,7 @@
 export const navigationItems = [
   { label: 'Anuncios', routeName: 'anuncios', visibility: 'publica' },
   { label: 'Favoritos', routeName: 'favoritos', visibility: 'autenticada' },
+  { label: 'Mensajes', routeName: 'mensajes', visibility: 'autenticada' },
   { label: 'Perfil', routeName: 'perfil', visibility: 'autenticada' }
 ]
 
