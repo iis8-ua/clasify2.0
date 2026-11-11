@@ -1,7 +1,7 @@
 # Registro de validación
 
 **Fecha**: 2026-11-11  
-**Alcance**: frontend de las specs 001–006 contra el backend real de la Práctica 1.  
+**Alcance**: frontend de las specs 001–009 contra el backend real de la Práctica 1.  
 **Entorno**: Ubuntu 24.04.5 LTS, Node.js `v26.8.2`, npm `11.19.1`, MySQL `8.0.46`, backend en
 `http://localhost:3000/clasify_api` y frontend servido con Vite `7.3.8`.
 
@@ -10,9 +10,11 @@
 | Comprobación | Comando | Resultado obtenido |
 |---|---|---|
 | Pruebas del backend (Jest + Supertest) | `cd backend && npm test` | 6 suites y 307 pruebas correctas, 0 fallos, 201,965 s |
-| Pruebas del frontend (Vitest) | `cd frontend-vue && npm run test:unit` | 52 archivos (51 ejecutados y 1 omitido), 220 pruebas (217 ejecutadas y 3 omitidas), 0 fallos, 7,94 s |
-| Build de producción | `cd frontend-vue && npm run build` | 217 módulos transformados, build correcto, 4,12 s |
+| Pruebas del frontend (Vitest) | `cd frontend-vue && npm run test:unit` | 78 archivos (77 ejecutados y 1 omitido), 292 pruebas (289 ejecutadas y 3 omitidas), 0 fallos, 13,82 s |
+| Build de producción | `cd frontend-vue && npm run build` | 217 módulos transformados, build correcto, 4,16 s |
 | Integración con el backend real | `cd frontend-vue && VALIDACION_BACKEND=1 npx vitest run tests/integracion/backendReal.spec.js` | 3 pruebas correctas, 0 fallos, 767 ms |
+
+Las specs 007–009 añaden mensajería, perfil público y valoraciones; las ampliaciones de 001, 003, 005 y 006 añaden tema oscuro, tamaño de página, compartir, relacionados y retirada de favoritos desde la lista.
 
 La suite `tests/integracion/backendReal.spec.js` está omitida por defecto para que
 `npm run test:unit` no dependa de un backend arrancado. Se activa con `VALIDACION_BACKEND=1` y
