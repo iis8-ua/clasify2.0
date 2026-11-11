@@ -128,7 +128,7 @@ description: "Task list for the 009-valoraciones feature"
 
 ### Implementation for User Story 4
 
-- [ ] T026 [US4] Añadir etiquetas, `role="alert"`, foco inicial y retorno de foco en `frontend-vue/src/components/valoraciones/` y `frontend-vue/src/views/PerfilPublicoView.vue`
+- [X] T026 [US4] Añadir etiquetas, `role="alert"`, foco inicial y retorno de foco en `frontend-vue/src/components/valoraciones/` y `frontend-vue/src/views/PerfilPublicoView.vue`
 - [ ] T027 [US4] Ajustar formulario, listados y confirmación a 360 px en `frontend-vue/src/styles/base.css`
 - [ ] T028 [US4] Revisar mensajes en español y ausencia de detalles técnicos en `frontend-vue/src/components/valoraciones/` y `frontend-vue/src/views/PerfilPublicoView.vue`
 
