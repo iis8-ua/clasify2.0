@@ -104,7 +104,7 @@ description: "Task list for the 007-mensajeria feature"
 
 ### Tests for User Story 3
 
-- [ ] T021 [P] [US3] Crear pruebas del hilo, carga de anteriores, envío, leídos y errores en `frontend-vue/tests/mensajeria/conversacion.spec.js`
+- [X] T021 [P] [US3] Crear pruebas del hilo, carga de anteriores, envío, leídos y errores en `frontend-vue/tests/mensajeria/conversacion.spec.js`
 
 ### Implementation for User Story 3
 
