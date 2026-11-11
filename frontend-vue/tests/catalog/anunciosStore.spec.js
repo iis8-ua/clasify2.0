@@ -71,4 +71,45 @@ describe('store de anuncios', () => {
 
     expect(store.estadoDetalle).toBe('notfound')
   })
+
+  it('limpia el detalle privado al cambiar la versión de sesión', () => {
+    const store = useAnunciosStore()
+    store.detalle = {
+      id: 1,
+      conversacion: { id: 4 },
+      ultimos_mensajes: [{ texto: 'Hola' }]
+    }
+    store.estadoDetalle = 'success'
+
+    store.sincronizarSesion(1)
+
+    expect(store.detalle).toBeNull()
+    expect(store.estadoDetalle).toBe('idle')
+    expect(store.versionSesion).toBe(1)
+
+    store.detalle = { id: 2, conversacion: { id: 8 } }
+    store.sincronizarSesion(1)
+    expect(store.detalle.id).toBe(2)
+
+    store.sincronizarSesion(2)
+    expect(store.detalle).toBeNull()
+  })
+
+  it('ignora un detalle privado que llega después del cambio de sesión', async () => {
+    let resolver
+    anunciosService.detalle.mockImplementation(
+      () => new Promise((resolve) => {
+        resolver = resolve
+      })
+    )
+    const store = useAnunciosStore()
+
+    const carga = store.cargarDetalle(1)
+    store.sincronizarSesion(1)
+    resolver({ id: 1, conversacion: { id: 4 }, ultimos_mensajes: [{ texto: 'Hola' }] })
+    await carga
+
+    expect(store.detalle).toBeNull()
+    expect(store.estadoDetalle).toBe('idle')
+  })
 })

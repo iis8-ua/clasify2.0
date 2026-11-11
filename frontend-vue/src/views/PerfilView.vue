@@ -66,7 +66,10 @@ async function guardar(cambios) {
   errorGeneral.value = ''
 
   try {
-    await perfil.actualizarPerfil(cambios)
+    const actualizado = await perfil.actualizarPerfil(cambios)
+    if (!actualizado) {
+      return
+    }
     hayCambios.value = false
     notificaciones.exito('Perfil actualizado')
   } catch (error) {

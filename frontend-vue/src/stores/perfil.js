@@ -15,26 +15,38 @@ export const usePerfilStore = defineStore('perfil', {
     estadoAnuncios: 'idle',
     errorAnuncios: null,
     solicitudAnuncios: 0,
+    solicitudPerfil: 0,
     versionSesion: -1
   }),
   actions: {
     async cargarPerfil() {
+      const solicitud = ++this.solicitudPerfil
       this.estadoPerfil = 'loading'
       this.errorPerfil = null
 
       try {
         const perfil = await usuariosService.perfil()
+        if (solicitud !== this.solicitudPerfil) {
+          return null
+        }
         this.perfil = perfil
         this.estadoPerfil = 'success'
         return perfil
       } catch (error) {
+        if (solicitud !== this.solicitudPerfil) {
+          return null
+        }
         this.errorPerfil = normalizarError(error)
         this.estadoPerfil = 'error'
         return null
       }
     },
     async actualizarPerfil(cambios) {
+      const solicitud = ++this.solicitudPerfil
       const perfil = await usuariosService.actualizarPerfil(cambios)
+      if (solicitud !== this.solicitudPerfil) {
+        return null
+      }
       this.perfil = perfil
       this.estadoPerfil = 'success'
       useSessionStore().actualizarUsuario(perfil)
@@ -75,6 +87,7 @@ export const usePerfilStore = defineStore('perfil', {
       this.estadoAnuncios = 'idle'
       this.errorAnuncios = null
       this.solicitudAnuncios += 1
+      this.solicitudPerfil += 1
     },
     sincronizarSesion(version) {
       if (this.versionSesion !== version) {

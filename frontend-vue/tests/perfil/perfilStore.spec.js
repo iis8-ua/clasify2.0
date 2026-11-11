@@ -120,6 +120,44 @@ describe('store de perfil', () => {
     expect(store.perfil).toBeNull()
   })
 
+  it('ignora un perfil que llega después del cambio de sesión', async () => {
+    let resolver
+    usuariosService.perfil.mockImplementation(
+      () => new Promise((resolve) => {
+        resolver = resolve
+      })
+    )
+    const store = usePerfilStore()
+
+    const carga = store.cargarPerfil()
+    store.sincronizarSesion(1)
+    resolver({ id: 1, nombre: 'Ana', email: 'ana@example.com' })
+    await carga
+
+    expect(store.perfil).toBeNull()
+    expect(store.estadoPerfil).toBe('idle')
+  })
+
+  it('descarta una edición que termina después del cambio de sesión', async () => {
+    const session = useSessionStore()
+    session.establecerSesion('token', { id: 1, nombre: 'Ana' })
+    let resolver
+    usuariosService.actualizarPerfil.mockImplementation(
+      () => new Promise((resolve) => {
+        resolver = resolve
+      })
+    )
+    const store = usePerfilStore()
+
+    const actualizacion = store.actualizarPerfil({ nombre: 'Ana Editada' })
+    store.sincronizarSesion(2)
+    resolver({ id: 1, nombre: 'Ana Editada', biografia: 'Nueva' })
+    await actualizacion
+
+    expect(store.perfil).toBeNull()
+    expect(session.usuario.nombre).toBe('Ana')
+  })
+
   it('ignora la respuesta de una página anterior de anuncios', async () => {
     let resolverPrimera
     let resolverSegunda

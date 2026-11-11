@@ -13,7 +13,9 @@ export const useAnunciosStore = defineStore('anuncios', {
     detalle: null,
     estadoDetalle: 'idle',
     errorDetalle: null,
-    solicitudActual: 0
+    solicitudActual: 0,
+    solicitudDetalle: 0,
+    versionSesion: -1
   }),
   getters: {
     hayResultados: (state) => state.listado.length > 0,
@@ -43,20 +45,31 @@ export const useAnunciosStore = defineStore('anuncios', {
       }
     },
     async cargarDetalle(id) {
+      const solicitud = ++this.solicitudDetalle
       this.estadoDetalle = 'loading'
       this.errorDetalle = null
       this.detalle = null
 
       try {
-        this.detalle = await anunciosService.detalle(id)
+        const detalle = await anunciosService.detalle(id)
+        if (solicitud !== this.solicitudDetalle) {
+          return null
+        }
+        this.detalle = detalle
         this.estadoDetalle = 'success'
+        return detalle
       } catch (error) {
+        if (solicitud !== this.solicitudDetalle) {
+          return null
+        }
         const normalizado = normalizarError(error)
         this.errorDetalle = normalizado
         this.estadoDetalle = normalizado.estado === 404 ? 'notfound' : 'error'
+        return null
       }
     },
     limpiarDetalle() {
+      this.solicitudDetalle += 1
       this.detalle = null
       this.estadoDetalle = 'idle'
       this.errorDetalle = null
@@ -100,6 +113,12 @@ export const useAnunciosStore = defineStore('anuncios', {
       this.listado = this.listado.filter((item) => item.id !== id)
       if (this.detalle?.id === id) {
         this.limpiarDetalle()
+      }
+    },
+    sincronizarSesion(version) {
+      if (this.versionSesion !== version) {
+        this.limpiarDetalle()
+        this.versionSesion = version
       }
     }
   }

@@ -6,6 +6,7 @@ import 'primeicons/primeicons.css'
 import App from './App.vue'
 import router from './router'
 import { useSessionStore } from './stores/session'
+import { useAnunciosStore } from './stores/anuncios'
 import { useFavoritosStore } from './stores/favoritos'
 import { usePerfilStore } from './stores/perfil'
 import { configurarHttp } from './services/http'
@@ -22,11 +23,14 @@ async function bootstrap() {
   app.use(pinia)
 
   const session = useSessionStore(pinia)
+  const anuncios = useAnunciosStore(pinia)
   const favoritos = useFavoritosStore(pinia)
   const perfil = usePerfilStore(pinia)
+  anuncios.sincronizarSesion(session.sessionVersion)
   favoritos.sincronizarSesion(session.sessionVersion)
   perfil.sincronizarSesion(session.sessionVersion)
   session.$subscribe((_mutacion, estado) => {
+    anuncios.sincronizarSesion(estado.sessionVersion)
     favoritos.sincronizarSesion(estado.sessionVersion)
     perfil.sincronizarSesion(estado.sessionVersion)
   })
