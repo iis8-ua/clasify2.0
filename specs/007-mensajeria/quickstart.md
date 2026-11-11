@@ -148,6 +148,10 @@ npm run build
 
 **Expected**: compilación correcta.
 
+## Registro de validación
+
+Anotar en `docs/validacion.md` los comandos ejecutados, el resultado de Vitest y build y el recorrido manual de bandeja, hilo y contacto.
+
 ## Out of Scope
 
 - Tiempo real.

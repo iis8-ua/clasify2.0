@@ -246,8 +246,6 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 
 ### Alcance ampliado pendiente de implementar
 
-- Mensajería: bandeja, hilo, envío de mensajes, Contactar desde el detalle y no
-  leídos por conversación.
 - Perfil público con datos públicos, valoraciones recibidas y anuncios
   publicados, incluidos los vendidos.
 - Valoraciones: puntuación de 1 a 5, comentario opcional, edición y borrado, y
@@ -258,6 +256,14 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 - Anuncios similares y “Más de este vendedor” en el detalle.
 - Enlaces al perfil público desde autor, conversación y valoraciones.
 - Quitar favoritos desde la lista con confirmación.
+
+### Mensajería
+
+- Bandeja en `/mensajes` con anuncio, contraparte, último mensaje y no leídos.
+- Hilo en `/conversaciones/:id` con últimos mensajes y carga de anteriores.
+- Contactar desde el detalle de anuncios ajenos.
+- Mensajes de texto de hasta 1000 caracteres.
+- Sin tiempo real, adjuntos ni notificaciones push/email.
 
 ### CORS
 
