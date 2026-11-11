@@ -12,7 +12,8 @@ const rutas = [
   { path: '/registro', name: 'registro', component: { template: '<div />' } },
   { path: '/anuncios/nuevo', name: 'anuncio-crear', component: { template: '<div />' } },
   { path: '/favoritos', name: 'favoritos', component: { template: '<div />' } },
-  { path: '/perfil', name: 'perfil', component: { template: '<div />' } }
+  { path: '/perfil', name: 'perfil', component: { template: '<div />' } },
+  { path: '/mensajes', name: 'mensajes', component: { template: '<div />' } }
 ]
 
 async function montarCabecera() {

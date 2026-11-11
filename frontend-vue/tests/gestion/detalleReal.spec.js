@@ -57,7 +57,8 @@ describe('detalle con la forma real del backend', () => {
       routes: [
         { path: '/', name: 'anuncios', component: { template: '<div />' } },
         { path: '/anuncios/:id', name: 'anuncio-detalle', component: AnuncioDetalleView },
-        { path: '/anuncios/:id/editar', name: 'anuncio-editar', component: { template: '<div />' } }
+        { path: '/anuncios/:id/editar', name: 'anuncio-editar', component: { template: '<div />' } },
+        { path: '/usuarios/:id', name: 'perfil-publico', component: { template: '<div />' } }
       ]
     })
     await router.push('/anuncios/8')

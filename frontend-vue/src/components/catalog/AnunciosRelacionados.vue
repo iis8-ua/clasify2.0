@@ -16,7 +16,7 @@ const similares = ref([])
 const delVendedor = ref([])
 
 function disponibles(anuncios, idActual) {
-  return anuncios
+  return (Array.isArray(anuncios) ? anuncios : [])
     .filter((item) => item.id !== idActual && item.estado === 'disponible')
     .slice(0, 4)
 }
