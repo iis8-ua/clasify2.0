@@ -8,6 +8,7 @@ import EstadoAnuncioBadge from '../components/catalog/EstadoAnuncioBadge.vue'
 import CompartirAnuncio from '../components/catalog/CompartirAnuncio.vue'
 import AnunciosRelacionados from '../components/catalog/AnunciosRelacionados.vue'
 import ModalContactar from '../components/mensajeria/ModalContactar.vue'
+import UltimosMensajes from '../components/mensajeria/UltimosMensajes.vue'
 import AccionesAnuncio from '../components/anuncios/AccionesAnuncio.vue'
 import BotonFavorito from '../components/favoritos/BotonFavorito.vue'
 import StatePanel from '../components/states/StatePanel.vue'
@@ -173,6 +174,8 @@ function abrirConversacion(id) {
         </div>
 
         <AccionesAnuncio :anuncio="detalle" />
+
+        <UltimosMensajes :detalle="detalle" />
       </div>
 
       <AnunciosRelacionados class="anuncio-detalle__related" :anuncio="detalle" />

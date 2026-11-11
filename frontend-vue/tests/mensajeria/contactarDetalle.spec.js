@@ -84,6 +84,20 @@ describe('contactar desde el detalle', () => {
     expect(router.currentRoute.value.params.id).toBe('4')
   })
 
+  it('muestra los últimos mensajes solo al participar', async () => {
+    const { wrapper } = await montar({
+      datos: {
+        ...base,
+        conversacion: { id: 4 },
+        ultimos_mensajes: [{ id: 1, texto: 'Hola', fecha: '2026-11-11T10:00:00.000Z', id_emisor: 2 }],
+        num_mensajes: 1
+      }
+    })
+
+    expect(wrapper.text()).toContain('Últimos mensajes')
+    expect(wrapper.text()).toContain('Ver conversación completa (1)')
+  })
+
   it('invita a acceder a un visitante', async () => {
     const { wrapper, router } = await montar({ autenticado: false })
     const boton = wrapper.findAll('button').find((item) => item.text().includes('Contactar'))
