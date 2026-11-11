@@ -8,6 +8,17 @@
 
 **Input**: User description: "Implementa la spec 003-catalogo-anuncios descrita en docs/00-contexto-specs.md. Lee también docs/04-listado.md, docs/05-detalle.md, docs/10-paginacion.md y docs/11-busqueda-filtros.md. No modifiques el backend."
 
+## Clarifications
+
+### Session 2026-11-11
+
+- Q: ¿El catálogo permite elegir cuántos anuncios se muestran por página? → A: Sí; se puede elegir 10, 20 o 50, con 20 por defecto.
+- Q: ¿Se mantiene la paginación numerada? → A: Sí; primera, anterior, siguiente y última.
+- Q: ¿Qué añade el detalle además de la información actual? → A: Compartir anuncio, anuncios similares, más anuncios del vendedor y enlace a su perfil público.
+- Q: ¿Cuántos anuncios muestran las secciones del detalle? → A: Cuatro similares y cuatro del vendedor, excluyendo el anuncio abierto.
+- Q: ¿Qué anuncios entran en esas secciones? → A: Solo disponibles; los similares comparten categoría y los del vendedor son del mismo autor.
+- Q: ¿Cómo se comparte un anuncio? → A: Con la función nativa de compartir si existe y, como alternativa, copiando el enlace.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Explorar el listado de anuncios (Priority: P1)
@@ -68,6 +79,14 @@ inexistente o dirección inválida se gestionan correctamente.
    error con opción de reintentar.
 7. **Given** que el usuario llega al detalle desde el listado, **When** vuelve al listado, **Then**
    conserva la página y los filtros anteriores.
+8. **Given** el detalle de un anuncio, **When** el usuario selecciona compartir, **Then** puede usar la
+   función nativa del dispositivo o copiar el enlace, y recibe una confirmación.
+9. **Given** el detalle de un anuncio, **When** el usuario consulta los anuncios similares, **Then** ve
+   hasta cuatro anuncios disponibles de la misma categoría, sin el anuncio actual.
+10. **Given** el detalle de un anuncio, **When** el usuario consulta más anuncios del vendedor,
+    **Then** ve hasta cuatro anuncios disponibles del mismo autor, sin el anuncio actual.
+11. **Given** el detalle de un anuncio, **When** el usuario selecciona al autor o el enlace al perfil,
+    **Then** se abre su perfil público.
 
 ---
 
@@ -102,6 +121,12 @@ recorriéndolas hacia delante y hacia atrás y verificando que no se repiten ni 
    reintentar la página actual.
 9. **Given** una página y unos filtros activos, **When** el usuario recarga o comparte la dirección,
    **Then** vuelve a ver el mismo estado del listado.
+10. **Given** el listado, **When** el usuario elige 10, 20 o 50 anuncios por página, **Then** el
+    listado se actualiza con ese tamaño y vuelve a la primera página.
+11. **Given** un tamaño de página distinto del valor por defecto, **When** el usuario recarga o
+    comparte la dirección, **Then** se conserva el tamaño elegido.
+12. **Given** el listado con varias páginas, **When** el usuario cambia el tamaño de página, **Then**
+    los controles de paginación y el total se recalculan sin omitir ni repetir anuncios.
 
 ---
 
@@ -188,6 +213,14 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 - El usuario navega con teclado o lector de pantalla.
 - La pantalla es muy estrecha.
 - El usuario no tiene sesión y el detalle muestra el estado de favorito como no guardado.
+- El navegador no soporta la función nativa de compartir.
+- El usuario cancela el diálogo nativo de compartir.
+- El portapapeles no está disponible al copiar el enlace.
+- El vendedor no tiene otros anuncios disponibles.
+- No hay anuncios similares disponibles en la categoría.
+- El usuario cambia el tamaño de página en una página avanzada.
+- El tamaño de página solicitado no es válido.
+- Los anuncios similares o del vendedor fallan al cargar.
 
 ## Requirements *(mandatory)*
 
@@ -195,7 +228,7 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 
 - **FR-001**: El listado de anuncios MUST ser público y MUST NOT exigir sesión.
 - **FR-002**: El listado inicial MUST mostrar anuncios disponibles, ordenados del más reciente al
-  más antiguo y con un tamaño de página de 20.
+  más antiguo y con un tamaño de página de 20 por defecto.
 - **FR-003**: Cada elemento del listado MUST mostrar título, precio, imagen o marcador de ausencia,
   categoría, estado y fecha de creación.
 - **FR-004**: El nombre de la categoría MUST obtenerse del catálogo real de categorías y MUST NOT
@@ -227,8 +260,8 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 - **FR-020**: Al cambiar un filtro MUST volver a la primera página.
 - **FR-021**: Si la página solicitada supera el total, la aplicación MUST mostrar la última página
   disponible.
-- **FR-022**: El tamaño de página MUST ser fijo en 20 y MUST NOT existir un selector de tamaño en
-  esta versión.
+- **FR-022**: El listado MUST permitir elegir un tamaño de página de 10, 20 o 50, con 20 por defecto,
+  y MUST volver a la primera página al cambiarlo.
 - **FR-023**: La búsqueda por texto MUST buscar en título y descripción, MUST ignorar diferencias de
   mayúsculas, minúsculas y acentos, y MUST limitar el texto a 150 caracteres.
 - **FR-024**: El filtro de categoría MUST usar el catálogo real de categorías.
@@ -249,9 +282,20 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 - **FR-033**: Los mensajes visibles MUST estar en español y MUST NOT exponer detalles técnicos
   internos.
 - **FR-034**: Esta feature MUST NOT implementar creación, edición, eliminación, cambio de estado,
-  favoritos, perfil, mensajería ni valoraciones.
+  favoritos, perfil propio, menú de mensajería ni acciones de valoración. El perfil público se
+  implementa en la spec 008 y aquí solo se enlaza.
 - **FR-035**: Esta feature MUST NOT modificar el backend ni sustituir sus datos por contenido
   simulado.
+- **FR-036**: El tamaño de página elegido MUST conservarse en la dirección al recargar o compartir la
+  vista.
+- **FR-037**: El detalle MUST ofrecer una acción de compartir que use la función nativa del
+  dispositivo cuando esté disponible y, si no, copie el enlace.
+- **FR-038**: Compartir correctamente o copiar el enlace MUST mostrar una confirmación perceptible.
+- **FR-039**: El detalle MUST mostrar hasta cuatro anuncios similares disponibles de la misma
+  categoría, excluyendo el anuncio actual.
+- **FR-040**: El detalle MUST mostrar hasta cuatro anuncios disponibles del vendedor, excluyendo el
+  anuncio actual.
+- **FR-041**: El detalle MUST enlazar al perfil público del autor.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -268,8 +312,8 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 
 ### Measurable Outcomes
 
-- **SC-001**: El 100 % de las cargas del listado muestra anuncios disponibles con un máximo de 20
-  elementos por página.
+- **SC-001**: El 100 % de las cargas del listado muestra anuncios disponibles con el tamaño de página
+  elegido: 10, 20 o 50, con 20 por defecto.
 - **SC-002**: El 100 % de las tarjetas del listado muestra título, precio, imagen o marcador,
   categoría, estado y fecha.
 - **SC-003**: El 100 % de los detalles muestra título, descripción, precio, estado, imagen o
@@ -294,8 +338,17 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
   técnicos internos.
 - **SC-014**: Un usuario puede localizar un anuncio por texto en menos de 30 segundos en una prueba
   manual con los datos de ejemplo.
-- **SC-015**: Esta feature no implementa creación, edición, eliminación, cambio de estado,
-  favoritos, perfil, mensajería ni valoraciones, y no modifica el backend.
+- **SC-015**: Esta feature no implementa creación, edición, eliminación, cambio de estado, favoritos,
+  perfil propio, mensajería ni acciones de valoración, y no modifica el backend.
+- **SC-016**: El 100 % de los cambios de tamaño de página se refleja en la URL y vuelve a la primera
+  página.
+- **SC-017**: El 100 % de los anuncios compartidos genera un enlace correcto y muestra confirmación
+  cuando se copia o se comparte.
+- **SC-018**: El 100 % de los detalles con anuncios similares muestra hasta cuatro disponibles de la
+  misma categoría, sin el anuncio actual.
+- **SC-019**: El 100 % de los detalles con otros anuncios del vendedor muestra hasta cuatro
+  disponibles, sin el anuncio actual.
+- **SC-020**: El 100 % de los detalles enlaza al perfil público del autor.
 
 ## Assumptions
 
@@ -305,18 +358,21 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 - El backend existente ofrece el catálogo, el detalle y las categorías; no se modifica en esta
   feature.
 - El listado inicial muestra solo anuncios disponibles, ordenados por fecha descendente y con 20
-  elementos por página.
+  elementos por página por defecto; el usuario puede elegir 10, 20 o 50.
 - El catálogo de categorías se carga completo para mostrar nombres y alimentar el filtro.
 - El listado no muestra el nombre del autor; el detalle sí muestra su información pública.
 - El número de favoritos es informativo; añadir o quitar favoritos se implementa en otra feature.
 - Las acciones de editar, cambiar estado y eliminar se implementan en otra feature.
 - La moneda de presentación es el euro y el formato es español; el plan confirmará el detalle.
 - Si la página solicitada supera el total, se muestra la última página disponible.
-- La página y los filtros se conservan en la dirección para permitir recargar o compartir la vista.
-- No existe selector de tamaño de página ni paginación infinita.
+- La página, el tamaño de página y los filtros se conservan en la dirección para permitir recargar o
+  compartir la vista.
+- No existe paginación infinita.
+- Los anuncios similares y los del vendedor se obtienen del catálogo existente y solo incluyen
+  anuncios disponibles.
 - No existen filtros por rango de precio, mapa, recomendaciones ni búsquedas guardadas.
 - Los datos de ejemplo del sistema permiten probar un listado de varias páginas.
-- La interfaz se usa en escritorio y en móvil, con un único modo claro.
+- La interfaz se usa en escritorio y en móvil, con tema claro u oscuro según la preferencia de 001.
 - No se implementa actualización en tiempo real; las vistas se actualizan al cargar o al volver a
   solicitarlas.
 
@@ -324,11 +380,11 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 
 - Creación, edición, eliminación y cambio de estado de anuncios.
 - Añadir o quitar favoritos.
-- Perfil propio o público.
-- Mensajería, conversaciones y valoraciones.
+- Implementación del perfil propio o del perfil público; solo se enlaza al perfil público de 008.
+- Mensajería, conversaciones y acciones de valoración.
 - Filtros por precio mínimo o máximo.
 - Mapa, recomendaciones, historial de búsquedas y búsquedas guardadas.
-- Paginación infinita y selector de tamaño de página.
+- Paginación infinita.
 - Actualización en tiempo real.
 - Moderación o administración del catálogo.
 - Modificaciones del backend, del esquema o de los contratos del servicio existente.

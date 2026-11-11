@@ -14,6 +14,11 @@
 
 - Q: ¿Dónde debe aparecer la acción de crear un anuncio? → A: En la cabecera y en el estado vacío de “Mis anuncios”.
 
+### Session 2026-11-11
+
+- Q: ¿La aplicación admite modo oscuro? → A: Sí; habrá un selector claro/oscuro y la preferencia se conservará en el navegador.
+- Q: ¿La preferencia de tema puede compartirse con el backend? → A: No; es una preferencia local del navegador y no se envía al backend.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Estructura y navegación principal (Priority: P1)
@@ -43,6 +48,10 @@ La estructura, la marca y la navegación deben mantenerse visibles y coherentes 
    secciones privadas, a su información de sesión y a la acción principal de crear un anuncio.
 6. **Given** que el usuario no tiene sesión, **When** consulta la cabecera, **Then** no ve la acción
    de crear un anuncio como disponible.
+7. **Given** cualquier vista, **When** el usuario cambia entre tema claro y oscuro, **Then** toda la
+   interfaz cambia de tema sin perder el contexto ni el estado de la vista.
+8. **Given** una preferencia de tema guardada, **When** el usuario recarga o vuelve a abrir la
+   aplicación, **Then** se mantiene el tema elegido.
 
 ---
 
@@ -138,6 +147,10 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
    título describe la vista de forma comprensible.
 8. **Given** cualquier vista, **When** el usuario lee los textos de la interfaz, **Then** están
    redactados en español.
+9. **Given** el tema claro o el oscuro, **When** el usuario recorre la interfaz, **Then** el contraste
+   es suficiente y el foco sigue siendo visible.
+10. **Given** el selector de tema, **When** el usuario lo recorre con teclado o lector de pantalla,
+    **Then** entiende el tema actual y la acción disponible.
 
 ### Edge Cases
 
@@ -154,6 +167,9 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
 - La ventana es muy estrecha y la navegación necesita adaptarse.
 - Una operación falla por conexión mientras la estructura de la aplicación sigue visible.
 - El usuario intenta cancelar una confirmación o cerrarla con el teclado.
+- El navegador no tiene preferencia de tema guardada.
+- La preferencia de tema guardada es inválida o no se puede leer.
+- El usuario cambia de tema mientras hay una vista con estado cargado.
 
 ## Requirements *(mandatory)*
 
@@ -162,11 +178,11 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
 - **FR-001**: La aplicación MUST mostrar una estructura común con cabecera, navegación principal y
   zona de contenido en todas las vistas.
 - **FR-002**: La cabecera MUST mostrar la marca Clasify y las acciones principales de navegación.
-- **FR-003**: La navegación MUST incluir el acceso al listado, a favoritos, al perfil, a las acciones
-  de sesión y a la acción principal de crear un anuncio cuando haya sesión, mostrando u ocultando
-  las secciones privadas según el estado de sesión.
+- **FR-003**: La navegación MUST incluir el acceso al listado, a favoritos, a mensajes, al perfil, a
+  las acciones de sesión y a la acción principal de crear un anuncio cuando haya sesión, mostrando u
+  ocultando las secciones privadas según el estado de sesión.
 - **FR-004**: La aplicación MUST disponer de las rutas de listado, detalle, acceso, registro,
-  creación, edición, favoritos, perfil y no encontrado.
+  creación, edición, favoritos, perfil, perfil público, mensajes, conversación y no encontrado.
 - **FR-005**: Cada ruta conocida MUST poder abrirse directamente por su dirección y sobrevivir a una
   recarga.
 - **FR-006**: La navegación MUST respetar el historial del navegador y permitir atrás y adelante.
@@ -187,8 +203,8 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
 - **FR-015**: Las operaciones correctas MUST proporcionar una confirmación perceptible.
 - **FR-016**: Las acciones destructivas MUST solicitar confirmación y MUST permitir cancelarlas sin
   ejecutarlas.
-- **FR-017**: La presentación MUST usar una base visual neutral con un color de acento y un único
-  modo claro, manteniendo coherencia entre vistas.
+- **FR-017**: La presentación MUST usar una base visual neutral con un color de acento, MUST ofrecer
+  tema claro y tema oscuro, y MUST mantener coherencia entre vistas y entre ambos temas.
 - **FR-018**: La estructura MUST ser utilizable en escritorio y en pantallas estrechas sin
   desplazamiento horizontal no intencionado.
 - **FR-019**: La interfaz MUST usar estructura semántica, etiquetas asociadas, navegación por
@@ -204,10 +220,14 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
   de una pantalla vacía o rota.
 - **FR-026**: La interfaz MUST estar redactada en español.
 - **FR-027**: Esta feature MUST NOT implementar los flujos de acceso, registro, listado real,
-  detalle real, creación, edición, eliminación, favoritos ni perfil. La acción de la cabecera solo
-  navega a las rutas correspondientes; esos flujos se implementan en specs posteriores.
+  detalle real, creación, edición, eliminación, favoritos, perfil, perfil público, mensajería ni
+  valoraciones. La acción de la cabecera solo navega a las rutas correspondientes; esos flujos se
+  implementan en specs posteriores.
 - **FR-028**: Esta feature MUST NOT modificar el backend ni sustituir sus datos por contenido
   simulado.
+- **FR-029**: La cabecera MUST ofrecer un control accesible para alternar entre tema claro y oscuro.
+- **FR-030**: La preferencia de tema MUST conservarse en el navegador y MUST NOT incluir tokens,
+  credenciales ni datos privados.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -215,6 +235,7 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
 - **Vista**: pantalla con título, contenido y estado de presentación.
 - **Estado de interfaz**: situación mostrada al usuario, como carga, vacío, error, validación,
   permisos o éxito, con su mensaje y acción disponible.
+- **Preferencia de tema**: elección local entre tema claro y oscuro, sin datos personales.
 
 ## Success Criteria *(mandatory)*
 
@@ -245,6 +266,12 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
   pantallas siguen siendo sustituciones o quedan para specs posteriores.
 - **SC-012**: El 100 % de los usuarios autenticados ve la acción de crear un anuncio en la cabecera;
   el 100 % de los visitantes no la ve como disponible.
+- **SC-013**: El 100 % de las vistas mantiene un contraste suficiente y un foco visible tanto en tema
+  claro como en tema oscuro.
+- **SC-014**: El 100 % de los cambios de tema se conserva tras recargar o volver a abrir la aplicación
+  en el mismo navegador.
+- **SC-015**: El 100 % del selector de tema puede usarse con teclado y lector de pantalla, e indica el
+  tema actual.
 
 ## Assumptions
 
@@ -257,23 +284,25 @@ etiquetas, los textos alternativos, el contraste y la presentación en una panta
 - Las rutas protegidas se probarán con un estado de sesión controlado y con la vista de acceso
   prevista para la spec 002.
 - La interfaz se redacta en español y se dirige a usuarios de escritorio y de móvil.
-- La presentación usa un único modo claro, con una base neutral y un color de acento.
+- La presentación usa una base neutral con un color de acento y ofrece tema claro y oscuro, con el
+  tema claro como valor inicial.
 - Se asume el euro como moneda de presentación; el plan confirmará el formato exacto.
 - Se reutiliza la pila tecnológica y la arquitectura aprobadas en la constitución y en
   `docs/00-contexto-specs.md`.
 - Las vistas de las funcionalidades posteriores pueden existir como sustituciones claras para que
   las rutas funcionen, sin implementar su contenido real.
-- No se incluye perfil público, mensajería, valoraciones, modo oscuro ni selector de tamaño de
-  página.
+- El perfil público, la mensajería y las valoraciones se implementan en las specs 007, 008 y 009.
+- El selector de tamaño de página se implementa en las specs que paginan listados, a partir de 003.
+- La preferencia de tema es local y no se sincroniza entre dispositivos.
 
 ## Out of Scope
 
 - Formularios de acceso y registro.
 - Listado y detalle con datos reales.
 - Formularios y flujos de creación, edición, cancelación de edición y eliminación de anuncios.
-- Favoritos y perfil propio.
-- Mensajería, conversaciones y valoraciones.
+- Implementación de favoritos y perfil propio, que se abordan en las specs 005 y 006.
+- Implementación de mensajería, perfil público y valoraciones, que se abordan en las specs 007, 008
+  y 009.
 - Modificaciones del backend, del esquema o de los contratos de la API.
-- Modo oscuro y selector de tamaño de página.
 - Subida de varias imágenes.
 - Implementación parcial con otro framework.

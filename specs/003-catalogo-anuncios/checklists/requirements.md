@@ -32,11 +32,13 @@
 ## Notes
 
 - Validation completed on 2026-11-10.
-- The specification covers the public announcement catalogue, detail view, pagination, text search,
-  category and state filters, ordering, empty results, error recovery, responsive presentation and
-  accessibility.
-- Announcement creation, editing, deletion, status changes, favourites, profile, messaging and
-  ratings remain outside this feature.
+- Ampliación de tamaño de página, compartir, similares, más del vendedor y enlace al perfil público validada el 2026-11-11.
+- The specification covers the public announcement catalogue, detail view, pagination with page-size
+  selection, text search, category and state filters, ordering, empty results, error recovery,
+  sharing, similar announcements, more announcements from the seller, links to the public profile,
+  responsive presentation and accessibility.
+- Announcement creation, editing, deletion, status changes, favourites, own profile, messaging and
+  rating actions remain outside this feature.
 - Pagination behaviour for out-of-range pages is resolved as showing the last available page.
 - The specification refers to later features only as dependencies; it does not prescribe backend
   changes or application source structure.

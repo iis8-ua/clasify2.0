@@ -32,9 +32,10 @@
 ## Notes
 
 - Validation completed on 2026-11-10.
+- Ampliación de tema claro/oscuro validada el 2026-11-11.
 - The specification covers the application frame, navigation, direct URLs, history, protected-route
-  handoff, not-found handling, shared interface states, accessibility, responsive presentation and
-  formatting conventions.
+  handoff, not-found handling, shared interface states, accessibility, responsive presentation,
+  formatting conventions and the light/dark theme preference.
 - Business flows for authentication, listing, detail, announcement management, favorites and
   profile are explicitly out of scope for this feature.
 - The specification refers to later specs only as dependencies; it does not prescribe backend
