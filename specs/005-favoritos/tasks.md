@@ -262,7 +262,7 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 
 ## Phase 11: Convergence
 
-- [ ] T044 Documentar en el contrato HTTP de 001 la opción `conEstado` y el retorno `{ estado, datos }` para las respuestas 2xx y 204, o eliminar esa opción y resolver la distinción 200/201 en el servicio de favoritos, per 001 http-contract §2/§4 y T040 (contradicts)
+- [X] T044 Documentar en el contrato HTTP de 001 la opción `conEstado` y el retorno `{ estado, datos }` para las respuestas 2xx y 204, o eliminar esa opción y resolver la distinción 200/201 en el servicio de favoritos, per 001 http-contract §2/§4 y T040 (contradicts)
 - [ ] T045 Alinear el árbol de pruebas del plan de 003 con los archivos reales (`catalogList`, `catalogDetail`, `catalogFilters` y `catalogAccessibility`) en lugar de `catalogView.spec.js`, per 003 plan y T012/T019/T037 (partial)
 - [ ] T046 Alinear el árbol de código del plan de 001 con el estado final: `PlaceholderView.vue` retirado y `src/assets/` sin uso, per 001 plan y T043 (partial)
 - [ ] T047 Hacer idempotente la prueba de integración con el backend real, eligiendo un anuncio sin favorito previo y eliminando únicamente el favorito que crea, per Constitution VIII y T039 (partial)

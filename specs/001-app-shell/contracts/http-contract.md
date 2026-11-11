@@ -24,6 +24,7 @@ request(path, options)
   body: JSON object | FormData | undefined
   auth: boolean
   signal: AbortSignal | undefined
+  conEstado: boolean
 ```
 
 Rules:
@@ -32,8 +33,12 @@ Rules:
 - Si `auth` es verdadero, se añade `Authorization: Bearer <token>` cuando exista token.
 - Si el cuerpo es `FormData`, no se fija `Content-Type` manualmente.
 - Si el cuerpo es un objeto, se serializa como JSON.
-- Una respuesta `204` devuelve `null` y no intenta leer cuerpo.
-- Una respuesta correcta con cuerpo se devuelve como objeto de datos.
+- Por defecto, una respuesta `204` devuelve `null` y no intenta leer cuerpo, y una respuesta
+  correcta con cuerpo se devuelve como objeto de datos.
+- Si `conEstado` es verdadero, una respuesta correcta se devuelve como `{ estado, datos }`; una
+  respuesta `204` se devuelve como `{ estado: 204, datos: null }`.
+- `conEstado` se reserva para las operaciones que necesitan distinguir dos respuestas correctas del
+  mismo endpoint, como el `201` de un favorito nuevo y el `200` de uno ya guardado.
 - Los listados conservan el sobre `{ datos, paginacion }` que devuelve el backend.
 - No se inventan endpoints ni transformaciones específicas de negocio en esta feature.
 
@@ -63,9 +68,9 @@ Rules:
 
 | Status | Handling in HTTP layer | UI responsibility |
 |---|---|---|
-| `200` | Devuelve datos | La vista muestra el contenido |
-| `201` | Devuelve datos | La vista muestra confirmación |
-| `204` | Devuelve `null` | La vista no intenta leer cuerpo |
+| `200` | Devuelve datos, o `{ estado, datos }` con `conEstado` | La vista muestra el contenido |
+| `201` | Devuelve datos, o `{ estado, datos }` con `conEstado` | La vista muestra confirmación |
+| `204` | Devuelve `null`, o `{ estado: 204, datos: null }` con `conEstado` | La vista no intenta leer cuerpo |
 | `400` | Error normalizado con `campo` | Formulario asocia el error |
 | `401` | Error normalizado; invoca `onUnauthorized` | La sesión decide si limpia o muestra error de formulario |
 | `403` | Error normalizado | Vista de permisos |
