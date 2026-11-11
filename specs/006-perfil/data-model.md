@@ -86,9 +86,10 @@ Rules:
 - Los vendidos se muestran con su estado.
 - La tarjeta solo abre el detalle; no ofrece acciones de gestión.
 - La lista se ordena por fecha de creación descendente.
-- El tamaño de página es 20.
-- La página se conserva en la URL.
-- La página fuera de rango se corrige a la última disponible.
+- El tamaño de página es 20 por defecto y admite 10, 20 o 50.
+- La página y el tamaño se conservan en la URL.
+- Cambiar el tamaño vuelve a la primera página.
+- La página fuera de rango se corrige a la última disponible solo tras una carga correcta.
 - El estado vacío ofrece una acción para crear un anuncio.
 
 ### Paginacion
@@ -96,7 +97,7 @@ Rules:
 | Campo | Tipo | Reglas |
 |---|---|---|
 | `pagina` | number | `>= 1` |
-| `limite` | number | 20 |
+| `limite` | number | 10, 20 o 50; 20 por defecto |
 | `total` | number | Total de anuncios propios |
 | `paginas` | number | Total de páginas |
 
@@ -180,10 +181,13 @@ success -> loading        (cambio de página)
 - Una contraseña actual incorrecta no cierra la sesión.
 - No se envía una edición de datos sin cambios.
 - La página de anuncios propios debe ser un entero positivo.
-- El tamaño de página es fijo en 20.
-- La página fuera de rango se corrige a la última.
+- El tamaño de página es 20 por defecto y admite 10, 20 o 50.
+- La página y el tamaño se conservan en la URL.
+- Cambiar el tamaño vuelve a la primera página.
+- La página fuera de rango se corrige a la última solo tras una carga correcta.
 - La lista solo muestra anuncios del usuario.
 - Las acciones de gestión no se ofrecen en la lista.
+- El perfil propio enlaza al perfil público propio de 008.
 
 ## Relationships
 

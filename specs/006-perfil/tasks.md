@@ -281,3 +281,9 @@ US1 y US2 son P1; el perfil necesita ambos para ser útil.
 ## Phase 10: Convergence
 
 - [X] T047 Evitar que el aviso de cambios sin guardar del perfil bloquee una redirección motivada por sesión inválida desde el cambio de contraseña o “Mis anuncios”, con prueba de regresión, per 006 FR-026, 002 FR-016 (partial)
+
+## Phase 11: Ampliación de alcance (tamaño y perfil público)
+
+- [ ] T048 Añadir el tamaño de página 10/20/50 a `perfilStore`, `usuariosService` y `MisAnunciosSection.vue`, con página y tamaño en la URL y vuelta a página 1 al cambiarlo, con pruebas per 006 FR-017, FR-033, FR-034, SC-022–SC-023 (missing)
+- [ ] T049 Añadir el enlace al perfil público propio en `PerfilView.vue` usando el identificador de la sesión, con prueba de navegación per 006 FR-032, SC-021 y 008 FR-024 (missing)
+- [ ] T050 Actualizar `data-model.md` y `quickstart.md` de 006 con el tamaño de página y el enlace al perfil público, y registrar la validación manual per 006 data-model/quickstart (partial)

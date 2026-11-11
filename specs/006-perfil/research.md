@@ -68,7 +68,7 @@
 
 ### 6. Lista de anuncios propios
 
-**Decision**: consumir `GET /usuarios/me/anuncios` con `pagina` y `limite=20`. Conservar la página en la URL. La lista solo muestra los anuncios y abre el detalle.
+**Decision**: consumir `GET /usuarios/me/anuncios` con `pagina` y `limite`. La página y el tamaño (10, 20 o 50; 20 por defecto) se conservan en la URL. La lista solo muestra los anuncios y abre el detalle.
 
 **Rationale**: coincide con el backend y con la decisión de página en la dirección. La gestión se centraliza en el detalle de 004.
 
@@ -76,6 +76,7 @@
 - Acciones directas en la lista: descartado por decisión cruzada.
 - Búsqueda, filtros u ordenación: fuera de alcance.
 - Paginación infinita: descartada.
+- Mantener 20 fijo: descartado por la ampliación de alcance.
 
 ---
 
@@ -141,13 +142,25 @@
 
 ### 12. Pruebas
 
-**Decision**: Vitest cubrirá servicio, store, formularios, lista y paginación; el recorrido manual usará los usuarios y anuncios del seed.
+**Decision**: Vitest cubrirá servicio, store, formularios, enlace al perfil público, tamaño de página y paginación; el recorrido manual usará los usuarios y anuncios del seed.
 
 **Rationale**: permite probar edición, contraseña, privacidad y paginación sin sustituir la comprobación real.
 
 **Alternatives considered**:
 - Solo manual: descartado por la constitución.
 - E2E automatizado: se deja para el recorrido manual de la Práctica 4.
+
+---
+
+### 13. Enlace al perfil público propio
+
+**Decision**: mostrar en `/perfil` un enlace a `/usuarios/:id` usando el identificador del usuario autenticado.
+
+**Rationale**: permite comprobar la vista pública propia sin duplicar su implementación, que pertenece a 008.
+
+**Alternatives considered**:
+- Incrustar el perfil público dentro de `/perfil`: descartado por duplicación.
+- No enlazar: descartado porque el usuario no podría revisar su imagen pública.
 
 ## Open Questions
 

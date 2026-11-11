@@ -155,12 +155,27 @@ Rules:
 
 - Solo devuelve anuncios del usuario autenticado.
 - Incluye anuncios vendidos con su estado.
-- El tamaño de página es fijo en 20.
+- El tamaño de página es 20 por defecto y la interfaz permite 10, 20 o 50.
 - La página fuera de rango devuelve datos vacíos y la paginación real; el frontend corrige a la
-  última página.
+  última página solo tras una carga correcta.
 - Las acciones de gestión no se realizan desde esta lista.
 
-## 4. Response Handling
+## 4. Perfil público propio
+
+```text
+GET /usuarios/:id
+Authorization: Bearer <token>   (opcional)
+```
+
+Se usa para el enlace al perfil público propio y su contenido se especifica en 008.
+
+Rules:
+
+- El perfil público no incluye email ni datos privados.
+- El enlace desde `/perfil` usa el identificador del usuario autenticado.
+- La vista pública y sus listados pertenecen a 008.
+
+## 5. Response Handling
 
 | Status | Handling |
 |---|---|
@@ -170,9 +185,9 @@ Rules:
 | `401` de contraseña actual | Error de formulario; mantener sesión |
 | `5xx` / red | Error comprensible y reintento |
 
-## 5. Out of Scope
+## 6. Out of Scope
 
-- Perfil público de otros usuarios.
+- Implementación del perfil público de otros usuarios; se especifica en 008.
 - Cambio de email.
 - Avatar o imagen de perfil.
 - Eliminación de cuenta.

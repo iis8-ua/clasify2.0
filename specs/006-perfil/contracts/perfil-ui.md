@@ -12,9 +12,10 @@ Sections:
 | Sección | Contenido |
 |---|---|
 | Datos | Nombre, email, biografía, fecha de alta y resumen de valoraciones |
+| Enlace público | Acceso al perfil público propio |
 | Edición de datos | Nombre y biografía |
 | Contraseña | Contraseña actual y nueva |
-| Mis anuncios | Lista paginada de anuncios propios |
+| Mis anuncios | Lista paginada de anuncios propios con selector de tamaño |
 
 Rules:
 
@@ -77,12 +78,13 @@ Query:
 | Parámetro | Valores | Default |
 |---|---|---|
 | `pagina` | Entero `>= 1` | 1 |
+| `limite` | `10`, `20`, `50` | 20 |
 
 Rules:
 
-- `limite` es fijo en 20 y no se expone en la URL.
-- La página se conserva en la dirección.
-- La página fuera de rango se corrige a la última disponible.
+- La página y el tamaño se conservan en la dirección.
+- La página fuera de rango se corrige a la última disponible solo tras una carga correcta.
+- Cambiar el tamaño vuelve a la primera página.
 - Solo se muestran anuncios del usuario.
 - Los anuncios vendidos se muestran con su estado.
 - Cada tarjeta abre el detalle.
@@ -152,13 +154,13 @@ Rules:
 
 ## 9. Out of Scope
 
-- Perfil público de otros usuarios.
+- Implementación del perfil público de otros usuarios; se especifica en 008 y aquí solo se enlaza.
 - Avatar o imagen de perfil.
 - Eliminación de cuenta.
 - Cambio de email y verificación.
 - Recuperación de contraseña.
 - Autenticación en dos pasos.
-- Mensajería y valoraciones.
+- Mensajería y gestión de valoraciones; se especifican en 007 y 009.
 - Preferencias de privacidad o notificaciones.
 - Historial de actividad.
 - Búsqueda, filtros u ordenación de anuncios propios.
