@@ -66,7 +66,7 @@ description: "Task list for the 008-perfil-publico feature"
 - [X] T009 [US1] Implementar `PerfilPublicoDatos` con nombre, biografía, fecha, resumen y ausencia de biografía en `frontend-vue/src/components/perfil-publico/PerfilPublicoDatos.vue`
 - [X] T010 [US1] Implementar la carga, éxito, no encontrado, error y reintento en `frontend-vue/src/views/PerfilPublicoView.vue`
 - [X] T011 [US1] Asegurar que el perfil no muestra email ni datos privados y que un identificador inválido no rompe la vista en `frontend-vue/src/views/PerfilPublicoView.vue` y `frontend-vue/src/components/perfil-publico/PerfilPublicoDatos.vue`
-- [ ] T012 [US1] Reutilizar `StatePanel` y los formatos de fecha en `frontend-vue/src/components/perfil-publico/PerfilPublicoDatos.vue` y `frontend-vue/src/views/PerfilPublicoView.vue`
+- [X] T012 [US1] Reutilizar `StatePanel` y los formatos de fecha en `frontend-vue/src/components/perfil-publico/PerfilPublicoDatos.vue` y `frontend-vue/src/views/PerfilPublicoView.vue`
 
 **Checkpoint**: El perfil público funciona de forma independiente.
 
