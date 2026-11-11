@@ -127,7 +127,7 @@ description: "Task list for the 007-mensajeria feature"
 
 ### Tests for User Story 4
 
-- [ ] T028 [P] [US4] Crear pruebas de accesibilidad de bandeja, hilo, modal y formulario en `frontend-vue/tests/mensajeria/mensajeriaAccessibility.spec.js`
+- [X] T028 [P] [US4] Crear pruebas de accesibilidad de bandeja, hilo, modal y formulario en `frontend-vue/tests/mensajeria/mensajeriaAccessibility.spec.js`
 
 ### Implementation for User Story 4
 
