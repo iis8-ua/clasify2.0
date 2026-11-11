@@ -156,15 +156,23 @@ actualizado.
 
 **Expected**: el anuncio sigue apareciendo con el estado vendido.
 
-### 11. Página en la URL
+### 11. Página y tamaño en la URL
 
 1. Abrir `/perfil?pagina=1`.
-2. Recargar.
-3. Intentar abrir una página fuera de rango.
+2. Cambiar el tamaño entre 10, 20 y 50.
+3. Recargar y compartir la URL.
+4. Intentar abrir una página fuera de rango.
 
-**Expected**: se conserva la página y una página fuera de rango se corrige a la última disponible.
+**Expected**: se conservan página y tamaño; una página fuera de rango se corrige a la última disponible.
 
-### 12. Estado vacío y creación
+### 12. Enlace al perfil público propio
+
+1. Abrir `/perfil`.
+2. Pulsar “Ver mi perfil público”.
+
+**Expected**: se abre `/usuarios/:id` del usuario autenticado.
+
+### 13. Estado vacío y creación
 
 1. Usar una cuenta sin anuncios.
 2. Abrir “Mis anuncios”.
@@ -172,7 +180,7 @@ actualizado.
 **Expected**: estado vacío específico con una acción para crear un anuncio; la acción abre el
 formulario de creación de 004.
 
-### 13. Permisos y sesión
+### 14. Permisos y sesión
 
 1. Cerrar sesión.
 2. Intentar abrir `/perfil`.
@@ -180,7 +188,7 @@ formulario de creación de 004.
 **Expected**: se solicita acceso. Tras iniciar sesión, se puede abrir el perfil. Al cerrar sesión,
 no se muestran datos privados de la cuenta anterior.
 
-### 14. Sesión caducada
+### 15. Sesión caducada
 
 1. Abrir el perfil.
 2. Invalidar el token en DevTools.
@@ -188,7 +196,7 @@ no se muestran datos privados de la cuenta anterior.
 
 **Expected**: se limpia la sesión y se solicita acceso.
 
-### 15. Accesibilidad y móvil
+### 16. Accesibilidad y móvil
 
 1. Recorrer perfil, formularios, lista y paginación solo con teclado.
 2. Comprobar foco visible, etiquetas y errores accesibles.
@@ -197,7 +205,7 @@ no se muestran datos privados de la cuenta anterior.
 
 **Expected**: el perfil es usable con teclado y en pantalla estrecha.
 
-### 16. Paginación con datos de prueba
+### 17. Paginación con datos de prueba
 
 1. Ejecutar las pruebas de paginación de anuncios propios.
 2. Si se dispone de más de 20 anuncios propios, comprobar los controles en la interfaz.
@@ -205,7 +213,7 @@ no se muestran datos privados de la cuenta anterior.
 **Expected**: todas las páginas son accesibles. Con el seed actual, cada usuario tiene 12 anuncios,
 por lo que la paginación de más de 20 se valida con pruebas de componente.
 
-### 17. Build
+### 18. Build
 
 ```bash
 npm run build
@@ -216,13 +224,13 @@ npm run preview
 
 ## Out of Scope
 
-- Perfil público de otros usuarios.
+- Implementación del perfil público; se especifica en 008 y aquí solo se enlaza.
 - Avatar o imagen de perfil.
 - Eliminación de cuenta.
 - Cambio de email y verificación.
 - Recuperación de contraseña.
 - Autenticación en dos pasos.
-- Mensajería y valoraciones.
+- Mensajería y gestión de valoraciones; se especifican en 007 y 009.
 - Preferencias de privacidad o notificaciones.
 - Historial de actividad.
 - Búsqueda, filtros u ordenación de anuncios propios.

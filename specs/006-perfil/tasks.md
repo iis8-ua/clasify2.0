@@ -286,4 +286,4 @@ US1 y US2 son P1; el perfil necesita ambos para ser útil.
 
 - [X] T048 Añadir el tamaño de página 10/20/50 a `perfilStore`, `usuariosService` y `MisAnunciosSection.vue`, con página y tamaño en la URL y vuelta a página 1 al cambiarlo, con pruebas per 006 FR-017, FR-033, FR-034, SC-022–SC-023 (missing)
 - [X] T049 Añadir el enlace al perfil público propio en `PerfilView.vue` usando el identificador de la sesión, con prueba de navegación per 006 FR-032, SC-021 y 008 FR-024 (missing)
-- [ ] T050 Actualizar `data-model.md` y `quickstart.md` de 006 con el tamaño de página y el enlace al perfil público, y registrar la validación manual per 006 data-model/quickstart (partial)
+- [X] T050 Actualizar `data-model.md` y `quickstart.md` de 006 con el tamaño de página y el enlace al perfil público, y registrar la validación manual per 006 data-model/quickstart (partial)
