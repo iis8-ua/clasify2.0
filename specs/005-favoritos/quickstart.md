@@ -143,12 +143,14 @@ de nuevo para guardar el favorito.
 
 **Expected**: la acción de favorito no está disponible.
 
-### 9. Quitar solo desde el detalle
+### 9. Quitar desde la lista
 
 1. Abrir la lista de favoritos.
-2. Comprobar las tarjetas.
+2. Pulsar Quitar en una tarjeta.
+3. Confirmar y comprobar el toast.
+4. Repetir y cancelar.
 
-**Expected**: la lista no ofrece una acción directa de quitar; solo permite abrir el detalle.
+**Expected**: al confirmar, la tarjeta desaparece sin recargar; al cancelar, permanece.
 
 ### 10. Cerrar sesión
 
@@ -176,7 +178,15 @@ acceso.
 **Expected**: primero se muestra un estado vacío con invitación a explorar; después, un error
 comprensible con reintento. Nunca se confunde vacío con error.
 
-### 13. Paginación con datos de prueba
+### 13. Tamaño de página
+
+1. Abrir `/favoritos`.
+2. Cambiar el tamaño entre 10, 20 y 50.
+3. Recargar y compartir la URL.
+
+**Expected**: el tamaño se conserva y se vuelve a la primera página al cambiarlo.
+
+### 14. Paginación con datos de prueba
 
 1. Ejecutar las pruebas de paginación de favoritos.
 2. Si se dispone de más de 20 favoritos, comprobar los controles en la interfaz.
@@ -184,7 +194,7 @@ comprensible con reintento. Nunca se confunde vacío con error.
 **Expected**: todas las páginas son accesibles. Con el seed actual, cada usuario solo puede guardar
 anuncios del otro usuario, por lo que la paginación de más de 20 se valida con pruebas de componente.
 
-### 14. Accesibilidad y móvil
+### 15. Accesibilidad y móvil
 
 1. Recorrer el botón, la lista y la paginación solo con teclado.
 2. Comprobar foco visible, nombre accesible del botón y textos alternativos.
@@ -193,7 +203,7 @@ anuncios del otro usuario, por lo que la paginación de más de 20 se valida con
 
 **Expected**: favoritos es usable con teclado y en pantalla estrecha.
 
-### 15. Build
+### 16. Build
 
 ```bash
 npm run build
@@ -207,7 +217,6 @@ npm run preview
 - Favoritos compartidos o públicos.
 - Notificaciones.
 - Acciones masivas.
-- Quitar desde la lista.
 - Búsqueda, filtros u ordenación personalizada.
 - Sincronización entre dispositivos.
 - Estado de favorito en el listado general.

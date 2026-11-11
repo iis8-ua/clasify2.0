@@ -37,6 +37,8 @@ describe('botón de quitar favorito', () => {
     const { wrapper, favoritos } = await montar()
     const quitar = vi.spyOn(favoritos, 'quitar').mockResolvedValue()
 
+    expect(wrapper.get('.favorite-remove button').attributes('aria-label')).toBe('Quitar Bicicleta de favoritos')
+
     await wrapper.get('button').trigger('click')
     await wrapper.get('.confirm-dialog .button--danger').trigger('click')
     await flushPromises()
@@ -51,6 +53,8 @@ describe('botón de quitar favorito', () => {
   it('cancelar no elimina el favorito', async () => {
     const { wrapper, favoritos } = await montar()
     const quitar = vi.spyOn(favoritos, 'quitar').mockResolvedValue()
+
+    expect(wrapper.get('.favorite-remove button').attributes('aria-label')).toBe('Quitar Bicicleta de favoritos')
 
     await wrapper.get('button').trigger('click')
     await wrapper.findAll('button').find((boton) => boton.text() === 'Cancelar').trigger('click')
