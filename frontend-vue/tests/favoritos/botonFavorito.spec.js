@@ -7,8 +7,10 @@ import { useSessionStore } from '../../src/stores/session'
 import { useFavoritosStore } from '../../src/stores/favoritos'
 import { ApiError } from '../../src/services/errors'
 
+const { toastAdd } = vi.hoisted(() => ({ toastAdd: vi.fn() }))
+
 vi.mock('primevue/usetoast', () => ({
-  useToast: () => ({ add: vi.fn() })
+  useToast: () => ({ add: toastAdd })
 }))
 
 const rutas = [
@@ -47,6 +49,7 @@ describe('botón de favorito', () => {
   beforeEach(() => {
     window.sessionStorage.clear()
     vi.clearAllMocks()
+    toastAdd.mockClear()
   })
 
   it('invita a acceder a un visitante y conserva el anuncio de retorno', async () => {
@@ -70,6 +73,9 @@ describe('botón de favorito', () => {
 
     expect(anadir).toHaveBeenCalledWith(25)
     expect(wrapper.emitted('cambio')[0][0]).toEqual({ esFavorito: true, numFavoritos: 3 })
+    expect(toastAdd).toHaveBeenCalledWith(expect.objectContaining({
+      detail: 'Anuncio guardado en favoritos'
+    }))
 
     await wrapper.setProps({ anuncio: { ...anuncio, es_favorito: true, num_favoritos: 3 } })
     expect(wrapper.get('button').attributes('aria-pressed')).toBe('true')
@@ -97,6 +103,94 @@ describe('botón de favorito', () => {
 
     expect(quitar).toHaveBeenCalledWith(25)
     expect(wrapper.emitted('cambio')[0][0]).toEqual({ esFavorito: false, numFavoritos: 2 })
+    expect(toastAdd).toHaveBeenCalledWith(expect.objectContaining({
+      detail: 'Anuncio quitado de favoritos'
+    }))
+  })
+
+  it('muestra un error comprensible y conserva el estado si falla la conexión al añadir', async () => {
+    const { wrapper, favoritos } = await montar()
+    vi.spyOn(favoritos, 'anadir').mockRejectedValue(
+      new ApiError({
+        estado: 0,
+        codigo: 'ERROR_CONEXION',
+        mensaje: 'No se ha podido conectar con el servidor',
+        tipo: 'conexion'
+      })
+    )
+
+    await wrapper.get('button').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('No se ha podido conectar con el servidor')
+    expect(wrapper.emitted('cambio')).toBeUndefined()
+    expect(wrapper.get('button').text()).toContain('Añadir a favoritos')
+    expect(wrapper.get('button').attributes('disabled')).toBeUndefined()
+  })
+
+  it('muestra un error comprensible y conserva el estado si falla la conexión al quitar', async () => {
+    const { wrapper, favoritos } = await montar({
+      datos: { ...anuncio, es_favorito: true, num_favoritos: 3 }
+    })
+    vi.spyOn(favoritos, 'quitar').mockRejectedValue(
+      new ApiError({
+        estado: 0,
+        codigo: 'ERROR_CONEXION',
+        mensaje: 'No se ha podido conectar con el servidor',
+        tipo: 'conexion'
+      })
+    )
+
+    await wrapper.get('button').trigger('click')
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('No se ha podido conectar con el servidor')
+    expect(wrapper.emitted('cambio')).toBeUndefined()
+    expect(wrapper.get('button').attributes('aria-pressed')).toBe('true')
+    expect(wrapper.get('button').text()).toContain('Quitar de favoritos')
+  })
+
+  it('indica que está añadiendo y anuncia el estado en curso', async () => {
+    const { wrapper, favoritos } = await montar()
+    let resolver
+    vi.spyOn(favoritos, 'anadir').mockImplementation(
+      () => new Promise((resolve) => {
+        resolver = resolve
+      })
+    )
+
+    await wrapper.get('button').trigger('click')
+
+    expect(wrapper.get('button').text()).toContain('Añadiendo…')
+    expect(wrapper.get('button').attributes('aria-busy')).toBe('true')
+    expect(wrapper.get('button').attributes('disabled')).toBeDefined()
+
+    resolver({ favorito: { id: 1 }, nuevo: true })
+    await flushPromises()
+
+    expect(wrapper.get('button').attributes('aria-busy')).toBe('false')
+  })
+
+  it('indica que está quitando y anuncia el estado en curso', async () => {
+    const { wrapper, favoritos } = await montar({
+      datos: { ...anuncio, es_favorito: true, num_favoritos: 3 }
+    })
+    let resolver
+    vi.spyOn(favoritos, 'quitar').mockImplementation(
+      () => new Promise((resolve) => {
+        resolver = resolve
+      })
+    )
+
+    await wrapper.get('button').trigger('click')
+
+    expect(wrapper.get('button').text()).toContain('Quitando…')
+    expect(wrapper.get('button').attributes('aria-busy')).toBe('true')
+
+    resolver()
+    await flushPromises()
+
+    expect(wrapper.get('button').attributes('aria-busy')).toBe('false')
   })
 
   it('no procesa dos pulsaciones mientras la primera está en curso', async () => {

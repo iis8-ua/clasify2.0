@@ -27,7 +27,14 @@ const esAutor = computed(
 )
 const guardado = computed(() => Boolean(props.anuncio.es_favorito))
 const procesando = computed(() => favoritos.estaProcesando(props.anuncio.id))
+const enProceso = computed(() => procesando.value || enCurso.value)
 const etiqueta = computed(() => (guardado.value ? 'Quitar de favoritos' : 'Añadir a favoritos'))
+const textoAccion = computed(() => {
+  if (!enProceso.value) {
+    return etiqueta.value
+  }
+  return guardado.value ? 'Quitando…' : 'Añadiendo…'
+})
 
 async function alternar() {
   if (enCurso.value) {
@@ -88,11 +95,12 @@ async function alternar() {
       type="button"
       :aria-pressed="guardado"
       :aria-label="etiqueta"
-      :disabled="procesando || enCurso"
+      :aria-busy="enProceso"
+      :disabled="enProceso"
       @click="alternar"
     >
       <span aria-hidden="true">{{ guardado ? '★' : '☆' }}</span>
-      {{ procesando ? 'Guardando…' : etiqueta }}
+      {{ textoAccion }}
     </button>
     <p v-if="error" class="form-error" role="alert">{{ error }}</p>
   </div>

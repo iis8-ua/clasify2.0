@@ -73,6 +73,39 @@ describe('store de favoritos', () => {
     expect(favoritosService.quitar).toHaveBeenCalledWith(1)
   })
 
+  it('invalida la lista tras añadir o quitar y la recarga actualizada', async () => {
+    favoritosService.listar.mockResolvedValueOnce({
+      datos: [{ id: 1, titulo: 'Bicicleta' }],
+      paginacion: { pagina: 1, limite: 20, total: 1, paginas: 1 }
+    })
+    favoritosService.anadir.mockResolvedValue({ favorito: { id: 10 }, nuevo: true })
+    favoritosService.quitar.mockResolvedValue()
+    const store = useFavoritosStore()
+
+    await store.cargar(1)
+    expect(store.estado).toBe('success')
+
+    await store.anadir(1)
+    expect(store.estado).toBe('idle')
+
+    favoritosService.listar.mockResolvedValueOnce({
+      datos: [{ id: 1 }, { id: 2 }],
+      paginacion: { pagina: 1, limite: 20, total: 2, paginas: 1 }
+    })
+    await store.cargar(1)
+    expect(store.listado).toHaveLength(2)
+
+    await store.quitar(1)
+    expect(store.estado).toBe('idle')
+
+    favoritosService.listar.mockResolvedValueOnce({
+      datos: [{ id: 2 }],
+      paginacion: { pagina: 1, limite: 20, total: 1, paginas: 1 }
+    })
+    await store.cargar(1)
+    expect(store.listado).toHaveLength(1)
+  })
+
   it('limpia los datos al cambiar la versión de sesión', () => {
     const store = useFavoritosStore()
     store.listado = [{ id: 1 }]
