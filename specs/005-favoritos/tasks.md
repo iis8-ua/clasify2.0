@@ -251,3 +251,11 @@ Task: "Ajustar 360 px en frontend-vue/src/styles/base.css"
 ## Phase 9: Convergence
 
 - [X] T038 Reconciliar `research.md`, el contrato de UI y `BotonFavorito`: documentar la variante final de props/eventos y la responsabilidad de la store, per 005 research y favoritos-ui (contradicts)
+
+## Phase 10: Convergence
+
+- [ ] T039 CRITICAL: Documentar la evidencia de comprobaciones exigida por la Constitución VIII en un registro de validación del proyecto con los comandos ejecutados, el entorno y el resultado obtenido para backend, frontend y build, y el recorrido manual (acceso, creación, listado, detalle, edición, eliminación, cierre de sesión, favoritos y perfil) con pasos, datos, resultados esperados y resultados obtenidos, per Constitution VIII y T031/T032 (missing)
+- [ ] T040 Distinguir el `200` de añadir un favorito ya existente y no incrementar `num_favoritos` en ese caso, exponiendo el estado HTTP en la capa HTTP o recargando el detalle, con prueba del caso, per FR-007, US1/AC4 (partial)
+- [ ] T041 Evitar que «Volver al listado» del detalle regrese al formulario tras crear o editar, usando `router.replace` al abrir el detalle o un retorno explícito al listado, con prueba de navegación, per 003 FR-007 y catalog-ui §3 (partial)
+- [ ] T042 Alinear la jerarquía de encabezados de catálogo y favoritos para no saltar de `h1` a `h3` en las tarjetas, con prueba de accesibilidad, per 003 FR-030 y 001 FR-019 (partial)
+- [ ] T043 Retirar `PlaceholderView.vue` si ya no tiene rutas que lo usen o documentar su propósito restante, per 001 FR-025 y plan de 001 (unrequested)
