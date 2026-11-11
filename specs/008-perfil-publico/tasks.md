@@ -130,7 +130,7 @@ description: "Task list for the 008-perfil-publico feature"
 - [X] T025 [US4] Enlazar el autor del detalle a `/usuarios/:id` en `frontend-vue/src/views/AnuncioDetalleView.vue`
 - [X] T026 [US4] Enlazar la contraparte de la conversación a `/usuarios/:id` en `frontend-vue/src/components/mensajeria/TarjetaConversacion.vue` y `frontend-vue/src/views/ConversacionView.vue`
 - [ ] T027 [US4] Enlazar el autor de una valoración a `/usuarios/:id` en `frontend-vue/src/components/valoraciones/ValoracionItem.vue`
-- [ ] T028 [US4] Enlazar el perfil propio a su vista pública en `frontend-vue/src/views/PerfilView.vue`
+- [X] T028 [US4] Enlazar el perfil propio a su vista pública en `frontend-vue/src/views/PerfilView.vue`
 - [ ] T029 [US4] Revisar etiquetas, foco, teclado, textos alternativos y 360 px en `frontend-vue/src/components/perfil-publico/` y `frontend-vue/src/views/PerfilPublicoView.vue`
 
 **Checkpoint**: El perfil público está conectado y es accesible.
