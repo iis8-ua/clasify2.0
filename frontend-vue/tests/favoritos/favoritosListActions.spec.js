@@ -4,6 +4,7 @@ import { createPinia, setActivePinia } from 'pinia'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import FavoritosView from '../../src/views/FavoritosView.vue'
 import { favoritosService } from '../../src/services/favoritosService'
+import { useFavoritosStore } from '../../src/stores/favoritos'
 import { categoriasService } from '../../src/services/categoriasService'
 
 vi.mock('primevue/usetoast', () => ({ useToast: () => ({ add: vi.fn() }) }))
@@ -59,11 +60,16 @@ describe('acciones de la lista de favoritos', () => {
     favoritosService.quitar.mockResolvedValue()
     const { wrapper } = await montar()
 
+    expect(wrapper.findAll('.anuncio-card')).toHaveLength(1)
+    expect(useFavoritosStore().estado).toBe('success')
+
     await wrapper.get('.favorite-remove button').trigger('click')
     await wrapper.get('.confirm-dialog .button--danger').trigger('click')
     await flushPromises()
 
     expect(favoritosService.quitar).toHaveBeenCalledWith(25)
     expect(wrapper.findAll('.anuncio-card')).toHaveLength(0)
+    expect(useFavoritosStore().estado).toBe('empty')
+    expect(wrapper.text()).toContain('Sin favoritos')
   })
 })

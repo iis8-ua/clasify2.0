@@ -96,7 +96,7 @@ describe('store de favoritos', () => {
     expect(store.listado).toHaveLength(2)
 
     await store.quitar(1)
-    expect(store.estado).toBe('idle')
+    expect(store.estado).toBe('success')
 
     favoritosService.listar.mockResolvedValueOnce({
       datos: [{ id: 2 }],

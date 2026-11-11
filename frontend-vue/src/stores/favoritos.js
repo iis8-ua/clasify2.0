@@ -57,7 +57,6 @@ export const useFavoritosStore = defineStore('favoritos', {
       this.procesando = { ...this.procesando, [idAnuncio]: true }
       try {
         await favoritosService.quitar(idAnuncio)
-        this.estado = 'idle'
       } finally {
         const { [idAnuncio]: _eliminado, ...resto } = this.procesando
         this.procesando = resto

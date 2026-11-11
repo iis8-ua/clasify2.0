@@ -74,12 +74,16 @@ watch(
 
 function quitarDeLista(id) {
   favoritos.listado = favoritos.listado.filter((item) => item.id !== id)
-  if (favoritos.listado.length === 0 && pagina.value > 1) {
-    const query = { pagina: String(pagina.value - 1) }
-    if (limite.value !== 20) {
-      query.limite = String(limite.value)
+  if (favoritos.listado.length === 0) {
+    if (pagina.value > 1) {
+      const query = { pagina: String(pagina.value - 1) }
+      if (limite.value !== 20) {
+        query.limite = String(limite.value)
+      }
+      router.replace({ name: 'favoritos', query })
+    } else {
+      favoritos.estado = 'empty'
     }
-    router.replace({ name: 'favoritos', query })
   }
 }
 
