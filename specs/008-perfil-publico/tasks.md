@@ -122,7 +122,7 @@ description: "Task list for the 008-perfil-publico feature"
 
 ### Tests for User Story 4
 
-- [ ] T023 [P] [US4] Crear pruebas de enlaces desde detalle, conversación, valoración y perfil propio en `frontend-vue/tests/perfil-publico/perfilPublicoLinks.spec.js`
+- [X] T023 [P] [US4] Crear pruebas de enlaces desde detalle, conversación, valoración y perfil propio en `frontend-vue/tests/perfil-publico/perfilPublicoLinks.spec.js`
 - [ ] T024 [P] [US4] Crear pruebas de accesibilidad y responsive en `frontend-vue/tests/perfil-publico/perfilPublicoAccessibility.spec.js`
 
 ### Implementation for User Story 4
