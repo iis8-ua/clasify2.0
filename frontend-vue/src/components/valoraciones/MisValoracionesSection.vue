@@ -2,11 +2,9 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ListaValoraciones from './ListaValoraciones.vue'
-import SelectorTamanoPagina from '../catalog/SelectorTamanoPagina.vue'
 import PaginacionCatalogo from '../catalog/PaginacionCatalogo.vue'
 import ConfirmAction from '../states/ConfirmAction.vue'
 import { useValoracionesStore } from '../../stores/valoraciones'
-import { TAMANOS_PAGINA } from '../../router/catalogQuery'
 import { useNotificaciones } from '../../services/notifications'
 import { useSessionStore } from '../../stores/session'
 
@@ -22,28 +20,20 @@ function entero(valor, defecto) {
   return Number.isInteger(numero) && numero >= 1 ? numero : defecto
 }
 
-function limiteValido(valor) {
-  const numero = Number(valor)
-  return TAMANOS_PAGINA.includes(numero) ? numero : 20
-}
 
 const paginaRecibidas = computed(() => entero(route.query.valoracionesRecibidasPagina, 1))
-const limiteRecibidas = computed(() => limiteValido(route.query.valoracionesRecibidasLimite))
 const paginaEscritas = computed(() => entero(route.query.valoracionesEscritasPagina, 1))
-const limiteEscritas = computed(() => limiteValido(route.query.valoracionesEscritasLimite))
 
 function query() {
   const resultado = {}
   if (paginaRecibidas.value > 1) resultado.valoracionesRecibidasPagina = String(paginaRecibidas.value)
-  if (limiteRecibidas.value !== 20) resultado.valoracionesRecibidasLimite = String(limiteRecibidas.value)
   if (paginaEscritas.value > 1) resultado.valoracionesEscritasPagina = String(paginaEscritas.value)
-  if (limiteEscritas.value !== 20) resultado.valoracionesEscritasLimite = String(limiteEscritas.value)
   return resultado
 }
 
 function coincideQuery() {
   const esperado = query()
-  return ['valoracionesRecibidasPagina', 'valoracionesRecibidasLimite', 'valoracionesEscritasPagina', 'valoracionesEscritasLimite'].every(
+  return ['valoracionesRecibidasPagina', 'valoracionesEscritasPagina'].every(
     (clave) => route.query[clave] === undefined || String(route.query[clave]) === String(esperado[clave])
   )
 }
@@ -55,8 +45,8 @@ async function cargar() {
   }
 
   await Promise.all([
-    valoraciones.cargarRecibidas(session.usuario?.id, paginaRecibidas.value, limiteRecibidas.value),
-    valoraciones.cargarEscritas(paginaEscritas.value, limiteEscritas.value)
+    valoraciones.cargarRecibidas(session.usuario?.id, paginaRecibidas.value),
+    valoraciones.cargarEscritas(paginaEscritas.value)
   ])
 
   if (valoraciones.estadoRecibidas !== 'error' && paginaRecibidas.value > 1 && valoraciones.paginacionRecibidas.paginas === 0) {
@@ -78,14 +68,6 @@ async function cargar() {
   if (valoraciones.estadoEscritas !== 'error' && valoraciones.paginacionEscritas.paginas > 0 && paginaEscritas.value > valoraciones.paginacionEscritas.paginas) {
     await router.replace({ name: 'perfil', query: { ...query(), valoracionesEscritasPagina: String(valoraciones.paginacionEscritas.paginas) } })
   }
-}
-
-function cambiarTamano(clavePagina, claveLimite, valor, defecto) {
-  const nueva = { ...query() }
-  delete nueva[clavePagina]
-  if (valor === defecto) delete nueva[claveLimite]
-  else nueva[claveLimite] = String(valor)
-  router.push({ name: 'perfil', query: nueva })
 }
 
 watch(() => route.query, cargar, { immediate: true, deep: true })
@@ -126,7 +108,6 @@ async function confirmarEliminar() {
     @retry="cargar"
   />
   <div v-if="valoraciones.estadoRecibidas === 'success'" class="catalog-pagination__row">
-    <SelectorTamanoPagina :model-value="limiteRecibidas" @update:model-value="cambiarTamano('valoracionesRecibidasPagina', 'valoracionesRecibidasLimite', $event, 20)" />
     <PaginacionCatalogo
       :pagina="valoraciones.paginacionRecibidas.pagina"
       :paginas="valoraciones.paginacionRecibidas.paginas"
@@ -146,7 +127,6 @@ async function confirmarEliminar() {
     @eliminar="porEliminar = $event"
   />
   <div v-if="valoraciones.estadoEscritas === 'success'" class="catalog-pagination__row">
-    <SelectorTamanoPagina :model-value="limiteEscritas" @update:model-value="cambiarTamano('valoracionesEscritasPagina', 'valoracionesEscritasLimite', $event, 20)" />
     <PaginacionCatalogo
       :pagina="valoraciones.paginacionEscritas.pagina"
       :paginas="valoraciones.paginacionEscritas.paginas"

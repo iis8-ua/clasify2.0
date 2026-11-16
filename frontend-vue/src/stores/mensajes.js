@@ -26,13 +26,13 @@ export const useMensajesStore = defineStore('mensajes', {
     hayMensajes: (state) => state.hilo.length > 0
   },
   actions: {
-    async cargarConversaciones(pagina = 1, limite = 20) {
+    async cargarConversaciones(pagina = 1) {
       const solicitud = ++this.solicitudLista
       this.estado = 'loading'
       this.error = null
 
       try {
-        const respuesta = await mensajesService.listarConversaciones({ pagina, limite })
+        const respuesta = await mensajesService.listarConversaciones({ pagina, limite: 20 })
         if (solicitud !== this.solicitudLista) {
           return null
         }
@@ -77,7 +77,7 @@ export const useMensajesStore = defineStore('mensajes', {
       this.conversacionActual = null
       return null
     },
-    async cargarHilo(id, pagina = 1, limite = 20, { reemplazar = true } = {}) {
+    async cargarHilo(id, pagina = 1, { reemplazar = true } = {}) {
       const solicitud = ++this.solicitudHilo
       if (reemplazar) {
         this.estadoHilo = 'loading'
@@ -88,7 +88,7 @@ export const useMensajesStore = defineStore('mensajes', {
       try {
         const respuesta = await mensajesService.listarMensajes(id, {
           pagina,
-          limite,
+          limite: 20,
           desde: 'final'
         })
         if (solicitud !== this.solicitudHilo) {

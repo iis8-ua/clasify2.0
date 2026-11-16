@@ -41,12 +41,12 @@ export const usePerfilPublicoStore = defineStore('perfilPublico', {
         return null
       }
     },
-    async cargarValoraciones(id, pagina = 1, limite = 20) {
+    async cargarValoraciones(id, pagina = 1) {
       const solicitud = ++this.solicitudValoraciones
       this.estadoValoraciones = 'loading'
       this.errorValoraciones = null
       try {
-        const respuesta = await perfilPublicoService.valoraciones(id, { pagina, limite })
+        const respuesta = await perfilPublicoService.valoraciones(id, { pagina, limite: 20 })
         if (solicitud !== this.solicitudValoraciones) return null
         this.valoraciones = respuesta.datos
         this.paginacionValoraciones = respuesta.paginacion
@@ -59,12 +59,12 @@ export const usePerfilPublicoStore = defineStore('perfilPublico', {
         return null
       }
     },
-    async cargarAnuncios(id, pagina = 1, limite = 20) {
+    async cargarAnuncios(id, pagina = 1) {
       const solicitud = ++this.solicitudAnuncios
       this.estadoAnuncios = 'loading'
       this.errorAnuncios = null
       try {
-        const respuesta = await perfilPublicoService.anuncios(id, { pagina, limite })
+        const respuesta = await perfilPublicoService.anuncios(id, { pagina, limite: 20 })
         if (solicitud !== this.solicitudAnuncios) return null
         this.anuncios = respuesta.datos
         this.paginacionAnuncios = respuesta.paginacion

@@ -3,10 +3,8 @@ import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import HiloMensajes from '../components/mensajeria/HiloMensajes.vue'
 import FormularioMensaje from '../components/mensajeria/FormularioMensaje.vue'
-import SelectorTamanoPagina from '../components/catalog/SelectorTamanoPagina.vue'
 import StatePanel from '../components/states/StatePanel.vue'
 import { useMensajesStore } from '../stores/mensajes'
-import { TAMANOS_PAGINA } from '../router/catalogQuery'
 
 const route = useRoute()
 const router = useRouter()
@@ -19,19 +17,12 @@ const pagina = computed(() => {
   const valor = Number(route.query.pagina)
   return Number.isInteger(valor) && valor >= 1 ? valor : 1
 })
-const limite = computed(() => {
-  const valor = Number(route.query.limite)
-  return TAMANOS_PAGINA.includes(valor) ? valor : 20
-})
 const conversacion = computed(
   () => mensajes.conversacionActual ?? mensajes.conversaciones.find((item) => item.id === id.value) ?? null
 )
 
 function query(paginaDestino = pagina.value) {
-  const resultado = {}
-  if (paginaDestino > 1) resultado.pagina = String(paginaDestino)
-  if (limite.value !== 20) resultado.limite = String(limite.value)
-  return resultado
+  return paginaDestino > 1 ? { pagina: String(paginaDestino) } : {}
 }
 
 async function cargar() {
@@ -43,16 +34,14 @@ async function cargar() {
     return
   }
 
-  const paginaEnUrl = route.query.pagina === undefined || String(pagina.value) === String(route.query.pagina)
-  const limiteEnUrl = route.query.limite === undefined || String(limite.value) === String(route.query.limite)
-  if (!paginaEnUrl || !limiteEnUrl) {
+  if (route.query.pagina !== undefined && String(pagina.value) !== String(route.query.pagina)) {
     await router.replace({ name: 'conversacion', params: { id: id.value }, query: query() })
     return
   }
 
   await Promise.all([
     mensajes.cargarConversacion(id.value),
-    mensajes.cargarHilo(id.value, pagina.value, limite.value)
+    mensajes.cargarHilo(id.value, pagina.value)
   ])
   if (mensajes.errorHilo?.estado === 401) {
     await router.push({ name: 'login', query: { redirect: route.fullPath } })
@@ -70,23 +59,15 @@ async function cargar() {
   }
 }
 
-watch(() => [route.params.id, route.query.pagina, route.query.limite], cargar, { immediate: true })
+watch(() => [route.params.id, route.query.pagina], cargar, { immediate: true })
 
 async function cargarAnteriores() {
   const siguiente = pagina.value + 1
-  await mensajes.cargarHilo(id.value, siguiente, limite.value, { reemplazar: false })
+  await mensajes.cargarHilo(id.value, siguiente, { reemplazar: false })
   if (mensajes.estadoHilo !== 'error' && mensajes.errorHilo?.estado !== 404) {
     cargandoAnteriores.value = true
     await router.replace({ name: 'conversacion', params: { id: id.value }, query: query(siguiente) })
   }
-}
-
-function cambiarTamano(nuevoLimite) {
-  router.push({
-    name: 'conversacion',
-    params: { id: id.value },
-    query: nuevoLimite !== 20 ? { limite: String(nuevoLimite) } : {}
-  })
 }
 </script>
 
@@ -137,9 +118,6 @@ function cambiarTamano(nuevoLimite) {
         Cargar mensajes anteriores
       </button>
       <HiloMensajes :mensajes="mensajes.hilo" />
-      <div class="catalog-pagination__row">
-        <SelectorTamanoPagina :model-value="limite" @update:model-value="cambiarTamano" />
-      </div>
       <FormularioMensaje :conversacion-id="id" />
     </template>
   </section>

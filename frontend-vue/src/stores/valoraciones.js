@@ -21,12 +21,12 @@ export const useValoracionesStore = defineStore('valoraciones', {
     versionSesion: -1
   }),
   actions: {
-    async cargarRecibidas(id, pagina = 1, limite = 20) {
+    async cargarRecibidas(id, pagina = 1) {
       const solicitud = ++this.solicitudRecibidas
       this.estadoRecibidas = 'loading'
       this.errorRecibidas = null
       try {
-        const respuesta = await valoracionesService.listarRecibidas(id, { pagina, limite })
+        const respuesta = await valoracionesService.listarRecibidas(id, { pagina, limite: 20 })
         if (solicitud !== this.solicitudRecibidas) return null
         this.recibidas = respuesta.datos
         this.paginacionRecibidas = respuesta.paginacion
@@ -39,12 +39,12 @@ export const useValoracionesStore = defineStore('valoraciones', {
         return null
       }
     },
-    async cargarEscritas(pagina = 1, limite = 20) {
+    async cargarEscritas(pagina = 1) {
       const solicitud = ++this.solicitudEscritas
       this.estadoEscritas = 'loading'
       this.errorEscritas = null
       try {
-        const respuesta = await valoracionesService.listarEscritas({ pagina, limite })
+        const respuesta = await valoracionesService.listarEscritas({ pagina, limite: 20 })
         if (solicitud !== this.solicitudEscritas) return null
         this.escritas = respuesta.datos
         this.paginacionEscritas = respuesta.paginacion

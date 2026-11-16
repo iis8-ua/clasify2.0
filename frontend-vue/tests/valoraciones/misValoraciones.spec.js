@@ -49,11 +49,4 @@ describe('mis valoraciones', () => {
     expect(valoracionesService.listarRecibidas).toHaveBeenLastCalledWith(1, { pagina: 2, limite: 20 })
   })
 
-  it('normaliza un tamaño inválido y conserva el resto', async () => {
-    valoracionesService.listarEscritas.mockResolvedValue({ datos: [], paginacion: { pagina: 2, limite: 20, total: 41, paginas: 3 } })
-    const { router } = await montar('/perfil?valoracionesRecibidasLimite=abc&valoracionesEscritasPagina=2')
-
-    expect(router.currentRoute.value.query.valoracionesRecibidasLimite).toBeUndefined()
-    expect(router.currentRoute.value.query.valoracionesEscritasPagina).toBe('2')
-  })
 })

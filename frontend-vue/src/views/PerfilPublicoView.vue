@@ -6,12 +6,10 @@ import ValoracionesRecibidas from '../components/perfil-publico/ValoracionesReci
 import AnunciosUsuario from '../components/perfil-publico/AnunciosUsuario.vue'
 import FormularioValoracion from '../components/valoraciones/FormularioValoracion.vue'
 import PaginacionCatalogo from '../components/catalog/PaginacionCatalogo.vue'
-import SelectorTamanoPagina from '../components/catalog/SelectorTamanoPagina.vue'
 import StatePanel from '../components/states/StatePanel.vue'
 import { useCategoriasStore } from '../stores/categorias'
 import { usePerfilPublicoStore } from '../stores/perfilPublico'
 import { useSessionStore } from '../stores/session'
-import { TAMANOS_PAGINA } from '../router/catalogQuery'
 
 const route = useRoute()
 const router = useRouter()
@@ -27,27 +25,19 @@ function enteroPositivo(valor, defecto) {
   return Number.isInteger(numero) && numero >= 1 ? numero : defecto
 }
 
-function limiteValido(valor) {
-  const numero = Number(valor)
-  return TAMANOS_PAGINA.includes(numero) ? numero : 20
-}
 
 const paginaAnuncios = computed(() => enteroPositivo(route.query.paginaAnuncios, 1))
-const limiteAnuncios = computed(() => limiteValido(route.query.limiteAnuncios))
 const paginaValoraciones = computed(() => enteroPositivo(route.query.paginaValoraciones, 1))
-const limiteValoraciones = computed(() => limiteValido(route.query.limiteValoraciones))
 
 function queryNormalizada() {
   const query = {}
   if (paginaAnuncios.value > 1) query.paginaAnuncios = String(paginaAnuncios.value)
-  if (limiteAnuncios.value !== 20) query.limiteAnuncios = String(limiteAnuncios.value)
   if (paginaValoraciones.value > 1) query.paginaValoraciones = String(paginaValoraciones.value)
-  if (limiteValoraciones.value !== 20) query.limiteValoraciones = String(limiteValoraciones.value)
   return query
 }
 
 function queryCoincide() {
-  return ['paginaAnuncios', 'limiteAnuncios', 'paginaValoraciones', 'limiteValoraciones'].every(
+  return ['paginaAnuncios', 'paginaValoraciones'].every(
     (clave) => route.query[clave] === undefined || String(route.query[clave]) === String(queryNormalizada()[clave])
   )
 }
@@ -66,20 +56,8 @@ function cambiarPaginaAnuncios(pagina) {
   aplicarCambio('paginaAnuncios', pagina, 1)
 }
 
-function cambiarLimiteAnuncios(limite) {
-  const query = { ...queryNormalizada(), limiteAnuncios: limite === 20 ? undefined : String(limite), paginaAnuncios: undefined }
-  Object.keys(query).forEach((clave) => query[clave] === undefined && delete query[clave])
-  router.push({ name: 'perfil-publico', params: { id: id.value }, query })
-}
-
 function cambiarPaginaValoraciones(pagina) {
   aplicarCambio('paginaValoraciones', pagina, 1)
-}
-
-function cambiarLimiteValoraciones(limite) {
-  const query = { ...queryNormalizada(), limiteValoraciones: limite === 20 ? undefined : String(limite), paginaValoraciones: undefined }
-  Object.keys(query).forEach((clave) => query[clave] === undefined && delete query[clave])
-  router.push({ name: 'perfil-publico', params: { id: id.value }, query })
 }
 
 async function cargar() {
@@ -94,8 +72,8 @@ async function cargar() {
   await Promise.all([
     categorias.cargar(),
     perfilPublico.cargarPerfil(id.value),
-    perfilPublico.cargarValoraciones(id.value, paginaValoraciones.value, limiteValoraciones.value),
-    perfilPublico.cargarAnuncios(id.value, paginaAnuncios.value, limiteAnuncios.value)
+    perfilPublico.cargarValoraciones(id.value, paginaValoraciones.value),
+    perfilPublico.cargarAnuncios(id.value, paginaAnuncios.value)
   ])
 
   if (perfilPublico.estadoPerfil === 'notfound') {
@@ -161,15 +139,13 @@ watch(() => [route.params.id, route.query], cargar, { immediate: true, deep: tru
           :error="perfilPublico.errorValoraciones"
           @retry="cargar"
         />
-        <div v-if="perfilPublico.estadoValoraciones === 'success'" class="catalog-pagination__row">
-          <SelectorTamanoPagina :model-value="limiteValoraciones" @update:model-value="cambiarLimiteValoraciones" />
-          <PaginacionCatalogo
-            :pagina="perfilPublico.paginacionValoraciones.pagina"
-            :paginas="perfilPublico.paginacionValoraciones.paginas"
-            aria-label="Paginación de valoraciones recibidas"
-            @cambiar="cambiarPaginaValoraciones"
-          />
-        </div>
+        <PaginacionCatalogo
+          v-if="perfilPublico.estadoValoraciones === 'success'"
+          :pagina="perfilPublico.paginacionValoraciones.pagina"
+          :paginas="perfilPublico.paginacionValoraciones.paginas"
+          aria-label="Paginación de valoraciones recibidas"
+          @cambiar="cambiarPaginaValoraciones"
+        />
 
         <AnunciosUsuario
           :anuncios="perfilPublico.anuncios"
@@ -178,15 +154,13 @@ watch(() => [route.params.id, route.query], cargar, { immediate: true, deep: tru
           :error="perfilPublico.errorAnuncios"
           @retry="cargar"
         />
-        <div v-if="perfilPublico.estadoAnuncios === 'success'" class="catalog-pagination__row">
-          <SelectorTamanoPagina :model-value="limiteAnuncios" @update:model-value="cambiarLimiteAnuncios" />
-          <PaginacionCatalogo
-            :pagina="perfilPublico.paginacionAnuncios.pagina"
-            :paginas="perfilPublico.paginacionAnuncios.paginas"
-            aria-label="Paginación de anuncios del perfil"
-            @cambiar="cambiarPaginaAnuncios"
-          />
-        </div>
+        <PaginacionCatalogo
+          v-if="perfilPublico.estadoAnuncios === 'success'"
+          :pagina="perfilPublico.paginacionAnuncios.pagina"
+          :paginas="perfilPublico.paginacionAnuncios.paginas"
+          aria-label="Paginación de anuncios del perfil"
+          @cambiar="cambiarPaginaAnuncios"
+        />
       </div>
     </template>
   </section>

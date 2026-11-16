@@ -55,13 +55,13 @@ export const usePerfilStore = defineStore('perfil', {
     async cambiarContrasena(datos) {
       return usuariosService.cambiarContrasena(datos)
     },
-    async cargarAnuncios(pagina = 1, limite = 20) {
+    async cargarAnuncios(pagina = 1) {
       const solicitud = ++this.solicitudAnuncios
       this.estadoAnuncios = 'loading'
       this.errorAnuncios = null
 
       try {
-        const respuesta = await usuariosService.listarAnuncios({ pagina, limite })
+        const respuesta = await usuariosService.listarAnuncios({ pagina, limite: 20 })
         if (solicitud !== this.solicitudAnuncios) {
           return null
         }

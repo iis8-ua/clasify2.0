@@ -3,22 +3,15 @@ export const FILTROS_POR_DEFECTO = {
   categoria: null,
   estado: 'disponible',
   orden: 'fecha_desc',
-  pagina: 1,
-  limite: 20
+  pagina: 1
 }
 
 export const ORDENES = ['fecha_desc', 'fecha_asc', 'precio_desc', 'precio_asc']
 export const ESTADOS = ['disponible', 'vendido', 'todos']
-export const TAMANOS_PAGINA = [10, 20, 50]
 
 function enteroPositivo(valor, porDefecto) {
   const numero = Number(valor)
   return Number.isInteger(numero) && numero >= 1 ? numero : porDefecto
-}
-
-function tamanoPagina(valor) {
-  const numero = Number(valor)
-  return TAMANOS_PAGINA.includes(numero) ? numero : FILTROS_POR_DEFECTO.limite
 }
 
 export function leerQuery(query = {}) {
@@ -29,9 +22,8 @@ export function leerQuery(query = {}) {
   const estado = ESTADOS.includes(query.estado) ? query.estado : FILTROS_POR_DEFECTO.estado
   const orden = ORDENES.includes(query.orden) ? query.orden : FILTROS_POR_DEFECTO.orden
   const pagina = enteroPositivo(query.pagina, FILTROS_POR_DEFECTO.pagina)
-  const limite = tamanoPagina(query.limite)
 
-  return { texto, categoria, estado, orden, pagina, limite }
+  return { texto, categoria, estado, orden, pagina }
 }
 
 export function escribirQuery(filtros) {
@@ -51,9 +43,6 @@ export function escribirQuery(filtros) {
   if (filtros.pagina > 1) {
     query.pagina = String(filtros.pagina)
   }
-  if (filtros.limite !== FILTROS_POR_DEFECTO.limite) {
-    query.limite = String(filtros.limite)
-  }
   return query
 }
 
@@ -63,8 +52,4 @@ export function conPagina(filtros, pagina) {
 
 export function conFiltro(filtros, cambios) {
   return { ...filtros, ...cambios, pagina: 1 }
-}
-
-export function conTamano(filtros, limite) {
-  return { ...filtros, limite: tamanoPagina(limite), pagina: 1 }
 }

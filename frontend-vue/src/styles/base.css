@@ -746,9 +746,6 @@ button:disabled {
   flex-wrap: wrap;
 }
 
-.page-size {
-  min-width: 10rem;
-}
 
 .anuncio-detalle__related {
   grid-column: 1 / -1;

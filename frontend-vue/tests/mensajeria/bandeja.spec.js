@@ -67,12 +67,11 @@ describe('bandeja de conversaciones', () => {
     expect(error.wrapper.text()).toContain('No se pudieron cargar los mensajes')
   })
 
-  it('sincroniza página y tamaño con la URL', async () => {
-    mensajesService.listarConversaciones.mockResolvedValue({ datos: [conversacion], paginacion: { pagina: 2, limite: 50, total: 51, paginas: 2 } })
-    const { router } = await montar('/mensajes?pagina=2&limite=50')
+  it('sincroniza la página con la URL', async () => {
+    mensajesService.listarConversaciones.mockResolvedValue({ datos: [conversacion], paginacion: { pagina: 2, limite: 20, total: 51, paginas: 2 } })
+    const { router } = await montar('/mensajes?pagina=2')
 
-    expect(mensajesService.listarConversaciones).toHaveBeenCalledWith({ pagina: 2, limite: 50 })
+    expect(mensajesService.listarConversaciones).toHaveBeenCalledWith({ pagina: 2, limite: 20 })
     expect(router.currentRoute.value.query.pagina).toBe('2')
-    expect(router.currentRoute.value.query.limite).toBe('50')
   })
 })
