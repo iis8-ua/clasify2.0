@@ -59,11 +59,11 @@ consumen. El backend, el esquema y los contratos existentes no se modifican.
 - Ejecutar React en un puerto permitido por CORS o ajustar `FRONTEND_ORIGIN` en el entorno local.
 
 **Scale/Scope**:
-- 4 endpoints existentes: login, sesión actual, listado y borrado.
+- 5 endpoints existentes: login, sesión actual, listado, categorías y borrado.
 - 1 proyecto React independiente.
 - 1 vista principal.
 - 6 componentes de interfaz.
-- 4 módulos compartidos de servicios.
+- 5 módulos compartidos de servicios.
 - 4 historias de usuario.
 - Sin cambios en el backend.
 
@@ -114,7 +114,8 @@ shared/
     ├── http.js
     ├── errors.js
     ├── authService.js
-    └── anunciosService.js
+    ├── anunciosService.js
+    └── categoriasService.js
 
 frontend-react/
 ├── package.json
@@ -133,7 +134,8 @@ frontend-react/
 │   │   ├── Paginacion.jsx
 │   │   └── EstadoListado.jsx
 │   ├── services/
-│   │   └── sesion.js
+│   │   ├── sesion.js
+│   │   └── media.js
 │   └── styles.css
 └── tests/
     ├── login.test.jsx
@@ -151,7 +153,8 @@ frontend-vue/
     ├── http.js                     # reexporta shared/api/http.js
     ├── errors.js                   # reexporta shared/api/errors.js
     ├── authService.js              # reexporta shared/api/authService.js
-    └── anunciosService.js          # reexporta shared/api/anunciosService.js
+    ├── anunciosService.js          # reexporta shared/api/anunciosService.js
+    └── categoriasService.js        # reexporta shared/api/categoriasService.js
 ```
 
 **Structure Decision**: se añade un proyecto React separado en `frontend-react/` y una capa de
@@ -171,6 +174,9 @@ Resultado en [research.md](research.md). Decisiones principales:
 - Servicios compartidos en `shared/api/`; sin duplicar la capa HTTP.
 - La URL de la API se configura al arrancar cada aplicación; la capa compartida no depende de
   variables específicas de Vue.
+- Las categorías se consultan una vez para mostrar su nombre en las tarjetas; si fallan, se usa un
+  texto de respaldo sin bloquear el listado.
+- La URL de las imágenes se resuelve con un helper de presentación específico de cada app.
 - Sin router ni PrimeVue; una única vista y componentes React.
 - Confirmación de borrado en línea, con foco y anuncio identificado.
 - Borrado solo visible para el autor; el backend conserva la autorización final.
