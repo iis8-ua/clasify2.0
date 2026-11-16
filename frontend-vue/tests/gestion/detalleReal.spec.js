@@ -4,13 +4,13 @@ import { createPinia, setActivePinia } from 'pinia'
 import { createMemoryHistory, createRouter } from 'vue-router'
 import AnuncioDetalleView from '../../src/views/AnuncioDetalleView.vue'
 import { useSessionStore } from '../../src/stores/session'
-import { http } from '../../src/services/http'
+import { http } from '../../../shared/api/http.js'
 
 vi.mock('primevue/usetoast', () => ({
   useToast: () => ({ add: vi.fn() })
 }))
 
-vi.mock('../../src/services/http', () => ({
+vi.mock('../../../shared/api/http.js', () => ({
   http: {
     get: vi.fn(),
     post: vi.fn(),
