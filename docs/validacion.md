@@ -1,9 +1,10 @@
 # Registro de validación
 
-**Fecha**: 2026-11-11  
-**Alcance**: frontend de las specs 001–009 contra el backend real de la Práctica 1.  
-**Entorno**: Ubuntu 24.04.5 LTS, Node.js `v26.8.2`, npm `11.19.1`, MySQL `8.0.46`, backend en
-`http://localhost:3000/clasify_api` y frontend servido con Vite `7.3.8`.
+- **Fecha de validación**: 2026-11-11
+- **Actualización documental**: 2026-11-16
+- **Alcance**: frontend de las specs 001–009 contra el backend real de la Práctica 1.
+- **Entorno**: Ubuntu 24.04.5 LTS, Node.js `v26.8.2`, npm `11.19.1`, MySQL `8.0.46`, backend en
+  `http://localhost:3000/clasify_api` y frontend servido con Vite `7.3.8`.
 
 ## 1. Comprobaciones automatizadas
 
@@ -14,7 +15,7 @@
 | Build de producción | `cd frontend-vue && npm run build` | 217 módulos transformados, build correcto, 4,40 s |
 | Integración con el backend real | `cd frontend-vue && VALIDACION_BACKEND=1 npx vitest run tests/integracion/backendReal.spec.js` | 3 pruebas correctas, 0 fallos, 767 ms |
 
-Las specs 007–009 añaden mensajería, perfil público y valoraciones; las ampliaciones de 001, 003, 005 y 006 añaden tema oscuro, tamaño de página, compartir, relacionados y retirada de favoritos desde la lista.
+Las specs 007–009 añaden mensajería, perfil público y valoraciones; las ampliaciones de 001, 003, 005 y 006 añaden tema oscuro, paginación fija de 20, compartir, relacionados y retirada de favoritos desde la lista.
 
 La suite `tests/integracion/backendReal.spec.js` está omitida por defecto para que
 `npm run test:unit` no dependa de un backend arrancado. Se activa con `VALIDACION_BACKEND=1` y
@@ -57,6 +58,27 @@ anuncios, de los cuales 22 están disponibles y 2 vendidos. El recorrido se ejec
 | Favoritos con página fuera de rango | Datos vacíos y paginación real | Datos vacíos; total de páginas correcto |
 
 ## 3. Recorrido de interfaz
+
+### 3.1 Recorrido completo solicitado
+
+El recorrido completo de la Práctica 4 se cubre con las siguientes comprobaciones contra el backend
+real y la interfaz:
+
+| Paso | Resultado esperado | Resultado obtenido y evidencia |
+|---|---|---|
+| 1. Iniciar sesión | Sesión iniciada con un usuario de prueba | `POST /auth/login` devolvió `200`; `authService`, `sessionStore` y la cabecera están cubiertos por la integración real y Vitest |
+| 2. Crear un anuncio | `201` con el identificador del anuncio | `POST /anuncios` devolvió `201`; se creó el anuncio con id 25 |
+| 3. Consultar el detalle | Datos del anuncio creado | `GET /anuncios/25` devolvió `200` con el título correcto |
+| 4. Editar el anuncio | `200` y datos actualizados | `PATCH /anuncios/25` devolvió `200`; el detalle se actualizó sin recargar manualmente |
+| 5. Localizarlo en el listado | El anuncio aparece en el listado correspondiente | Tras marcarlo como vendido, `GET /anuncios?estado=vendido` lo mostró una vez; el listado por defecto dejó de mostrarlo |
+| 6. Eliminar el anuncio | `204` y posterior `404` | `DELETE /anuncios/25` devolvió `204`; `GET /anuncios/25` devolvió `404` |
+| 7. Cerrar sesión | Token y datos privados eliminados de la interfaz | Logout local sin endpoint de backend; pruebas de `sessionStore`, `favoritosStore` y `perfilStore` verifican la limpieza |
+
+El logout es local porque el backend usa JWT stateless y no dispone de endpoint de logout. Por eso se
+valida en el frontend: se borra el token de `sessionStorage`, se limpia el usuario y se dejan de
+mostrar favoritos, perfil y demás información privada.
+
+### 3.2 Comprobaciones por vista
 
 La interfaz se comprobó montando las vistas reales con Vitest y la API real, además de la suite de
 componentes. No se automatizó una sesión de navegador interactiva.

@@ -179,8 +179,7 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 
 ### Catálogo
 
-- Listado público paginado con 20 anuncios por página en la implementación actual; la ampliación
-  mantiene una paginación fija de 20.
+- Listado público paginado con 20 anuncios por página.
 - Búsqueda por texto, filtros por categoría y estado, y ordenación.
 - Detalle público con autor, categoría, valoraciones y número de favoritos.
 - Página y filtros conservados en la dirección.
@@ -201,7 +200,8 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 
 ### Favoritos
 
-- Añadir y quitar favoritos únicamente desde el detalle de anuncios ajenos.
+- Añadir favoritos desde el detalle de anuncios ajenos.
+- Quitar favoritos desde el detalle o desde la lista, con confirmación.
 - El botón refleja si el anuncio está guardado e indica la acción con un nombre
   accesible.
 - Un visitante que pulsa favorito accede y vuelve al anuncio; después debe
@@ -214,8 +214,7 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 - Paginación completa con la página conservada en la dirección.
 - La página fuera de rango se corrige a la última disponible.
 - Estados de carga, vacío, error y reintento.
-- En la implementación actual la lista solo abre el detalle; la ampliación especificada añade una
-  acción de quitar con confirmación.
+- Cada tarjeta abre el detalle y ofrece la acción de quitar con confirmación.
 - Limpieza de favoritos al cerrar sesión o cambiar de cuenta.
 - La validación manual completa requiere el backend y la base de datos
   arrancados.
@@ -237,7 +236,7 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
   fuera de rango.
 - Cada tarjeta abre el detalle; la lista no ofrece acciones de gestión.
 - El estado vacío de “Mis anuncios” permite publicar un anuncio.
-- El perfil propio enlazará al perfil público propio.
+- El perfil propio enlaza al perfil público propio.
 - El avatar, el cambio de email, la eliminación de cuenta y la recuperación de
   contraseña siguen fuera del alcance.
 - La validación manual completa requiere el backend y la base de datos
@@ -309,13 +308,32 @@ La tabla completa, los permisos y el formato de error están en
 
 ## Requerimientos adicionales de la Práctica 4
 
-Se irán completando con el frontend:
+Estado actual:
 
-- [x] Búsqueda integrada con paginación
-- [x] Navegación con router
-- [x] Biblioteca de componentes (PrimeVue)
-- [x] Recurso secundario: favoritos
-- [x] Implementación parcial con Vue 3 (sustituye a React según las especificaciones del proyecto)
+- [x] Búsqueda integrada con paginación.
+- [x] Navegación con router.
+- [x] Biblioteca de componentes (PrimeVue).
+- [x] Recurso secundario: favoritos, con listado, alta, borrado, permisos y confirmación.
+- [ ] Implementación parcial con otro framework: no realizada. Vue 3 es el framework principal, por
+  lo que no cuenta como “otro framework” según el enunciado.
+
+## Preparación de la entrega
+
+Antes de comprimir el proyecto:
+
+- Incluir el código fuente, `README.md`, `specs/`, `docs/`, `.git/` y los archivos `.env.example`.
+- Excluir `node_modules/`, `dist/`, `coverage/`, los archivos `.env` reales y los ficheros generados.
+- No incluir credenciales ni secretos privados.
+
+Ejemplo de compresión desde la raíz del repositorio:
+
+```bash
+zip -r clasify-p4.zip . \
+  -x '*/node_modules/*' \
+  -x '*/dist/*' \
+  -x '*/coverage/*' \
+  -x '*/.env'
+```
 
 ## Limitaciones conocidas
 
@@ -326,7 +344,7 @@ Se irán completando con el frontend:
   sustituir por otra, pero no dejar el campo vacío sin subir una nueva.
 - Fuera de alcance: pagos, envíos, moderación automática y moderación de
   valoraciones.
-- La mensajería será de texto y sin tiempo real; no habrá adjuntos,
+- La mensajería es de texto y sin tiempo real; no incluye adjuntos,
   notificaciones push ni email.
 - Seguirán fuera de alcance el avatar, el cambio de email, la recuperación de
   contraseña, el 2FA, la eliminación de cuenta, la multiimagen y el borrado de la
