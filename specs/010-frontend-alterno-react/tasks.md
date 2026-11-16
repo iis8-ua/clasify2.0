@@ -32,8 +32,8 @@ description: "Task list for the 010-frontend-alterno-react feature"
 
 **Purpose**: Crear la estructura del proyecto React y su configuración de pruebas.
 
-- [ ] T001 Crear `frontend-react/` con `package.json`, `vite.config.js`, `index.html`, `.env.example`, `README.md`, `src/main.jsx` y `src/styles.css`
-- [ ] T002 [P] Configurar Vitest, `jsdom` y React Testing Library en `frontend-react/vite.config.js` y `frontend-react/tests/setup.js`
+- [X] T001 Crear `frontend-react/` con `package.json`, `vite.config.js`, `index.html`, `.env.example`, `README.md`, `src/main.jsx` y `src/styles.css`
+- [X] T002 [P] Configurar Vitest, `jsdom` y React Testing Library en `frontend-react/vite.config.js` y `frontend-react/tests/setup.js`
 
 ---
 
@@ -43,14 +43,14 @@ description: "Task list for the 010-frontend-alterno-react feature"
 
 **⚠️ CRITICAL**: Ninguna historia puede empezar hasta completar esta fase.
 
-- [ ] T003 Extraer `http.js`, `errors.js`, `authService.js`, `anunciosService.js` y `categoriasService.js` a `shared/api/`, con la URL de API configurada desde cada aplicación
-- [ ] T004 Actualizar `frontend-vue/src/services/http.js`, `errors.js`, `authService.js`, `anunciosService.js` y `categoriasService.js` para reexportar `shared/api/`
-- [ ] T005 [P] Añadir `server.fs.allow` y la configuración necesaria para consumir `shared/api/` en `frontend-vue/vite.config.js` y `frontend-react/vite.config.js`
-- [ ] T006 Implementar `frontend-react/src/services/sesion.js` con lectura, guardado y borrado del token en `sessionStorage`
-- [ ] T007 [P] Implementar `frontend-react/src/services/media.js` para resolver la URL de las imágenes del backend
-- [ ] T008 Configurar `frontend-react/src/main.jsx` con `configurarHttp`, `getToken` y `onUnauthorized`
-- [ ] T009 Crear el esqueleto de `frontend-react/src/App.jsx` con cabecera, estado de sesión y contenedor principal
-- [ ] T010 [P] Añadir estilos base, tokens de color y layout responsive en `frontend-react/src/styles.css`
+- [X] T003 Extraer `http.js`, `errors.js`, `authService.js`, `anunciosService.js` y `categoriasService.js` a `shared/api/`, con la URL de API configurada desde cada aplicación
+- [X] T004 Actualizar `frontend-vue/src/services/http.js`, `errors.js`, `authService.js`, `anunciosService.js` y `categoriasService.js` para reexportar `shared/api/`
+- [X] T005 [P] Añadir `server.fs.allow` y la configuración necesaria para consumir `shared/api/` en `frontend-vue/vite.config.js` y `frontend-react/vite.config.js`
+- [X] T006 Implementar `frontend-react/src/services/sesion.js` con lectura, guardado y borrado del token en `sessionStorage`
+- [X] T007 [P] Implementar `frontend-react/src/services/media.js` para resolver la URL de las imágenes del backend
+- [X] T008 Configurar `frontend-react/src/main.jsx` con `configurarHttp`, `getToken` y `onUnauthorized`
+- [X] T009 Crear el esqueleto de `frontend-react/src/App.jsx` con cabecera, estado de sesión y contenedor principal
+- [X] T010 [P] Añadir estilos base, tokens de color y layout responsive en `frontend-react/src/styles.css`
 
 **Checkpoint**: La base de React y los servicios compartidos están listos para las historias.
 
@@ -64,17 +64,17 @@ description: "Task list for the 010-frontend-alterno-react feature"
 
 ### Tests for User Story 1
 
-- [ ] T011 [P] [US1] Crear pruebas de listado con resultados, vacío, error y reintento en `frontend-react/tests/listado.test.jsx`
-- [ ] T012 [P] [US1] Crear pruebas de paginación y corrección de página fuera de rango en `frontend-react/tests/paginacion.test.jsx`
+- [X] T011 [P] [US1] Crear pruebas de listado con resultados, vacío, error y reintento en `frontend-react/tests/listado.test.jsx`
+- [X] T012 [P] [US1] Crear pruebas de paginación y corrección de página fuera de rango en `frontend-react/tests/paginacion.test.jsx`
 
 ### Implementation for User Story 1
 
-- [ ] T013 [P] [US1] Implementar `frontend-react/src/components/EstadoListado.jsx` para carga, vacío, error y reintento
-- [ ] T014 [P] [US1] Implementar `frontend-react/src/components/AnuncioItem.jsx` con imagen o marcador, título, precio, categoría, estado y fecha
-- [ ] T015 [P] [US1] Implementar `frontend-react/src/components/Paginacion.jsx` con página actual, total y controles accesibles
-- [ ] T016 [US1] Implementar `frontend-react/src/components/ListaAnuncios.jsx` con tarjetas, paginación y estados
-- [ ] T017 [US1] Cargar el listado y las categorías desde `frontend-react/src/App.jsx`, con mapa de nombres y texto de respaldo
-- [ ] T018 [US1] Gestionar página fuera de rango, recarga al cambiar de página y errores de conexión en `frontend-react/src/App.jsx`
+- [X] T013 [P] [US1] Implementar `frontend-react/src/components/EstadoListado.jsx` para carga, vacío, error y reintento
+- [X] T014 [P] [US1] Implementar `frontend-react/src/components/AnuncioItem.jsx` con imagen o marcador, título, precio, categoría, estado y fecha
+- [X] T015 [P] [US1] Implementar `frontend-react/src/components/Paginacion.jsx` con página actual, total y controles accesibles
+- [X] T016 [US1] Implementar `frontend-react/src/components/ListaAnuncios.jsx` con tarjetas, paginación y estados
+- [X] T017 [US1] Cargar el listado y las categorías desde `frontend-react/src/App.jsx`, con mapa de nombres y texto de respaldo
+- [X] T018 [US1] Gestionar página fuera de rango, recarga al cambiar de página y errores de conexión en `frontend-react/src/App.jsx`
 
 **Checkpoint**: El listado público funciona y es navegable de forma independiente.
 
@@ -88,14 +88,14 @@ description: "Task list for the 010-frontend-alterno-react feature"
 
 ### Tests for User Story 2
 
-- [ ] T019 [P] [US2] Crear pruebas de login correcto, login incorrecto, recuperación y logout en `frontend-react/tests/login.test.jsx`
+- [X] T019 [P] [US2] Crear pruebas de login correcto, login incorrecto, recuperación y logout en `frontend-react/tests/login.test.jsx`
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Implementar `frontend-react/src/components/LoginForm.jsx` con email, contraseña, validación y estado de envío
-- [ ] T021 [US2] Integrar login, recuperación con `/auth/yo` y logout en `frontend-react/src/App.jsx` y `frontend-react/src/services/sesion.js`
-- [ ] T022 [US2] Mostrar el usuario autenticado y las acciones de acceso o cierre en `frontend-react/src/App.jsx`
-- [ ] T023 [US2] Gestionar `401`, credenciales incorrectas, token inválido y limpieza de sesión en `frontend-react/src/App.jsx`
+- [X] T020 [P] [US2] Implementar `frontend-react/src/components/LoginForm.jsx` con email, contraseña, validación y estado de envío
+- [X] T021 [US2] Integrar login, recuperación con `/auth/yo` y logout en `frontend-react/src/App.jsx` y `frontend-react/src/services/sesion.js`
+- [X] T022 [US2] Mostrar el usuario autenticado y las acciones de acceso o cierre en `frontend-react/src/App.jsx`
+- [X] T023 [US2] Gestionar `401`, credenciales incorrectas, token inválido y limpieza de sesión en `frontend-react/src/App.jsx`
 
 **Checkpoint**: La sesión funciona y el listado sigue disponible como visitante.
 
@@ -109,15 +109,15 @@ description: "Task list for the 010-frontend-alterno-react feature"
 
 ### Tests for User Story 3
 
-- [ ] T024 [P] [US3] Crear pruebas de borrado, confirmación, cancelación, doble envío, permisos y `404` en `frontend-react/tests/borrado.test.jsx`
+- [X] T024 [P] [US3] Crear pruebas de borrado, confirmación, cancelación, doble envío, permisos y `404` en `frontend-react/tests/borrado.test.jsx`
 
 ### Implementation for User Story 3
 
-- [ ] T025 [P] [US3] Implementar `frontend-react/src/components/ConfirmarBorrado.jsx` con título del anuncio, confirmar, cancelar y foco controlado
-- [ ] T026 [US3] Mostrar la acción de borrar solo en anuncios propios en `frontend-react/src/components/AnuncioItem.jsx`
-- [ ] T027 [US3] Integrar el estado de confirmación y el borrado en `frontend-react/src/App.jsx` usando `anunciosService.eliminar`
-- [ ] T028 [US3] Recargar la página tras borrar y ajustar a la página anterior si queda vacía en `frontend-react/src/App.jsx`
-- [ ] T029 [US3] Gestionar `403`, `404`, `401`, errores de conexión y doble confirmación en `frontend-react/src/App.jsx` y `frontend-react/src/components/ConfirmarBorrado.jsx`
+- [X] T025 [P] [US3] Implementar `frontend-react/src/components/ConfirmarBorrado.jsx` con título del anuncio, confirmar, cancelar y foco controlado
+- [X] T026 [US3] Mostrar la acción de borrar solo en anuncios propios en `frontend-react/src/components/AnuncioItem.jsx`
+- [X] T027 [US3] Integrar el estado de confirmación y el borrado en `frontend-react/src/App.jsx` usando `anunciosService.eliminar`
+- [X] T028 [US3] Recargar la página tras borrar y ajustar a la página anterior si queda vacía en `frontend-react/src/App.jsx`
+- [X] T029 [US3] Gestionar `403`, `404`, `401`, errores de conexión y doble confirmación en `frontend-react/src/App.jsx` y `frontend-react/src/components/ConfirmarBorrado.jsx`
 
 **Checkpoint**: El borrado de anuncios propios funciona de forma independiente y respeta permisos.
 
@@ -131,13 +131,13 @@ description: "Task list for the 010-frontend-alterno-react feature"
 
 ### Tests for User Story 4
 
-- [ ] T030 [P] [US4] Crear pruebas de accesibilidad, etiquetas, foco y 360 px en `frontend-react/tests/accesibilidad.test.jsx`
+- [X] T030 [P] [US4] Crear pruebas de accesibilidad, etiquetas, foco y 360 px en `frontend-react/tests/accesibilidad.test.jsx`
 
 ### Implementation for User Story 4
 
-- [ ] T031 [US4] Añadir etiquetas, `role="alert"`, nombres accesibles, foco visible y retorno de foco en `frontend-react/src/components/` y `frontend-react/src/App.jsx`
-- [ ] T032 [US4] Ajustar login, listado, paginación y confirmación a 360 px en `frontend-react/src/styles.css`
-- [ ] T033 [US4] Revisar mensajes en español, ausencia de detalles técnicos y textos alternativos en `frontend-react/src/`
+- [X] T031 [US4] Añadir etiquetas, `role="alert"`, nombres accesibles, foco visible y retorno de foco en `frontend-react/src/components/` y `frontend-react/src/App.jsx`
+- [X] T032 [US4] Ajustar login, listado, paginación y confirmación a 360 px en `frontend-react/src/styles.css`
+- [X] T033 [US4] Revisar mensajes en español, ausencia de detalles técnicos y textos alternativos en `frontend-react/src/`
 
 **Checkpoint**: La interfaz es usable con teclado y en móvil.
 
@@ -147,13 +147,13 @@ description: "Task list for the 010-frontend-alterno-react feature"
 
 **Purpose**: Documentación, validación y revisión de restricciones.
 
-- [ ] T034 [P] Documentar instalación, ejecución, pruebas y diferencias Vue/React en `frontend-react/README.md`
-- [ ] T035 [P] Actualizar el checklist de `README.md` y la sección de frontend alternativo
-- [ ] T036 Ejecutar las pruebas de Vue y comprobar que la extracción de servicios no rompe `frontend-vue/`
-- [ ] T037 Ejecutar pruebas, build y validación de `specs/010-frontend-alterno-react/quickstart.md` en `frontend-react/`
-- [ ] T038 Validar contra el backend real el listado, login, borrado de un anuncio temporal, cancelación y logout
-- [ ] T039 [P] Registrar comandos, resultados y recorrido manual en `docs/validacion.md`
-- [ ] T040 Revisar ausencia de comentarios, llamadas HTTP directas en componentes, dependencias innecesarias y cambios en `backend/`
+- [X] T034 [P] Documentar instalación, ejecución, pruebas y diferencias Vue/React en `frontend-react/README.md`
+- [X] T035 [P] Actualizar el checklist de `README.md` y la sección de frontend alternativo
+- [X] T036 Ejecutar las pruebas de Vue y comprobar que la extracción de servicios no rompe `frontend-vue/`
+- [X] T037 Ejecutar pruebas, build y validación de `specs/010-frontend-alterno-react/quickstart.md` en `frontend-react/`
+- [X] T038 Validar contra el backend real el listado, login, borrado de un anuncio temporal, cancelación y logout
+- [X] T039 [P] Registrar comandos, resultados y recorrido manual en `docs/validacion.md`
+- [X] T040 Revisar ausencia de comentarios, llamadas HTTP directas en componentes, dependencias innecesarias y cambios en `backend/`
 
 ---
 

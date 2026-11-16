@@ -2,7 +2,7 @@
 
 - **Fecha de validación**: 2026-11-11
 - **Actualización documental**: 2026-11-16
-- **Alcance**: frontend de las specs 001–009 contra el backend real de la Práctica 1.
+- **Alcance**: frontend de las specs 001–010 contra el backend real de la Práctica 1.
 - **Entorno**: Ubuntu 24.04.5 LTS, Node.js `v26.8.2`, npm `11.19.1`, MySQL `8.0.46`, backend en
   `http://localhost:3000/clasify_api` y frontend servido con Vite `7.3.8`.
 
@@ -11,15 +11,20 @@
 | Comprobación | Comando | Resultado obtenido |
 |---|---|---|
 | Pruebas del backend (Jest + Supertest) | `cd backend && npm test` | 6 suites y 307 pruebas correctas, 0 fallos, 201,965 s |
-| Pruebas del frontend (Vitest) | `cd frontend-vue && npm run test:unit` | 77 archivos (76 ejecutados y 1 omitido), 289 pruebas (286 ejecutadas y 3 omitidas), 0 fallos, 14,67 s |
-| Build de producción | `cd frontend-vue && npm run build` | 217 módulos transformados, build correcto, 4,40 s |
-| Integración con el backend real | `cd frontend-vue && VALIDACION_BACKEND=1 npx vitest run tests/integracion/backendReal.spec.js` | 3 pruebas correctas, 0 fallos, 767 ms |
+| Pruebas del frontend Vue (Vitest) | `cd frontend-vue && npm run test:unit` | 78 archivos (77 ejecutados y 1 omitido), 289 pruebas (286 ejecutadas y 3 omitidas), 0 fallos, 8,29 s |
+| Build de producción Vue | `cd frontend-vue && npm run build` | 217 módulos transformados, build correcto, 998 ms |
+| Integración Vue con el backend real | `cd frontend-vue && VALIDACION_BACKEND=1 npx vitest run tests/integracion/backendReal.spec.js` | 3 pruebas correctas, 0 fallos, 767 ms |
+| Pruebas del frontend React (Vitest) | `cd frontend-react && npm run test:unit` | 7 archivos (6 ejecutados y 1 omitido), 20 pruebas (19 ejecutadas y 1 omitida), 0 fallos, 1,18 s |
+| Build de producción React | `cd frontend-react && npm run build` | 42 módulos transformados, build correcto, 539 ms |
+| Integración React con el backend real | `cd frontend-react && VALIDACION_BACKEND=1 npx vitest run tests/integracion/backendReal.test.jsx` | 1 prueba correcta, 0 fallos, 985 ms |
 
-Las specs 007–009 añaden mensajería, perfil público y valoraciones; las ampliaciones de 001, 003, 005 y 006 añaden tema oscuro, paginación fija de 20, compartir, relacionados y retirada de favoritos desde la lista.
+Las specs 007–009 añaden mensajería, perfil público y valoraciones; las ampliaciones de 001, 003, 005 y 006 añaden tema oscuro, paginación fija de 20, compartir, relacionados y retirada de favoritos desde la lista. La spec 010 añade el frontend alternativo React con listado, sesión y borrado de anuncios propios.
 
-La suite `tests/integracion/backendReal.spec.js` está omitida por defecto para que
+La suite `tests/integracion/backendReal.spec.js` de Vue está omitida por defecto para que
 `npm run test:unit` no dependa de un backend arrancado. Se activa con `VALIDACION_BACKEND=1` y
-monta las vistas reales del catálogo, el detalle y favoritos consumiendo la API real.
+monta las vistas reales del catálogo, el detalle y favoritos consumiendo la API real. La suite
+`tests/integracion/backendReal.test.jsx` de React sigue el mismo patrón y crea un anuncio temporal
+para validar el borrado, que después elimina.
 
 ## 2. Recorrido funcional contra el backend real
 
@@ -121,10 +126,38 @@ VALIDACION_BACKEND=1 npx vitest run tests/integracion/backendReal.spec.js
 npm run dev
 ```
 
+Para React:
+
+```bash
+cd frontend-react
+npm install
+npm run test:unit
+npm run build
+VALIDACION_BACKEND=1 npx vitest run tests/integracion/backendReal.test.jsx
+npm run dev
+```
+
 El recorrido HTTP puede repetirse con `curl` sobre `http://localhost:3000/clasify_api` usando los
 usuarios del seed. Las pruebas de integración eliminan el favorito que crean.
 
-## 5. Observaciones del entorno
+
+## 5. Frontend alternativo React
+
+El proyecto `frontend-react/` se validó con Vitest y con el backend real:
+
+| Comprobación | Resultado |
+|---|---|
+| Pruebas de React | 19 ejecutadas, 1 omitida (integración), 0 fallos |
+| Build de React | 42 módulos transformados, build correcto |
+| Integración real | 1 prueba correcta: login, creación de un anuncio temporal, listado y borrado con confirmación |
+| Artefacto temporal | El anuncio de prueba se eliminó al terminar la comprobación |
+
+La validación manual del listado, login, borrado, cancelación y logout se apoya en las pruebas de
+componentes y en la prueba de integración real. El frontend React usa el comportamiento por defecto
+del listado del backend, por lo que muestra los anuncios disponibles.
+
+
+## 6. Observaciones del entorno
 
 - La base de datos de desarrollo contenía solo cuatro anuncios porque ejecuciones anteriores
   habían eliminado parte del seed. Se restauró con el procedimiento documentado en `README.md`

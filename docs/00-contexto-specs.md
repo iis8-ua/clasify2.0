@@ -20,18 +20,18 @@ La documentación de historias de usuario está en `docs/`. La constitución est
 |---|---|
 | Backend | Node.js, Express 5, MySQL, `mysql2`, JWT, bcrypt, multer y CORS |
 | Prefijo de API | `/clasify_api` |
-| Frontend | Implementado en `frontend-vue/`; las specs 001–006 están implementadas y las 007–009 están especificadas |
+| Frontend | Implementado en `frontend-vue/` y, en alcance parcial, en `frontend-react/`; las specs 001–010 están implementadas |
 | Node.js | Backend `>=20.6.0`; frontend `^20.19.0 || >=22.12.0` |
 | Pruebas backend | Jest + Supertest en `backend/tests/` |
-| Pruebas frontend | Vitest en `frontend-vue/tests/` |
+| Pruebas frontend | Vitest en `frontend-vue/tests/` y `frontend-react/tests/` |
 | Documentación | `README.md`, `Diseno.md`, `docs/` y `.specify/memory/constitution.md` |
-| Specs | `specs/001`–`specs/009` definidas con Spec Kit |
+| Specs | `specs/001`–`specs/010` definidas con Spec Kit |
 
 ## 3. Alcance acordado
 
 Está en alcance **todo el backlog documentado: historias 01 a 16**, junto con las ampliaciones de
-mensajería, perfil público, valoraciones, tema oscuro, tamaño de página y mejoras del catálogo
-recogidas en las specs 007–009 y en las actualizaciones de 001, 003, 005 y 006.
+mensajería, perfil público, valoraciones, tema oscuro, paginación fija de 20 y mejoras del catálogo
+recogidas en las specs 007–010 y en las actualizaciones de 001, 003, 005 y 006.
 
 Decisiones de alcance:
 
@@ -59,7 +59,7 @@ Decisiones de alcance:
 - Notificaciones push o por email.
 - Mensajería en tiempo real.
 - Adjuntos en mensajes.
-- Implementación con React, Svelte o Angular.
+- Implementación completa con React, Svelte o Angular; React solo cubre el alcance parcial de 010.
 - Avatar o imagen de perfil.
 - Cambio de email, recuperación de contraseña, 2FA y eliminación de cuenta.
 - Subida de varias imágenes.
@@ -474,6 +474,19 @@ el 404 y deja preparadas las rutas y la infraestructura para las demás specs.
 
 **No incluye:** moderación, respuestas, votos de utilidad ni valoraciones anónimas.
 
+### 010-frontend-alterno-react
+
+**Incluye:**
+
+- Listado público paginado con el comportamiento por defecto del backend.
+- Login, recuperación de sesión y logout.
+- Borrado de anuncios propios con confirmación.
+- Servicios HTTP compartidos entre Vue y React.
+- Estados de carga, vacío y error, accesibilidad y 360 px.
+
+**No incluye:** crear, editar, detalle, favoritos, perfil, mensajería, valoraciones, router,
+búsqueda, filtros ni cambios en el backend.
+
 ## 9. Prompts para Spec Kit
 
 Ejecutar los comandos en este orden y de uno en uno. No encadenar varias specs sin revisar la
@@ -515,6 +528,10 @@ anterior.
 /speckit.specify Implementa la spec 009-valoraciones descrita en docs/00-contexto-specs.md. Usa los endpoints existentes de valoraciones. No modifiques el backend.
 ```
 
+```text
+/speckit.specify Implementa la spec 010-frontend-alterno-react descrita en docs/00-contexto-specs.md. Usa React con Vite y los servicios compartidos; no modifiques el backend.
+```
+
 Después de cada `specify`:
 
 ```text
@@ -541,7 +558,7 @@ Después de cada `specify`:
 - Respetar la accesibilidad y los estados de interfaz.
 - Detenerse al terminar cada tarea y esperar revisión.
 - Actualizar `README.md` y la documentación cuando cambie el comportamiento.
-- Implementar solo lo incluido en las specs 001–009 y no añadir mensajería en tiempo real,
+- Implementar solo lo incluido en las specs 001–010 y no añadir mensajería en tiempo real,
   notificaciones push/email, adjuntos, moderación ni cambios de backend.
 
 ## 11. Pruebas y definición de terminado

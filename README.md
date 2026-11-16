@@ -25,6 +25,8 @@ documentación SDD del frontend se genera con Spec Kit en `specs/`.
 │   ├── tests/               # Jest + Supertest
 │   └── uploads/             # Imágenes subidas (no se versionan)
 ├── frontend-vue/            # Frontend Vue (Práctica 4)
+├── frontend-react/          # Frontend alternativo React (apartado opcional)
+├── shared/api/              # Servicios HTTP compartidos entre Vue y React
 ├── specs/                   # Especificaciones SDD de Spec Kit
 ├── Diseno.md                # Diseño del backend (Práctica 1)
 └── README.md
@@ -274,6 +276,38 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 - Mensajes de texto de hasta 1000 caracteres.
 - Sin tiempo real, adjuntos ni notificaciones push/email.
 
+## Frontend React alternativo
+
+El proyecto `frontend-react/` implementa el apartado opcional de otro framework con el mismo backend
+y la misma autenticación.
+
+Alcance:
+
+- Listado público paginado de anuncios.
+- Login, recuperación de sesión y logout.
+- Borrado de anuncios propios con confirmación.
+- Estados de carga, vacío y error.
+- Accesibilidad y uso a 360 px.
+
+Instalación y arranque:
+
+```bash
+cd frontend-react
+npm install
+cp .env.example .env
+npm run dev
+```
+
+Pruebas y build:
+
+```bash
+npm run test:unit
+npm run build
+```
+
+La capa de servicios independiente del framework está en `shared/api/` y la consumen tanto Vue como
+React. No se modifica el backend.
+
 ### CORS
 
 El backend permite por defecto los orígenes de Vite:
@@ -314,8 +348,8 @@ Estado actual:
 - [x] Navegación con router.
 - [x] Biblioteca de componentes (PrimeVue).
 - [x] Recurso secundario: favoritos, con listado, alta, borrado, permisos y confirmación.
-- [ ] Implementación parcial con otro framework: no realizada. Vue 3 es el framework principal, por
-  lo que no cuenta como “otro framework” según el enunciado.
+- [x] Implementación parcial con otro framework: React en `frontend-react/`, con listado, login y
+  borrado de anuncios propios sobre el mismo backend.
 
 ## Preparación de la entrega
 
