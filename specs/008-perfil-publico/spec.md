@@ -6,6 +6,8 @@
 
 **Status**: Draft
 
+**Nota de alcance (2026-11-16)**: la paginación vuelve a ser fija de 20 elementos por página. Las referencias al selector 10/20/50 quedan sustituidas por este cambio.
+
 **Input**: User description: "Añadir el perfil público de otros usuarios al frontend de Clasify usando los endpoints existentes del backend, sin modificarlo."
 
 ## Clarifications
@@ -17,7 +19,6 @@
 - Q: ¿Incluye anuncios vendidos? → A: Sí, todos los anuncios con su estado.
 - Q: ¿Desde dónde se enlaza? → A: Desde el autor del anuncio, la contraparte de una conversación y el autor de una valoración.
 - Q: ¿Se puede editar desde el perfil público? → A: No; la edición de los datos propios sigue en `/perfil`.
-- Q: ¿Qué tamaño de página usan las listas? → A: 20 por defecto, con selector de 10, 20 o 50.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -68,7 +69,6 @@ se muestran con autor, puntuación, comentario y fecha, y que se puede paginar.
    vacío específico y no un error.
 3. **Given** una lista de valoraciones con varias páginas, **When** el usuario avanza o retrocede,
    **Then** accede a todas las valoraciones sin omitir ni repetir elementos.
-4. **Given** un perfil con valoraciones, **When** el usuario cambia el tamaño de página entre 10, 20 y
    50, **Then** el listado se actualiza y vuelve a la primera página.
 5. **Given** un fallo de carga de valoraciones, **When** el usuario recibe el error, **Then** puede
    reintentar.
@@ -103,7 +103,6 @@ verificando que aparecen con su estado y que se puede abrir su detalle.
    encontrado.
 7. **Given** una lista de anuncios con varias páginas, **When** el usuario avanza o retrocede, **Then**
    accede a todas sin omitir ni repetir elementos.
-8. **Given** el listado de anuncios, **When** el usuario cambia el tamaño de página entre 10, 20 y 50,
    **Then** la lista se actualiza y vuelve a la primera página.
 9. **Given** un fallo de carga de anuncios, **When** el usuario recibe el error, **Then** puede
    reintentar.
@@ -144,7 +143,6 @@ conversación y desde el autor de una valoración.
 - El usuario solo tiene anuncios vendidos.
 - La página solicitada supera el total de valoraciones o anuncios.
 - La carga del perfil, de las valoraciones o de los anuncios falla por conexión.
-- El usuario cambia el tamaño de página con una página avanzada activa.
 - El usuario abre el perfil público desde un enlace directo o lo recarga.
 - El autor de una valoración ya no está disponible.
 - El anuncio enlazado ha sido eliminado.
@@ -181,10 +179,10 @@ conversación y desde el autor de una valoración.
 - **FR-016**: El listado de anuncios del perfil MUST paginarse y MUST mostrar la página actual y el
   total.
 - **FR-017**: Los listados de valoraciones y anuncios MUST usar 20 elementos por página por defecto y
-  MUST permitir elegir entre 10, 20 y 50.
-- **FR-018**: El tamaño de página y la página actual MUST conservarse en la dirección para permitir
+  MUST permitir usar 20 elementos por página.
+- **FR-018**: La página actual MUST conservarse en la dirección para permitir
   recargar o compartir la vista.
-- **FR-019**: Cambiar el tamaño de página MUST volver a la primera página.
+- **FR-019**: Cambiar de página MUST volver a la primera página.
 - **FR-020**: Si la página solicitada supera el total, la aplicación MUST mostrar la última página
   disponible.
 - **FR-021**: El perfil público MUST enlazarse desde el autor del anuncio en el detalle.
@@ -228,7 +226,6 @@ conversación y desde el autor de una valoración.
   los vendidos.
 - **SC-007**: El 100 % de los perfiles sin anuncios muestra un estado vacío específico.
 - **SC-008**: El 100 % de los anuncios del perfil permite abrir su detalle o muestra no encontrado.
-- **SC-009**: El 100 % de los listados de valoraciones y anuncios permite elegir 10, 20 o 50 elementos
   por página y conserva página y tamaño en la dirección.
 - **SC-010**: El 100 % de las páginas de valoraciones y anuncios de prueba es accesible mediante los
   controles de paginación.
@@ -256,7 +253,7 @@ conversación y desde el autor de una valoración.
 - El email solo se muestra en el perfil propio; el perfil público nunca lo incluye.
 - El perfil público es de solo lectura.
 - Los anuncios del perfil incluyen los vendidos y se ordenan por fecha de creación descendente.
-- El tamaño de página por defecto es 20 y se puede cambiar a 10 o 50.
+- El tamaño de página es fijo en 20.
 - La interfaz se usa en escritorio y en móvil, con tema claro u oscuro según la preferencia de 001.
 
 ## Out of Scope

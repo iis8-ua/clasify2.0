@@ -6,6 +6,8 @@
 
 **Status**: Draft
 
+**Nota de alcance (2026-11-16)**: la paginación vuelve a ser fija de 20 elementos por página. Las referencias al selector 10/20/50 quedan sustituidas por este cambio.
+
 **Input**: User description: "Añadir mensajería al frontend de Clasify usando los endpoints existentes del backend, sin modificarlo."
 
 ## Clarifications
@@ -20,7 +22,6 @@
 - Q: ¿Qué ocurre con un anuncio vendido? → A: No se puede iniciar una conversación nueva, pero un hilo ya abierto puede continuar.
 - Q: ¿Qué ocurre si un visitante pulsa Contactar? → A: Se le pide acceso y vuelve al anuncio; después debe reabrir el modal.
 - Q: ¿Se pueden enviar adjuntos? → A: No; solo texto de hasta 1000 caracteres.
-- Q: ¿Qué tamaño de página usan las listas? → A: 20 por defecto, con selector de 10, 20 o 50.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -85,7 +86,6 @@ que aparecen el anuncio, la contraparte, el último mensaje y los no leídos.
    y puede reintentar.
 6. **Given** una bandeja con varias páginas, **When** el usuario avanza o retrocede, **Then** accede a
    todas las conversaciones sin omitir ni repetir elementos.
-7. **Given** la bandeja, **When** el usuario cambia el tamaño de página entre 10, 20 y 50, **Then** la
    lista se actualiza y vuelve a la primera página.
 8. **Given** que el usuario cierra sesión, **When** vuelve a la aplicación en la misma pestaña,
    **Then** no ve conversaciones de la sesión anterior.
@@ -110,7 +110,6 @@ cargando anteriores, enviando una respuesta y verificando que los no leídos des
    mensajes y puede desplazarse para leerlos en orden cronológico.
 2. **Given** un hilo con más mensajes de los que caben en una página, **When** el usuario carga
    mensajes anteriores, **Then** accede a las páginas previas sin omitir ni repetir mensajes.
-3. **Given** un hilo con varios mensajes, **When** el usuario cambia el tamaño de página entre 10, 20
    y 50, **Then** el hilo se recarga con el tamaño elegido.
 4. **Given** un mensaje válido, **When** el usuario lo envía, **Then** aparece en el hilo con su fecha
    y el emisor correspondiente.
@@ -169,7 +168,6 @@ una pantalla de 360 píxeles de ancho.
 - La bandeja está vacía.
 - La página solicitada supera el total.
 - La carga de la bandeja, del hilo o del envío falla por conexión.
-- El usuario cambia el tamaño de página con una página avanzada activa.
 - El usuario navega con teclado o lector de pantalla.
 - La pantalla es muy estrecha.
 - La imagen del anuncio no existe o tarda en cargar.
@@ -216,10 +214,10 @@ una pantalla de 360 píxeles de ancho.
 - **FR-026**: Si el usuario no participa en la conversación, MUST mostrarse un error de permisos sin
   revelar mensajes.
 - **FR-027**: La bandeja y el hilo MUST usar un tamaño de página de 20 por defecto y MUST permitir
-  elegir entre 10, 20 y 50.
-- **FR-028**: El tamaño de página y la página actual MUST conservarse en la dirección para permitir
+  usar 20 elementos por página.
+- **FR-028**: La página actual MUST conservarse en la dirección para permitir
   recargar o compartir la vista.
-- **FR-029**: Cambiar el tamaño de página MUST volver a la primera página.
+- **FR-029**: Cambiar de página MUST volver a la primera página.
 - **FR-030**: Si la página solicitada supera el total, la aplicación MUST mostrar la última página
   disponible.
 - **FR-031**: El detalle MUST mostrar los últimos mensajes de una conversación existente solo a sus
@@ -274,7 +272,6 @@ una pantalla de 360 píxeles de ancho.
   actualiza la bandeja.
 - **SC-012**: El 100 % de las conversaciones inexistentes muestra no encontrado y el 100 % de las
   ajenas muestra permisos sin revelar mensajes.
-- **SC-013**: El 100 % de las bandejas e hilos permite elegir 10, 20 o 50 elementos por página y
   conserva el tamaño y la página en la dirección.
 - **SC-014**: El 100 % de las páginas de una bandeja o un hilo de prueba es accesible mediante los
   controles de paginación.
@@ -302,7 +299,7 @@ una pantalla de 360 píxeles de ancho.
 - Los mensajes son solo de texto y no admiten adjuntos.
 - Los no leídos se muestran por conversación en la bandeja; no existe un contador global exacto en la
   cabecera.
-- El tamaño de página por defecto es 20 y se puede cambiar a 10 o 50.
+- El tamaño de página es fijo en 20.
 - La actualización es por consulta al abrir o reintentar, sin tiempo real.
 - Los datos de ejemplo permiten probar conversaciones como comprador y como vendedor.
 - La interfaz se usa en escritorio y en móvil, con tema claro u oscuro según la preferencia de 001.

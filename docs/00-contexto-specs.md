@@ -47,7 +47,7 @@ Decisiones de alcance:
 - El usuario podrá quitar favoritos desde la lista de favoritos con confirmación.
 - PrimeVue se usará con personalización amplia.
 - El tema visual será neutral con un color de acento y ofrecerá modo claro y modo oscuro.
-- El tamaño de página será configurable entre 10, 20 y 50, con 20 por defecto.
+- El tamaño de página será fijo en 20, sin selector.
 - El nombre de la categoría se mostrará en el listado cargando el catálogo una vez.
 - Las pruebas automatizadas usarán Vitest para servicios, stores y componentes clave.
 - El recorrido completo se validará manualmente contra el backend real.
@@ -269,7 +269,7 @@ Reglas:
 - `/anuncios/nuevo` debe declararse antes de `/anuncios/:id`.
 - Las rutas protegidas redirigen a `/login` con la ruta solicitada.
 - Tras el login se vuelve a la ruta solicitada o a `/`.
-- Los filtros, la página y el tamaño de página pueden reflejarse en la URL.
+- Los filtros y la página pueden reflejarse en la URL.
 - La autorización real siempre la comprueba el backend.
 
 ## 7. Contratos del backend que debe usar el frontend
@@ -374,7 +374,7 @@ el 404 y deja preparadas las rutas y la infraestructura para las demás specs.
 
 - Listado paginado de anuncios.
 - Detalle de anuncio.
-- Paginación completa con tamaño de página 10, 20 o 50.
+- Paginación completa con 20 elementos por página.
 - Compartir anuncio.
 - Anuncios similares y “Más de este vendedor”.
 - Enlace al perfil público del autor.
@@ -414,7 +414,7 @@ el 404 y deja preparadas las rutas y la infraestructura para las demás specs.
 - Botón de favorito en el detalle.
 - Quitar favoritos desde la lista con confirmación.
 - Listado de favoritos.
-- Paginación con tamaño de página 10, 20 o 50, estados de carga, vacío y error.
+- Paginación con 20 elementos por página, estados de carga, vacío y error.
 - Actualización del estado tras añadir o quitar.
 
 **No incluye:** favoritos compartidos, notificaciones ni acciones masivas.
@@ -430,7 +430,7 @@ el 404 y deja preparadas las rutas y la infraestructura para las demás specs.
 - Cambio de contraseña.
 - Resumen de valoraciones.
 - Enlace al perfil público propio.
-- Listado de anuncios propios con tamaño de página 10, 20 o 50.
+- Listado de anuncios propios con 20 elementos por página.
 - Actualización del usuario en el estado compartido.
 
 **No incluye:** implementación del perfil público, mensajería ni gestión de valoraciones.
@@ -440,7 +440,7 @@ el 404 y deja preparadas las rutas y la infraestructura para las demás specs.
 **Incluye:**
 
 - Bandeja de conversaciones.
-- Hilo de mensajes con paginación y tamaño de página.
+- Hilo de mensajes con paginación fija de 20.
 - Envío de mensajes de texto.
 - Botón Contactar en el detalle.
 - Mensajes no leídos por conversación.
@@ -457,7 +457,7 @@ el 404 y deja preparadas las rutas y la infraestructura para las demás specs.
 - Valoraciones recibidas de solo lectura.
 - Anuncios publicados, incluidos los vendidos.
 - Enlaces desde detalle, mensajería y valoraciones.
-- Paginación con tamaño de página 10, 20 o 50.
+- Paginación con 20 elementos por página.
 
 **No incluye:** edición del perfil público, avatar, seguimiento ni acciones de gestión de anuncios.
 
@@ -470,7 +470,7 @@ el 404 y deja preparadas las rutas y la infraestructura para las demás specs.
 - Eliminar la valoración propia con confirmación.
 - Valoraciones recibidas y escritas en el perfil propio.
 - Enlaces al perfil público del autor.
-- Paginación con tamaño de página 10, 20 o 50.
+- Paginación con 20 elementos por página.
 
 **No incluye:** moderación, respuestas, votos de utilidad ni valoraciones anónimas.
 
@@ -570,7 +570,7 @@ contra el backend real.
 7. Compartir un anuncio y abrir sus similares y los del vendedor.
 8. Valorar a otro usuario y consultar las valoraciones recibidas y escritas.
 9. Contactar con un vendedor, consultar la bandeja y responder en el hilo.
-10. Cambiar el tamaño de página y el tema claro/oscuro.
+10. Cambiar el tema claro/oscuro.
 11. Cerrar sesión.
 
 Debe documentarse con pasos, datos, resultados esperados y resultados obtenidos.

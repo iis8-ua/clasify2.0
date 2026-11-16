@@ -6,6 +6,8 @@
 
 **Status**: Draft
 
+**Nota de alcance (2026-11-16)**: la paginación vuelve a ser fija de 20 elementos por página. Las referencias al selector 10/20/50 quedan sustituidas por este cambio.
+
 **Input**: User description: "Añadir la gestión de valoraciones entre usuarios al frontend de Clasify usando los endpoints existentes del backend, sin modificarlo."
 
 ## Clarifications
@@ -19,7 +21,6 @@
 - Q: ¿Se puede eliminar? → A: Sí, con confirmación desde el perfil público y desde el perfil propio.
 - Q: ¿Qué muestra `/perfil`? → A: Resumen, valoraciones recibidas y valoraciones escritas, con edición y borrado de las escritas.
 - Q: ¿Qué ocurre si un visitante intenta valorar? → A: Se le pide acceso y vuelve al perfil público.
-- Q: ¿Qué tamaño de página usan los listados? → A: 20 por defecto, con selector de 10, 20 o 50.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -112,7 +113,6 @@ verificando que ambas listas aparecen y que las escritas se pueden editar o elim
    cada listado muestra un estado vacío específico.
 6. **Given** una lista con varias páginas, **When** el usuario avanza o retrocede, **Then** accede a
    todas las valoraciones sin omitir ni repetir elementos.
-7. **Given** un listado de valoraciones, **When** el usuario cambia el tamaño de página entre 10, 20 y
    50, **Then** el listado se actualiza y vuelve a la primera página.
 8. **Given** un fallo de carga, **When** el usuario recibe el error, **Then** puede reintentar.
 
@@ -197,10 +197,10 @@ teclado y en una pantalla de 360 píxeles de ancho.
   vacío y error, y MUST ofrecer reintento cuando falle.
 - **FR-022**: Los listados de valoraciones MUST paginarse y MUST mostrar la página actual y el total.
 - **FR-023**: Los listados de valoraciones MUST usar 20 elementos por página por defecto y MUST
-  permitir elegir entre 10, 20 y 50.
-- **FR-024**: El tamaño de página y la página actual MUST conservarse en la dirección para permitir
+  permitir usar 20 elementos por página.
+- **FR-024**: La página actual MUST conservarse en la dirección para permitir
   recargar o compartir la vista.
-- **FR-025**: Cambiar el tamaño de página MUST volver a la primera página.
+- **FR-025**: Cambiar de página MUST volver a la primera página.
 - **FR-026**: Si la página solicitada supera el total, la aplicación MUST mostrar la última página
   disponible.
 - **FR-027**: Una valoración MUST enlazar al perfil público de su autor.
@@ -243,7 +243,6 @@ teclado y en una pantalla de 360 píxeles de ancho.
 - **SC-008**: El 100 % de los perfiles propios muestra las valoraciones recibidas y escritas, con
   estados vacíos distintos de errores.
 - **SC-009**: El 100 % de las valoraciones escritas permite editar o eliminar desde `/perfil`.
-- **SC-010**: El 100 % de los listados de valoraciones permite elegir 10, 20 o 50 elementos por página
   y conserva página y tamaño en la dirección.
 - **SC-011**: El 100 % de los errores de sesión durante una valoración solicita un nuevo acceso y no
   deja datos privados obsoletos.
@@ -266,7 +265,7 @@ teclado y en una pantalla de 360 píxeles de ancho.
 - La valoración se crea o actualiza mediante una única operación idempotente.
 - El comentario es opcional; una valoración sin comentario es válida.
 - El resumen de valoraciones lo calcula el backend y se refresca al recargar o actualizar los datos.
-- El tamaño de página por defecto es 20 y se puede cambiar a 10 o 50.
+- El tamaño de página es fijo en 20.
 - La interfaz se usa en escritorio y en móvil, con tema claro u oscuro según la preferencia de 001.
 
 ## Out of Scope

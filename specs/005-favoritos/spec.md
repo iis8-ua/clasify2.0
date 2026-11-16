@@ -6,6 +6,8 @@
 
 **Status**: Draft
 
+**Nota de alcance (2026-11-16)**: la paginación vuelve a ser fija de 20 elementos por página. Las referencias al selector 10/20/50 quedan sustituidas por este cambio.
+
 **Input**: User description: "Implementa la spec 005-favoritos descrita en docs/00-contexto-specs.md. Lee también docs/12-favoritos.md. No modifiques el backend."
 
 ## Clarifications
@@ -19,7 +21,6 @@
 ### Session 2026-11-11
 
 - Q: ¿Se puede quitar un favorito directamente desde la lista? → A: Sí; cada tarjeta ofrece una acción con confirmación, toast y retirada inmediata.
-- Q: ¿Qué tamaño de página usan los favoritos? → A: 20 por defecto, con selector de 10, 20 o 50.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -129,10 +130,7 @@ recorriéndolas hacia delante y hacia atrás y verificando que no se omiten ni r
    muestra la última página disponible.
 8. **Given** una página de favoritos activa, **When** el usuario recarga o comparte la dirección,
    **Then** vuelve a ver la misma página.
-9. **Given** la lista de favoritos, **When** el usuario elige 10, 20 o 50 elementos por página,
    **Then** la lista se actualiza y vuelve a la primera página.
-10. **Given** un tamaño de página elegido, **When** el usuario recarga o comparte la dirección,
-    **Then** se conserva el tamaño junto con la página.
 
 ---
 
@@ -172,8 +170,6 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
 - El usuario pulsa varias veces seguidas el botón de favorito.
 - El usuario quita un favorito desde la lista y cancela la confirmación.
 - Al quitar un favorito desde la lista, la página queda vacía.
-- El usuario cambia el tamaño de página en una página avanzada.
-- El tamaño de página solicitado no es válido.
 - La lista de favoritos está vacía.
 - La página solicitada supera el total de páginas.
 - La carga de favoritos falla por conexión.
@@ -207,7 +203,7 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
 - **FR-012**: Los anuncios vendidos MUST seguir apareciendo en favoritos con su estado.
 - **FR-013**: La lista de favoritos MUST mostrar el anuncio guardado más recientemente primero.
 - **FR-014**: La lista de favoritos MUST usar 20 elementos por página por defecto y MUST permitir
-  elegir entre 10, 20 y 50.
+  usar 20 elementos por página.
 - **FR-015**: La lista de favoritos MUST distinguir carga, resultados, vacío y error, y MUST ofrecer
   reintento cuando falle.
 - **FR-016**: La paginación MUST permitir ir a la primera, anterior, siguiente y última página y MUST
@@ -241,9 +237,9 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
 - **FR-032**: Quitar un favorito MUST poder realizarse desde el detalle y desde cada tarjeta de la
   lista; la acción de la lista MUST solicitar confirmación, MUST retirar la tarjeta y MUST mostrar una
   confirmación perceptible.
-- **FR-033**: El tamaño de página y la página actual MUST conservarse en la dirección para permitir
+- **FR-033**: La página actual MUST conservarse en la dirección para permitir
   recargar o compartir la vista.
-- **FR-034**: Cambiar el tamaño de página MUST volver a la primera página y MUST recalcular los
+- **FR-034**: Cambiar de página MUST volver a la primera página y MUST recalcular los
   controles de paginación.
 - **FR-035**: Si al quitar un favorito la página actual queda vacía y existe una página anterior, la
   aplicación MUST mostrar la última página disponible.
@@ -268,7 +264,7 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
   acceder y vuelve al anuncio tras autenticarse.
 - **SC-004**: El 100 % de los intentos de guardar el propio anuncio oculta o rechaza la acción.
 - **SC-005**: El 100 % de las listas de favoritos muestra solo anuncios guardados por el usuario
-  autenticado, con el tamaño de página elegido, 20 por defecto, y el más reciente primero.
+  autenticado, con 20 elementos por página, y el más reciente primero.
 - **SC-006**: El 100 % de los anuncios vendidos guardados sigue visible en favoritos con su estado.
 - **SC-007**: El 100 % de las listas vacías muestra un estado vacío distinto de un error de carga.
 - **SC-008**: El 100 % de las páginas de una lista de favoritos de prueba es accesible mediante los
@@ -296,7 +292,6 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
   confirmación.
 - **SC-020**: El 100 % de las retiradas canceladas mantiene el anuncio en la lista y el 100 % de las
   confirmadas retira la tarjeta y muestra confirmación.
-- **SC-021**: El 100 % de las listas permite elegir 10, 20 o 50 elementos por página y conserva el
   tamaño y la página en la dirección.
 - **SC-022**: El 100 % de los cambios de tamaño de página vuelve a la primera página.
 - **SC-023**: El 100 % de las retiradas que dejan vacía una página avanzada muestra la última página
@@ -315,7 +310,7 @@ solo con teclado y en una pantalla de 360 píxeles de ancho.
 - La lista de favoritos incluye anuncios vendidos y los muestra con su estado.
 - Los anuncios eliminados no se conservan en favoritos; desaparecen al actualizar la lista.
 - La lista se ordena por fecha de guardado, del más reciente al más antiguo.
-- El tamaño de página por defecto es 20 y se puede cambiar a 10 o 50.
+- El tamaño de página es fijo en 20.
 - La página actual de favoritos se conserva en la dirección para permitir recargar o compartir la
   vista.
 - La lista no incluye búsqueda, filtros ni ordenación personalizada.

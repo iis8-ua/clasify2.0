@@ -6,13 +6,14 @@
 
 **Status**: Draft
 
+**Nota de alcance (2026-11-16)**: la paginación vuelve a ser fija de 20 elementos por página. Las referencias al selector 10/20/50 quedan sustituidas por este cambio.
+
 **Input**: User description: "Implementa la spec 003-catalogo-anuncios descrita en docs/00-contexto-specs.md. Lee también docs/04-listado.md, docs/05-detalle.md, docs/10-paginacion.md y docs/11-busqueda-filtros.md. No modifiques el backend."
 
 ## Clarifications
 
 ### Session 2026-11-11
 
-- Q: ¿El catálogo permite elegir cuántos anuncios se muestran por página? → A: Sí; se puede elegir 10, 20 o 50, con 20 por defecto.
 - Q: ¿Se mantiene la paginación numerada? → A: Sí; primera, anterior, siguiente y última.
 - Q: ¿Qué añade el detalle además de la información actual? → A: Compartir anuncio, anuncios similares, más anuncios del vendedor y enlace a su perfil público.
 - Q: ¿Cuántos anuncios muestran las secciones del detalle? → A: Cuatro similares y cuatro del vendedor, excluyendo el anuncio abierto.
@@ -121,11 +122,8 @@ recorriéndolas hacia delante y hacia atrás y verificando que no se repiten ni 
    reintentar la página actual.
 9. **Given** una página y unos filtros activos, **When** el usuario recarga o comparte la dirección,
    **Then** vuelve a ver el mismo estado del listado.
-10. **Given** el listado, **When** el usuario elige 10, 20 o 50 anuncios por página, **Then** el
     listado se actualiza con ese tamaño y vuelve a la primera página.
-11. **Given** un tamaño de página distinto del valor por defecto, **When** el usuario recarga o
     comparte la dirección, **Then** se conserva el tamaño elegido.
-12. **Given** el listado con varias páginas, **When** el usuario cambia el tamaño de página, **Then**
     los controles de paginación y el total se recalculan sin omitir ni repetir anuncios.
 
 ---
@@ -218,8 +216,6 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 - El portapapeles no está disponible al copiar el enlace.
 - El vendedor no tiene otros anuncios disponibles.
 - No hay anuncios similares disponibles en la categoría.
-- El usuario cambia el tamaño de página en una página avanzada.
-- El tamaño de página solicitado no es válido.
 - Los anuncios similares o del vendedor fallan al cargar.
 
 ## Requirements *(mandatory)*
@@ -228,7 +224,7 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 
 - **FR-001**: El listado de anuncios MUST ser público y MUST NOT exigir sesión.
 - **FR-002**: El listado inicial MUST mostrar anuncios disponibles, ordenados del más reciente al
-  más antiguo y con un tamaño de página de 20 por defecto.
+  más antiguo y con 20 elementos por página.
 - **FR-003**: Cada elemento del listado MUST mostrar título, precio, imagen o marcador de ausencia,
   categoría, estado y fecha de creación.
 - **FR-004**: El nombre de la categoría MUST obtenerse del catálogo real de categorías y MUST NOT
@@ -260,7 +256,6 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 - **FR-020**: Al cambiar un filtro MUST volver a la primera página.
 - **FR-021**: Si la página solicitada supera el total, la aplicación MUST mostrar la última página
   disponible.
-- **FR-022**: El listado MUST permitir elegir un tamaño de página de 10, 20 o 50, con 20 por defecto,
   y MUST volver a la primera página al cambiarlo.
 - **FR-023**: La búsqueda por texto MUST buscar en título y descripción, MUST ignorar diferencias de
   mayúsculas, minúsculas y acentos, y MUST limitar el texto a 150 caracteres.
@@ -286,7 +281,7 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
   implementa en la spec 008 y aquí solo se enlaza.
 - **FR-035**: Esta feature MUST NOT modificar el backend ni sustituir sus datos por contenido
   simulado.
-- **FR-036**: El tamaño de página elegido MUST conservarse en la dirección al recargar o compartir la
+- **FR-036**: La página actual MUST conservarse en la dirección al recargar o compartir la
   vista.
 - **FR-037**: El detalle MUST ofrecer una acción de compartir que use la función nativa del
   dispositivo cuando esté disponible y, si no, copie el enlace.
@@ -313,7 +308,6 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 ### Measurable Outcomes
 
 - **SC-001**: El 100 % de las cargas del listado muestra anuncios disponibles con el tamaño de página
-  elegido: 10, 20 o 50, con 20 por defecto.
 - **SC-002**: El 100 % de las tarjetas del listado muestra título, precio, imagen o marcador,
   categoría, estado y fecha.
 - **SC-003**: El 100 % de los detalles muestra título, descripción, precio, estado, imagen o
@@ -358,7 +352,6 @@ de pantalla y en una pantalla de 360 píxeles de ancho.
 - El backend existente ofrece el catálogo, el detalle y las categorías; no se modifica en esta
   feature.
 - El listado inicial muestra solo anuncios disponibles, ordenados por fecha descendente y con 20
-  elementos por página por defecto; el usuario puede elegir 10, 20 o 50.
 - El catálogo de categorías se carga completo para mostrar nombres y alimentar el filtro.
 - El listado no muestra el nombre del autor; el detalle sí muestra su información pública.
 - El número de favoritos es informativo; añadir o quitar favoritos se implementa en otra feature.

@@ -123,8 +123,8 @@ anuncios, los favoritos, el perfil propio, la mensajería, el perfil público y 
 valoraciones están implementados.
 
 También están implementadas las ampliaciones de 001, 003, 005 y 006: modo oscuro,
-selector de tamaño de página, compartir anuncios, anuncios similares, “Más de
-este vendedor” y quitar favoritos desde la lista.
+paginación fija de 20, compartir anuncios, anuncios similares, “Más de este
+vendedor” y quitar favoritos desde la lista.
 
 Requisitos:
 
@@ -180,7 +180,7 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 ### Catálogo
 
 - Listado público paginado con 20 anuncios por página en la implementación actual; la ampliación
-  especificada añade selector de 10, 20 o 50.
+  mantiene una paginación fija de 20.
 - Búsqueda por texto, filtros por categoría y estado, y ordenación.
 - Detalle público con autor, categoría, valoraciones y número de favoritos.
 - Página y filtros conservados en la dirección.
@@ -207,8 +207,7 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 - Un visitante que pulsa favorito accede y vuelve al anuncio; después debe
   confirmar la acción.
 - El autor no ve la acción sobre su propio anuncio.
-- Lista protegida en `/favoritos` con 20 elementos por página en la implementación actual; la
-  ampliación especificada añade selector de 10, 20 o 50.
+- Lista protegida en `/favoritos` con 20 elementos por página.
 - Tarjetas del catálogo con título, precio, imagen o marcador, categoría, estado
   y fecha.
 - Los anuncios vendidos siguen visibles con su estado.
@@ -234,8 +233,8 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
   cerrar la sesión.
 - “Mis anuncios” muestra solo los anuncios del usuario autenticado, incluidos
   los vendidos.
-- Paginación de 20 elementos en la implementación actual, con la página conservada en la dirección y
-  corrección de páginas fuera de rango; la ampliación especificada añade selector de 10, 20 o 50.
+- Paginación fija de 20 elementos con la página conservada en la dirección y corrección de páginas
+  fuera de rango.
 - Cada tarjeta abre el detalle; la lista no ofrece acciones de gestión.
 - El estado vacío de “Mis anuncios” permite publicar un anuncio.
 - El perfil propio enlazará al perfil público propio.
@@ -247,7 +246,6 @@ Las imágenes se sirven desde `http://localhost:3000/clasify_api/uploads/<ficher
 ### Mejoras de catálogo y tema
 
 - Modo claro y oscuro con selector y preferencia guardada en el navegador.
-- Selector de tamaño de página de 10, 20 o 50 en los listados paginados.
 - Compartir anuncio con la función nativa o copiando el enlace.
 - Anuncios similares y “Más de este vendedor” en el detalle.
 - Enlaces al perfil público desde autor, conversación y valoraciones.

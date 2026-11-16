@@ -6,6 +6,8 @@
 
 **Status**: Draft
 
+**Nota de alcance (2026-11-16)**: la paginación vuelve a ser fija de 20 elementos por página. Las referencias al selector 10/20/50 quedan sustituidas por este cambio.
+
 **Input**: User description: "Implementa la spec 006-perfil descrita en docs/00-contexto-specs.md. Lee también docs/13-perfil.md. No modifiques el backend."
 
 ## Clarifications
@@ -20,7 +22,6 @@
 ### Session 2026-11-11
 
 - Q: ¿El perfil propio enlaza al perfil público? → A: Sí; se ofrece un enlace para ver la propia vista pública.
-- Q: ¿Qué tamaño de página usan los anuncios propios? → A: 20 por defecto, con selector de 10, 20 o 50.
 - Q: ¿Las valoraciones recibidas y escritas se gestionan en esta feature? → A: No; se especifican en la spec 009, aunque se muestran dentro de `/perfil`.
 
 ## User Scenarios & Testing *(mandatory)*
@@ -173,7 +174,6 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
    contiene detalles técnicos internos.
 5. **Given** una lista de anuncios propios, **When** el usuario la recorre con teclado, **Then** puede
    abrir cada anuncio y usar la paginación.
-6. **Given** la lista de anuncios propios, **When** el usuario cambia el tamaño de página entre 10,
    20 y 50, **Then** la lista se actualiza y vuelve a la primera página.
 
 ### Edge Cases
@@ -191,8 +191,6 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - El usuario no tiene anuncios publicados.
 - La lista de anuncios propios tiene varias páginas.
 - La página solicitada supera el total de páginas.
-- El usuario cambia el tamaño de página en una página avanzada.
-- El tamaño de página solicitado no es válido.
 - La carga del perfil o de los anuncios falla por conexión.
 - El usuario cierra sesión y vuelve al perfil.
 - El usuario navega con teclado o lector de pantalla.
@@ -229,7 +227,7 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - **FR-015**: La contraseña MUST NOT mostrarse ni conservarse visible después del envío.
 - **FR-016**: La lista de anuncios propios MUST mostrar solo los anuncios del usuario autenticado.
 - **FR-017**: La lista de anuncios propios MUST ser paginada, con 20 elementos por página por defecto
-  y los más recientes primero, y MUST permitir elegir entre 10, 20 y 50.
+  y los más recientes primero, y MUST permitir usar 20 elementos por página.
 - **FR-018**: Cada anuncio propio MUST mostrar título, precio, imagen o marcador, categoría, estado y
   fecha, y MUST permitir abrir su detalle.
 - **FR-019**: Los anuncios vendidos MUST seguir apareciendo en la lista de anuncios propios con su
@@ -261,9 +259,9 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - **FR-031**: El estado vacío de anuncios propios MUST ofrecer una acción que abra el formulario de
   creación de un anuncio.
 - **FR-032**: El perfil propio MUST ofrecer un enlace al perfil público propio.
-- **FR-033**: El tamaño de página y la página actual de anuncios propios MUST conservarse en la
+- **FR-033**: La página actual de anuncios propios MUST conservarse en la
   dirección para permitir recargar o compartir la vista.
-- **FR-034**: Cambiar el tamaño de página de anuncios propios MUST volver a la primera página y MUST
+- **FR-034**: Cambiar de página de anuncios propios MUST volver a la primera página y MUST
   recalcular los controles de paginación.
 
 ### Key Entities *(include if feature involves data)*
@@ -291,7 +289,7 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
   mantiene la sesión y no pierde el resto de datos del formulario.
 - **SC-007**: El 100 % de los errores de validación se muestra en el campo correspondiente.
 - **SC-008**: El 100 % de las listas de anuncios propios muestra solo anuncios del usuario, con el
-  tamaño de página elegido, 20 por defecto, y los más recientes primero.
+  20 elementos por página, y los más recientes primero.
 - **SC-009**: El 100 % de los anuncios propios permite abrir su detalle y muestra su estado, incluido
   el estado vendido.
 - **SC-010**: El 100 % de las listas vacías de anuncios propios muestra un estado vacío distinto de
@@ -316,7 +314,6 @@ anuncios propios solo con teclado y en una pantalla de 360 píxeles de ancho.
 - **SC-020**: El 100 % de los estados vacíos de anuncios propios ofrece una acción que abre el
   formulario de creación.
 - **SC-021**: El 100 % de los perfiles propios ofrece un enlace al perfil público propio.
-- **SC-022**: El 100 % de las listas de anuncios propios permite elegir 10, 20 o 50 elementos por
   página y conserva el tamaño y la página en la dirección.
 - **SC-023**: El 100 % de los cambios de tamaño de página en anuncios propios vuelve a la primera
   página.
