@@ -25,6 +25,18 @@ const TIPOS_IMAGEN = new Map([
 module.exports = {
   port: Number(process.env.PORT) || 3000,
   esTest: process.env.NODE_ENV === 'test',
+  /**
+   * Orígenes autorizados por CORS. Se separan por comas para poder permitir a la
+   * vez el servidor de desarrollo de Vite (5173) y el de `vite preview` (4173)
+   * sin tener que recompilar el backend. Sin la variable se usan esos dos, que
+   * son los puertos por defecto de Vite.
+   */
+  origenesFrontend: (
+    process.env.FRONTEND_ORIGIN || 'http://localhost:5173,http://localhost:4173'
+  )
+    .split(',')
+    .map((origen) => origen.trim())
+    .filter((origen) => origen !== ''),
   uploads: {
     carpeta: path.join(__dirname, '..', 'uploads'),
     tamanoMaximo: 5 * 1024 * 1024,
@@ -32,7 +44,7 @@ module.exports = {
   },
   jwt: {
     secreto: process.env.JWT_SECRET,
-    caducidad: process.env.JWT_EXPIRES_IN || '7d'
+    caducidad: process.env.JWT_EXPIRES_IN || '1h'
   },
   db: {
     host: process.env.DB_HOST || '127.0.0.1',

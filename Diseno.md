@@ -55,7 +55,7 @@ API permite expresar estas reglas de forma explícita siguiendo el diseño clien
 
 - **Registro**: email único + contraseña. La contraseña se guarda como hash (bcrypt), nunca en claro.
 - **Login**: el **servidor** verifica las credenciales y **genera un token JWT firmado** (HS256)
-  con payload `{ sub: id_usuario, nombre, exp }` y caducidad de 1 hora. El token viaja al cliente
+  con payload `{ sub: id_usuario, email, exp }` y caducidad de 1 hora. El token viaja al cliente
   en el cuerpo de la respuesta; el secreto se guarda en una variable de entorno.
 - **Peticiones protegidas**: el cliente envía `Authorization: Bearer <token>`. Un middleware lo
   verifica y deja el usuario en `req.usuario`.
@@ -161,6 +161,7 @@ Todas las rutas empiezan por `/clasify_api/`. `JWT` indica que requiere token.
 |---|---|---|---|
 | POST | `/auth/register` | - | Alta de usuario. 201 + token |
 | POST | `/auth/login` | - | Login. 200 + token JWT |
+| GET | `/auth/yo` | JWT | Usuario de la sesión; sirve para rehidratar el frontend al recargar |
 | GET | `/usuarios/me` | JWT | Perfil propio (incluye email) |
 | PATCH | `/usuarios/me` | JWT | Editar nombre / biografía / contraseña |
 | GET | `/usuarios/:id` | - | Perfil público |
@@ -170,9 +171,9 @@ Todas las rutas empiezan por `/clasify_api/`. `JWT` indica que requiere token.
 | GET | `/usuarios/me/conversaciones` | JWT | Mis conversaciones activas (paginado) |
 | GET | `/usuarios/:id` | JWT opcional | Perfil público con media de valoración, y `mi_valoracion` si el token ya ha valorado |
 | GET | `/categorias` | - | Listado de categorías para los filtros (paginado) |
-| GET | `/anuncios` | - | Listado/búsqueda (texto, categoría, orden) paginado |
+| GET | `/anuncios` | - | Listado/búsqueda (texto, categoría, orden) paginado; cada fila incluye `id_autor` |
 | POST | `/anuncios` | JWT | Crear anuncio (`multipart/form-data` con campos + `imagen`) |
-| GET | `/anuncios/:id` | JWT opcional | Detalle + autor + categoría + `num_favoritos` (+ `conversacion`, `ultimos_mensajes` y `num_mensajes` si participa en un hilo) |
+| GET | `/anuncios/:id` | JWT opcional | Detalle + autor + categoría + `num_favoritos` + `es_favorito` (+ `conversacion`, `ultimos_mensajes` y `num_mensajes` si participa en un hilo) |
 | PATCH | `/anuncios/:id` | JWT (autor) | Editar anuncio (multipart opcional para cambiar la imagen) |
 | PATCH | `/anuncios/:id/estado` | JWT (autor) | Cambiar estado disponible/vendido |
 | DELETE | `/anuncios/:id` | JWT (autor) | Eliminar anuncio |
@@ -212,3 +213,11 @@ conversación con sus tres últimos mensajes y el total de mensajes), satisfacie
   `backend/uploads/` con un nombre único; en la BD se almacena solo la ruta.
 - Las imágenes se sirven de forma estática en `/clasify_api/uploads/:fichero`.
 - Al sustituir la imagen o eliminar el anuncio se borra el fichero antiguo.
+
+### CORS
+
+El frontend Vue se sirve desde otro origen (Vite en `http://localhost:5173` y
+`vite preview` en `http://localhost:4173`). El backend permite esos orígenes con
+la variable `FRONTEND_ORIGIN`, que admite una lista separada por comas. Las
+peticiones con `Authorization` y `Content-Type: application/json` necesitan la
+respuesta al preflight `OPTIONS`, que gestiona el middleware `cors`.

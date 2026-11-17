@@ -26,6 +26,18 @@ function imagenSubida(req) {
   return req.file === undefined ? undefined : req.file.filename;
 }
 
+/**
+ * Añade `es_favorito` a un anuncio ya cargado. Se usa en todas las respuestas
+ * que devuelven un anuncio para que el cliente reciba siempre la misma forma y
+ * no tenga que adivinar el estado del botón después de crear o editar. Sin
+ * usuario (petición anónima) el valor es `false`.
+ */
+async function conEsFavorito(anuncio, idUsuario) {
+  anuncio.es_favorito =
+    idUsuario === undefined ? false : await favoritoService.esFavorito(anuncio.id, idUsuario);
+  return anuncio;
+}
+
 router.post('/', autenticar, subirImagen, async (req, res) => {
   const datos = validarNuevoAnuncio(req.body);
   const anuncio = await anuncioService.crear({
@@ -33,7 +45,7 @@ router.post('/', autenticar, subirImagen, async (req, res) => {
     imagen: imagenSubida(req) ?? null,
     idAutor: req.usuario.id
   });
-  res.status(201).json({ datos: { anuncio } });
+  res.status(201).json({ datos: { anuncio: await conEsFavorito(anuncio, req.usuario.id) } });
 });
 
 router.get('/', async (req, res) => {
@@ -41,13 +53,13 @@ router.get('/', async (req, res) => {
   res.status(200).json(await anuncioService.listar(filtros, leerPaginacion(req.query)));
 });
 
-// El detalle es público, así que el token es opcional: si viene y su usuario
-// participa en alguna conversación del anuncio, se le añade su `conversacion`.
-// Sin token, o con uno que no se pueda verificar, el anuncio se sirve igual.
 /**
- * Detalle de un anuncio. Lleva token **opcional** porque tres de las cosas que
+ * Detalle de un anuncio. Lleva token **opcional** porque varias de las cosas que
  * devuelve dependen de quién pregunta, y ninguna es obligatoria:
  *
+ *   * `es_favorito`: si el usuario autenticado tiene el anuncio guardado. Sin
+ *     token siempre es `false`, para que el cliente no tenga que distinguir
+ *     entre "no lo he guardado" y "no hay sesión".
  *   * `conversacion`: el `id` del hilo, solo si participa en alguno. Es lo que
  *     permite al cliente pintar "escribir" en vez de "contactar".
  *   * `ultimos_mensajes`: los tres últimos del hilo y su total, también solo si
@@ -61,7 +73,7 @@ router.get('/', async (req, res) => {
  */
 router.get('/:id', autenticarSiHayToken, async (req, res) => {
   const id = validarId(req.params.id);
-  const anuncio = await anuncioService.detalle(id);
+  const anuncio = await conEsFavorito(await anuncioService.detalle(id), req.usuario?.id);
 
   if (req.usuario) {
     const conversacion = await conversacionService.deParticipante(id, req.usuario.id);
@@ -79,14 +91,14 @@ router.patch('/:id', autenticar, subirImagen, async (req, res) => {
   const id = validarId(req.params.id);
   const cambios = validarActualizacionAnuncio(req.body, { hayImagen: req.file !== undefined });
   const anuncio = await anuncioService.actualizar(id, req.usuario.id, cambios, imagenSubida(req));
-  res.status(200).json({ datos: { anuncio } });
+  res.status(200).json({ datos: { anuncio: await conEsFavorito(anuncio, req.usuario.id) } });
 });
 
 router.patch('/:id/estado', autenticar, async (req, res) => {
   const id = validarId(req.params.id);
   const { estado } = validarCambioEstado(req.body);
   const anuncio = await anuncioService.cambiarEstado(id, req.usuario.id, estado);
-  res.status(200).json({ datos: { anuncio } });
+  res.status(200).json({ datos: { anuncio: await conEsFavorito(anuncio, req.usuario.id) } });
 });
 
 router.delete('/:id', autenticar, async (req, res) => {
